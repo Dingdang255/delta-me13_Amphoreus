@@ -1,0 +1,22 @@
+{
+  "_comment": "命题种子。这里没有 agent 列表，没有一个人名——只有【要证什么】和【变量域】。",
+  "proposition": {
+    "id": "P_LIFE_FIRST_CAUSE",
+    "form": "exists_constant",
+    "target": "first_cause_of_life",
+    "note": "求：生命的第一因"
+  },
+  "domain": {
+    "initial_variable": ["inorganic", "organic", "human"],
+    "disorder": [0.0, 0.0, 0.010],
+    "_stages_comment": "各阶段的【机制装配】：on = 本阶段开启的机制门（累积，后一阶段保留前一阶段的）；params = 本阶段对若干【运行旋钮】的覆盖（也累积，后一阶段可再覆盖回来）。与 initial_variable 一一对应；允许再多一项——那是变量域穷尽之后（阶段四）。留空 = 该阶段不额外装机制（与历史行为逐位一致）。params 走 StageCtx 进【世界】、同时也进探针（与 disorder 同源）；可覆盖的键由 engine/operators.py 的 STAGE_TUNABLE 白名单限定。其中 domain_dwell 是【本档的帧预算】——跑满才换下一档（OP_DOMAIN 只看预算，不看探针结论；后者只判裁决，否则探针提前达标会把后两档压成几百帧甚至 1 帧）。三档取 2000 / 4000 / 5000，形状照 wiki「三阶段逐次加深」，且合计 11,000 仍落在 3.0 桥段 12,000 之前 —— 那一幕属于阶段四（人类古典文明 + 再创世）。",
+    "stages": [
+      {"on": [], "params": {"life_span": 175, "domain_dwell": 2000}},
+      {"on": [], "params": {"life_span": 700, "mutation": 0.02, "domain_dwell": 4000}},
+      {"on": ["OP_MEMORY_INHERIT", "OP_BIFURCATE", "OP_ANNEX", "OP_ACTIVE_RENEWAL"],
+       "params": {"mutation": 0.01, "domain_dwell": 5000}},
+      {"on": []}
+    ]
+  },
+  "seed": 0
+}

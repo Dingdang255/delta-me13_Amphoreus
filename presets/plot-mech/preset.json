@@ -1,0 +1,22 @@
+{
+  "_comment": "剧情即机制（B6 的 L2）【实验预设】。它是 presets/plot 的孪生副本：同一份种子、同一批锚定、同一份期望时间线，唯一差别是 events.jsonl 里 6 条「只是镜头」的 emit 被升级成了【真机制】投递（其中双陨拆成两条，共 **7 条投递：6 条 `evict_holder` 暴力逐出 + 1 条 `parley` 交涉归还**）。plot 原样保留，招牌轨道与 33,550,336 不受影响 —— 本预设专供「剧情写成机制之后，世界会怎么走」这个问题的对照实验。",
+  "name": "plot-mech",
+  "seed": 0,
+  "note": "与 plot 的唯一差别在 events.jsonl。分类口径（本批采用，待内容方复核）：升级为机制的判据是「剧情里发生的是某席换人 / 某席被封」——① 12000 nikador_felled 纷争火种被回收 → evict_holder order:10；② 16000 mydei_ascends 新纷争半神接掌 → evict_holder order:10；③ 18400 two_titans_fall 双陨拆两条 → evict_holder order:7（理性）+ order:1（岁月）；④ 23000 anaxa_proves 接管岁月权柄 → parley order:1（**交涉归还**，和平手段 —— 见下）；⑤ 30000 aglaea_exits 退场 → evict_holder order:8；⑥ 36000 cipher_falls 被杀 → evict_holder order:9。其余 emit（swan_arrives / admin_reveals / last_pilgrimage / thief_fended / mineshaft_rescue / trailblazer_throne / zandar_debate / khaslana_variable / alliance_blockade）是【镜头】，保持 L1 不动 —— 它们改不了世界，也不该改。**先记两条落差**：① 机制只能作用于【席位】，不能点名角色（引擎红线：扰动不能指定某个内生角色）。实测 plot 里 12000–36000 那几帧坐在目标席上的是**无名个体**（该批实测编号 5102 / 9153 / 17238 / 21210，⚠ 未随锚定重测刷新，核对请跑 `tools/mech_align.py --preset plot`）；锚定里那些名字（如阿那克萨戈拉斯，现 **`serial:26632`**）首次就位要到 **41,899 帧之后**（`tools/mech_align.py --preset plot` 现测：41,899–44,020）—— 故本预设演的是**席位级**剧情，不是角色级。② anchors.jsonl 是从 plot 的轨道实测来的，本预设轨迹一旦漂移，编号即失效、名字静默退回音位层现生成；要重新量，跑 `python tools/seat_incumbents.py --preset plot-mech` 并把输出替换回 anchors.jsonl。assertions.jsonl 与 timeline.json 未随轨迹重算，但**不必重算**：升级后的记录保留了 `payload.event`（剧情事件名），而 `dispatch` 对任何带 `event` 的能力都统一登记 `emitted_<event>` —— 于是「这条桥段有没有真的执行过」在【镜头】与【机制】两种形态下口径完全一致。实测 plot 与 plot-mech 都是**断言 15/15 + 时间线 29/29**。**⚠ 三条实测结论，务必知悉**：① `evict_holder` 只作用于【席位】、不认人，而这一席换手极密 —— 实测 12,000 帧前各席易主 **41–47 次**（平均每 ~255–293 帧一次；`tools/excavation.py --preset plot --frames 12000`）⇒ 机制的局部效果是「把一次**常规换手**提前若干帧」（该批估计 160–530 帧），不是「这一席从此空着」。② **同等噪声对照**（工具 `tools/mech_control.py`：同样 7 次逐出、同样帧位，只把目标换成无关席位）给出换代 **60 / 50 / 44**（区间 **44–60**，基准 `plot` 是 82），而剧情席位是 **48** —— **落在区间内，无法区分**。故「换代 82 → 48」是**混沌放大**，不是「剧情语义生效」。③ 终局（走到帧 33,594,547 / 裁决 overwritten）由外生协议覆写钉死，这些扰动**只改过程、不改结局**。",
+  "_classification": {
+    "upgraded": [
+      {"frame": 12000, "event": "nikador_felled", "capability": "evict_holder", "selector": "order:10", "why": "纷争火种被回收 ⇒ 纷争那一席腾空"},
+      {"frame": 16000, "event": "mydei_ascends", "capability": "evict_holder", "selector": "order:10", "why": "新纷争半神接掌 ⇒ 旧在位者让位"},
+      {"frame": 18400, "event": "two_titans_fall", "capability": "evict_holder", "selector": "order:7", "why": "理性泰坦陨落 ⇒ 理性席腾空"},
+      {"frame": 18400, "event": "two_titans_fall", "capability": "evict_holder", "selector": "order:1", "why": "岁月泰坦陨落 ⇒ 岁月席腾空"},
+      {"frame": 23000, "event": "anaxa_proves", "capability": "parley", "selector": "order:1", "why": "接管岁月权柄 ⇒ **交涉归还**：那一席的在位者自愿让位、不死人（谈不拢则席位不动）"},
+      {"frame": 30000, "event": "aglaea_exits", "capability": "evict_holder", "selector": "order:8", "why": "阿格莱雅退场 ⇒ 浪漫席腾空"},
+      {"frame": 36000, "event": "cipher_falls", "capability": "evict_holder", "selector": "order:9", "why": "赛飞儿被杀 ⇒ 诡计席腾空"}
+    ],
+    "kept_as_l1": [
+      "swan_arrives", "admin_reveals", "last_pilgrimage", "thief_fended",
+      "mineshaft_rescue", "trailblazer_throne", "zandar_debate",
+      "khaslana_variable", "alliance_blockade"
+    ]
+  }
+}

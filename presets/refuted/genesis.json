@@ -1,0 +1,12 @@
+{
+  "_comment": "本世界自己的初始变量域：三档都不装机制门、都保持短寿命、disorder 全为 0 ⇒ 迷你演算里种群来不及积累失序度，路 A 永不达标。params 走 StageCtx 同时进【世界】与【探针】；disorder 只喂探针（主世界从不读它）。",
+  "domain": {
+    "disorder": [0.0, 0.0, 0.0],
+    "stages": [
+      {"on": [], "params": {"life_span": 175, "domain_dwell": 2000}},
+      {"on": [], "params": {"life_span": 175, "domain_dwell": 4000}},
+      {"on": [], "params": {"life_span": 175, "domain_dwell": 5000}},
+      {"on": []}
+    ]
+  }
+}

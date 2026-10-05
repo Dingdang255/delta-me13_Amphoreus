@@ -1,0 +1,6 @@
+{"assert": "deadlock_ever", "expect": true}
+{"assert": "vacancy_ever", "expect": true}
+{"assert": "persona_count_at_least", "expect": 3}
+{"assert": "promotion_count_at_least", "expect": 1}
+{"assert": "converged", "expect": true}
+{"assert": "conclusion", "expect": "C_FIRST_CAUSE"}

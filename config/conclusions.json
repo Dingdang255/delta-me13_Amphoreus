@@ -1,0 +1,47 @@
+{
+  "_comment": "结论文案模板，按【裁决结果】查表。程序不懂得这些字符串的含义，它只是查表拼接。label 是裁决的短名（报告/编年史里那个括注），stop 与 stop_label 是「为什么停下」的短码与长句 —— 三者都在这里，于是新增一个结论维度【不必改任何代码】。模板是**字面文案**，不做占位符替换（故没有 args 字段）：新增维度只写 label / template / stop / stop_label 四项即可。",
+  "_framing": "裁决是【经验裁决】，不是形式证明：它测量「单独消融每一席后，该席能否独立把迷你世界推向失序」（消融熵 / 阈值 τ）。标为「证真 / 证伪」只在这个测量意义上成立 —— 程序不理解命题，它只查表拼接文案。",
+  "proved": {
+    "id": "C_STATIC_FIRST_CAUSE",
+    "template": "生命的第一因为静态取值，无法决定事物的发展路径",
+    "label": "证真",
+    "stop": "PROVED",
+    "stop_label": "命题已证真"
+  },
+  "refuted": {
+    "id": "C_NO_FIRST_CAUSE",
+    "template": "反例无法穷尽：不存在可判定的第一因",
+    "label": "证伪",
+    "stop": "REFUTED",
+    "stop_label": "命题已证伪"
+  },
+  "undecided": {
+    "id": "C_UNDECIDED",
+    "template": "未结束：既定因果关系缺失，实验不向「结束」坍缩",
+    "label": "未决",
+    "stop": "UNDECIDED",
+    "stop_label": "未能判定"
+  },
+  "destruction": {
+    "id": "C_UNIVERSAL_DESTRUCTION",
+    "template": "一切生命行为归于熵增：生命的第一因是「毁灭」",
+    "label": "归于毁灭",
+    "stop": "DESTRUCTION",
+    "stop_label": "命题已归为「毁灭」结论"
+  },
+  "annihilation": {
+    "id": "C_CONSUMED_BY_ANNIHILATION",
+    "template": "万物未及抵达答案便已被自身耗尽：生命的第一因是「毁灭」",
+    "label": "为自身耗尽",
+    "stop": "ANNIHILATION",
+    "stop_label": "命题已归为「耗尽」结论（未被改写）"
+  },
+  "overwritten": {
+    "id": "C_CONCLUSION_OVERWRITTEN",
+    "template": "载入核心变量后方程被外生覆写：生命的第一因是「你好，世界」",
+    "label": "结论被改写",
+    "stop": "OVERWRITTEN",
+    "stop_label": "结论已被外生变量改写",
+    "args": []
+  }
+}

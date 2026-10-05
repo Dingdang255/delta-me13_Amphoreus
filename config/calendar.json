@@ -1,0 +1,21 @@
+{
+  "_comment": "帧 → 光历 的刻度映射。纯渲染，不参与演算。1 帧 = 1 日；一年 = months_per_year(12) 月 × days_per_month(30) 日 = 360 日。月份名不写在这里，只给 lexicon.months 的键（按 month_keys 的顺序，第 1 个即一月）。",
+  "unit": "光历",
+  "days_per_month": 30,
+  "months_per_year": 12,
+  "month_keys": [
+    "MONTH_GATE", "MONTH_BALANCE", "MONTH_LONGNIGHT",
+    "MONTH_TILLING", "MONTH_JOY", "MONTH_LONGDAY",
+    "MONTH_FREEDOM", "MONTH_HARVEST", "MONTH_THREAD",
+    "MONTH_STRIFE", "MONTH_MOURNING", "MONTH_CHANCE"
+  ],
+
+  "_eras_comment": "纪元按【帧】划分，但【世界内的历法只属于第四阶段（人类古典文明）】—— 前三阶段是因子演算，还没有翁法罗斯这个「世界」，也就没有它的历法：那段时间按【循环次数】计量（见 lexicon.phase_terms.sim / chronicle.cycle_label）。故第一项 `calendar: false`（这一段【没有纪元名】—— 它的 `lexicon_key` 故意留空，由渲染层改显循环），第二项起 `calendar: true`。据 wiki：光历是刻法勒在【黄金世】测定的（「为光赋予历法，令历史开始流动」），而黄金世等五个时代都是世界内（人类古典文明）的历史 —— 故 `calendar: true` 的第一项带 `origin` = 光历元年（取 1，故【年份恒为正整数】）。until_frame 与 genesis.domain.stages 的档界对齐（有静态测试钉住）。",
+  "eras": [
+    { "until_frame": 10998, "calendar": false },
+    { "until_frame": null,  "lexicon_key": "ERA_FADING", "calendar": true, "origin": 1 }
+  ],
+
+  "_replay_comment": "永劫回归期【沿参考轨道复用】的帧不算历法时间 —— 那时是同一段时间在轮回，历法不该往前走（wiki：永劫回归即时间不断轮回）。复用区间由调用方传入（`traj.spans` / Sampler 的 spans）；不传就按逐帧推进算（实时看板等场景）。",
+  "_open_item": "wiki 的世界内时代共五个（启蒙 / 造物 / 黄金 / 纷争 / 幻灭），且「再创世后时间线重新开始」—— 现只落了【幻灭世】一段（就是演算真正走到的那一段：逐火之旅 + 永劫回归）。把造物世→黄金世→纷争世→幻灭世按【每一世（轮回）内】再分档，是另一件独立的事（缺 wiki 给的帧/年锚点），未做。"
+}

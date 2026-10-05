@@ -1,0 +1,66 @@
+{
+  "_comment": "「淹没」世界的时间线期望。引擎【从不读它】—— 它只用于报告核对与种子检索。",
+  "_semantics": "by = 最晚帧。到点还没发生即判否，并可在检索时提前毙掉该种子（剪枝）。只有能边跑边取的特征才支持 by，见 engine/timeline.py 的 _LIVE。",
+  "_observed_seed0": "种子 0 实测（第二十六批「消融重构」后重测）：域穷尽@10,999 · 换代 93 次（阶段三起装配「主动更替」，换代还要【决策共识】≥ `renewal_consensus` 才发生） · 溢出量稳定在 5.1083（潮水涨满后的平衡值，阈值 3.0）· 吞没 6,211 次（destruction_events；每一代都有个体被潮水同化后吞没）· 种群恒被托在 min_population=48，十二席始终有人 · **20,000 判定 ⇒ 由判决分支给出 annihilation**（外生闸门 20,000 关闭；`all_falsified` 自 2,000 起稳定成立、吞没计数早已越过 240 ⇒ 闸门一开即判，不再等预算耗尽 —— 此前 R3 时代要等到 37,000） · 结论链 为自身耗尽@2,000 —— 方向自始至终是熵减，故判据表里 destruction 那条从不成立 · 升格记在 20,000 · 迭代 20,001 · 复用 0 帧（世界始终在演化，没有冻结过）。注：吞没 是**细计数**，对 float32 舍入与判定时刻都敏感（集合律改写与消融重构都会挪它）。",
+  "nodes": [
+    {
+      "id": "N01_DOMAINS_WALKED",
+      "feature": "domains_exhausted",
+      "op": "eq",
+      "value": true,
+      "by": 12000,
+      "label": "变量域依序走完后被穷尽（无生之期 → 有生之期 → 人群之期）"
+    },
+    {
+      "id": "N02_ITERATION_REPEATS",
+      "feature": "promotion_count",
+      "op": "ge",
+      "value": 50,
+      "label": "换代反复发生（不是一次性的）"
+    },
+    {
+      "id": "N03_TIDE_OVER_THRESHOLD",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "tide_over_threshold",
+      "by": 4000,
+      "label": "潮线越过阈值 ⇒ 淘汰门槛由「年老」改为「被同化得最深」"
+    },
+    {
+      "id": "N04_ANNIHILATION_HAPPENS",
+      "feature": "destruction_events",
+      "op": "ge",
+      "value": 100,
+      "by": 20000,
+      "label": "吞没真的在发生（此量在既有世界里恒为 0 —— 本世界是它的可达世界）"
+    },
+    {
+      "id": "N05_VERDICT_ANNIHILATION",
+      "feature": "verdict",
+      "op": "eq",
+      "value": "annihilation",
+      "label": "终局落在「耗尽」那一条，而不是证真 / 证伪"
+    },
+    {
+      "id": "N06_CONCLUSION",
+      "feature": "conclusion",
+      "op": "eq",
+      "value": "C_CONSUMED_BY_ANNIHILATION",
+      "label": "结论文案取自 conclusions.json 的 annihilation 一条"
+    },
+    {
+      "id": "N07_ASCENDED",
+      "feature": "ascended",
+      "op": "eq",
+      "value": true,
+      "label": "未被任何外生变量改写 ⇒ 演算主体升格外溢"
+    },
+    {
+      "id": "N08_STOP_REASON",
+      "feature": "stop_reason",
+      "op": "eq",
+      "value": "ANNIHILATION",
+      "label": "由闸门翻开后的判决分支给出，不是预算耗尽的兜底"
+    }
+  ]
+}

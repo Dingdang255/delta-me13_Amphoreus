@@ -1,0 +1,5 @@
+{"frame": 1200, "channel": "observer", "capability": "modify_operator", "selector": null, "payload": {"from": "OP_SOLVE_ENTROPY", "to": "OP_SOLVE_DESTRUCTION"}}
+{"frame": 1500, "channel": "observer", "capability": "mask_observer", "selector": null, "payload": {"observer": "external_04"}}
+{"frame": 4000, "channel": "memory", "capability": "emit", "selector": null, "label": "◆ 浮黎的目光落到权杖之上", "payload": {"event": "fuli_gaze"}}
+{"frame": 26000, "channel": "env", "capability": "raise_noise", "selector": null, "payload": {"amplitude": 0.05}}
+{"frame": 33594547, "channel": "observer", "capability": "mask_observer", "selector": null, "payload": {"observer": "external_closure"}}

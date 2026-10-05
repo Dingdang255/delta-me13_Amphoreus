@@ -1,0 +1,12 @@
+{
+  "_comment": "剧情锚定版的渲染词表覆盖。同一段演算，换一套词表就被讲成另一个世界的神话 —— 引擎不知道这些词。",
+  "terms": {
+    "deadlock": "永劫回归"
+  },
+  "deadlock": {
+    "routine": "{who}又是一轮：收拢火种、守着那处空缺，亲手了结新生的那位少女，等新生的白厄来杀他、接下火种与记忆再开一轮",
+    "stage_hope": "{who}仍抱着一线期望（{approach}）来试 —— 一切依旧",
+    "stage_disillusion": "{who}换了一种法子（{approach}）来试 —— 还是不成",
+    "stage_burning": "{who}被火种灼得失去理智（{approach}）—— 世界纹丝不动"
+  }
+}

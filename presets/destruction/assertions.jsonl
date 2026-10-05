@@ -1,0 +1,3 @@
+{"assert": "verdict", "expect": "destruction"}
+{"assert": "conclusion", "expect": "C_UNIVERSAL_DESTRUCTION"}
+{"assert": "ascended", "expect": true}

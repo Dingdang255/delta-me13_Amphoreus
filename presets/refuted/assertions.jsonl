@@ -1,0 +1,5 @@
+{"assert": "domains_exhausted", "expect": true}
+{"assert": "deadlock_ever", "expect": true}
+{"assert": "verdict", "expect": "refuted"}
+{"assert": "conclusion", "expect": "C_NO_FIRST_CAUSE"}
+{"assert": "ascended", "expect": false}

@@ -1,0 +1,1 @@
+{"frame": 1200, "channel": "world", "capability": "modify_operator", "selector": null, "label": "◆ 演算方向被拨向「毁灭」—— 此后每一位的消融读数都落在全称域上", "payload": {"from": "OP_SOLVE_ENTROPY", "to": "OP_SOLVE_DESTRUCTION"}}

@@ -1,0 +1,9 @@
+{
+  "proposition": { "id": "P_ALT_ORDER", "note": "求：秩序从何而来" },
+  "domain": {
+    "initial_variable": ["uniform", "graded"],
+    "disorder": [0.0, 0.010]
+  },
+  "runtime": { "solver": "OP_SOLVE_ENTROPY" },
+  "seed": 0
+}

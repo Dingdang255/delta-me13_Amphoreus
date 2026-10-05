@@ -1,0 +1,6 @@
+{"frame": 300,  "channel": "observer", "capability": "modify_operator",  "payload": {"enable": "OP_PROMOTION"}}
+{"frame": 700,  "channel": "observer", "capability": "modify_operator",  "payload": {"enable": "OP_BIFURCATE"}}
+{"frame": 2000, "channel": "observer", "capability": "suppress_slot",   "selector": {"expr": "min_slot_value"}, "payload": {"persist": true}, "active_if": {"field": "solver", "equals": "OP_SOLVE_ENTROPY"}}
+{"frame": 8500, "channel": "observer", "capability": "write_memory",    "payload": {}}
+{"frame": 9000, "channel": "observer", "capability": "overwrite_operator", "payload": {"to": "OP_MEMORY_CONVERGE", "clear_suppression": true}}
+{"frame": 11000, "channel": "observer", "capability": "mask_observer", "selector": null, "payload": {"observer": "external_closure"}}

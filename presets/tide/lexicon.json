@@ -1,0 +1,24 @@
+{
+  "_comment": "「淹没」世界的渲染词表覆盖。引擎不知道这些词 —— 同一段演算，换一套词表就被讲成另一个世界的神话。",
+  "terms": {
+    "overflow": "潮水",
+    "deadlock": "停滞",
+    "promotion": "换代",
+    "locus": "位格",
+    "halfgod": "承位者"
+  },
+  "domains": {
+    "inorganic": "无生之期",
+    "organic": "有生之期",
+    "human": "人群之期"
+  },
+  "_stage_promotion_labels_note": "这套词表把这个机制一路叫【换代】，不分档 —— 故三档同名（否则 base 词表的「自动更替 / 主动更替 / 再创世」会漏进这个世界的句子，一句里两套词）。",
+  "stage_promotion_labels": {
+    "auto": "换代",
+    "active": "换代",
+    "renewal": "换代"
+  },
+  "stall": {
+    "burden": "在位 {filled}/{slots} · 换代 {rounds} 次 · 陨落 {fell} 人 · 距上次换代 {since_promotion} 帧"
+  }
+}

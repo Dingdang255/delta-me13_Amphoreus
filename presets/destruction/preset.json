@@ -1,0 +1,6 @@
+{
+  "_comment": "「毁灭」结论的演示世界 —— 一条最小的退化预设：不并剧情、不绑名字，只拨一次演算方向。它存在的唯一理由是【让「毁灭」这条结论维度保持可达】，并把这个可达性变成可核对的东西（见 assertions.jsonl）。",
+  "name": "destruction",
+  "seed": 0,
+  "note": "为什么需要它：R3 两路探针（第二十二批）把 `all_falsified` 收紧了 —— 要求路 A【独留】与路 B【剔除】同时达标。`nullify` 因此不再满足全称证伪（它的路 B 最小值 0.805 < 1），于是它再也走不到「毁灭」那一条。而 `destruction` 只要求两件事：「**全席在两路下都被证伪**」+「**演算方向是 OP_SOLVE_DESTRUCTION**」（见 config/params.json 的 verdict_rules）。本世界复用涌现版（emergent）那套两路全过的参数（路 A 最小 1.725、路 B 最小 1.018），只在第 1,200 帧拨一次方向 —— 于是第 4,000 帧判「毁灭」。**⚠ 为什么用 `modify_operator` 而不是 `gaze`**：`gaze` 要求施为者已在 `actors.json` 里登记，否则静默被拒；`modify_operator` 是匿名的方向改写，不需要登记。本预设刻意不建 actors.json —— 它没有任何剧情。"
+}

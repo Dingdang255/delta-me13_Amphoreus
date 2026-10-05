@@ -1,0 +1,44 @@
+# ── 白名单式 .gitignore ────────────────────────────────────────────────
+# 口径 = `tools/export.py` 的打包清单（TOP_FILES / TOP_DIRS / DOCS_FILES）：
+#   进分发包的，才进仓库；其余（演算产物、缓存、内部设计稿、草稿）一律不提交。
+# 例外（不在分发包里、但发布所需的元数据）：`/.github/`、`/LICENSE`、本文件。
+#
+# 做法：先忽略根下一切（`/*` 只匹配根层，不会连坐子目录），再逐个放行。
+
+/*
+!/.gitignore
+!/LICENSE
+!/README.md
+!/run.py
+!/requirements.txt
+!/pyproject.toml
+!/.github/
+!/engine/
+!/config/
+!/data/
+!/presets/
+!/tools/
+!/tests/
+
+# docs/ 只放行 export.py 列的那四份；其余（wiki 抓取、散文考据）是给 AI 的参考料，不进仓库
+!/docs/
+/docs/*
+!/docs/外部变量.json
+!/docs/术语对照表.md
+!/docs/使用教程.md
+!/docs/外部变量.md
+
+# 白名单目录内部也要挡住的（这些模式按 basename 匹配任意层级）
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# 以下其实已被上面的 `/*` 挡住；写在这里备查、且防日后误加 `!`
+/logs/                     # --log 的编年史产物（单文件可达 MB 级）
+/dashboard/                # --export 的可视化单页
+/dist/                     # tools/export.py 打出的 zip
+/.trae/                    # 内部设计稿 / 评估 / 对话记录
+/.idea/
+/.vscode/
+/temp_chat.md

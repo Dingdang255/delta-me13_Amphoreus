@@ -1,0 +1,78 @@
+{
+  "_comment": "外部变量考据（结构化）。这是 docs/外部变量.md 的机器可读版：谁在演算之外操作这个世界、握有哪些修改权限、做过什么。presets/*/actors.json 由本文件派生（python tools/actors_from_spec.py --preset plot --write），单测会核对两者不许漂移。",
+  "_fields": "id 引擎内标识（中性英文）；label 世界内称呼；side 阵营/层级；grants 修改权限（只能取引擎的规则词汇：solver.direction / promotion.mode / suppression.release / gate.open / locus.hand / memory.steal）；acts 它真的投递过的动作；note 考据备注。",
+  "actors": [
+    {
+      "id": "hacker",
+      "label": "黑塔与螺丝咕姆",
+      "side": "外部·智识（权杖外层）",
+      "grants": ["solver.direction", "promotion.mode", "suppression.release"],
+      "acts": ["覆写终极协议：把演算方向改为记忆收敛、把再创世改为记忆再造"],
+      "note": "天才俱乐部的外部干预方：识别出这个世界是模拟壳，并动手改写它的协议。持有最多的修改权限。"
+    },
+    {
+      "id": "memory",
+      "label": "浮黎",
+      "side": "外部·记忆（星神级）",
+      "grants": ["gate.open"],
+      "acts": ["投下目光：开启记忆继承机制"],
+      "note": "记忆星神。它的瞥视让「记忆」这条机制第一次可用。"
+    },
+    {
+      "id": "nihil",
+      "label": "纳努克",
+      "side": "外部·毁灭（星神级）",
+      "grants": ["solver.direction"],
+      "acts": ["投下目光：把演算方向拨向毁灭"],
+      "note": "毁灭星神。它的瞥视是「一切归于毁灭」这条结论的来源。"
+    },
+    {
+      "id": "interstice",
+      "label": "命途狭间",
+      "side": "外部·狭间",
+      "grants": ["locus.hand", "memory.steal"],
+      "acts": [],
+      "note": "本地规则够不着的地方：只有这里能把一席直接交给记忆承载，或从记忆里窃走一段。提供能力并已登记，尚未在预设里接线（属可选增强）。"
+    },
+    {
+      "id": "swan",
+      "label": "黑天鹅",
+      "side": "外部·记忆（流光忆庭）",
+      "grants": ["memory.steal"],
+      "acts": ["以忆庭之镜为列车指路"],
+      "note": "流光忆庭的忆者、忆庭之镜的技术方。这个世界本不可达，镜面之外才有了入口。"
+    },
+    {
+      "id": "thief",
+      "label": "窃忆者",
+      "side": "外部·记忆（第三方）",
+      "grants": ["memory.steal"],
+      "acts": ["趁虚窃忆，被驱赶"],
+      "note": "蹭记忆命途的第三方，不完全站列车一边。"
+    },
+    {
+      "id": "admin",
+      "label": "来古士",
+      "side": "半内半外·管理员",
+      "grants": ["solver.direction", "promotion.mode", "gate.open"],
+      "acts": ["摊牌自己是第一推动者与管理员"],
+      "note": "常驻管理员：既在内部跑演算，又握有对外层的修改权限，故归「半内半外」。权限仅次于改写者。"
+    },
+    {
+      "id": "zandar",
+      "label": "赞达尔",
+      "side": "外部·智识（上层意志）",
+      "grants": ["gate.open", "promotion.mode"],
+      "acts": ["在上层与众人对垒：决定这场实验要不要继续"],
+      "note": "元外部变量：它决定这个世界还跑不跑，但不直接参与演算。"
+    },
+    {
+      "id": "alliance",
+      "label": "公司·仙舟联军",
+      "side": "外部·银河求援",
+      "grants": ["suppression.release"],
+      "acts": ["组成联合防线：只保证这个世界之外不塌"],
+      "note": "纯外部变量：不介入席位继承，只在终局防止产物外溢到银河。"
+    }
+  ]
+}

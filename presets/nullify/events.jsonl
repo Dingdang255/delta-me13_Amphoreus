@@ -1,0 +1,13 @@
+{"frame": 12000, "channel": "world", "capability": "emit", "selector": null, "label": "◆ 开拓者与丹恒自天外降临，协助黄金裔讨伐「纷争」尼卡多利 —— 纷争的火种被回收", "payload": {"event": "nikador_felled"}}
+{"frame": 16000, "channel": "world", "capability": "emit", "selector": null, "label": "◆ 白厄未能通过纷争试炼，万敌通过试炼晋升新的纷争半神 —— 盗火行者随黑潮而来", "payload": {"event": "mydei_ascends"}}
+{"frame": 18400, "channel": "world", "capability": "emit", "selector": null, "label": "◆ 理性与岁月两位泰坦先后陨落 —— 两枚火种失落于黑潮之中", "payload": {"event": "two_titans_fall"}}
+{"frame": 23000, "channel": "world", "capability": "emit", "selector": null, "label": "◆ 那刻夏证明了「半神会变成新世界的泰坦」，以关键一票决定继续逐火之旅；开拓者接管岁月权柄，遐蝶通过死亡试炼晋升死亡半神", "payload": {"event": "anaxa_proves"}}
+{"frame": 30000, "channel": "world", "capability": "emit", "selector": null, "label": "◆ 阿格莱雅自愿被清洗者刺杀退场；众人击败「天空」艾格勒，风堇留下支撑天空", "payload": {"event": "aglaea_exits"}}
+{"frame": 36000, "channel": "world", "capability": "emit", "selector": null, "label": "◆ 赛飞儿以假火种骗过盗火行者，最终失手被杀；万敌、缇宝、缇宁相继牺牲", "payload": {"event": "cipher_falls"}}
+{"frame": 42000, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:1"}, "label": "◆ 昔涟自逝入剑、灵魂没入仪式剑 —— 岁月之位故意缺位，此后每一世白厄杀死新生的小昔涟以维持这道空缺，再创世永远差那一步", "payload": {}}
+{"frame": 33594377, "channel": "world", "capability": "emit", "selector": null, "label": "◆ 白厄与盗火行者合二为一，背负数亿颗火种去向纳努克复仇 —— 开拓者接过「负世」的职责，与昔涟踏上最后一次逐火之旅", "payload": {"event": "last_pilgrimage"}}
+{"frame": 33594387, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:0"}, "label": "◆ 长夜月将「负世」的火种交予自天外而来的开拓者 —— 负世那一席就此易主", "payload": {}}
+{"frame": 33594407, "channel": "observer", "capability": "write_memory", "selector": null, "label": "◆ 长夜月以忘却之潮来袭 —— 她要抹去开拓者关于翁法罗斯的记忆，让再创世根本不发生", "payload": {}}
+{"frame": 33594447, "channel": "world", "capability": "emit", "selector": null, "label": "◆ 丹恒借纳努克的神血呼唤白厄英魂，「毁灭」洞开忆域 —— 接住「大地」的权能，把开拓者从忆潮里捞了出来", "payload": {"event": "mineshaft_rescue"}}
+{"frame": 33594497, "channel": "world", "capability": "emit", "selector": null, "label": "◆ 开拓者正式坐负世 —— 新一任刻法勒就此接火", "payload": {"event": "trailblazer_throne"}}
+{"frame": 33594517, "channel": "world", "capability": "emit", "selector": null, "label": "◆ 众人前往时光归墟，消融卡厄斯兰那的执念 —— 铁墓破壳而出", "payload": {"event": "khaslana_variable"}}

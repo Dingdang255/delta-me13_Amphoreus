@@ -1,0 +1,69 @@
+# 最小 CI：跑仓库自己的统一入口 `tools/selfcheck.py`
+# （红线 1 → 环境自检 → 单元测试 → 判据 3 替代世界 → tide 世界 → 轨迹指纹）。
+#
+# 为什么可以跨平台：轨迹指纹已【分层】—— 结构层（整数 / 枚举 / 席位编号）逐位严格、
+# 跨平台成立；数值层走容差；digest（量化 float32 的哈希）只在写入指纹的参考平台上
+# 逐位可比，异平台自动跳过（`tools/selfcheck.py` 检测到平台不符即给 snapshot 加
+# `--structural`）。故 CI 跑在 Linux 上不会再因环境差异误报，真正的回归仍会被抓住。
+#
+# 全量档（`--full`，含 plot / nullify 的三千多万帧验收）太慢，不进每次推送；
+# 手动跑：Actions → ci → Run workflow（本文件已挂 workflow_dispatch）。
+#
+# 另有 `fingerprint-reference`：在【参考平台】（见 tests/golden_fingerprints.json 的
+# `_reference_platform`）上把【数值层 + digest】也验一遍 —— ubuntu 那份因平台不符、
+# 永远降级为只比结构层，数值层与 digest 从此有了门禁。
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  selfcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 安装依赖
+        run: python -m pip install -r requirements.txt
+      - name: 自检（快档）
+        run: python tools/selfcheck.py
+
+  # 参考平台指纹：把【数值层 + digest】也纳入 CI 验证。
+  # 参考环境见 tests/golden_fingerprints.json 的 `_reference_platform`
+  # （Windows / AMD64 / Python 3.14.0 / numpy 2.5.1）—— 四项全同，digest 才逐位可比。
+  # ⚠ 首次以 `continue-on-error` 落地：digest 是量化 float32 的哈希，其跨机器一致性
+  #   （numpy 的 SIMD 派发依 CPU 而异）尚未在 CI 上实测过。确认长期为绿后，删掉
+  #   `continue-on-error` 转为硬门禁。
+  fingerprint-reference:
+    runs-on: windows-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14.0"
+      - name: 装依赖（numpy 钉到参考版本）
+        run: python -m pip install -r requirements.txt "numpy==2.5.1"
+      - name: 打印实际平台（对照 `_reference_platform`）
+        run: python -c "import platform, sys, numpy; print(sys.version); print(platform.system(), platform.machine(), numpy.__version__)"
+      - name: 轨迹指纹（严格：含数值层与 digest）
+        run: python tools/snapshot.py --fast
+
+  # 全量验收：四个世界的满预算演算 + 判据 4/5（帧截断复现 / 复用等价）。
+  # 每次推送跑太慢（数分钟），故只在【手动触发】时跑：Actions → ci → Run workflow。
+  full-acceptance:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 安装依赖
+        run: python -m pip install -r requirements.txt
+      - name: 全量自检（--full）
+        run: python tools/selfcheck.py --full

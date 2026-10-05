@@ -1,0 +1,4 @@
+{"frame": 1200, "channel": "observer", "capability": "modify_operator", "selector": null, "payload": {"from": "OP_SOLVE_ENTROPY", "to": "OP_SOLVE_DESTRUCTION"}}
+{"frame": 1500, "channel": "observer", "capability": "mask_observer", "selector": null, "payload": {"observer": "external_04"}}
+{"frame": 26000, "channel": "env", "capability": "raise_noise", "selector": null, "payload": {"amplitude": 0.05}}
+{"frame": 33594547, "channel": "observer", "capability": "mask_observer", "selector": null, "payload": {"observer": "external_closure"}}

@@ -1,0 +1,109 @@
+{
+  "dim": 12,
+  "observables": 6,
+  "pool_capacity": 384,
+  "frames": 33594607,
+
+  "coupling_gain": 0.06,
+  "mutation": 0.010,
+  "interact_gain": 0.06,
+  "interact_repel": 0.02,
+  "entropy_mix": 0.015,
+  "noise_decay": 0.88,
+  "_noise_base_comment": "黑潮【本底】：每帧恒定注入的一丝乱码（由 engine/scheduler.py 在每帧注入，与违例判据无关）。量取自旧机制 —— 旧世界 CapacityCheck 恒真、OVERFLOW 常驻 ⇒ `noise_rate` 被每帧加一次，世界稳定在 `noise_rate/(1−noise_decay)` = 0.085/0.12 = 0.7083。判据改成【份额口径】后 OVERFLOW 变稀疏，那口恒定注入随之消失（黑潮会自熄），故显式补回本底。它与旧注入【同点、同量】⇒ 安静帧与旧世界逐位一致；只有真溢出帧（另加 policies.OVERFLOW.noise_rate 的尖峰）才偏离。",
+  "noise_base": 0.085,
+  "noise_to_mutation": 0.55,
+  "stability_eps": 0.03,
+
+  "_tau_support_comment": "「孤立」的门槛：个体与池中其他个体的【平均相似度】（0～1，尺度无关）。低于它且已过 tau_age 者被淘汰。实测既有世界的个体平均相似度落在 0.066～0.071 且分布极窄，故 0.02 对它们从不成立（逐帧不变）；它只在真的出现「谁也不像」的个体时才会触发。",
+  "tau_support": 0.02,
+  "_annex_comment": "嵌合协议（OP_ANNEX）：某支因子人丁最盛时，把它的决策写成协议内容、成为后续默认。后果是非嵌合因子的个体寿命上限变成 life_span × 本值 —— 它们更早退出演算。取 1.0 即等于不生效。",
+  "annex_span_ratio": 0.8,
+  "tau_capability": 0.28,
+  "tau_age": 80,
+  "tau_stable": 40,
+  "tau_influence": 5.0,
+  "_tau_falsify_comment": "证伪阈值。progress 是【连续】量 = 消融熵 / tau_ablation_entropy，故 1.0 表示「消融熵达到消融阈值」—— 等价于二值时代「熵 > tau_ablation_entropy」。改它现在真的会动轨迹（如 0.5 = 熵达阈值一半即算证伪）。",
+  "tau_falsify": 1.0,
+  "_tau_falsify_band_comment": "路 B（剔除口径）的达标线。路 B 量的是 entropy(剔除第 i 席)/entropy(十二席全在)，其**期望值本就在 1 以下**（实测 0.96–0.99），故不能用 τ=1。改成一条**明示的鲁棒性容差**：删掉任一席，失序度损失不超过 (1 − 该值)。0.80 = 最多允许 20% 的损失，即『没有哪一席是瓶颈』。改它真的会动裁决。",
+  "tau_falsify_band": 0.8,
+  "tau_ablation_entropy": 0.012,
+
+  "_annihilation_comment": "溢出吞没：世界的溢出量（noise）越过 tau_noise_annihilation 时，Compete 的淘汰门槛换了对象 —— 不再看年老，而是看个体与全体的【平均相似度】：越过 tau_homogenized 者视为已被同化进溢出里，当场被吞没，并计入 destruction_events。两个阈值都取得比任何既有预设的实际取值更严（既有世界常态噪声约 0.71、溢出尖峰上界 = policies.OVERFLOW.noise_peak 1.2；平均相似度约 0.08），故既有世界不会走进这条分支；只有专门制造溢出的预设（tide）才真的越过它。",
+  "tau_noise_annihilation": 3.0,
+  "tau_homogenized": 0.15,
+
+  "_parley_comment": "交涉取火种（能力 parley，和平手段）的成败判据 —— 两条都过才成：① 手里越空越愿意给：该席的承载量 slot.value ≤ tau_parley；② 神志尚清才谈得拢：noise ≤ tau_noise_parley（黑潮压过这条线时，无论手里多少都谈不成，即『泰坦已丧失理智』）。判据不掷骰子，只用现成的量。默认值由实测定：plot 在位者的 slot.value 分位 p25 0.3053 / 中位 0.3188 / p75 0.3314，故 tau_parley 取 0.32 ≈ 一半能谈。②这一条自「噪声＝本底＋溢出上限」改造后才真的有区分度：平时 noise = 本底 0.7083 < 1.0 ⇒ 谈得拢；某席承载失衡（越线）当帧把 noise 抬到 `policies.OVERFLOW.noise_peak` = 1.2 > 1.0 ⇒ **那几帧里谈不成**（『黑潮压顶时神志不清』终于有动力学对应）。",
+  "tau_parley": 0.32,
+  "tau_noise_parley": 1.0,
+
+  "_ember_comment": "火种账本：暴力夺取（evict_holder）记一笔 embers_taken；和平归还（parley）只记 embers_returned —— **这是两种手段唯一的分别**。真正参与因果的是 ember_delay：`Promotion` 用 `embers_taken` 抬高再创世门槛（「集齐火种才能再创世」⇒「火种被夺走，终点被推远」）。实测（plot-mech：6 逐出 + 1 交涉）⇒ 换代 48、迭代 34,439（与全暴力版走向不同；两个读数随 A 批黑潮改造重测）。没有 evict_holder 的世界（如 plot）`embers_taken` 恒为 0，故**逐帧不变**。（早前曾想用 `locus.capacity` 承载「位被破坏」，实测无效已撤；其量纲问题见 engine/invariants.py 的 CapacityCheck。）",
+  "ember_delay": 20,
+
+  "promotion_gain": 0.30,
+  "_capacity_inherit_comment": "再创世后 capacities 的继承系数。**必须为 1.0**：`capacity` 现在是「承载份额上限」（量纲已与 load 对齐，见 engine/invariants.py 的 CapacityCheck），若仍按 0.9 逐代相乘，几十次换代后阈值会衰减到 1e-5 量级 ⇒ 判据重新变成恒真、黑潮重新变成恒压。",
+  "capacity_inherit": 1.0,
+  "promotion_dwell": 10,
+  "promotion_cooldown": 200,
+
+  "_renewal_consensus_comment": "「主动更替」（阶段三起）换代的【决策共识】门槛。共识 = 主导支池内占比（0～1）：池子越聚在一支上，共识越高。自动更替（阶段一/二）不看这道门 —— 十二席齐备即换代；阶段三起还要共识 ≥ 本值才换代，否则本世的更替继续等。实测主导支占比：plot 0.091～0.138（中位 0.107）、tide 0.095～0.131（中位 0.111）—— 各世界分布相近，故门槛取 0.115（略高于中位 ⇒ 共识得明显高于常态才换代）。取 0.0 即等于关掉这道门。",
+  "renewal_consensus": 0.115,
+
+  "attempt_period": 4096,
+  "attempt_span": 4,
+  "trace_threshold": 1.0,
+  "trace_chance": 0.0012,
+  "attempt_stages": [
+    {"id": "hope", "until": 12, "caps": ["plead", "barter"]},
+    {"id": "disillusion", "until": 192, "caps": ["plead", "barter", "suppress_slot"]},
+    {"id": "burning", "until": 3000, "caps": ["suppress_slot", "write_memory", "mask_observer", "modify_operator"]},
+    {"id": "obsession", "until": null, "caps": ["suppress_slot"], "routine": true}
+  ],
+  "_freeze_dwell_comment": "结构须【连续冻结】这么多帧才判定为死循环（一两帧的重复是常态）。它同时参与永劫回归「第 N 轮」的起算：检测帧 = 冻结起点 + 本值，而 plot 的招牌数字 33,550,336 = 走出帧 33,594,383 − 检测帧 + 1（冻结起点 42,000 ⇒ 本值 2048 使检测帧落在 44,048）。B1（主动更替的共识门）落地后 plot 的冻结起点仍是 42,000，故本值不动。改它会连带改轮回轮数与火种量级，动之前先想清楚。",
+  "freeze_dwell": 2048,
+  "tick_marks": [1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000],
+
+  "_domain_dwell_comment": "初始变量域每一档的【帧预算】：跑满这么多个帧才换下一档（到末端则域穷尽）。它是【默认值】——仓库自带的 genesis 在 domain.stages[i].params 里逐档覆盖（现为 2000 / 4000 / 5000），无 stages 的世界（如 tools/alt_world）才用它。注意它与探针结论无关：progress / tau_falsify 只判裁决，不决定换档（否则探针提前证伪会让后两阶段只剩几百帧甚至 1 帧）。",
+  "domain_dwell": 2000,
+  "ablation_period": 500,
+  "ablation_frames": 80,
+  "ablation_pool": 18,
+  "_ablation_draws_comment": "每个探针抽多少组【独立样本】再取均值。迷你世界只有 ablation_pool 个个体，单次熵是很吵的估计；路 B 又是 12 席共用一个分母 ⇒ 单次抽样会让 12 个比值同时涨落（见遗留议题 §1.4）。取均值把估计的抖动压到 1/√K（实测 K=32 时最差席仍在容差带内有 ~7% 余量）。K=1 即关掉（回到旧的单次抽样）。",
+  "ablation_draws": 32,
+
+  "min_population": 48,
+  "min_factor_cohort": 2,
+  "life_span": 700,
+  "inherit_mutation": 0.045,
+  "seed_noise": 0.30,
+
+  "capability_names": [
+    null, "suppress_slot", null, "bind_locus",
+    null, null, "overwrite_operator", null,
+    null, "mask_observer", "write_memory", null
+  ],
+
+  "_verdict_rules_comment": "内层判据表（C4）：按顺序求值，第一条成立者即为内层结论。when 是【情形】（注册在 engine/verdicts.py 的 WHEN 表）；require 是【附加条件】列表，每项恰好含一个条件键（solver / counter，注册在 REQUIRE 表）。ascends 标出「未被改写时演算主体是否升格外溢」。于是「加一个新的结论维度」只需在这里加一行、并在 conclusions.json 补一条文案，不必改代码。",
+  "verdict_rules": [
+    {"id": "destruction", "when": "all_falsified", "ascends": true,
+     "require": [{"solver": "OP_SOLVE_DESTRUCTION"}]},
+    {"id": "annihilation", "when": "all_falsified", "ascends": true,
+     "require": [{"counter": "destruction_events", "min": 240}]},
+    {"id": "proved", "when": "all_falsified"},
+    {"id": "refuted", "when": "stalled_and_exhausted"}
+  ],
+
+  "verbosity": {
+    "promotion": 3,
+    "emergence": 3,
+    "deadlock": 3,
+    "succession": 3,
+    "disturbance": 3,
+    "verdict": 3,
+    "domain": 3,
+    "converged": 3,
+    "solver": 3,
+    "violation": 3,
+    "prune": 3
+  }
+}

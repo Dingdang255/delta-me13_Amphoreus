@@ -1,0 +1,21 @@
+# 项目元数据 —— 供 IDE / 工具链 / CI 读取。
+#
+# 刻意【不声明 [build-system]】：这个仓库不是要被「构建」的库，而是解压即用的引擎。
+#   · 装依赖：python -m pip install -r requirements.txt
+#   · 打包分发：python tools/export.py
+#   · 一次跑完全部自检：python tools/selfcheck.py
+#   · CI：.github/workflows/ci.yml（跑同一个自检入口；指纹分层，异平台自动降级为只比结构层）
+# 之所以把依赖也写在这里，是为了让 IDE 与依赖扫描工具能直接读到；
+# requirements.txt 仍是安装时的唯一依据，两者的版本约束由 tests/test_packaging.py 守着不许漂移。
+[project]
+name = "amphoreus"
+version = "0.1.0"
+description = "δ-me13「翁法罗斯」演算引擎：抽象演算内核 + 只读可视化"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24,<3",
+]
+
+[project.optional-dependencies]
+# 本仓库不需要任何测试框架：单测用标准库 unittest，pytest 也能直接收集。
+dev = []

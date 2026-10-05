@@ -1,0 +1,227 @@
+{
+  "_comment": "剧情锚定版的时间线期望。引擎【从不读它】—— 它只用于两件事：① 报告里核对；② 种子检索时当要素（tools/seed_probe.py --preset plot）。",
+  "_semantics": "by = 最晚帧。到点还没发生即判否，并可在检索时提前毙掉该种子（剪枝）。只有能边跑边取的特征才支持 by，见 engine/timeline.py 的 _LIVE。",
+  "_observed_seed0": "⚠ **本预设与 `plot` 同源，但六处桥段改由【真机制】投递**（12000 讨伐尼卡多利 / 16000 万敌试炼 / 18400 理性与岁月双陨（两处）/ 23000 那刻夏证明猜想 / 30000 阿格莱雅退场 / 36000 赛飞儿被杀 —— 共 `evict_holder` 逐出 6 次 + `parley` 交涉 1 次），不是只登记的 `emit`。剧情事件**仍照旧登记进账本**（`dispatch` 对任何带 `event` 的能力统一记 `emitted_*`），所以断言 15/15 与时间线 29/29 全过 —— **剧情口径一致，世界走向不同**（换代 48 vs `plot` 的 82）。以下为与 plot 共有的部分：种子 0 实测：域穷尽@10,999 · 首涌现@0 · 首现更替@9 · 换代 48 次（**更替循环自始就有** —— @6,000 起才叫「再创世」、此前叫「自动更替」，见下；每代先【逐火】：本世承位者夺上一世在位者的席、退位者陨落；随后十二位半神原位升格为新一世的泰坦，不清空席位。逐火 455 次 · 陨落 25,869 人） · 外生实体的动作是真的：1200 纳努克的目光把演算方向拨向 DESTRUCTION · 阶段装配（`genesis.domain.stages`，经 `StageCtx` 真进【世界】而不只是探针）：阶段一（无机，帧预算 2,000）把生命上限压到 `life_span` 175（wiki「统一体在学到的固定阶段后永久性中断生命活动」）· 阶段二（有机，帧预算 4,000）把寿命覆盖回 700、随机性调强（`mutation` 0.01 → 0.02，wiki「有机体的随机性过强」）· 阶段三（人类，帧预算 5,000）@5,999 装配记忆继承机制、**分化机制**、**嵌合协议**与**主动更替**、并把随机性收窄回 0.01（主动更替＝biligame 第 19,110,218 次循环「基于决策数据，将**自动更替循环**修改为电信号**主动**更替，进行「再创世」」，正落在阶段三区间内 ⇒ **@6,000 起那套机制才叫「再创世」、此前叫「自动更替」**：前者换代时以**决策账本**（`overrides` 里已写下的协议 + 主导支池内占比）为下一世的规则来源，后者用席位向量；规则来源本身**不改动力学**（`rule_matrix` / `observables_vec` 不参与演化、也不进指纹，故它只在报告与看板的「世界规则 · 观测量」里看），但**换代的门槛**是真机制 —— 阶段三起还要【决策共识】达标（`renewal_consensus` 0.115，见 config/params.json）才换代；被【外部】协议覆写之后再创世逻辑整换（`promotion.mode` → `memory_converge`），这道内部共识门即让位给那套新逻辑；分化＝wiki/biligame 第 7,091,231 次循环「仿照命途，将电信号分离为两个个体…建立与它相同因子的竞争关系」；嵌合协议＝biligame 第 1480/566 行「特定电信号的决策逻辑将转化为协议内容…将其余因子从演算中剔除，被标记为嵌合行为的默认值」——引擎里有界落地：主导者（人丁最盛那支，实测为第 0 支）把 `annex.factor`/`annex.span_ratio` 写进 `overrides`（账本、不回滚 ⇒ 真成「后续默认」），非嵌合因子的个体寿命上限被压到 0.8×，更早退出演算；**刻意不碰 `suppressed`**，否则十二席会永远差一步、把永劫回归提前到 1000 帧；随机性收窄＝wiki 阶段二结论「应适当缩小变量区间」。原先那两条 4000/7000 的外生投递：前者有镜头，已改为 `emit` 纯镜头；后者无镜头，直接删） · 抹除岁月那一席@42000（预设投递的一次性事件 suppress_slot，非引擎所设） · 死循环至 33,594,383 走出（**本预设的冻结入口早于 plot、复用更长** —— 自身读数见文末） · 轮回自 44048 起算，走出那一刻正是第 33,550,336 轮 · 尝试 8,191、留痕 0 次 · 尝试策略走【阶段阶梯】（决策树，非随机）：期望(0–11，游说/交易) → 幻灭(12–191，加封印火种) → 灼烧(192–2999，加收拢记忆/屏蔽观测/改写算子) → 执念(3000+，只剩封印火种，动作固定、永不换法子) · 火种累积至 402,604,020（常规 12；死循环期 = 位数 × 已过轮数，锚定 44048 起算，故走出那一刻 = 12 × 33,550,335） · 死循环期间世界不长岁、承位不动 · 33,594,383 黑塔与螺丝咕姆利用【终极协议】的修改权限真覆写了规则：solver.direction → OP_MEMORY_CONVERGE、promotion.mode → memory_converge（覆盖表被真写；死循环的出口由 solver 变化触发，不再依赖清压制） · 33,594,383 同时 write_memory 收拢记忆 · 33,594,384 记忆再造真的发生（memory_repaired=1，此前恒为 0）：本地命定补不上的「岁月」那一席由记忆补上并解除其压制 → 记忆接掌「岁月」之位（渲染层据锚定把这一席点名作长夜月） · 33,594,384 演算方向被改写（毁灭算子 → 记忆收敛算子） · 33,594,387 长夜月将负世交予开拓者 —— 负世那一席由【场外参与者】外部接掌（带外编号 -2），旧体退位 · 末次再创世@33,594,393 十二席：负世开拓者 · 岁月长夜月（由记忆承载） · 门径缇里西庇俄丝 · 律法刻律德菈 · 天空风堇 · 大地（本地在位者 —— 丹恒于 33,594,447 方外部接掌） · 海洋海瑟音 · 理性阿那克萨戈拉斯 · 浪漫阿格莱雅 · 诡计赛飞儿 · 纷争迈德漠斯 · 死亡遐蝶 · 33,594,393 因果被锚定：以记忆再创世覆写方程 · 收官：33,594,407 长夜月以忘却之潮来袭 · 33,594,447 丹恒借纳努克神血洞开忆域 · 33,594,497 开拓者正式坐负世 · 33,594,517 前往时光归墟 · 33,594,527 黑塔与螺丝咕姆自外层覆写协议、载入核心变量改写结论 · 涌现者 831 位 · 锚定编号：负世 开拓者（带外编号 -2，33,594,387 外部接掌）、大地 丹恒·腾荒（带外编号 -3，33,594,447 外部接掌）—— 两位皆【场外参与者】，不从池子里长出来；岁月 长夜月（由记忆承载，serial:-1，其余十席见 anchors.jsonl） · 结论链：归于毁灭@2,000 → 证真@33,594,383 → 改写@33,594,527 · 终局「结论被改写」@33,594,547 · 迭代 **34,439** 次 · 复用 **33,568,317** 帧（**与 plot 的 52,411 / 33,550,334 不同** —— 逐出真的动了结构签名，死循环的入口与复用长度都跟着变了）。⚠ 上面「与 plot 共有的部分」里的帧号 / 计数（如死循环起点、逐火 455、陨落 25,869）取自 `plot`，本预设自身的以本句为准。",
+
+  "nodes": [
+    {
+      "id": "N01_DOMAINS_WALKED",
+      "feature": "domains_exhausted",
+      "op": "eq",
+      "value": true,
+      "by": 12000,
+      "label": "初始变量域依序走完后被穷尽（无机 → 有机 → 人类）"
+    },
+    {
+      "id": "N02_FIRST_ITERATION",
+      "feature": "promotion_count",
+      "op": "ge",
+      "value": 1,
+      "by": 30000,
+      "label": "十二位齐备，随即出现首次再创世"
+    },
+    {
+      "id": "N03_ITERATION_REPEATS",
+      "feature": "promotion_count",
+      "op": "ge",
+      "value": 40,
+      "label": "再创世反复发生（不是一次性的）"
+    },
+    {
+      "id": "N04_FIRST_EMERGENCE_EARLY",
+      "feature": "persona_first_frame",
+      "op": "le",
+      "value": 20000,
+      "label": "最早的个体在很早期就满足四条判据"
+    },
+    {
+      "id": "N05_VACANCY",
+      "feature": "vacancy_ever",
+      "op": "eq",
+      "value": true,
+      "by": 60000,
+      "label": "出现无人继火的神位（进入长驻的前因）"
+    },
+    {
+      "id": "N06_STALL",
+      "feature": "deadlock",
+      "op": "eq",
+      "value": true,
+      "by": 60000,
+      "label": "状态不再变化 ⇒ 陷入死循环"
+    },
+    {
+      "id": "N07_STALL_LONG",
+      "feature": "deadlock_total_frames",
+      "op": "ge",
+      "value": 1000000,
+      "label": "死循环极长（原地重放百万帧以上）"
+    },
+    {
+      "id": "N08_OVERFLOW",
+      "feature": "black_tide_ever",
+      "op": "eq",
+      "value": true,
+      "by": 60000,
+      "label": "出现承载溢出（乱码 / 黑潮）"
+    },
+    {
+      "id": "N09_CROWD",
+      "feature": "persona_count",
+      "op": "ge",
+      "value": 40,
+      "label": "成批个体满足四条判据（不是零星几个）"
+    },
+    {
+      "id": "N10_SUPPRESSOR",
+      "feature": "cap_suppress_slot",
+      "op": "eq",
+      "value": 1,
+      "label": "出现能压制神位的个体（空缺是被造出来的，不是天生的）"
+    },
+    {
+      "id": "N11_ANCHOR",
+      "feature": "converged",
+      "op": "eq",
+      "value": true,
+      "label": "因果被锚定：以记忆再创世覆写方程"
+    },
+    {
+      "id": "N12_FINAL_SOLVER",
+      "feature": "solver_final",
+      "op": "eq",
+      "value": "OP_MEMORY_CONVERGE",
+      "label": "终局的演算方向是记忆收敛"
+    },
+    {
+      "id": "N13_PROVED",
+      "feature": "verdict",
+      "op": "eq",
+      "value": "overwritten",
+      "label": "终局结论被外生变量改写"
+    },
+    {
+      "id": "N14_CONCLUSION",
+      "feature": "conclusion",
+      "op": "eq",
+      "value": "C_CONCLUSION_OVERWRITTEN",
+      "label": "结论落在「被改写」那一条：载入核心变量后输出「你好，世界」"
+    },
+    {
+      "id": "N15_DESTRUCTION_REACHED",
+      "feature": "destruction_ever",
+      "op": "eq",
+      "value": true,
+      "label": "演算中途先得出「一切归于毁灭」的结论一（后被改写）"
+    },
+    {
+      "id": "N16_RULE_OVERRIDDEN",
+      "feature": "override_rules",
+      "op": "contains",
+      "value": "promotion.mode",
+      "label": "终极协议真的覆写了再创世的逻辑（规则覆盖表里出现 promotion.mode）"
+    },
+    {
+      "id": "N17_MEMORY_REBUILT",
+      "feature": "memory_repaired",
+      "op": "ge",
+      "value": 1,
+      "label": "记忆再造真的发生（此前恒为 0）：本地补不上的那一席由记忆补上"
+    },
+    {
+      "id": "N18_STAGES_WALKED",
+      "feature": "attempt_stages_seen",
+      "op": "contains",
+      "value": "obsession",
+      "label": "尝试策略走完了阶段阶梯（期望 → 幻灭 → 灼烧 → 执念）"
+    },
+    {
+      "id": "N19_ARC_3_0",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "nikador_felled",
+      "by": 12000,
+      "label": "3.0 落木逐火英雄纪：讨伐尼卡多利、回收纷争火种"
+    },
+    {
+      "id": "N20_ARC_3_1",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "mydei_ascends",
+      "by": 16000,
+      "label": "3.1 门扉之启，王座之终：万敌通过试炼晋升纷争半神"
+    },
+    {
+      "id": "N21_ARC_3_1B",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "two_titans_fall",
+      "by": 18400,
+      "label": "3.1 理性与岁月两位泰坦先后陨落"
+    },
+    {
+      "id": "N22_ARC_3_2",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "anaxa_proves",
+      "by": 23000,
+      "label": "3.2 走过安眠地的花丛：那刻夏证明猜想、决定继续逐火"
+    },
+    {
+      "id": "N23_ARC_3_3",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "aglaea_exits",
+      "by": 30000,
+      "label": "3.3 在黎明升起时坠落：阿格莱雅退场、击败艾格勒"
+    },
+    {
+      "id": "N24_ARC_3_3B",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "cipher_falls",
+      "by": 36000,
+      "label": "3.3 赛飞儿失手被杀、万敌缇宝缇宁牺牲"
+    },
+    {
+      "id": "N25_ACTOR_SWAN",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "swan_arrives",
+      "by": 8000,
+      "label": "外部变量·黑天鹅：以忆庭之镜为列车指路（这个世界本不可达）"
+    },
+    {
+      "id": "N26_ACTOR_ADMIN",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "admin_reveals",
+      "by": 40000,
+      "label": "外部变量·来古士：摊牌自己是第一推动者与管理员"
+    },
+    {
+      "id": "N27_ACTOR_THIEF",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "thief_fended",
+      "by": 33594420,
+      "label": "外部变量·窃忆者：趁虚窃忆，被驱赶"
+    },
+    {
+      "id": "N28_ACTOR_ZANDAR",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "zandar_debate",
+      "by": 33594500,
+      "label": "外部变量·赞达尔：决定这场实验要不要继续"
+    },
+    {
+      "id": "N29_ACTOR_ALLIANCE",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "alliance_blockade",
+      "by": 33594540,
+      "label": "外部变量·公司·仙舟联军：只保证这个世界之外不塌"
+    }
+  ]
+}

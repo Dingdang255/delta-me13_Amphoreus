@@ -1,0 +1,43 @@
+{
+  "_comment": "「证伪」世界的时间线期望。引擎【从不读它】—— 它只用于报告核对与种子检索。",
+  "_semantics": "by = 最晚帧。到点还没发生即判否，并可提前毙掉该种子。",
+  "_observed_seed0": "种子 0 实测（第二十六批）：域穷尽@10,999 · 结构冻结 ⇒ 永劫回归 · 33,594,547 外生穷尽 ⇒ 终局 refuted（不升格）",
+  "nodes": [
+    {
+      "id": "N01_DOMAINS_WALKED",
+      "feature": "domains_exhausted",
+      "op": "eq",
+      "value": true,
+      "by": 12000,
+      "label": "变量域依序走完后被穷尽"
+    },
+    {
+      "id": "N02_DEADLOCK",
+      "feature": "deadlock",
+      "op": "eq",
+      "value": true,
+      "label": "结构冻结（岁月之位永久缺位 ⇒ 再创世永远差一步）"
+    },
+    {
+      "id": "N03_VERDICT_REFUTED",
+      "feature": "verdict",
+      "op": "eq",
+      "value": "refuted",
+      "label": "终局落在「证伪」那一条：反例无法穷尽"
+    },
+    {
+      "id": "N04_CONCLUSION",
+      "feature": "conclusion",
+      "op": "eq",
+      "value": "C_NO_FIRST_CAUSE",
+      "label": "结论文案取自 conclusions.json 的 refuted 一条"
+    },
+    {
+      "id": "N05_NOT_ASCENDED",
+      "feature": "ascended",
+      "op": "eq",
+      "value": false,
+      "label": "未被判定 ⇒ 不升格"
+    }
+  ]
+}

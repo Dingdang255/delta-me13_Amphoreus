@@ -1,0 +1,15 @@
+{"assert": "domains_exhausted", "expect": true}
+{"assert": "black_tide_ever", "expect": true}
+{"assert": "promotion_count_at_least", "expect": 3}
+{"assert": "persona_count_at_least", "expect": 8}
+{"assert": "persona_with_capability", "where": {"capability": "suppress_slot"}, "expect": true}
+{"assert": "vacancy_ever", "expect": true}
+{"assert": "deadlock_ever", "expect": true}
+{"assert": "deadlock_length_at_least", "expect": 1000000}
+{"assert": "converged", "expect": true}
+{"assert": "verdict", "expect": "overwritten"}
+{"assert": "conclusion", "expect": "C_CONCLUSION_OVERWRITTEN"}
+{"assert": "destruction_ever", "expect": true}
+{"assert": "protocol_rewritten", "expect": true}
+{"assert": "promotion_mode", "expect": "memory_converge"}
+{"assert": "memory_repaired_at_least", "expect": 1}

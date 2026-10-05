@@ -1,0 +1,166 @@
+{
+  "_comment": "「否定版」的时间线期望。引擎【从不读它】—— 它只用于报告核对与种子检索。前两幕与 plot 逐帧相同，分歧点在 33,594,383（此处删去了终极协议覆写与写入记忆）。",
+  "_semantics": "by = 最晚帧。到点还没发生即判否，并可在检索时提前毙掉该种子（剪枝）。只有能边跑边取的特征才支持 by，见 engine/timeline.py 的 _LIVE。",
+  "_observed_seed0": "种子 0 实测（A 批「黑潮真判据」后重测）：与 plot 前两幕逐帧相同（域穷尽@10,999 · 首涌现@0 · 首现更替@9 · 换代 81 次，末次@41,502 · 死循环起于 42,000、检测于 44,048）。分歧点 33,594,383 处没有终极协议覆写 ⇒ 覆盖表为空、solver 一路停在 OP_SOLVE_DESTRUCTION；33,594,387 的负世逐出把该席清空、撬动了结构签名，于是死循环终于走出（跨 33,552,387 帧）—— 但「岁月」那一席仍被压制、本地命定补不上，再创世因此无法完成（converged=false，记忆再造从未发生，memory_repaired=0）。尝试 8,191 · 留痕 0 次 · 涌现者 1,583 位。33,594,547 闸门翻开 ⇒ 终局 **destruction @33,594,547**（stop_reason=DESTRUCTION）· **升格**（ascended=true） · 结论链 归于毁灭@2,000 · 迭代 52,407（沿参考轨道复用 33,550,338 帧，走到帧 33,594,547） · 另：与 plot 共享的 3.0–3.3 桥段六条（12000 / 16000 / 18400 / 23000 / 30000 / 36000）也已并入本预设，同样只由 emit 投递、不改动力学。⚠ 角色变更：第二十二批（R3）它曾是「证伪」的演示世界（路 B 最小值 0.805 < 1 ⇒ 全称证伪不成立）；第二十六批把路 B 的达标线从 τ=1 改成**明示容差**、并对探针取 K 次均值之后，`all_falsified` 稳定成立 ⇒ 它改判「毁灭」，**「证伪」由新预设 `refuted` 承担**。",
+
+  "nodes": [
+    {
+      "id": "N01_DOMAINS_WALKED",
+      "feature": "domains_exhausted",
+      "op": "eq",
+      "value": true,
+      "by": 12000,
+      "label": "初始变量域依序走完后被穷尽（无机 → 有机 → 人类）"
+    },
+    {
+      "id": "N02_FIRST_ITERATION",
+      "feature": "promotion_count",
+      "op": "ge",
+      "value": 1,
+      "by": 30000,
+      "label": "十二位齐备，随即出现首次再创世"
+    },
+    {
+      "id": "N03_ITERATION_REPEATS",
+      "feature": "promotion_count",
+      "op": "ge",
+      "value": 50,
+      "label": "再创世反复发生（不是一次性的）"
+    },
+    {
+      "id": "N04_FIRST_EMERGENCE_EARLY",
+      "feature": "persona_first_frame",
+      "op": "le",
+      "value": 20000,
+      "label": "最早的个体在很早期就满足四条判据"
+    },
+    {
+      "id": "N05_VACANCY",
+      "feature": "vacancy_ever",
+      "op": "eq",
+      "value": true,
+      "by": 60000,
+      "label": "出现无人继火的神位（进入长驻的前因）"
+    },
+    {
+      "id": "N06_STALL",
+      "feature": "deadlock",
+      "op": "eq",
+      "value": true,
+      "by": 60000,
+      "label": "状态不再变化 ⇒ 陷入死循环"
+    },
+    {
+      "id": "N07_STALL_LONG",
+      "feature": "deadlock_total_frames",
+      "op": "ge",
+      "value": 1000000,
+      "label": "死循环极长（原地重放百万帧以上）"
+    },
+    {
+      "id": "N08_OVERFLOW",
+      "feature": "black_tide_ever",
+      "op": "eq",
+      "value": true,
+      "by": 60000,
+      "label": "出现承载溢出（乱码 / 黑潮）"
+    },
+    {
+      "id": "N09_CROWD",
+      "feature": "persona_count",
+      "op": "ge",
+      "value": 40,
+      "label": "成批个体满足四条判据（不是零星几个）"
+    },
+    {
+      "id": "N10_SUPPRESSOR",
+      "feature": "cap_suppress_slot",
+      "op": "eq",
+      "value": 1,
+      "label": "出现能压制神位的个体（空缺是被造出来的，不是天生的）"
+    },
+    {
+      "id": "N11_ANCHOR",
+      "feature": "converged",
+      "op": "eq",
+      "value": false,
+      "label": "因果从未被锚定 —— 记忆收敛从未开启（这正是两条路的分水岭）"
+    },
+    {
+      "id": "N12_FINAL_SOLVER",
+      "feature": "solver_final",
+      "op": "eq",
+      "value": "OP_SOLVE_DESTRUCTION",
+      "label": "终局的演算方向仍是毁灭（从未被覆写为记忆收敛）"
+    },
+    {
+      "id": "N13_DESTRUCTION",
+      "feature": "verdict",
+      "op": "eq",
+      "value": "destruction",
+      "label": "终局落在结论：一切生命行为归于熵增"
+    },
+    {
+      "id": "N14_CONCLUSION",
+      "feature": "conclusion",
+      "op": "eq",
+      "value": "C_UNIVERSAL_DESTRUCTION",
+      "label": "结论落在「生命的第一因是毁灭」那一条"
+    },
+    {
+      "id": "N16_ASCENDED",
+      "feature": "ascended",
+      "op": "eq",
+      "value": true,
+      "label": "未被外生改写，且演算主体升格外溢（毁灭那条带来升格）"
+    },
+    {
+      "id": "N19_ARC_3_0",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "nikador_felled",
+      "by": 12000,
+      "label": "3.0 落木逐火英雄纪：讨伐尼卡多利、回收纷争火种"
+    },
+    {
+      "id": "N20_ARC_3_1",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "mydei_ascends",
+      "by": 16000,
+      "label": "3.1 门扉之启，王座之终：万敌通过试炼晋升纷争半神"
+    },
+    {
+      "id": "N21_ARC_3_1B",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "two_titans_fall",
+      "by": 18400,
+      "label": "3.1 理性与岁月两位泰坦先后陨落"
+    },
+    {
+      "id": "N22_ARC_3_2",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "anaxa_proves",
+      "by": 23000,
+      "label": "3.2 走过安眠地的花丛：那刻夏证明猜想、决定继续逐火"
+    },
+    {
+      "id": "N23_ARC_3_3",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "aglaea_exits",
+      "by": 30000,
+      "label": "3.3 在黎明升起时坠落：阿格莱雅退场、击败艾格勒"
+    },
+    {
+      "id": "N24_ARC_3_3B",
+      "feature": "emitted_events",
+      "op": "contains",
+      "value": "cipher_falls",
+      "by": 36000,
+      "label": "3.3 赛飞儿失手被杀、万敌缇宝缇宁牺牲"
+    }
+  ]
+}

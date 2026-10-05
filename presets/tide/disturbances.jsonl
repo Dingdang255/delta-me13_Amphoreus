@@ -1,0 +1,3 @@
+{"frame": 100, "channel": "env", "capability": "raise_noise", "selector": null, "label": "◆ 潮水开始上涌 —— 它不针对谁，只是涨", "payload": {"amplitude": 0.6, "persist": true}}
+{"frame": 4000, "channel": "observer", "capability": "emit", "selector": null, "label": "◆ 潮线越过了第一道堤 —— 支援不足者不再需要等到衰老，先被吞没", "payload": {"event": "tide_over_threshold"}}
+{"frame": 20000, "channel": "observer", "capability": "mask_observer", "selector": null, "payload": {"observer": "external_closure"}}

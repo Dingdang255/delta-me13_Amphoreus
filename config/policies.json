@@ -1,0 +1,7 @@
+{
+  "_comment": "违例恢复策略。与【哪个位】无关。这里【没有】VACANT —— 演算从未设想个体会阻止升格，故无策略可受理，调度器只能落回 CONTINUE。",
+  "_overflow_comment": "OVERFLOW 由 CapacityCheck 的【份额】判据触发（某席承载份额 > 其 capacity，capacity 取 0.23 时约 1% 的帧，见 config/loci.json），是**稀疏事件**。`noise_peak` = 溢出当帧把噪声**抬到**的高度（取 max、**不累加**，见 engine/scheduler.py）。取 1.2 是被两条既有阈值夹出来的：① 要越过 `tau_noise_parley`(1.0) ⇒ > 1.0（于是『黑潮压顶时谈不成』终于有动力学对应）；② 要 < `tau_noise_annihilation`(3.0)，否则正常世界会短暂闯进本该只属 tide 的『淹没』模式（累加语义下实测会冲到 3.38 ⇒ 既有世界进了淹没分支、`destruction_events` 由 0 变 58）。黑潮的【本底】不在这里：它由 params.noise_base 每帧恒定注入（与旧机制同点同量）—— 故安静帧与旧世界逐位一致，只有真溢出帧才抬到 noise_peak。",
+  "OVERFLOW":     { "strategy": "EMIT_VISUAL_NOISE", "noise_peak": 1.2 },
+  "UNSOLVED":     { "strategy": "ADVANCE_DOMAIN" },
+  "UNCONSERVED":  { "strategy": "CONTINUE" }
+}

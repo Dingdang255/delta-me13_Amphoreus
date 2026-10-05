@@ -1,0 +1,6 @@
+{"assert": "domains_exhausted", "expect": true}
+{"assert": "promotion_count_at_least", "expect": 50}
+{"assert": "destruction_events_at_least", "expect": 100}
+{"assert": "verdict", "expect": "annihilation"}
+{"assert": "conclusion", "expect": "C_CONSUMED_BY_ANNIHILATION"}
+{"assert": "ascended", "expect": true}

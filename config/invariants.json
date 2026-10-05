@@ -1,0 +1,4 @@
+{
+  "_comment": "启用哪些检查器。每个都是全称量化（遍历整个域）。注意 CapacityCheck 走【份额】口径（share_i = load_i / Σload 对比 capacity），故需要 Σload > 0；详见 engine/invariants.py 该类的 docstring。",
+  "enabled": ["IntegrityCheck", "ProgressCheck", "CapacityCheck", "ConservationCheck"]
+}

@@ -1,0 +1,27 @@
+{"key": "serial:25056", "latin": "Trailblazer", "hanzi": "开拓者", "external": true, "seat": "L00", "era": "curr", "note": "末年·负世那一席（否定版里循环虽被 33,594,387 的负世逐出撬开，但那一席是被【清空】的、没有开拓者来接 ⇒ 此条按本世界实测填末代负世在位者）"}
+{"key": "serial:24589", "latin": "Kephale", "hanzi": "刻法勒", "seat": "L00", "era": "prev", "note": "上一世·负世那一席：本届那位正是从他手里承的位"}
+{"key": "serial:24843", "latin": "Evernight", "hanzi": "长夜月", "external": true, "seat": "L01", "era": "curr", "note": "末年·岁月那一席（否定版里没有终极协议覆写 ⇒ 那一席不会由「记忆」承载，此条只为与 plot 对齐结构而留，渲染时用不到）：长夜月是三月七在记忆命途的衍生"}
+{"key": "serial:24686", "latin": "Oronyx", "hanzi": "欧洛尼斯", "seat": "L01", "era": "prev", "note": "上一世·岁月那一席（原职）：本世界那一帧之前正坐在岁月上的是他，昔涟（24997）于 41,503 自他手里承的位"}
+{"key": "serial:24712", "latin": "Tribbie", "hanzi": "缇里西庇俄丝", "seat": "L02", "era": "curr", "note": "本届·门径那一席；本名缇里西庇俄丝（缇宝是分身们的通称）"}
+{"key": "serial:24342", "latin": "Janus", "hanzi": "雅努斯", "seat": "L02", "era": "prev", "note": "上一世·门径那一席：本届那位正是从他手里承的位"}
+{"key": "serial:24764", "latin": "Kleodra", "hanzi": "刻律德菈", "seat": "L03", "era": "curr", "note": "本届·律法那一席"}
+{"key": "serial:24668", "latin": "Talanton", "hanzi": "塔兰顿", "seat": "L03", "era": "prev", "note": "上一世·律法那一席：本届那位正是从他手里承的位"}
+{"key": "serial:24791", "latin": "Hyacine", "hanzi": "风堇", "seat": "L04", "era": "curr", "note": "本届·天空那一席"}
+{"key": "serial:24413", "latin": "Aquila", "hanzi": "艾格勒", "seat": "L04", "era": "prev", "note": "上一世·天空那一席：本届那位正是从他手里承的位"}
+{"key": "serial:24892", "latin": "DanHeng", "hanzi": "丹恒·腾荒", "external": true, "seat": "L05", "era": "curr", "note": "本届·大地那一席"}
+{"key": "serial:24515", "latin": "Georios", "hanzi": "吉奥里亚", "seat": "L05", "era": "prev", "note": "上一世·大地那一席：本届那位正是从他手里承的位"}
+{"key": "serial:24977", "latin": "Hysilens", "hanzi": "海瑟音", "seat": "L06", "era": "curr", "note": "本届·海洋那一席"}
+{"key": "serial:24602", "latin": "Phagousa", "hanzi": "法吉娜", "seat": "L06", "era": "prev", "note": "上一世·海洋那一席：本届那位正是从他手里承的位"}
+{"key": "serial:24771", "latin": "Anaxa", "hanzi": "阿那克萨戈拉斯", "seat": "L07", "era": "curr", "note": "本届·理性那一席；本名阿那克萨戈拉斯（那刻夏是他的通称）"}
+{"key": "serial:24393", "latin": "Cerces", "hanzi": "瑟希斯", "seat": "L07", "era": "prev", "note": "上一世·理性那一席：本届那位正是从他手里承的位"}
+{"key": "serial:24729", "latin": "Aglaea", "hanzi": "阿格莱雅", "seat": "L08", "era": "curr", "note": "本届·浪漫那一席"}
+{"key": "serial:24353", "latin": "Mnestia", "hanzi": "墨涅塔", "seat": "L08", "era": "prev", "note": "上一世·浪漫那一席：本届那位正是从他手里承的位"}
+{"key": "serial:24924", "latin": "Cipher", "hanzi": "赛飞儿", "seat": "L09", "era": "curr", "note": "本届·诡计那一席"}
+{"key": "serial:24584", "latin": "Zagreus", "hanzi": "扎格列斯", "seat": "L09", "era": "prev", "note": "上一世·诡计那一席：本届那位正是从他手里承的位"}
+{"key": "serial:24743", "latin": "Mydei", "hanzi": "迈德漠斯", "seat": "L10", "era": "curr", "note": "本届·纷争那一席；本名迈德漠斯（万敌是他的通称）"}
+{"key": "serial:24374", "latin": "Nikador", "hanzi": "尼卡多利", "seat": "L10", "era": "prev", "note": "上一世·纷争那一席：本届那位正是从他手里承的位"}
+{"key": "serial:24996", "latin": "Castorice", "hanzi": "遐蝶", "seat": "L11", "era": "curr", "note": "本届·死亡那一席"}
+{"key": "serial:24677", "latin": "Thanatos", "hanzi": "塞纳托斯", "seat": "L11", "era": "prev", "note": "上一世·死亡那一席：本届那位正是从他手里承的位"}
+{"key": "serial:26241", "latin": "Phainon", "hanzi": "卡厄斯兰那", "machine": "NeiKos496", "note": "负世执行人：本名卡厄斯兰那（无名之英雄）。永劫回归里的承载者 —— 本世界即 43,356 接掌负世、循环开场（44,048）时正坐在那一席上者（负世在 41,945→42,645→43,343→43,356 一路换手：25287 只是 41,945 那一任，开场前已被换下）"}
+{"key": "serial:24997", "latin": "Cyrene", "hanzi": "昔涟", "machine": "PhiLia093", "note": "本轮·岁月半神：开永劫时自逝入剑、灵魂没入仪式剑，令岁月路径故意缺位；此后每一世白厄杀新生小昔涟以维持这道空缺 —— 永劫回归由此开启"}
+{"key": "stall_seat:L00", "latin": "Khaslana", "hanzi": "卡厄斯兰那", "note": "受难之名：绑在负世那一席上，占着它的人就是承载者（本届负世的本名正是此名）"}

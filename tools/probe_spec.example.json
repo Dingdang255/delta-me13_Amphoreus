@@ -1,0 +1,30 @@
+{
+  "_comment": "种子探针规格。把所有必要要素填在这里，跑 python3 tools/seed_probe.py --spec tools/probe_spec.example.json",
+  "_comment_seeds": "seeds 可以是 [起, 个数]，也可以是 [0,1,5,9] 这样的清单",
+  "_comment_op": "op ∈ eq/ne/gt/ge/lt/le/in/between；between 的 value 写 [下界, 上界]",
+  "_comment_preset": "preset 决定并入哪套外生事件、用哪份 timeline 当要素；none = 涌现版，只要这里的 constraints",
+
+  "preset": "plot",
+  "seeds": [0, 64],
+  "frames": 33550560,
+  "iter_cap": 60000,
+  "jobs": 8,
+  "no_prune": false,
+
+  "constraints": [
+    { "feature": "promotion_count", "op": "ge", "value": 100 },
+    { "feature": "eternal_return_count", "op": "ge", "value": 1 },
+    { "feature": "eternal_return_total_frames", "op": "ge", "value": 1000000 },
+    { "feature": "vacancy_ever", "op": "eq", "value": true },
+    { "feature": "black_tide_ever", "op": "eq", "value": true },
+    { "feature": "persona_count", "op": "ge", "value": 40 },
+    { "feature": "converged", "op": "eq", "value": true },
+    { "feature": "verdict", "op": "eq", "value": "proved" },
+    { "feature": "conclusion", "op": "eq", "value": "C_STATIC_FIRST_CAUSE" }
+  ],
+
+  "sort_by": "promotion_count",
+  "descending": true,
+  "top": 25,
+  "out": null
+}

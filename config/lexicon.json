@@ -1,0 +1,221 @@
+{
+  "_comment": "世界观词汇渲染表（L5）。换一套这个文件，同一段演算就被讲成另一个世界的神话。",
+
+  "terms": {
+    "locus": "泰坦",
+    "slot": "神位",
+    "slot_filled": "火种有主",
+    "slot_vacant": "无人继火",
+    "agent": "子嗣",
+    "agent_unsurfaced": "无名者",
+    "persona": "黄金裔",
+    "halfgod": "半神",
+    "promotion": "世代更迭",
+    "memory": "记忆",
+    "overflow": "黑潮",
+    "vacancy": "神位空缺",
+    "deadlock": "死循环",
+    "conclusion": "第一因",
+    "domain": "初始变量",
+    "domain_exhausted": "再创世演算期",
+    "round": "轮回",
+    "converged": "锚定",
+    "observer": "外来观测者",
+    "admin": "改写者",
+    "protocol": "修订协议"
+  },
+
+  "domains": {
+    "inorganic": "无机演算期",
+    "organic": "有机演算期",
+    "human": "人类演算期"
+  },
+
+  "_stage_promotion_labels_comment": "阶段目录 / 编年史 / 时间线里那个机制的名字分【三档】，跟着 wiki 的两处改名走：① 更早 = 自动更替（自动更替循环自始就有）；② 第三阶段内、协议改写那一刻起 = 主动更替（biligame 第 564 行「将翁法罗斯的自动更替循环修改为电信号主动更替」；moegirl 第 41 行「第三阶段…诱导电信号完成了主动更替循环的行为」）；③ 第四阶段起 = 再创世（moegirl 第 47 行「第四阶段…利用「再创世」进行世代更迭」）。两处界都不靠配置猜：② 取 Telemetry 里 `renewal.mode` 落进覆盖表的那一帧，③ 取 `DOMAINS_EXHAUSTED` 那一帧（与席卡 / 历法同一把尺子）。缺席时退回机制名 `terms.promotion`（= 世代更迭，是那个【不分档】的统称 —— 聚合读数（最终状态 / 曲线图例 / 背负）用它，逐条事件（编年史 / 时间线打点 / 阶段卡）才分档）。",
+  "stage_promotion_labels": {
+    "auto": "自动更替",
+    "active": "主动更替",
+    "renewal": "再创世"
+  },
+  "stage_promotion_note": "更替由此从【自动】改为【主动】",
+  "_stage_myth_note_comment": "演算期（前三阶段）⇄ 世界内（第四阶段）的【切词说明】—— 贴在阶段目录里「世界内起点」那一档上（与 stage_promotion_note 同一机制）。它只在渲染层出现，不影响轨迹。",
+  "stage_myth_note": "背景自此定为人类古典文明 —— 十二因子获得世界内的身份，称谓由「第 N 号原动力」换为职位名",
+  "_stage_myth_rename_note_comment": "切词说明里那句「更替之名也从 A 改为 B」—— A / B 取**本世界自己的** `stage_promotion_labels.active / renewal`；两档同名的世界（如 tide 一路都叫「换代」）就不拼这一句，免得又混词。",
+  "stage_myth_rename_note": "更替之名也从「{was}」改为「{now}」",
+
+  "_stage_conclusions_comment": "四个阶段各自的【结论】（wiki 口径）—— 只用于渲染：报告与看板的「阶段目录」会把它贴在每一档旁边。它不参与演算：改它一个字，轨迹逐帧不变；缺项则该行不写。前三档的名字取上面的 domains，第四档（变量域穷尽之后）取 terms.domain_exhausted。",
+  "stage_conclusions": [
+    "完全有序的思维模式；习得固定阶段后仍产生无序",
+    "缺乏有效的经验继承 ⇒ 应设计电信号之间的继承机制",
+    "确立并完善再创世机制 ⇒ 判定进入最终阶段",
+    "再创世与世代更迭；最后一次被外生变量改写 ⇒ 永劫回归"
+  ],
+
+  "_chronicle_comment": "编年史里那几【整句】的模板（原先写死在 run.py 里，故没法分阶段）。`{advance}` = 这次世代更迭的两档名（自动更替 / 再创世）；`{seat}` = 该席位在本阶段的叫法（见下 `phase_terms`）；`{burden}` = `stall.burden`。改本表【不影响轨迹】。",
+  "chronicle": {
+    "emergence": "◆ {persona}涌现：{name}（{latin} / {machine}）· {seat}",
+    "seat_taken": "接掌「{seat}」之位",
+    "seat_none": "未接掌任何席位",
+    "promotion": "第 {round} 次{advance}（{complete}） · 背负：{burden} · {rise}",
+    "complete": "十二位齐备",
+    "rise": "十二位{halfgod}原位升格，正式成为新一世的{locus}",
+    "seat_ordinal": "第 {n} 号原动力",
+    "seat_stem": "因子 {stem}",
+    "cycle_label": "第 {n} 次轮回",
+    "myth_onset": "◆ 初始变量域穷尽 —— 第四阶段开启：背景定为人类古典文明，十二因子自此成为{locus}与{persona}（称谓随之一换）",
+    "converged": "★ 因果被{converged}：以{memory}{promotion}覆写方程",
+    "born_unit": "位",
+    "fell_word": "陨落",
+    "fell_unit": "人"
+  },
+
+  "_phase_terms_comment": "【阶段词表】—— 同一段演算，前三个阶段与第四阶段是【两套语汇】。据 wiki：十二因子以【无机生命 / 有机生命 / 人类】为初始变量跑了三个阶段，此时它们还是【电信号 / 十二种生命原动力的简化模型】（biligame「实验进程：无机/有机」·「十二因子」）；到【第四阶段】才把背景设为【人类古典文明】，【其中十二因子便成为十二泰坦/黄金裔】（moegirl 第 47 行）—— 泰坦 / 神位 / 火种 / 黄金裔 / 半神 / 逐火 / 城邦 / 光历这些世界内的词，都只属于第四阶段。故 `phase_terms.sim` 给出前三阶段的覆盖（结构与顶层一致，只列【要改】的叶子；没列的照顶层）；第四阶段（及没配 stages 的世界）直接用顶层词表。阶段边界取换档事件的帧号（与阶段目录同源），不靠配置猜。",
+  "phase_terms": {
+    "sim": {
+      "terms": {
+        "locus": "因子",
+        "slot": "原动力",
+        "slot_filled": "已归位",
+        "slot_vacant": "空位",
+        "persona": "电信号",
+        "vacancy": "原动力空缺",
+        "round": "循环"
+      },
+      "chronicle": {
+        "cycle_label": "第 {n} 次循环",
+        "seat_taken": "归入{seat}",
+        "seat_none": "尚未归位",
+        "complete": "十二因子齐备",
+        "rise": "十二因子原位升格，进入下一轮循环",
+        "born_unit": "个",
+        "fell_word": "消亡",
+        "fell_unit": "个"
+      },
+      "stall": {
+        "burden": "原动力 {seeds}、{advance} {rounds} 次、消亡 {fell} 个、距上次{advance} {since_promotion} 帧",
+        "succession_rise": "{who}归入{locus}{note}",
+        "succession_displaced": "，{who}退出",
+        "succession_fall": "{locus}空悬，{who}被留在空位上"
+      },
+      "deadlock": {
+        "why": "原动力已齐（{seeds}），{vacant}却无人接替，{promotion}始终差那一步",
+        "tick": "第 {cycle} 次循环，{who}又挡下了一次升格 —— 已等待 {elapsed} 帧",
+        "routine": "{who}已守到第 {cycle} 次循环：收拢、守着那处空缺，亲手了结新归位的那一个，等这一轮的那一个来接手，再开一轮",
+        "trace": "{who}终于挪动了一线 —— {approach}起了作用",
+        "end": "外部的干预终于落到了那处空缺上（第 {cycle} 次循环）"
+      }
+    }
+  },
+
+  "_sim_slot_naming_comment": "前三阶段里「席位」怎么点名（它没有泰坦职位）。三档可选：`ordinal` = 第 N 号原动力（N 取 `loci.order`，最中性）；`stem` = 因子 <词根>（词根就是机器编号那套 `phonology.machine_stems`，按位次取模分配给十二位 —— 不新增专名、不动 loci）；`both` = 两个都写。",
+  "sim_slot_naming": "both",
+
+  "events": {
+    "OP_SOLVE_ENTROPY": "熵减算子",
+    "OP_SOLVE_DESTRUCTION": "毁灭算子",
+    "OP_MEMORY_INHERIT": "记忆继承机制",
+    "OP_BIFURCATE": "分化机制",
+    "OP_ANNEX": "嵌合协议",
+    "OP_ACTIVE_RENEWAL": "主动更替",
+    "OP_PROMOTION": "再创世机制",
+    "OP_MEMORY_CONVERGE": "记忆收敛算子",
+    "FIRST_DESTRUCTION_MARK": "首次毁灭行为",
+    "MASK_OBSERVER": "屏蔽观测",
+    "FREEZE_PRIVILEGE": "冻结权限",
+    "REVISE_PROTOCOL": "改写终极协议",
+    "WRITE_MEMORY": "收拢记忆",
+    "SUPPRESS_SLOT": "封印火种",
+    "OVERWRITE_OPERATOR": "覆写算子",
+    "PLEAD": "游说",
+    "BARTER": "交易",
+    "EVICT_HOLDER": "令其离席"
+  },
+
+  "_epochs_comment": "世界内五个时代（wiki：启蒙世 / 造物世 / 黄金世 / 纷争世 / 幻灭世）。**当前只有 `ERA_FADING`（幻灭世）被 config/calendar.json 的 eras 引用** —— 前四段尚无历法刻度（见 calendar.json 的 _open_item），其余键属【预留词汇】，供补齐历法时直接取用，不是死数据。",
+  "epochs": {
+    "ERA_ENLIGHTENMENT": "启蒙世",
+    "ERA_CREATION": "造物世",
+    "ERA_GOLDEN": "黄金世",
+    "ERA_STRIFE": "纷争世",
+    "ERA_FADING": "幻灭世"
+  },
+
+  "months": {
+    "MONTH_GATE": "门关月",
+    "MONTH_BALANCE": "平衡月",
+    "MONTH_LONGNIGHT": "长夜月",
+    "MONTH_TILLING": "耕耘月",
+    "MONTH_JOY": "欢喜月",
+    "MONTH_LONGDAY": "长昼月",
+    "MONTH_FREEDOM": "自由月",
+    "MONTH_HARVEST": "收获月",
+    "MONTH_THREAD": "拾线月",
+    "MONTH_STRIFE": "纷争月",
+    "MONTH_MOURNING": "哀悼月",
+    "MONTH_CHANCE": "机缘月"
+  },
+
+  "stop_reasons": {
+    "BUDGET": "帧预算走完仍未能判定",
+    "ITER_CAP": "撞上迭代上限（安全阀）",
+    "PRUNED": "被时间线剪枝提前停下（只用于种子检索）"
+  },
+
+  "stall": {
+    "begin": "{who}被留在了原地",
+    "tick": "第 {elapsed} 帧的等待，一切依旧 —— {who}仍背负着：{burden}",
+    "end": "原地重放 {length} 帧后终止",
+    "burden": "火种 {seeds}、{advance} {rounds} 次、陨落 {fell} 人、距上次{advance} {since_promotion} 帧",
+    "succession_rise": "{who}接掌「{locus}」之位{note}",
+    "succession_displaced": "，{who}退位",
+    "succession_fall": "「{locus}」失位，{who}被留在空缺上"
+  },
+
+  "deadlock": {
+    "why": "火种已齐（{seeds}），「{vacant}」那一席却无人接替，{promotion}始终差那一步",
+    "loop": "演算落入了未曾设想的状态 —— {why}",
+    "tick": "第 {cycle} 次轮回，{who}又挡下了一次升格 —— 已等待 {elapsed} 帧",
+    "vain": "{who}换了一种法子（{approach}）来试 —— 一切依旧",
+    "vain_first": "{who}尝试了一种法子（{approach}）来试 —— 一切依旧",
+    "routine": "{who}已守到第 {cycle} 次轮回：收拢、守着那处空缺，亲手了结新生的那一位，等当世的那一位来杀他、接下负担再开一轮",
+    "trace": "{who}终于挪动了一线 —— {approach}落在了世上",
+    "end": "外部的干预终于落到了那处空缺上（第 {cycle} 次轮回）"
+  },
+
+  "capabilities": {
+    "modify_operator": "改写算子",
+    "overwrite_operator": "覆写算子",
+    "overwrite_conclusion": "改写结论",
+    "mask_observer": "屏蔽观测",
+    "suppress_slot": "封印火种",
+    "release_slot": "解封火种",
+    "bind_locus": "锚定神位",
+    "write_memory": "收拢记忆",
+    "raise_noise": "黑潮上涌",
+    "plead": "游说",
+    "barter": "交易",
+    "evict_holder": "令其离席",
+    "parley": "交涉归还",
+    "bind_participant": "外部接掌",
+    "revise_protocol": "修订协议",
+    "gaze": "投下目光",
+    "interstice": "狭间",
+    "freeze_privilege": "冻结权限",
+    "emit": "登记事件"
+  },
+
+  "regions": {
+    "L00": "全世之座", "L01": "永夜之帷", "L02": "万径之门", "L03": "公正之秤",
+    "L04": "晨昏之眼", "L05": "磐岩之脊", "L06": "满溢之杯", "L07": "裂分之枝",
+    "L08": "黄金之茧", "L09": "翻飞之币", "L10": "天谴之矛", "L11": "灰黯之手"
+  },
+
+  "_cities_comment": "城邦（比 regions 更粗的一层，且【只填有考据的席位】）。regions 是泰坦的称号/圣所（与位一一对应，12 项）；cities 是城邦，一位一城、也可空缺。故本表允许只覆盖部分席位 —— 缺失项在报告与看板里显示「—」。改本表【不影响轨迹】（纯渲染）。",
+  "cities": {
+    "L00": "奥赫玛",
+    "L02": "雅努萨波利斯",
+    "L06": "斯缇科西亚",
+    "L07": "神悟树庭",
+    "L10": "悬锋城"
+  }
+}
