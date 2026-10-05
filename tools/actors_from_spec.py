@@ -16,9 +16,18 @@ import argparse
 import io
 import json
 import os
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SPEC = os.path.join(ROOT, "docs", "外部变量.json")
+
+# 打印中文前把 stdio 钉成 UTF-8（英文 Windows 默认 cp1252，打印会 UnicodeEncodeError）。
+# 与 engine/__init__.py 的同一处兜底一致；本脚本刻意不 import engine，故自带一份。
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError, OSError):
+        pass
 
 COMMENT = ("外部实体表：谁在操作这个世界、各自握有哪些修改权限。名字只在这里，"
            "引擎不认识它们 —— 引擎只认「已登记的实体」与「它的权限表」。"

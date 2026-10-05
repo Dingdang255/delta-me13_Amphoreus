@@ -20,6 +20,14 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOC = os.path.join(ROOT, "docs", "术语对照表.md")
 
+# 打印中文前把 stdio 钉成 UTF-8（英文 Windows 默认 cp1252，打印会 UnicodeEncodeError）。
+# 与 engine/__init__.py 的同一处兜底一致；本脚本刻意不 import engine，故自带一份。
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError, OSError):
+        pass
+
 
 def _load(*parts):
     with io.open(os.path.join(ROOT, *parts), encoding="utf-8") as f:

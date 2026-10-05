@@ -12,8 +12,17 @@
 from __future__ import annotations
 
 import os
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# 打印中文前把 stdio 钉成 UTF-8（英文 Windows 默认 cp1252，打印会 UnicodeEncodeError）。
+# 与 engine/__init__.py 的同一处兜底一致；本脚本刻意不 import engine，故自带一份。
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError, OSError):
+        pass
 
 # 只允许出现在 data/ 与 config/ 渲染层；engine/ 里一个字都不许有。
 FORBIDDEN = {
