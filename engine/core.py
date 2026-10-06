@@ -12,7 +12,6 @@ import numpy as np
 from . import ablation
 from .disturbance import CAPABILITIES, dispatch
 from .emergence import EmergenceRegistrar
-from .invariants import collect
 from .operators import OPERATORS
 from .scheduler import Scheduler
 from .state import DEATH_CAUSES, DEFAULT_SOLVER, State, mix, world_distance
@@ -146,7 +145,7 @@ def _vacant(st):
 def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
         trace: bool = True, start_state=None, start_frame: int = 0,
         namer=None, capture=None, iter_cap: int | None = None,
-        watch=None, on_event=None, rules=None) -> Trajectory:
+        watch=None, on_event=None, rules=None, runtime=None) -> Trajectory:
     """逐帧推进。
 
     start_state/start_frame：从第 k 帧的存档续跑（判据 4 帧截断复现）。
@@ -171,6 +170,10 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
            observe() 这个系统调用该干的事。
            不传 ⇒ 内核完全忽略 `when`；此时若真有条目带 when，会在启动时【报错】
            而不是静默忽略（静默会把"条件写错了"变成"这条永远不触发"，最难查）。
+    runtime：应用层交来的【服务实现束】（见 engine/services.py）—— 内核只按名调用，
+           **不 import 服务层**。其中的 `checks` 每帧收违例（调度器的控制输入）、
+           `probe` 跑消融探针、`judge` 决定停不停。与 namer / rules 同一手法。
+           **必须给**：缺了不是"行为略不同"，而是跑不了 —— 故不给就当场报错。
 
     终止条件：不是"跑够多少帧"，而是【命题能否裁决】（见 _decide）。
               被裁决则 traj.stop_reason ∈ {PROVED, REFUTED} 并停下；
@@ -185,6 +188,13 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
             f"世界里有 {len(pending)} 条带 when 的投递，但 run() 没收到 rules=。"
             "要么传 rules=engine.conditions.evaluate，要么把那些 when 去掉 ——"
             "内核不猜条件；静默忽略会把「条件写错」变成「这条永远不触发」。")
+    # 服务实现束：内核不 import 服务层，改由应用层交来（见 engine/services.py）。
+    # 它没有"合理默认" —— 少了违例读数，调度器的行为就变了，故必须显式给。
+    if runtime is None:
+        raise ValueError(
+            "run() 需要 runtime=（应用层交来的服务实现束）。"
+            "缺了它不是「行为略不同」而是跑不了 —— 违例是内核调度的控制输入。"
+            "用 engine.services.default() 即可。")
     if seed is None:
         seed = data.preset.get("seed")
         if seed is None:
@@ -675,8 +685,8 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
                 ablation.solve(st, ctx_run, seed,
                                data.stage_gates(si), data.stage_params(si))
 
-        # ③ 通用检查：遍历全称域，收集全部违例
-        violations = collect(cfg.invariant_names, st, ctx_run, n)
+        # ③ 通用检查：遍历全称域，收集全部违例（检查器由应用层交来，内核不认识它们）
+        violations = runtime.checks(st, ctx_run, n)
         for v in violations:
             traj.violation_counts[v.code] += 1
 

@@ -25,6 +25,7 @@ from _support import ROOT, load, temp_root_with_copy
 from engine.conditions import evaluate
 from engine.core import run
 from engine.loader import Config, DataSet
+from engine.services import default as default_services
 
 #: 跑到 12,001 帧：正好覆盖第一条升级（纷争那一席，第 12,000 帧）。
 FRAMES = 12001
@@ -128,7 +129,8 @@ class EvictionBites(unittest.TestCase):
                 f.write(json.dumps(record, ensure_ascii=False) + "\n")
             ctx = Config(root)
             data = DataSet(root, preset="t")
-            return run(ctx, data, seed=0, max_frames=frames, rules=evaluate)
+            return run(ctx, data, seed=0, max_frames=frames, rules=evaluate,
+                       runtime=default_services())
 
     def test_eviction_clears_the_seat_and_counts(self):
         traj = self._run_with({"frame": 300, "channel": "world",

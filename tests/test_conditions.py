@@ -5,6 +5,8 @@ import unittest
 
 from _support import ROOT      # noqa: F401  （挂 sys.path + 钉 BLAS 线程）
 
+from engine.services import default as default_services
+
 
 class ParsingAndEvaluating(unittest.TestCase):
     def test_three_kinds(self):
@@ -159,7 +161,8 @@ class ConditionReallyGatesDispatch(unittest.TestCase):
         rec["when"] = when
         data.conditioned = [r for r in data.disturbances if r.get("when")]
         traj = run(ctx, data, seed=0, max_frames=frames,
-                   namer=Namer(ctx, data.anchors), rules=evaluate)
+                   namer=Namer(ctx, data.anchors), rules=evaluate,
+                   runtime=default_services())
         return [f for f, k, p in traj.records
                 if k == "DISTURBANCE" and p.get("capability") == "gaze"]
 
@@ -184,7 +187,8 @@ class ConditionReallyGatesDispatch(unittest.TestCase):
         first["when"] = 'event("fuli_gaze")'          # 第 4000 帧那条才发出的事件
         data.conditioned = [first]
         traj = run(ctx, data, seed=0, max_frames=5000,
-                   namer=Namer(ctx, data.anchors), rules=evaluate)
+                   namer=Namer(ctx, data.anchors), rules=evaluate,
+                   runtime=default_services())
         gaze = [f for f, k, p in traj.records
                 if k == "DISTURBANCE" and p.get("capability") == "gaze"]
         self.assertEqual(len(gaze), 1)
@@ -201,7 +205,7 @@ class ConditionReallyGatesDispatch(unittest.TestCase):
         first["when"] = "frame >= 0"
         data.conditioned = [first]
         with self.assertRaises(ValueError):
-            run(ctx, data, seed=0, max_frames=8)
+            run(ctx, data, seed=0, max_frames=8, runtime=default_services())
 
     def test_obs_exposes_seats_caps_and_ledger(self):
         """扩出来的观测量**真的读得到** —— 任一名字缺失都会让求值抛错。"""
@@ -220,7 +224,8 @@ class ConditionReallyGatesDispatch(unittest.TestCase):
         data.conditioned = [first]
         # 跑 60 帧即可：条件每帧都会被求值一次（条目到 1200 帧才到期，故不会真触发）
         run(ctx, data, seed=0, max_frames=60,
-            namer=Namer(ctx, data.anchors), rules=evaluate)
+            namer=Namer(ctx, data.anchors), rules=evaluate,
+            runtime=default_services())
 
 
 if __name__ == "__main__":

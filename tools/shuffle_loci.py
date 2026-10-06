@@ -24,7 +24,7 @@ import sys
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _harness import load, summary, rules   # noqa: E402
+from _harness import load, summary, rules, services   # noqa: E402
 
 
 def relabelled(ctx, P):
@@ -45,7 +45,8 @@ def main():
 
     ctx0, data, _ = load()
     from engine.core import run
-    traj0 = run(ctx0, data, max_frames=args.frames, trace=False, rules=rules())
+    traj0 = run(ctx0, data, max_frames=args.frames, trace=False, rules=rules(),
+                runtime=services())
     base = summary(traj0, ctx0)
 
     print("基准（原始编号）：")
@@ -57,7 +58,8 @@ def main():
         ctx, _, _ = load()
         P = np.random.default_rng(1000 + s).permutation(len(ctx.loci))
         relabelled(ctx, P)
-        traj = run(ctx, data, max_frames=args.frames, trace=False, rules=rules())
+        traj = run(ctx, data, max_frames=args.frames, trace=False, rules=rules(),
+                   runtime=services())
         got = summary(traj, ctx)
         if got == base:
             print(f"✓ 重标定 #{s} P={list(P)}：可观测量完全一致")

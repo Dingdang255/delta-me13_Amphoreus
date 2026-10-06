@@ -22,6 +22,7 @@ from engine.conditions import evaluate
 from engine.core import _assemble, initial_state, run
 from engine.loader import Config, ConfigError, DataSet
 from engine.operators import Annex, Compete
+from engine.services import default as default_services
 
 
 def _rewrite_genesis(tmp, mutate):
@@ -181,7 +182,8 @@ class StageAssembly(unittest.TestCase):
         """跑起来：域推进后，该阶段的门真的被装上。"""
         ctx = Config(self.tmp)
         ctx.params["domain_dwell"] = 1
-        traj = run(ctx, self.data, seed=0, max_frames=400, rules=evaluate)
+        traj = run(ctx, self.data, seed=0, max_frames=400, rules=evaluate,
+                   runtime=default_services())
         self.assertGreaterEqual(traj.final.domain_index, 1,
                                 "帧预算内应当推进过至少一档变量域")
         self.assertIn("OP_MEMORY_INHERIT", traj.final.gates)
@@ -287,7 +289,8 @@ class StageParamsReachTheWorld(unittest.TestCase):
             data = DataSet(self.tmp, preset="emergent")
             ctx = Config(self.tmp)
             ctx.params["domain_dwell"] = 1
-            return run(ctx, data, seed=0, max_frames=120, rules=evaluate)
+            return run(ctx, data, seed=0, max_frames=120, rules=evaluate,
+                       runtime=default_services())
 
         empty = [{"on": []}, {"on": []}, {"on": []}, {"on": []}]
         plain = run_with(empty)

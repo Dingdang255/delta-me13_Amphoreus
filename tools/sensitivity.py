@@ -46,7 +46,7 @@ from engine.loader import Config, DataSet                   # noqa: E402
 from engine.render import Renderer                          # noqa: E402
 
 # 公共实现（分隔线 / 配色 / HTML 转义 / 数值解析 / 种子序列）统一在 `tools/_harness.py`。
-from _harness import BAR, PALETTE as _PALETTE, esc as _esc, rules  # noqa: E402
+from _harness import BAR, PALETTE as _PALETTE, esc as _esc, rules, services  # noqa: E402
 from _harness import fmt as _fmt, num as _num, resolve_seeds as _resolve_seeds_common  # noqa: E402
 
 #: 热力配色：按裁决【首次出现】的顺序分配，故同一份扫描总是同一套颜色（色表见
@@ -78,7 +78,7 @@ def run_cell(job):
     ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
     ctx.params[param] = value                    # 只在内存里改，config/ 一个字不动
     traj = run(ctx, data, seed=int(seed), max_frames=frames, iter_cap=iter_cap,
-               rules=rules())
+               rules=rules(), runtime=services())
     verdict = traj.verdict
     frame = traj.verdict_frame if traj.verdict_frame is not None else traj.reached_frame
     return {

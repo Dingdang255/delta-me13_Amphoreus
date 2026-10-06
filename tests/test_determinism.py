@@ -14,6 +14,7 @@ import numpy as np
 from _support import ROOT, load
 
 from engine.namer import Namer
+from engine.services import default as default_services
 
 
 class Determinism(unittest.TestCase):
@@ -33,13 +34,16 @@ class Determinism(unittest.TestCase):
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
-        full = run(ctx, data, seed=0, max_frames=600, rules=evaluate)
+        full = run(ctx, data, seed=0, max_frames=600, rules=evaluate,
+                   runtime=default_services())
 
         data2 = DataSet(ROOT, preset="plot")
         ctx2 = Config(ROOT, lex_overlay=data2.preset.get("lexicon"))
-        head = run(ctx2, data2, seed=0, max_frames=300, rules=evaluate)
+        head = run(ctx2, data2, seed=0, max_frames=300, rules=evaluate,
+                   runtime=default_services())
         tail = run(ctx2, data2, seed=0, max_frames=600,
-                   start_state=head.final, start_frame=300, rules=evaluate)
+                   start_state=head.final, start_frame=300, rules=evaluate,
+                   runtime=default_services())
 
         self.assertEqual(full.reached_frame, tail.reached_frame)
         self.assertEqual(full.final.digest(), tail.final.digest())
@@ -72,14 +76,17 @@ class ResumeInsideDeadlock(unittest.TestCase):
         from engine.core import run
 
         c1, d1 = self._load()
-        full = run(c1, d1, seed=0, max_frames=self.N, rules=evaluate)
+        full = run(c1, d1, seed=0, max_frames=self.N, rules=evaluate,
+                   runtime=default_services())
 
         c2, d2 = self._load()
-        head = run(c2, d2, seed=0, max_frames=self.K, rules=evaluate)
+        head = run(c2, d2, seed=0, max_frames=self.K, rules=evaluate,
+                   runtime=default_services())
 
         c3, d3 = self._load()
         tail = run(c3, d3, seed=0, max_frames=self.N,
-                   start_state=head.final, start_frame=self.K, rules=evaluate)
+                   start_state=head.final, start_frame=self.K, rules=evaluate,
+                   runtime=default_services())
 
         self.assertTrue(full.deadlock,
                         "存档点该落在死循环区间内，否则这条测试没覆盖目标路径")
@@ -108,13 +115,15 @@ class RelabellingInvariance(unittest.TestCase):
         from _harness import load as hload, summary             # noqa: E402
 
         ctx0, data, _ = hload(fast=100)
-        base = summary(run(ctx0, data, max_frames=3000, rules=evaluate), ctx0)
+        base = summary(run(ctx0, data, max_frames=3000, rules=evaluate,
+                           runtime=default_services()), ctx0)
 
         for s in (1, 2):
             ctx, _, _ = hload(fast=100)
             P = np.random.default_rng(1000 + s).permutation(len(ctx.loci))
             shuffle_loci.relabelled(ctx, P)
-            got = summary(run(ctx, data, max_frames=3000, rules=evaluate), ctx)
+            got = summary(run(ctx, data, max_frames=3000, rules=evaluate,
+                              runtime=default_services()), ctx)
             self.assertEqual(got, base, f"重标定 #{s} 后可观测量变了")
 
 
@@ -135,8 +144,10 @@ class NamingOrthogonality(unittest.TestCase):
         namer_b = Namer(ctx, data.anchors)
         self.assertNotEqual(namer_a.style, namer_b.style)   # 风格确实不同
 
-        a = run(ctx, data, seed=0, max_frames=600, namer=namer_a, rules=evaluate)
-        b = run(ctx, data, seed=0, max_frames=600, namer=namer_b, rules=evaluate)
+        a = run(ctx, data, seed=0, max_frames=600, namer=namer_a, rules=evaluate,
+                runtime=default_services())
+        b = run(ctx, data, seed=0, max_frames=600, namer=namer_b, rules=evaluate,
+                runtime=default_services())
 
         self.assertEqual(a.reached_frame, b.reached_frame)
         self.assertEqual(a.final.digest(), b.final.digest())
@@ -161,7 +172,7 @@ class NamingOrthogonality(unittest.TestCase):
                 ctx.seed = style_seed
                 namer = Namer(ctx, data.anchors)
                 traj = run(ctx, data, seed=0, max_frames=800, namer=namer,
-                           rules=evaluate)
+                           rules=evaluate, runtime=default_services())
                 seen.append((style_seed, bool(ov), traj.verdict,
                              traj.reached_frame, traj.final.digest()))
         self.assertEqual(len({s[4] for s in seen}), 1, seen)

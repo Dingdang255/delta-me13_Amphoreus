@@ -22,7 +22,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _harness import BAR, ROOT                       # noqa: E402
+from _harness import BAR, ROOT, services               # noqa: E402
 
 from engine.core import run                          # noqa: E402
 from engine.loader import Config, DataSet            # noqa: E402
@@ -45,7 +45,8 @@ def run_once(preset, frames, seed, conditional):
         kw["rules"] = evaluate
         print(f"  双轨：{len(data.conditioned)} 条投递改成退化条件"
               f"（when: frame >= <声明帧>）")
-    traj = run(ctx, data, seed=seed, max_frames=frames, namer=namer, **kw)
+    traj = run(ctx, data, seed=seed, max_frames=frames, namer=namer,
+               runtime=services(), **kw)
     return traj
 
 

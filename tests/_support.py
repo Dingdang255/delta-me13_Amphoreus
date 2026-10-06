@@ -41,12 +41,14 @@ def load(preset="plot", frames=DEFAULT_FRAMES, seed=0, **kw):
     from engine.core import run
     from engine.loader import Config, DataSet
     from engine.namer import Namer
+    from engine.services import default as default_services
 
     data = DataSet(ROOT, preset=preset)
     ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
     namer = kw.get("namer") or Namer(ctx, data.anchors)
     kw["namer"] = namer
     kw.setdefault("rules", evaluate)        # 条件谓词（服务层）—— 预设不写 when 时不起作用
+    kw.setdefault("runtime", default_services())   # 服务实现束：内核只按名调用
     traj = run(ctx, data, seed=seed, max_frames=frames, **kw)
     namer.bind_machines(traj.personas)      # 机器编号按登记次序一次发齐
     return ctx, data, traj

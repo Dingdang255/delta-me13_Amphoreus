@@ -14,7 +14,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _harness import load, capture, rules               # noqa: E402
+from _harness import load, capture, rules, services    # noqa: E402
 
 from engine.core import run                          # noqa: E402
 
@@ -32,7 +32,8 @@ def main():
     _, cap_full = capture(ctx, data, N)
 
     ctx_k, _, _ = load(fast=args.fast)
-    traj_k = run(ctx_k, data, max_frames=k, trace=False, rules=rules())
+    traj_k = run(ctx_k, data, max_frames=k, trace=False, rules=rules(),
+                 runtime=services())
     st_k = copy.deepcopy(traj_k.final)                # 第 k 帧的存档
 
     ctx_r, _, _ = load(fast=args.fast)

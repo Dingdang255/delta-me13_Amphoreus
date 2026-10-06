@@ -31,7 +31,7 @@ import tempfile
 import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _harness import BAR, ROOT, jsonl, rules                # noqa: E402
+from _harness import BAR, ROOT, jsonl, rules, services      # noqa: E402
 
 from engine.core import run                                 # noqa: E402
 from engine.loader import Config, DataSet                    # noqa: E402
@@ -106,7 +106,8 @@ def measure(root, preset, seed=None, frames=None):
     """跑一个预设，返回它的读数（只读）。"""
     ctx = Config(root)
     data = DataSet(root, preset=preset)
-    traj = run(ctx, data, seed=seed, max_frames=frames, rules=rules())
+    traj = run(ctx, data, seed=seed, max_frames=frames, rules=rules(),
+               runtime=services())
     return {
         "preset": preset,
         "promotions": int(traj.final.promotions),

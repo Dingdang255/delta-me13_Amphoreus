@@ -38,7 +38,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _harness import BAR, load, rules                       # noqa: E402
+from _harness import BAR, load, rules, services             # noqa: E402
 
 from engine.core import run                                 # noqa: E402
 from engine.namer import Namer                              # noqa: E402
@@ -218,7 +218,8 @@ def survey_run(ctx, data, seed=None, frames=None):
     """跑一次并返回 (survey, traj)。"""
     sv = TideSurvey()
     traj = run(ctx, data, seed=seed, max_frames=frames,
-               namer=Namer(ctx, data.anchors), watch=sv, rules=rules())
+               namer=Namer(ctx, data.anchors), watch=sv, rules=rules(),
+               runtime=services())
     return sv, traj
 
 

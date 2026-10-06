@@ -14,7 +14,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _harness import ROOT, load, rules   # noqa: E402
+from _harness import ROOT, load, rules, services   # noqa: E402
 
 DATA = os.path.join(ROOT, "data")
 WROTE = []
@@ -56,7 +56,8 @@ def main():
 
     from engine.core import run
     ctx, data, _ = load()
-    traj = run(ctx, data, max_frames=args.frames, trace=False, rules=rules())
+    traj = run(ctx, data, max_frames=args.frames, trace=False, rules=rules(),
+               runtime=services())
     after = fingerprint()
 
     changed = [k for k in set(before) | set(after) if before.get(k) != after.get(k)]

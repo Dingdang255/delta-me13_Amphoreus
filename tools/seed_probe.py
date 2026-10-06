@@ -59,7 +59,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-from _harness import load, num as _num, resolve_seeds, rules  # noqa: E402
+from _harness import load, num as _num, resolve_seeds, rules, services  # noqa: E402
 
 from engine.core import run                                # noqa: E402
 from engine.features import DEFAULT_COLS, extract          # noqa: E402
@@ -147,7 +147,7 @@ def _worker(job):
     # 剪枝：只让明显不合的轨道提前停下（不改任何状态），被剪掉的种子直接判否。
     watch = make_watch(data.timeline_nodes) if prune else None
     traj = run(ctx, data, seed=seed, max_frames=frames, trace=True,
-               iter_cap=iter_cap, watch=watch, rules=rules())
+               iter_cap=iter_cap, watch=watch, rules=rules(), runtime=services())
     f = extract(traj, ctx)
     f["_pruned"] = traj.stop_reason == "PRUNED"
     if f["_pruned"]:
@@ -345,7 +345,7 @@ def main():
 def _probe_feature_names():
     ctx, data, _ = load()
     traj = run(ctx, data, seed=int(data.genesis.get("seed", 0)), max_frames=1,
-               trace=True, rules=rules())
+               trace=True, rules=rules(), runtime=services())
     return list(extract(traj, ctx).keys())
 
 

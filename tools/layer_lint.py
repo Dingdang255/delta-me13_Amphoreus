@@ -40,7 +40,7 @@ KERNEL = ["core.py", "disturbance.py", "emergence.py", "loader.py",
           "vocabulary.py"]
 # 服务：有人在"向世界提问"（裁决 / 消融 / 断言 / 不变量 / 特征 / 时间线核对）。
 SERVICE = ["ablation.py", "assertions.py", "conditions.py", "features.py",
-           "invariants.py", "timeline.py", "verdicts.py"]
+           "invariants.py", "services.py", "timeline.py", "verdicts.py"]
 # 界面：命名 / 渲染 / 看板。只读，不参与演算。
 PRESENTATION = ["live.py", "namer.py", "render.py", "viz.py"]
 
@@ -48,12 +48,11 @@ LAYERS = {"kernel": KERNEL, "service": SERVICE, "presentation": PRESENTATION}
 ORDER = {"kernel": 0, "service": 1, "presentation": 2}
 
 # ---- 已存在的越界：P0 冻结基线（棘轮，只许减不许增）---------------------------
-# 2026-10-05 首次扫描得 6 条；P1 清掉 emergence→namer（1 条）；
-# P4 第一刀把"名字注册表"下沉为内核侧的 vocabulary.py，又清掉 loader 的 2 条。
-# 剩下 3 条都属于"内核在控制流里调服务"，要等 P4 的控制流倒置才动得了。
+# 2026-10-05 首次扫描得 6 条；P1 清掉 emergence→namer；P4-0 把名字注册表下沉为内核侧的
+# vocabulary.py，清掉 loader 的 2 条；P4-S1 把不变量检查倒置成 runtime.checks，清掉 1 条。
+# 剩下 2 条要等 S2（消融探针）/ S3（裁决）倒置。
 BASELINE = {
     ("core.py", "ablation.py"),
-    ("core.py", "invariants.py"),
     ("core.py", "verdicts.py"),
 }
 

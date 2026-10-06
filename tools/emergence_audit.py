@@ -14,7 +14,7 @@ import sys
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _harness import load, rules   # noqa: E402
+from _harness import load, rules, services   # noqa: E402
 
 from engine.render import Renderer   # noqa: E402
 
@@ -29,7 +29,7 @@ def main():
     from engine.namer import Namer
     ctx, data, _ = load()
     traj = run(ctx, data, seed=args.seed, max_frames=args.frames, trace=False,
-               namer=Namer(ctx, data.anchors), rules=rules())
+               namer=Namer(ctx, data.anchors), rules=rules(), runtime=services())
     R = Renderer(ctx)
 
     print(f"命题 {data.genesis['proposition']['id']}  帧预算 {args.frames:,}  "

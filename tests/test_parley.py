@@ -21,6 +21,7 @@ from _support import ROOT, state
 from engine.disturbance import CAPABILITIES, dispatch
 from engine.loader import Config
 from engine.render import Renderer
+from engine.services import default as default_services
 
 #: 实测：plot 在位者的 slot.value 分位（见设计稿 2.4）
 V_P25, V_MED, V_P75 = 0.3053, 0.3188, 0.3314
@@ -219,9 +220,11 @@ class ConfigIsNotMutated(unittest.TestCase):
             ctx = Config(root)
             data = DataSet(root, preset="t")
             before = [float(l.capacity) for l in ctx.loci]
-            first = run(ctx, data, seed=0, max_frames=400, rules=evaluate)
+            first = run(ctx, data, seed=0, max_frames=400, rules=evaluate,
+                        runtime=default_services())
             after = [float(l.capacity) for l in ctx.loci]
-            second = run(ctx, data, seed=0, max_frames=400, rules=evaluate)
+            second = run(ctx, data, seed=0, max_frames=400, rules=evaluate,
+                         runtime=default_services())
             return first, second, before, after
 
     def test_config_loci_survive_the_run(self):

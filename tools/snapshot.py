@@ -40,6 +40,7 @@ sys.path.insert(0, ROOT)
 from engine.conditions import evaluate           # noqa: E402
 from engine.core import run                      # noqa: E402
 from engine.loader import Config, DataSet        # noqa: E402
+from engine.services import default as default_services  # noqa: E402
 
 GOLDEN = os.path.join(ROOT, "tests", "golden_fingerprints.json")
 
@@ -125,6 +126,7 @@ def fingerprint(preset, seed, frames):
     data = DataSet(ROOT, preset=preset)
     ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
     traj = run(ctx, data, seed=int(seed), rules=evaluate,
+               runtime=default_services(),
                max_frames=None if frames is None else int(frames))
     st = traj.final
     return {

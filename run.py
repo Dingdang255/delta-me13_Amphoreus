@@ -32,6 +32,7 @@ from engine.assertions import AssertionRunner  # noqa: E402
 from engine.core import run  # noqa: E402
 from engine.conditions import evaluate as eval_condition  # noqa: E402
 from engine.namer import Namer  # noqa: E402
+from engine.services import default as default_services  # noqa: E402
 from engine.features import extract  # noqa: E402
 from engine.loader import Config, DataSet, ROOT, apply_fast  # noqa: E402
 from engine.operators import MEMORY_OWNER, consensus  # noqa: E402
@@ -976,7 +977,7 @@ def main():
     # 预设里没写 when 时，内核那边一个条件都不会挂 ⇒ 与不传它逐位相同。
     namer = Namer(ctx, data.anchors)
     traj = run(ctx, data, seed=seed, max_frames=args.frames, namer=namer,
-               rules=eval_condition,
+               rules=eval_condition, runtime=default_services(),
                on_event=(stream.on_event if stream else None),
                watch=watch)
     # 机器编号按【登记次序】一次发齐 —— 发号会推进计数器，晚发 / 漏发都会串号。

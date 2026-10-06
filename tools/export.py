@@ -189,9 +189,10 @@ import sys
 from engine.loader import Config, DataSet
 from engine.core import run
 from engine.conditions import evaluate
+from engine.services import default as default_services
 data = DataSet('.', preset='plot')
 cfg = Config('.')
-traj = run(cfg, data, max_frames=128, rules=evaluate)
+traj = run(cfg, data, max_frames=128, rules=evaluate, runtime=default_services())
 print('SMOKE_OK', len(cfg.loci), traj.verdict)
 """
 
