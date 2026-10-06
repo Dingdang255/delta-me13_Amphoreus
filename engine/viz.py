@@ -227,7 +227,7 @@ def _resolve(traj, names, serial):
 
 def _machine_map(traj):
     """编号 → 机器编号（`词干+序号`）。只有登记过的个体才有 —— 不硬造。"""
-    return {int(p.serial): str(p.machine_name) for p in traj.personas}
+    return {int(p.serial): traj.namer.machine_name_of(p) for p in traj.personas}
 
 
 def _machine_of(traj, machines, serial):

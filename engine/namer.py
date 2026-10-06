@@ -13,6 +13,7 @@ from __future__ import annotations
 import hashlib
 import re
 from collections import Counter
+from types import SimpleNamespace
 
 import numpy as np
 
@@ -54,6 +55,9 @@ class Namer:
             if hit:
                 self._reserved.setdefault(hit[0], set()).add(hit[1])
         self._seq = {}           # 每个词干发到几号了 —— 按因子各自一条序列
+        # 已经发出去的号，按个体记忆：`machine_name()` 会推进上面那条序列，故
+        # **同一个体只能发一次**。键 =(指纹, 编号, 涌现次序, 因子位次) —— 四项一齐才唯一。
+        self._machines = {}
         # 「外部变量」标记（预设 anchors 里的 `external: true`）：这几位不是从池子里长出来的
         # 电信号序列，故不领机器编号 —— 看板席位卡悬浮报「?」。
         self.external = set()
@@ -309,6 +313,56 @@ class Namer:
         key = "persona:" + fp
         syls = self.syllables(key, style_order)
         return self.latin(syls), self.hanzi(syls, key)
+
+    def _machine_for(self, fp: bytes, serial: int, rank: int, order) -> str:
+        """机器编号 —— **按个体记忆**，同一个体只发一次号。
+
+        `machine_name()` 会推进「按因子各自一条序列」的计数器，同一个体被问两次就会
+        领到两个号（实测：先问得 `Polla1`、再问得 `Polla2`）。故这里必须记忆。
+        """
+        key = (bytes(fp), int(serial), int(rank), order)
+        got = self._machines.get(key)
+        if got is None:
+            got = self.machine_name(fp, int(serial), int(rank), order=order)
+            self._machines[key] = got
+        return got
+
+    def bind_machines(self, personas) -> None:
+        """按【登记次序】给一批个体各钉一个机器编号 —— 幂等。
+
+        发号随次序推进，故**必须按登记次序、且每个个体只发一次**。把「什么时候发号」
+        从渲染时刻提前到「拿到轨迹的那一刻」，同一批个体领到的号就与迁移前逐字相同。
+        """
+        for p in personas:
+            self.machine_name_of(p)
+
+    def machine_name_of(self, persona) -> str:
+        """给一个【内核侧】的个体现取机器名。
+
+        内核的 `Persona` 不再持有名字（那是表现层的东西），故名字在这里按需取 ——
+        输入与迁移前逐项相同（同样的 fingerprint / serial / rank / locus_order），
+        且按个体记忆，多次读取不会重新发号。
+        """
+        return self._machine_for(
+            persona.fingerprint, getattr(persona, "serial", -1),
+            getattr(persona, "rank", -1), getattr(persona, "locus_order", None))
+
+    def named_payload(self, payload) -> dict:
+        """把内核发来的 EMERGENCE 数字载荷补成可渲染的词。
+
+        内核只发 `{serial, rank, fingerprint, locus?, locus_order?}`；词汇全在这一层补。
+        """
+        fp = bytes.fromhex(str(payload["fingerprint"]))
+        serial = int(payload.get("serial", -1))
+        rank = int(payload.get("rank", -1))
+        order = payload.get("locus_order")
+        shim = SimpleNamespace(fingerprint=fp, serial=serial, rank=rank,
+                               locus_order=order)
+        latin, hanzi = self.persona_name(shim)
+        out = dict(payload)
+        out["latin"], out["hanzi"] = latin, hanzi
+        out["machine"] = self._machine_for(fp, serial, rank, order)
+        return out
 
     def export_anchors(self, personas):
         out = []

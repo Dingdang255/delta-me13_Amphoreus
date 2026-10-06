@@ -124,8 +124,10 @@ def seat_spans(ctx, data, seed=None, frames=None):
         if kind == "PROMOTION":
             prom[0] = frame
 
-    traj = run(ctx, data, seed=seed, max_frames=frames,
+    namer = _default_namer(ctx, data)
+    traj = run(ctx, data, seed=seed, max_frames=frames, namer=namer,
                on_event=on_event, watch=watch)
+    namer.bind_machines(traj.personas)      # 机器编号按登记次序一次发齐
     return spans, prom[0], traj
 
 
@@ -148,12 +150,20 @@ def summary(traj, ctx) -> dict:
     }
 
 
+def _default_namer(ctx, data):
+    """工具侧的默认命名器（表现层物件）—— 内核只把它当不透明句柄携带。"""
+    from engine.namer import Namer
+    return Namer(ctx, data.anchors)
+
+
 def capture(ctx, data, frames, namer=None, start_state=None, start_frame=0):
     """跑一次并返回 (traj, [(frame, digest), ...])，用于逐迭代 diff。"""
     cap = []
+    namer = namer if namer is not None else _default_namer(ctx, data)
     traj = run(ctx, data, max_frames=frames, trace=False,
                namer=namer, capture=cap,
                start_state=start_state, start_frame=start_frame)
+    namer.bind_machines(traj.personas)      # 机器编号按登记次序一次发齐
     return traj, cap
 
 

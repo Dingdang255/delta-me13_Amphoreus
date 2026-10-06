@@ -30,6 +30,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from engine.assertions import AssertionRunner  # noqa: E402
 from engine.core import run  # noqa: E402
+from engine.namer import Namer  # noqa: E402
 from engine.features import extract  # noqa: E402
 from engine.loader import Config, DataSet, ROOT, apply_fast  # noqa: E402
 from engine.operators import MEMORY_OWNER, consensus  # noqa: E402
@@ -324,6 +325,7 @@ def chronicle_line(R, namer, kind, payload, cast=None, lv=3, advance_label=None,
         return T("converged").format(converged=W("converged"), memory=W("memory"),
                                      promotion=W("promotion"))
     if kind == "EMERGENCE":
+        payload = namer.named_payload(payload)   # 内核只发编号，词汇在这一层补
         lid = payload.get("locus")
         seat = (T("seat_taken").format(seat=R.seat(namer, frame, lid))
                 if lid else T("seat_none"))
@@ -757,7 +759,7 @@ def report(ctx, data, traj, results, explore=False):
             if show_city:
                 row += f"{city:<14}"
             out.append(row + f"{hanzi:<12}{latin:<14}"
-                       f"{per.machine_name:<14}{fmt(per.surfaced_frame):>8}  {caps}")
+                       f"{traj.namer.machine_name_of(per):<14}{fmt(per.surfaced_frame):>8}  {caps}")
         if len(traj.personas) > 40:
             out.append(f"  …… 共 {len(traj.personas)} 位")
     out.append("")
@@ -968,9 +970,13 @@ def main():
     if board is not None:
         watch = make_watch(board, sampler)
 
-    traj = run(ctx, data, seed=seed, max_frames=args.frames,
+    # 命名器由【应用层】自己造 —— 内核只把它当不透明句柄携带（见 engine/core.py::run）。
+    namer = Namer(ctx, data.anchors)
+    traj = run(ctx, data, seed=seed, max_frames=args.frames, namer=namer,
                on_event=(stream.on_event if stream else None),
                watch=watch)
+    # 机器编号按【登记次序】一次发齐 —— 发号会推进计数器，晚发 / 漏发都会串号。
+    namer.bind_machines(traj.personas)
 
     if board is not None:
         board.finish(traj, summary_cards(ctx, traj, data.genesis),
@@ -1027,7 +1033,7 @@ def main():
             "conclusion": traj.conclusion["id"],
             "progress": {l.id: round(float(f.progress), 4)
                          for l, f in zip(ctx.loci, traj.final.loci)},
-            "personas": [{"machine": p.machine_name,
+            "personas": [{"machine": traj.namer.machine_name_of(p),
                           "name": list(traj.namer.persona_name(p)),
                           "locus_order": p.locus_order,
                           "surfaced": p.surfaced_frame} for p in traj.personas],

@@ -29,6 +29,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import BAR, fmt, load                          # noqa: E402
 
 from engine.core import run                                  # noqa: E402
+from engine.namer import Namer                               # noqa: E402
 from engine.render import renderer_for                       # noqa: E402
 
 #: 遗迹标记的显示名。条件写在 `marks_of`，这里只管怎么讲 —— 都是通用词，不含专名。
@@ -173,7 +174,8 @@ def marks_of(arch, reach, churn_min=8, endure_frac=0.5):
 def survey(ctx, data, seed=None, frames=None):
     """跑一次并返回 (survey, traj)。survey 已 finalize 到 `traj.reached_frame`。"""
     sv = RuinSurvey([l.id for l in ctx.loci])
-    traj = run(ctx, data, seed=seed, max_frames=frames, watch=sv)
+    traj = run(ctx, data, seed=seed, max_frames=frames,
+               namer=Namer(ctx, data.anchors), watch=sv)
     sv.observe_final(traj).finalize(traj.reached_frame)
     return sv, traj
 

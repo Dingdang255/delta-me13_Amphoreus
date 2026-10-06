@@ -150,7 +150,9 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
     """逐帧推进。
 
     start_state/start_frame：从第 k 帧的存档续跑（判据 4 帧截断复现）。
-    namer：替换命名器（判据 5 命名正交性）——它只影响渲染，不改轨迹。
+    namer：命名器的【不透明句柄】—— 内核从不使用它，只是原样挂到 traj 上，
+           供表现层（报告 / 看板 / 断言）取用。故“换命名器不改轨迹”不再是需要
+           证明的性质，而是构造成立的事实：内核既不 import 命名，也不调用它。
     capture：可选的逐迭代摘要收集器，用于跨运行 diff。
     iter_cap：迭代次数上限（安全阀）。仅用于检索大量种子时封顶开销；
               未到上限时它对演算结果没有任何影响。触顶则 traj.truncated=True。
@@ -211,9 +213,11 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
     ctx_run = StageCtx(cfg)
     ops = [OPERATORS[n]() for n in cfg.pipeline]
     scheduler = Scheduler()
-    registrar = EmergenceRegistrar(ctx_run, data.anchors, namer=namer)
+    registrar = EmergenceRegistrar(ctx_run)
     traj = Trajectory()
-    traj.namer = registrar.namer
+    # namer 只是【不透明句柄】：内核原样挂在 traj 上，既不构造它、也不调用它的
+    # 任何方法、更不知道它是什么类型。命名归表现层（engine/namer.py）负责。
+    traj.namer = namer
 
     st = initial_state(ctx_run, data, seed) if start_state is None else start_state
     ctx_run.rebind(data.stage_params(_stage_index(st, data)))
@@ -577,7 +581,7 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
 
         # ④ 涌现登记：遍历全体个体（只写 Telemetry）
         for per in registrar.scan(st, n):
-            emit(n, "EMERGENCE", registrar.display(per))
+            emit(n, "EMERGENCE", registrar.describe(per))
 
         # ⑤ 调度：推进 / 终止 / 恢复，策略位置无关
         action = scheduler.decide(st, violations, ctx_run, n, snapshot)

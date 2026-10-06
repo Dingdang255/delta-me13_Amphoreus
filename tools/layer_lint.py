@@ -63,7 +63,6 @@ BASELINE = {
     ("core.py", "verdicts.py"),
     ("loader.py", "verdicts.py"),
     ("loader.py", "assertions.py"),
-    ("emergence.py", "namer.py"),
 }
 
 _FROM_MOD = re.compile(r"^\s*from\s+\.(\w+)\s+import\b")

@@ -13,8 +13,6 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from .namer import Namer
-
 
 @dataclass(frozen=True)
 class Persona:
@@ -25,7 +23,6 @@ class Persona:
     locus_order: int | None
     capabilities: frozenset
     fingerprint: bytes
-    machine_name: str
     vector: tuple
     rank: int = -1          # 第几个被登记（0 起）；用作锚定层的稳定键
 
@@ -41,9 +38,8 @@ def fingerprint(vec, locus_order: int, serial: int, seed: int) -> bytes:
 class EmergenceRegistrar:
     """遍历全部个体，登记所有「本世逐火承位」或「满足四条全称判据」者。不点名。"""
 
-    def __init__(self, ctx, anchors=None, namer=None):
+    def __init__(self, ctx):
         self.ctx = ctx
-        self.namer = namer if namer is not None else Namer(ctx, anchors)
         self.registered = {}
         self.personas = []
 
@@ -135,8 +131,6 @@ class EmergenceRegistrar:
                 locus_order=order,
                 capabilities=caps,
                 fingerprint=fp,
-                machine_name=self.namer.machine_name(fp, serial, rank,
-                                                     order=order),
                 vector=tuple(float(x) for x in st.pool.vec[k]),
                 rank=rank,
             )
@@ -146,12 +140,15 @@ class EmergenceRegistrar:
         return fresh
 
     # ---- 输出 --------------------------------------------------------
-    def display(self, persona):
-        latin, hanzi = self.namer.persona_name(persona)
-        # rank = 第几个被登记（0 起）。它只是序号，不含任何专有名词；
-        # 渲染层用它作为锚定键（emerge:N），例如把首选涌现者绑给某个名字。
-        out = {"latin": latin, "hanzi": hanzi, "machine": persona.machine_name,
-               "rank": int(persona.rank), "serial": int(persona.serial)}
+    def describe(self, persona) -> dict:
+        """内核视角的「这个人是谁」：**只有编号，没有任何名字**。
+
+        名字由表现层拿这份载荷去查（`Namer.named_payload`）。内核既不认识命名，
+        也不知道 `rank` 会被渲染层当作锚定键（`emerge:N`）来用。
+        """
+        out = {"serial": int(persona.serial), "rank": int(persona.rank),
+               "fingerprint": persona.fingerprint.hex()}
         if persona.locus_order is not None:
             out["locus"] = self.ctx.loci[persona.locus_order].id
+            out["locus_order"] = int(persona.locus_order)
         return out

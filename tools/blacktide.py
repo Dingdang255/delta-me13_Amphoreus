@@ -41,6 +41,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import BAR, load                              # noqa: E402
 
 from engine.core import run                                 # noqa: E402
+from engine.namer import Namer                              # noqa: E402
 from engine.render import renderer_for                      # noqa: E402
 
 #: 基线最远可离窗口多少倍 —— 超出即视为「采样过稀、测不准」，跳过而不是硬算。
@@ -216,7 +217,8 @@ def merge(hits, gap: int):
 def survey_run(ctx, data, seed=None, frames=None):
     """跑一次并返回 (survey, traj)。"""
     sv = TideSurvey()
-    traj = run(ctx, data, seed=seed, max_frames=frames, watch=sv)
+    traj = run(ctx, data, seed=seed, max_frames=frames,
+               namer=Namer(ctx, data.anchors), watch=sv)
     return sv, traj
 
 

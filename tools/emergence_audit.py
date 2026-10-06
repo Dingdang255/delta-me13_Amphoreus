@@ -26,8 +26,10 @@ def main():
     args = ap.parse_args()
 
     from engine.core import run
+    from engine.namer import Namer
     ctx, data, _ = load()
-    traj = run(ctx, data, seed=args.seed, max_frames=args.frames, trace=False)
+    traj = run(ctx, data, seed=args.seed, max_frames=args.frames, trace=False,
+               namer=Namer(ctx, data.anchors))
     R = Renderer(ctx)
 
     print(f"命题 {data.genesis['proposition']['id']}  帧预算 {args.frames:,}  "

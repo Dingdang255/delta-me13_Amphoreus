@@ -174,8 +174,10 @@ class NamingOrthogonality(unittest.TestCase):
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
         ctx.seed = 0
         namer = Namer(ctx, data.anchors)
-        registrar = EmergenceRegistrar(ctx, data.anchors, namer=namer)
-        self.assertIs(registrar.namer, namer)
+        registrar = EmergenceRegistrar(ctx)
+        # 内核不认识命名：登记器上**根本没有** namer 这个属性。
+        # （这条边被 P1 消掉了 —— 换命名器不改轨迹，现在是构造成立的事实，不是待证明的性质。）
+        self.assertFalse(hasattr(registrar, "namer"))
         # 现取一条编号绑定，验证「按编号查名字」这条通路。
         entry = next(a for a in data.anchors
                      if str(a.get("key", "")).startswith("serial:") and a.get("hanzi"))

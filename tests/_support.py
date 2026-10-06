@@ -32,13 +32,21 @@ DEFAULT_FRAMES = 600
 
 
 def load(preset="plot", frames=DEFAULT_FRAMES, seed=0, **kw):
-    """装载配置与数据，并跑一小段。返回 (ctx, data, traj)。"""
+    """装载配置与数据，并跑一小段。返回 (ctx, data, traj)。
+
+    命名器在**测试侧**造好传进去：内核只把它当不透明句柄携带（不构造、不调用）。
+    不传的话 `traj.namer` 就是 None，凡是要用名字的断言都会炸。
+    """
     from engine.core import run
     from engine.loader import Config, DataSet
+    from engine.namer import Namer
 
     data = DataSet(ROOT, preset=preset)
     ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
+    namer = kw.get("namer") or Namer(ctx, data.anchors)
+    kw["namer"] = namer
     traj = run(ctx, data, seed=seed, max_frames=frames, **kw)
+    namer.bind_machines(traj.personas)      # 机器编号按登记次序一次发齐
     return ctx, data, traj
 
 
