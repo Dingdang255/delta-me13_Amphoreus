@@ -38,8 +38,8 @@ for _s in (sys.stdout, sys.stderr):
 KERNEL = ["core.py", "disturbance.py", "emergence.py", "loader.py",
           "operators.py", "scheduler.py", "selector.py", "state.py"]
 # 服务：有人在"向世界提问"（裁决 / 消融 / 断言 / 不变量 / 特征 / 时间线核对）。
-SERVICE = ["ablation.py", "assertions.py", "features.py", "invariants.py",
-           "timeline.py", "verdicts.py"]
+SERVICE = ["ablation.py", "assertions.py", "conditions.py", "features.py",
+           "invariants.py", "timeline.py", "verdicts.py"]
 # 界面：命名 / 渲染 / 看板。只读，不参与演算。
 PRESENTATION = ["live.py", "namer.py", "render.py", "viz.py"]
 
