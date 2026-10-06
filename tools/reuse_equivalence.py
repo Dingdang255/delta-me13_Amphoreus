@@ -19,7 +19,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _harness import load                                   # noqa: E402
+from _harness import load, rules                            # noqa: E402
 
 from engine.core import run                                 # noqa: E402
 
@@ -34,7 +34,7 @@ def sweep(reuse: bool, frames: int, fast: int = 0):
         seen[n] = st.world_signature()
         return True
 
-    traj = run(ctx, data, max_frames=frames, trace=False, watch=watch)
+    traj = run(ctx, data, max_frames=frames, trace=False, watch=watch, rules=rules())
     return seen, traj
 
 

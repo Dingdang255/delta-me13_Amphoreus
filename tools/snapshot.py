@@ -37,6 +37,7 @@ import numpy as np
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
+from engine.conditions import evaluate           # noqa: E402
 from engine.core import run                      # noqa: E402
 from engine.loader import Config, DataSet        # noqa: E402
 
@@ -123,7 +124,7 @@ def fingerprint(preset, seed, frames):
     """跑一次并压成指纹。只读 —— 不写回任何 data/ 文件。"""
     data = DataSet(ROOT, preset=preset)
     ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
-    traj = run(ctx, data, seed=int(seed),
+    traj = run(ctx, data, seed=int(seed), rules=evaluate,
                max_frames=None if frames is None else int(frames))
     st = traj.final
     return {

@@ -22,6 +22,7 @@ import unittest
 
 from _support import ROOT, load, temp_root_with_copy
 
+from engine.conditions import evaluate
 from engine.core import run
 from engine.loader import Config, DataSet
 
@@ -127,7 +128,7 @@ class EvictionBites(unittest.TestCase):
                 f.write(json.dumps(record, ensure_ascii=False) + "\n")
             ctx = Config(root)
             data = DataSet(root, preset="t")
-            return run(ctx, data, seed=0, max_frames=frames)
+            return run(ctx, data, seed=0, max_frames=frames, rules=evaluate)
 
     def test_eviction_clears_the_seat_and_counts(self):
         traj = self._run_with({"frame": 300, "channel": "world",

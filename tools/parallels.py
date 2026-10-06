@@ -23,7 +23,8 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import (BAR, load, ROOT, PALETTE as _PALETTE,  # noqa: E402
-                      esc as _esc, resolve_seeds as _resolve_seeds_common)
+                      esc as _esc, resolve_seeds as _resolve_seeds_common,
+                      rules)
 
 from engine.core import run                                # noqa: E402
 from engine.render import renderer_for                     # noqa: E402
@@ -56,7 +57,7 @@ def collect(preset, seed, frames=None, fast=0):
     sampler = Sampler(total)
     survey = excavation.RuinSurvey([l.id for l in ctx.loci])
     traj = run(ctx, data, seed=seed, max_frames=frames,
-               watch=_Watches(sampler, survey))
+               watch=_Watches(sampler, survey), rules=rules())
     survey.observe_final(traj).finalize(traj.reached_frame)
     R = renderer_for(ctx, traj)
     archives = survey.archives()

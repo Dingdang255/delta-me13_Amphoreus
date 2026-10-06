@@ -26,7 +26,7 @@ import sys
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _harness import BAR, fmt, load                          # noqa: E402
+from _harness import BAR, fmt, load, rules                   # noqa: E402
 
 from engine.core import run                                  # noqa: E402
 from engine.namer import Namer                               # noqa: E402
@@ -175,7 +175,7 @@ def survey(ctx, data, seed=None, frames=None):
     """跑一次并返回 (survey, traj)。survey 已 finalize 到 `traj.reached_frame`。"""
     sv = RuinSurvey([l.id for l in ctx.loci])
     traj = run(ctx, data, seed=seed, max_frames=frames,
-               namer=Namer(ctx, data.anchors), watch=sv)
+               namer=Namer(ctx, data.anchors), watch=sv, rules=rules())
     sv.observe_final(traj).finalize(traj.reached_frame)
     return sv, traj
 

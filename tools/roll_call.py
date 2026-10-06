@@ -22,7 +22,7 @@ import sys
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _harness import BAR, load                              # noqa: E402
+from _harness import BAR, load, rules                       # noqa: E402
 
 from engine.core import run                                 # noqa: E402
 from engine.render import renderer_for                      # noqa: E402
@@ -134,7 +134,7 @@ def main():
     args = ap.parse_args()
 
     ctx, data, _root = load(preset=args.preset, fast=args.fast)
-    traj = run(ctx, data, seed=args.seed, max_frames=args.frames)
+    traj = run(ctx, data, seed=args.seed, max_frames=args.frames, rules=rules())
     blob = collect(traj, ctx)
 
     print(build_report(ctx, data, traj, blob, top=args.top))

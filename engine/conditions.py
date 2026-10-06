@@ -14,13 +14,15 @@
   · **不碰世界** —— 能读到的量只能来自调用方传进来的观测快照 `obs`。
     故"预读未来"在构造上就做不到 —— 词法里根本没有「按下标取未来帧」这类形状，
     与红线 2（`tools/stepwise_lint.py`）是同一个口径。
-  · **读不到就报错** —— `obs` 里没有的名字一律抛 `ConditionError`，
+  · **读不到就报错** —— `obs` 里没有的**名字**一律抛 `ConditionError`，
     绝不静默当 False（静默会让"条件写错了"变成"这条永远不触发"，最难查的那种）。
+    唯一例外是 `event("X")`：**事件还没发生就是 False**（"等它发生"本就是主要用法），
+    拼错的事件名由静态闸门 `check(..., allowed_events=...)` 拦。
 
 用法：
 
     tree = parse('promotions >= 8 && event("nikador_felled")')
-    evaluate(tree, {"promotions": 9, "events": {"nikador_felled": True}})   # True
+    evaluate(tree, {"promotions": 9, "events": {"nikador_felled"}})   # True
     terms(tree)            # {'promotions'} ∪ 事件名另算
 """
 from __future__ import annotations
@@ -202,9 +204,11 @@ def _ev(node, obs):
         seen = obs.get("events")
         if seen is None:
             raise ConditionError("条件用了 event(...)，但观测快照里没有 events 表")
-        if node[1] not in seen:
-            raise ConditionError(f"条件问了一个没登记的事件：{node[1]!r}")
-        return _truth(seen[node[1]])
+        # **没发生过就是 False，不是错误** —— 「等某件事发生」正是条件最主要的用法
+        # （若在这里报错，就永远写不出"等它"的条件）。拼错的事件名由【静态闸门】拦：
+        # `check(..., allowed_events=...)`，见 tests/test_conditions.py 的预设校验。
+        # `events` 是"已发生过的事件名"的集合（dict 亦可，按【键存在】即算发生）。
+        return _truth(node[1] in seen)
     if kind == "not":
         return not _truth(_ev(node[1], obs))
     if kind == "and":

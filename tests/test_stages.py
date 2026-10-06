@@ -18,6 +18,7 @@ import unittest
 from _support import ROOT, state, temp_root_with_copy
 
 from engine import ablation
+from engine.conditions import evaluate
 from engine.core import _assemble, initial_state, run
 from engine.loader import Config, ConfigError, DataSet
 from engine.operators import Annex, Compete
@@ -180,7 +181,7 @@ class StageAssembly(unittest.TestCase):
         """跑起来：域推进后，该阶段的门真的被装上。"""
         ctx = Config(self.tmp)
         ctx.params["domain_dwell"] = 1
-        traj = run(ctx, self.data, seed=0, max_frames=400)
+        traj = run(ctx, self.data, seed=0, max_frames=400, rules=evaluate)
         self.assertGreaterEqual(traj.final.domain_index, 1,
                                 "帧预算内应当推进过至少一档变量域")
         self.assertIn("OP_MEMORY_INHERIT", traj.final.gates)
@@ -286,7 +287,7 @@ class StageParamsReachTheWorld(unittest.TestCase):
             data = DataSet(self.tmp, preset="emergent")
             ctx = Config(self.tmp)
             ctx.params["domain_dwell"] = 1
-            return run(ctx, data, seed=0, max_frames=120)
+            return run(ctx, data, seed=0, max_frames=120, rules=evaluate)
 
         empty = [{"on": []}, {"on": []}, {"on": []}, {"on": []}]
         plain = run_with(empty)

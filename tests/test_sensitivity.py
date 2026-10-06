@@ -18,6 +18,7 @@ import unittest
 from _support import ROOT, load, state
 
 from engine import ablation
+from engine.conditions import evaluate
 from engine.core import run
 from engine.loader import Config, DataSet
 
@@ -118,7 +119,7 @@ class VerdictDrivenByDynamics(unittest.TestCase):
         # ⚠ R3 两路探针之后，证真从 2,000 帧推到了 **4,000 帧**（路 B【剔除】口径
         # 比路 A 严），故预算要留足 —— 这也是那条改动最直接的可见后果。
         frames = int(ctx.params["domain_dwell"]) + 3000
-        return ctx, data, run(ctx, data, seed=0, max_frames=frames)
+        return ctx, data, run(ctx, data, seed=0, max_frames=frames, rules=evaluate)
 
     def test_baseline_is_proved(self):
         _ctx, _data, traj = self._world()

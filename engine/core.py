@@ -245,11 +245,11 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
         """记下一条事件：写进 Telemetry（trace 时），并立即转给实时回调。
 
         这是引擎【唯一】的事件出口 —— 报告、特征提取、实时输出看到的是同一串记录。
+        注意：`event("X")` 读的事件名**不从这里收** —— 播报用的载荷里没有 `event`
+        字段（只有频道 / 能力 / 标签），事件名在【投递记录】上，见下面的分发处。
         """
         if trace:
             traj.records.append((frame, kind, payload))
-        if isinstance(payload, dict) and payload.get("event") is not None:
-            seen_events.add(str(payload["event"]))
         if on_event is not None:
             on_event(frame, kind, payload, st.world_clock, traj.namer)
 
@@ -595,6 +595,11 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
             _, fired = dispatch(rec, st, ctx_run, n)
             if not fired:
                 continue
+            # 事件名在这里收：它在【投递记录】上（`payload.event`），不在播报载荷里。
+            # `event("X")` 这类条件读的就是"这个事件发生过没有"。
+            ev = (rec.get("payload") or {}).get("event")
+            if ev is not None:
+                seen_events.add(str(ev))
             if rec.get("payload", {}).get("persist"):
                 key = id(rec)
                 if key in announced:

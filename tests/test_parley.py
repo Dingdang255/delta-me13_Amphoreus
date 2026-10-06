@@ -201,6 +201,7 @@ class ConfigIsNotMutated(unittest.TestCase):
 
         from _support import ROOT, temp_root_with_copy
 
+        from engine.conditions import evaluate
         from engine.core import run
         from engine.loader import Config, DataSet
 
@@ -218,9 +219,9 @@ class ConfigIsNotMutated(unittest.TestCase):
             ctx = Config(root)
             data = DataSet(root, preset="t")
             before = [float(l.capacity) for l in ctx.loci]
-            first = run(ctx, data, seed=0, max_frames=400)
+            first = run(ctx, data, seed=0, max_frames=400, rules=evaluate)
             after = [float(l.capacity) for l in ctx.loci]
-            second = run(ctx, data, seed=0, max_frames=400)
+            second = run(ctx, data, seed=0, max_frames=400, rules=evaluate)
             return first, second, before, after
 
     def test_config_loci_survive_the_run(self):

@@ -11,7 +11,7 @@ class ParsingAndEvaluating(unittest.TestCase):
         from engine.conditions import evaluate
 
         obs = {"frame": 12000, "promotions": 9, "order": 0.5,
-               "events": {"nikador_felled": True, "other": False}}
+               "events": {"nikador_felled"}}          # 已发生过的事件名（集合）
         self.assertTrue(evaluate("frame >= 12000", obs))            # ① 观测量
         self.assertTrue(evaluate("promotions >= 8", obs))           # ② 账本计数
         self.assertTrue(evaluate('event("nikador_felled")', obs))   # ③ 事件
@@ -40,10 +40,17 @@ class RejectsBadConditions(unittest.TestCase):
         with self.assertRaises(ConditionError):
             evaluate("nonesuch >= 1", {"frame": 0, "events": {}})
 
-    def test_unknown_event(self):
+    def test_unknown_name_is_loud_but_unknown_event_is_false(self):
+        """名字读不到要报错；但**事件没发生过只能是 False**（"等它发生"是主要用法）。"""
         from engine.conditions import ConditionError, evaluate
-        with self.assertRaises(ConditionError):
-            evaluate('event("nope")', {"frame": 0, "events": {}})
+        with self.assertRaises(ConditionError):                 # 名字：报错
+            evaluate("nonesuch >= 1", {"frame": 0, "events": {}})
+        self.assertFalse(evaluate('event("nope")', {"frame": 0, "events": {}}))
+        # 拼错的事件名由静态闸门拦（见 PresetsOnlyUseKnownTerms 里传的 allowed_events）
+        from engine.conditions import ConditionError as CE
+        from engine.conditions import check
+        with self.assertRaises(CE):
+            check('event("nope")', allowed_names=set(), allowed_events={"y"})
 
     def test_type_mismatch(self):
         from engine.conditions import ConditionError, evaluate
@@ -159,6 +166,29 @@ class ConditionReallyGatesDispatch(unittest.TestCase):
     def test_condition_gates_the_dispatch(self):
         self.assertEqual(self._gaze_frames("entropy < 0"), [])         # 永假 ⇒ 永不触发
         self.assertEqual(self._gaze_frames("frame >= 1200"), [1200])   # 退化 ⇒ 照旧
+
+    def test_event_condition_sees_earlier_events(self):
+        """`event("X")` 要读得到【之前真的发生过】的事件；读不到就报错（见上一条测试）。
+
+        这里拿 plot 里 1200 帧那条（纳努克目光）改成"等 4000 帧的浮黎目光发生过"——
+        于是它**被世界推迟**：不再固定在第 1200 帧。
+        """
+        from engine.conditions import evaluate
+        from engine.core import run
+        from engine.loader import Config, DataSet
+        from engine.namer import Namer
+
+        data = DataSet(ROOT, preset="plot")
+        ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
+        first = min(data.disturbances, key=lambda r: int(r["frame"]))
+        first["when"] = 'event("fuli_gaze")'          # 第 4000 帧那条才发出的事件
+        data.conditioned = [first]
+        traj = run(ctx, data, seed=0, max_frames=5000,
+                   namer=Namer(ctx, data.anchors), rules=evaluate)
+        gaze = [f for f, k, p in traj.records
+                if k == "DISTURBANCE" and p.get("capability") == "gaze"]
+        self.assertEqual(len(gaze), 1)
+        self.assertGreater(gaze[0], 1200)             # 由世界决定 ⇒ 被推迟
 
     def test_missing_predicate_is_loud(self):
         """有 when 却不给谓词 —— 必须当场报错，绝不静默忽略。"""

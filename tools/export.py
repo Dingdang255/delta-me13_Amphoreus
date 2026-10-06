@@ -188,9 +188,10 @@ SMOKE = """\
 import sys
 from engine.loader import Config, DataSet
 from engine.core import run
+from engine.conditions import evaluate
 data = DataSet('.', preset='plot')
 cfg = Config('.')
-traj = run(cfg, data, max_frames=128)
+traj = run(cfg, data, max_frames=128, rules=evaluate)
 print('SMOKE_OK', len(cfg.loci), traj.verdict)
 """
 

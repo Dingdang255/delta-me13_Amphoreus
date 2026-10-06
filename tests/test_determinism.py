@@ -27,18 +27,19 @@ class Determinism(unittest.TestCase):
 
     def test_resume_from_checkpoint_matches(self):
         """从第 k 帧的存档续跑，应与全程跑到那里逐帧一致。"""
+        from engine.conditions import evaluate
         from engine.core import run
         from engine.loader import Config, DataSet
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
-        full = run(ctx, data, seed=0, max_frames=600)
+        full = run(ctx, data, seed=0, max_frames=600, rules=evaluate)
 
         data2 = DataSet(ROOT, preset="plot")
         ctx2 = Config(ROOT, lex_overlay=data2.preset.get("lexicon"))
-        head = run(ctx2, data2, seed=0, max_frames=300)
+        head = run(ctx2, data2, seed=0, max_frames=300, rules=evaluate)
         tail = run(ctx2, data2, seed=0, max_frames=600,
-                   start_state=head.final, start_frame=300)
+                   start_state=head.final, start_frame=300, rules=evaluate)
 
         self.assertEqual(full.reached_frame, tail.reached_frame)
         self.assertEqual(full.final.digest(), tail.final.digest())
@@ -67,17 +68,18 @@ class ResumeInsideDeadlock(unittest.TestCase):
         return ctx, data
 
     def test_resume_inside_deadlock_matches(self):
+        from engine.conditions import evaluate
         from engine.core import run
 
         c1, d1 = self._load()
-        full = run(c1, d1, seed=0, max_frames=self.N)
+        full = run(c1, d1, seed=0, max_frames=self.N, rules=evaluate)
 
         c2, d2 = self._load()
-        head = run(c2, d2, seed=0, max_frames=self.K)
+        head = run(c2, d2, seed=0, max_frames=self.K, rules=evaluate)
 
         c3, d3 = self._load()
         tail = run(c3, d3, seed=0, max_frames=self.N,
-                   start_state=head.final, start_frame=self.K)
+                   start_state=head.final, start_frame=self.K, rules=evaluate)
 
         self.assertTrue(full.deadlock,
                         "存档点该落在死循环区间内，否则这条测试没覆盖目标路径")
@@ -98,6 +100,7 @@ class RelabellingInvariance(unittest.TestCase):
     """
 
     def test_relabelled_loci_keep_every_observable(self):
+        from engine.conditions import evaluate
         from engine.core import run
 
         sys.path.insert(0, os.path.join(ROOT, "tools"))
@@ -105,13 +108,13 @@ class RelabellingInvariance(unittest.TestCase):
         from _harness import load as hload, summary             # noqa: E402
 
         ctx0, data, _ = hload(fast=100)
-        base = summary(run(ctx0, data, max_frames=3000), ctx0)
+        base = summary(run(ctx0, data, max_frames=3000, rules=evaluate), ctx0)
 
         for s in (1, 2):
             ctx, _, _ = hload(fast=100)
             P = np.random.default_rng(1000 + s).permutation(len(ctx.loci))
             shuffle_loci.relabelled(ctx, P)
-            got = summary(run(ctx, data, max_frames=3000), ctx)
+            got = summary(run(ctx, data, max_frames=3000, rules=evaluate), ctx)
             self.assertEqual(got, base, f"重标定 #{s} 后可观测量变了")
 
 
@@ -119,6 +122,7 @@ class NamingOrthogonality(unittest.TestCase):
     """名字不参与运算：换一套音位风格（换种子即换风格），轨迹必须逐帧不变。"""
 
     def test_style_does_not_change_trajectory(self):
+        from engine.conditions import evaluate
         from engine.core import run
         from engine.loader import Config, DataSet
 
@@ -131,8 +135,8 @@ class NamingOrthogonality(unittest.TestCase):
         namer_b = Namer(ctx, data.anchors)
         self.assertNotEqual(namer_a.style, namer_b.style)   # 风格确实不同
 
-        a = run(ctx, data, seed=0, max_frames=600, namer=namer_a)
-        b = run(ctx, data, seed=0, max_frames=600, namer=namer_b)
+        a = run(ctx, data, seed=0, max_frames=600, namer=namer_a, rules=evaluate)
+        b = run(ctx, data, seed=0, max_frames=600, namer=namer_b, rules=evaluate)
 
         self.assertEqual(a.reached_frame, b.reached_frame)
         self.assertEqual(a.final.digest(), b.final.digest())
@@ -144,6 +148,7 @@ class NamingOrthogonality(unittest.TestCase):
         命名与词表都只属于表层（L5）：名字不参与运算，词表只改措辞。
         故任意组合跑出来的世界必须【同一个】（digest 相同）。
         """
+        from engine.conditions import evaluate
         from engine.core import run
         from engine.loader import Config, DataSet
 
@@ -155,7 +160,8 @@ class NamingOrthogonality(unittest.TestCase):
                 ctx = Config(ROOT, lex_overlay=ov)
                 ctx.seed = style_seed
                 namer = Namer(ctx, data.anchors)
-                traj = run(ctx, data, seed=0, max_frames=800, namer=namer)
+                traj = run(ctx, data, seed=0, max_frames=800, namer=namer,
+                           rules=evaluate)
                 seen.append((style_seed, bool(ov), traj.verdict,
                              traj.reached_frame, traj.final.digest()))
         self.assertEqual(len({s[4] for s in seen}), 1, seen)
