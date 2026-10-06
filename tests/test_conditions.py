@@ -80,11 +80,6 @@ class PresetsOnlyUseKnownTerms(unittest.TestCase):
     立刻多一条分层越界（见 tools/layer_lint.py 的棘轮）。
     """
 
-    #: 允许的观测 / 账本量。与内核 `observe()` 的口径一一对应。
-    NAMES = {"frame", "order", "entropy", "noise", "promotions", "round",
-             "attempts", "skipped_frames", "personas", "population",
-             "domain_index", "destruction_events", "promotion_cooldown"}
-
     def _rows(self, preset_dir):
         for fn in ("events.jsonl", "disturbances.jsonl"):
             path = os.path.join(preset_dir, fn)
@@ -96,10 +91,23 @@ class PresetsOnlyUseKnownTerms(unittest.TestCase):
                     if line:
                         yield fn, ln, json.loads(line)
 
+    @staticmethod
+    def _known_names():
+        """内核 `obs_now()` 会给出的全部名字 —— 与 core.py 的构造一一对应。"""
+        from engine.disturbance import CAPABILITIES
+        from engine.state import DEATH_CAUSES
+
+        return ({"frame", "promotions", "round", "domain_index", "entropy",
+                 "personas", "deadlocked", "seats_filled", "seats_vacant", "deaths"}
+                | {f"seat_l{i:02d}" for i in range(32)}          # 席位（按 loci.id）
+                | {f"cap_{c}" for c in CAPABILITIES}             # 能力（按配置的能力表）
+                | {f"deaths_{c}" for c in DEATH_CAUSES})         # 账本（按死因分档）
+
     def test_all_presets(self):
         from engine.conditions import check
 
         root = os.path.join(ROOT, "presets")
+        names = self._known_names()
         seen = 0
         for preset in sorted(os.listdir(root)):
             d = os.path.join(root, preset)
@@ -113,7 +121,7 @@ class PresetsOnlyUseKnownTerms(unittest.TestCase):
                 if not expr:
                     continue
                 try:
-                    check(expr, allowed_names=self.NAMES, allowed_events=events)
+                    check(expr, allowed_names=names, allowed_events=events)
                 except Exception as exc:                       # noqa: BLE001
                     self.fail(f"{preset}/{fn}:L{ln} 的 when 不合法：{exc}")
                 seen += 1
@@ -161,6 +169,24 @@ class ConditionReallyGatesDispatch(unittest.TestCase):
         data.conditioned = [first]
         with self.assertRaises(ValueError):
             run(ctx, data, seed=0, max_frames=8)
+
+    def test_obs_exposes_seats_caps_and_ledger(self):
+        """扩出来的观测量**真的读得到** —— 任一名字缺失都会让求值抛错。"""
+        from engine.conditions import evaluate
+        from engine.core import run
+        from engine.loader import Config, DataSet
+        from engine.namer import Namer
+
+        data = DataSet(ROOT, preset="plot")
+        ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
+        first = min(data.disturbances, key=lambda r: int(r["frame"]))
+        first["when"] = ("seat_l00 >= 0 && seats_filled >= 0 && seats_vacant >= 0"
+                         " && cap_emit >= 0 && deaths >= 0 && deaths_aged >= 0"
+                         " && deadlocked >= 0")
+        data.conditioned = [first]
+        # 跑 60 帧即可：条件每帧都会被求值一次（条目到 1200 帧才到期，故不会真触发）
+        run(ctx, data, seed=0, max_frames=60,
+            namer=Namer(ctx, data.anchors), rules=evaluate)
 
 
 if __name__ == "__main__":

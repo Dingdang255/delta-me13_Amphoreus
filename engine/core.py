@@ -15,7 +15,7 @@ from .emergence import EmergenceRegistrar
 from .invariants import collect
 from .operators import OPERATORS
 from .scheduler import Scheduler
-from .state import DEFAULT_SOLVER, State, mix, world_distance
+from .state import DEATH_CAUSES, DEFAULT_SOLVER, State, mix, world_distance
 from .verdicts import ascends_of, evaluate, inner_conclusion
 
 # 等待的刻度：死循环里的时长按几何级数展开成几个读数（纯渲染，不推进任何状态）。
@@ -253,16 +253,58 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
         if on_event is not None:
             on_event(frame, kind, payload, st.world_clock, traj.namer)
 
+    # 死因计数：墓碑是**只增**的，故按增量并进计数器；只在真要建快照时才走这一步。
+    _death_tally = {}
+    _death_seen = [0]
+
+    def _refresh_deaths():
+        """把新增的墓碑并进死因计数。存档回滚过（墓碑变少）就重数一遍。"""
+        tombs = st.tombstones
+        if len(tombs) < _death_seen[0]:
+            _death_tally.clear()
+            _death_seen[0] = 0
+        while _death_seen[0] < len(tombs):
+            cause = str(tombs[_death_seen[0]][3])
+            _death_tally[cause] = _death_tally.get(cause, 0) + 1
+            _death_seen[0] += 1
+
     def obs_now(frame):
         """内核视角的观测快照 —— 条件能读到的全部就是这些（读不到的名字一律报错）。
 
-        它就是 `observe()` 这个系统调用：帧号 + 账本计数 + 已发生事件表。
-        **只读**，不碰世界一个比特。
+        它就是 `observe()` 这个系统调用：帧号 + 账本计数 + 席位占用 + 能力现身 +
+        已发生事件表。**只读**，不碰世界一个比特；没有条件挂起时根本不构造（零开销）。
         """
-        return {"frame": int(frame), "promotions": int(st.promotions),
-                "round": int(st.round), "domain_index": int(st.domain_index),
-                "entropy": float(st.entropy), "personas": len(registrar.personas),
-                "events": seen_events}
+        _refresh_deaths()
+        obs = {"frame": int(frame), "promotions": int(st.promotions),
+               "round": int(st.round), "domain_index": int(st.domain_index),
+               "entropy": float(st.entropy), "personas": len(registrar.personas),
+               "deadlocked": 1 if deadlock is not None else 0,
+               "events": seen_events}
+
+        # 席位：每席是否有人（`seat_l00` 这类，取值 0/1）+ 满 / 空的总数
+        filled = 0
+        for slot in st.register.slots:
+            has = 1 if slot.filled() else 0
+            filled += has
+            obs["seat_" + str(slot.locus_id).lower()] = has
+        obs["seats_filled"] = filled
+        obs["seats_vacant"] = len(st.register.slots) - filled
+
+        # 能力：按配置的能力表**给全量布尔** —— 于是条件里引用一个"还没现身"的能力
+        # 也读得到（值为 0），不会因为名字不存在而报错。
+        present = set()
+        for k in st.pool.index():
+            for t in st.pool.tags[int(k)]:
+                if t.startswith("capability:"):
+                    present.add(t.split(":", 1)[1])
+        for cap in CAPABILITIES:
+            obs["cap_" + str(cap)] = 1 if cap in present else 0
+
+        # 账本：按死因分档的累计陨落数（`deaths_aged` / `deaths_dethroned` …）
+        for cause in DEATH_CAUSES:
+            obs["deaths_" + str(cause)] = int(_death_tally.get(cause, 0))
+        obs["deaths"] = int(sum(_death_tally.values()))
+        return obs
 
     last_prom_frame = [0]
 
