@@ -866,6 +866,10 @@ class DataSet:
             if rec.get("payload", {}).get("persist"):
                 self._persist.append(rec)
         self.onsets = sorted({int(r["frame"]) for r in self.disturbances})
+        # 带 `when` 的投递：最先触发帧仍记在上面（用作"不许跳过去"的锚），但实际触发要看
+        # 条件 —— 由内核的条件槽按"条件首次成立"触发（见 core.run 的 ①'）。内核只把它们
+        # 当【数据】拿着，不认识条件的写法（谓词由应用层传进来）。今天的预设一条都没有。
+        self.conditioned = [r for r in self.disturbances if r.get("when")]
 
     def stage_gates(self, index: int):
         """阶段 0..index 累积开启的门（装配是累积的）。没配 stages 时恒为空。"""
@@ -876,10 +880,14 @@ class DataSet:
         return stage_params(self.stage_profiles, index)
 
     def at(self, n: int):
-        """取第 n 帧应投递的扰动。persist 的从起始帧起每帧重复投递。"""
-        out = list(self._by_frame.get(n, ()))
+        """取第 n 帧应投递的扰动。persist 的从起始帧起每帧重复投递。
+
+        带 `when` 的记录**不在这里**返回 —— 它们由内核的条件槽在"条件首次成立"那一帧
+        触发（见 core.run 的 ①'）。今天没有任何记录带 when，故与历史逐位相同。
+        """
+        out = [r for r in self._by_frame.get(n, ()) if not r.get("when")]
         for rec in self._persist:
-            if int(rec["frame"]) < n:
+            if int(rec["frame"]) < n and not rec.get("when"):
                 out.append(rec)
         return out
 
@@ -915,3 +923,7 @@ class DataSet:
             if rec.get("payload", {}).get("persist"):
                 self._persist.append(rec)
         self.onsets = sorted({int(r["frame"]) for r in self.disturbances})
+        # 带 `when` 的投递：最先触发帧仍记在上面（用作"不许跳过去"的锚），但实际触发要看
+        # 条件 —— 由内核的条件槽按"条件首次成立"触发（见 core.run 的 ①'）。内核只把它们
+        # 当【数据】拿着，不认识条件的写法（谓词由应用层传进来）。今天的预设一条都没有。
+        self.conditioned = [r for r in self.disturbances if r.get("when")]

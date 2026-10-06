@@ -146,7 +146,7 @@ def _vacant(st):
 def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
         trace: bool = True, start_state=None, start_frame: int = 0,
         namer=None, capture=None, iter_cap: int | None = None,
-        watch=None, on_event=None) -> Trajectory:
+        watch=None, on_event=None, rules=None) -> Trajectory:
     """逐帧推进。
 
     start_state/start_frame：从第 k 帧的存档续跑（判据 4 帧截断复现）。
@@ -163,12 +163,28 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
     on_event：可选的实时回调 on_event(frame, kind, payload, clock, namer)。
            每当引擎记下一条事件（与 traj.records 同源）就立即回调，用于实时监听。
            它只读、不写状态 —— 删掉它，Trajectory 逐帧不变。
+    rules：可选的【不透明谓词】rules(expr, obs) -> bool，用来求值投递条目上的 `when`。
+           与 namer / watch / on_event 同一手法：内核只负责"每帧问它一次"，
+           **不认识条件的写法、也不 import 任何条件语言**（那种语言住在服务层，
+           见 engine/conditions.py 与 tools/layer_lint.py 的层次表）。
+           obs 由内核自己构造（帧号 / 账本计数 / 已发生的事件表 …）—— 那本就是
+           observe() 这个系统调用该干的事。
+           不传 ⇒ 内核完全忽略 `when`；此时若真有条目带 when，会在启动时【报错】
+           而不是静默忽略（静默会把"条件写错了"变成"这条永远不触发"，最难查）。
 
     终止条件：不是"跑够多少帧"，而是【命题能否裁决】（见 _decide）。
               被裁决则 traj.stop_reason ∈ {PROVED, REFUTED} 并停下；
               否则才会走满预算（BUDGET）或撞上安全阀（ITER_CAP）。
     """
     p = cfg.params
+    # 带 `when` 的投递要等条件成立才触发 —— 内核不认识条件，得由应用层把谓词递进来。
+    # 没递又真有条目带 when：**当场报错**，绝不静默忽略（见 run 的 docstring）。
+    pending = list(getattr(data, "conditioned", ()) or ())
+    if pending and rules is None:
+        raise ValueError(
+            f"世界里有 {len(pending)} 条带 when 的投递，但 run() 没收到 rules=。"
+            "要么传 rules=engine.conditions.evaluate，要么把那些 when 去掉 ——"
+            "内核不猜条件；静默忽略会把「条件写错」变成「这条永远不触发」。")
     if seed is None:
         seed = data.preset.get("seed")
         if seed is None:
@@ -223,6 +239,8 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
     ctx_run.rebind(data.stage_params(_stage_index(st, data)))
     n = int(start_frame)
 
+    seen_events = set()          # 已经发生过的事件名 —— 供 event("X") 这类条件读
+
     def emit(frame, kind, payload):
         """记下一条事件：写进 Telemetry（trace 时），并立即转给实时回调。
 
@@ -230,8 +248,21 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
         """
         if trace:
             traj.records.append((frame, kind, payload))
+        if isinstance(payload, dict) and payload.get("event") is not None:
+            seen_events.add(str(payload["event"]))
         if on_event is not None:
             on_event(frame, kind, payload, st.world_clock, traj.namer)
+
+    def obs_now(frame):
+        """内核视角的观测快照 —— 条件能读到的全部就是这些（读不到的名字一律报错）。
+
+        它就是 `observe()` 这个系统调用：帧号 + 账本计数 + 已发生事件表。
+        **只读**，不碰世界一个比特。
+        """
+        return {"frame": int(frame), "promotions": int(st.promotions),
+                "round": int(st.round), "domain_index": int(st.domain_index),
+                "entropy": float(st.entropy), "personas": len(registrar.personas),
+                "events": seen_events}
 
     last_prom_frame = [0]
 
@@ -465,7 +496,7 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
             # 外生干预未穷尽之前一律不下结论 —— 下一次干预可能重新打开刚被证伪的位。
             # （实测：同一个世界里「全部位已证伪」会先出现两次，都被后续干预重新打开；
             #   只有最后一次是终局。）
-            if inner is not None and data.next_onset(n - 1) is None:
+            if inner is not None and data.next_onset(n - 1) is None and not pending:
                 traj.verdict = inner
                 traj.verdict_frame = n - 1
                 # 停因就是裁决枚举的大写形式 —— 它只是「为什么停下」的短码，
@@ -498,7 +529,16 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
         # ① 外部扰动：程序不区分是谁，只按能力分发。
         #    persist 的记录每帧都会被重新投递（效果照旧），但只在【首次】播报 ——
         #    否则一条长驻扰动会把编年史刷成一堵墙（它已经在施加效果，不必重复宣告）。
-        for rec in data.at(n):
+        # ①' 带条件的投递：声明帧已过、且条件此刻成立，才触发。没有 when 时 `pending`
+        #     为空 ⇒ 这段一步都不走，逐帧开销为零，与加入之前逐位相同。
+        due = []
+        if pending:
+            obs = obs_now(n)
+            for rec in list(pending):
+                if int(rec["frame"]) <= n and rules(rec["when"], obs):
+                    pending.remove(rec)
+                    due.append(rec)
+        for rec in data.at(n) + due:
             _, fired = dispatch(rec, st, ctx_run, n)
             if not fired:
                 continue
@@ -543,6 +583,9 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
                 cand = min(cand, deadlock["last_attempt"] + attempt_period)
                 if deadlock["tick_i"] < len(ticks):
                     cand = min(cand, deadlock["start"] + ticks[deadlock["tick_i"]])
+                if pending:
+                    # 还有挂起的条件投递 ⇒ 下一帧就可能成立，不能跳过去
+                    cand = min(cand, n + 1)
                 if cand <= n:
                     cand = n + 1
                 traj.skipped_frames += cand - n
