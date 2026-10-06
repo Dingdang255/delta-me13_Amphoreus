@@ -9,10 +9,12 @@
     python3 tools/export.py --no-verify      # 跳过打包后的「解压即可用」自检
 
 打包内容 = 仓库里【运行与自检所必需】的那部分：
-  run.py / README.md / requirements.txt / pyproject.toml
+  run.py / README.md / LICENSE / requirements.txt / pyproject.toml
   engine/ / config/ / data/ / presets/ / tools/ / tests/
   以及 docs/ 里真正被用到的那几份（见 DOCS_FILES，不整目录打包）
 自动剔除 __pycache__、*.pyc、dist/、.trae/ 与演算产物（编年史 .txt、可视化 .html）。
+LICENSE（MIT）必须随包 —— 许可条款要求「版权声明与许可声明须随所有副本或实质部分
+一并给出」，故它不只是仓库文件，也是分发包的一部分。
 
 docs/ 只挑必需的那几份 —— 目录里还有给 AI 用的参考料（wiki 抓取、散文考据），
 它们不是分发包的一部分：
@@ -44,7 +46,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PY_MIN = (3, 10)
 
 # ---- 打包清单 ---------------------------------------------------------------
-TOP_FILES = ["run.py", "README.md", "requirements.txt", "pyproject.toml"]
+# LICENSE 也在包内：MIT 要求「版权声明与许可声明须随所有副本或实质部分一并给出」，
+# 故分发包必须带它，不能只留在仓库里（见模块开头的打包说明）。
+TOP_FILES = ["run.py", "README.md", "requirements.txt", "pyproject.toml", "LICENSE"]
 # tests/ 也进包：tools/selfcheck.py 会跑单测，缺了它「解压即可自检」就不成立。
 TOP_DIRS = ["engine", "config", "data", "presets", "tools", "tests"]
 

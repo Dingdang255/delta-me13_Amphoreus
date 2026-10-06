@@ -9,6 +9,7 @@
 !/.gitignore
 !/LICENSE
 !/README.md
+!/CHANGELOG.md
 !/run.py
 !/requirements.txt
 !/pyproject.toml

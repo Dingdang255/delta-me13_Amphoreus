@@ -1,0 +1,38 @@
+# 发版工作流：在 GitHub 上「发布 Release」时自动打包，并把 zip 传为该 Release 的资产。
+#
+# 为什么单开一个：`tools/export.py` 的**打包后自检**（解压即用 + 依赖 docs 的单测）平时
+# 没有落点（每次推送都打一遍包没必要）。挂在「发布」这一刻，保证**发出去的包一定是验过的**。
+#
+# 打包在 ubuntu 上做即可：产物是纯源码包，与平台无关。
+name: release
+
+on:
+  release:
+    types: [published]
+
+# 往 Release 上传资产需要 contents: write
+permissions:
+  contents: write
+
+env:
+  PYTHONUTF8: "1"
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # 打的是哪个 tag，就包哪份代码（而不是默认分支的头）
+          ref: ${{ github.event.release.tag_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 安装依赖
+        run: python -m pip install -r requirements.txt
+      - name: 打包（含打包后自检）
+        run: python tools/export.py -o dist/Amphoreus-${{ github.event.release.tag_name }}.zip
+      - name: 上传为 Release 资产
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${{ github.event.release.tag_name }}" dist/*.zip --clobber
