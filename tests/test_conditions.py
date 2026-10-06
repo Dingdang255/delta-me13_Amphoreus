@@ -120,5 +120,48 @@ class PresetsOnlyUseKnownTerms(unittest.TestCase):
         self.assertGreaterEqual(seen, 0)
 
 
+class ConditionReallyGatesDispatch(unittest.TestCase):
+    """证明条件**真的**在管投递 —— 不是摆设。
+
+    做法：拿 plot 的一份【内存副本】，把最早那条投递（1200 帧的纳努克目光）改成
+    条件永远不成立 → 断言它整场都不触发；再改成恒真 → 断言照旧在 1200 帧触发。
+    （后者就是 `tools/dual_track.py` 在整条时间线上验的那件事的单点版。）
+    """
+
+    def _gaze_frames(self, when, frames=1400):
+        from engine.conditions import evaluate
+        from engine.core import run
+        from engine.loader import Config, DataSet
+        from engine.namer import Namer
+
+        data = DataSet(ROOT, preset="plot")
+        ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
+        rec = min(data.disturbances, key=lambda r: int(r["frame"]))
+        self.assertEqual(int(rec["frame"]), 1200)          # 前提：最早那条就在 1200
+        rec["when"] = when
+        data.conditioned = [r for r in data.disturbances if r.get("when")]
+        traj = run(ctx, data, seed=0, max_frames=frames,
+                   namer=Namer(ctx, data.anchors), rules=evaluate)
+        return [f for f, k, p in traj.records
+                if k == "DISTURBANCE" and p.get("capability") == "gaze"]
+
+    def test_condition_gates_the_dispatch(self):
+        self.assertEqual(self._gaze_frames("entropy < 0"), [])         # 永假 ⇒ 永不触发
+        self.assertEqual(self._gaze_frames("frame >= 1200"), [1200])   # 退化 ⇒ 照旧
+
+    def test_missing_predicate_is_loud(self):
+        """有 when 却不给谓词 —— 必须当场报错，绝不静默忽略。"""
+        from engine.core import run
+        from engine.loader import Config, DataSet
+
+        data = DataSet(ROOT, preset="plot")
+        ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
+        first = min(data.disturbances, key=lambda r: int(r["frame"]))
+        first["when"] = "frame >= 0"
+        data.conditioned = [first]
+        with self.assertRaises(ValueError):
+            run(ctx, data, seed=0, max_frames=8)
+
+
 if __name__ == "__main__":
     unittest.main()

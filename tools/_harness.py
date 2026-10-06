@@ -126,7 +126,7 @@ def seat_spans(ctx, data, seed=None, frames=None):
 
     namer = _default_namer(ctx, data)
     traj = run(ctx, data, seed=seed, max_frames=frames, namer=namer,
-               on_event=on_event, watch=watch)
+               rules=_rules(), on_event=on_event, watch=watch)
     namer.bind_machines(traj.personas)      # 机器编号按登记次序一次发齐
     return spans, prom[0], traj
 
@@ -156,12 +156,18 @@ def _default_namer(ctx, data):
     return Namer(ctx, data.anchors)
 
 
+def _rules():
+    """投递条件谓词（服务层）—— 内核不认识条件的写法，只接受一个可问的谓词。"""
+    from engine.conditions import evaluate
+    return evaluate
+
+
 def capture(ctx, data, frames, namer=None, start_state=None, start_frame=0):
     """跑一次并返回 (traj, [(frame, digest), ...])，用于逐迭代 diff。"""
     cap = []
     namer = namer if namer is not None else _default_namer(ctx, data)
     traj = run(ctx, data, max_frames=frames, trace=False,
-               namer=namer, capture=cap,
+               namer=namer, capture=cap, rules=_rules(),
                start_state=start_state, start_frame=start_frame)
     namer.bind_machines(traj.personas)      # 机器编号按登记次序一次发齐
     return traj, cap
