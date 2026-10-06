@@ -281,14 +281,25 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
                "deadlocked": 1 if deadlock is not None else 0,
                "events": seen_events}
 
-        # 席位：每席是否有人（`seat_l00` 这类，取值 0/1）+ 满 / 空的总数
+        # 席位：每席是否有人（`seat_l00` 这类，取值 0/1）+ 满 / 空的总数；
+        # 以及每席的【承载】与寄存器值 —— 实测这两样才是真正会重排的量
+        # （三个簇轮流挑头），条件挂在它们上面才有区分度。
         filled = 0
-        for slot in st.register.slots:
+        loads = []
+        for i, slot in enumerate(st.register.slots):
+            lid = str(slot.locus_id).lower()
             has = 1 if slot.filled() else 0
             filled += has
-            obs["seat_" + str(slot.locus_id).lower()] = has
+            obs["seat_" + lid] = has
+            load = float(st.loci[i].load)
+            loads.append(load)
+            obs["load_" + lid] = load
+            obs["value_" + lid] = float(slot.value)
         obs["seats_filled"] = filled
         obs["seats_vacant"] = len(st.register.slots) - filled
+        obs["load_max"] = max(loads) if loads else 0.0
+        obs["load_min"] = min(loads) if loads else 0.0
+        obs["load_span"] = (max(loads) - min(loads)) if loads else 0.0
 
         # 能力：按配置的能力表**给全量布尔** —— 于是条件里引用一个"还没现身"的能力
         # 也读得到（值为 0），不会因为名字不存在而报错。

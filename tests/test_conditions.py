@@ -98,8 +98,11 @@ class PresetsOnlyUseKnownTerms(unittest.TestCase):
         from engine.state import DEATH_CAUSES
 
         return ({"frame", "promotions", "round", "domain_index", "entropy",
-                 "personas", "deadlocked", "seats_filled", "seats_vacant", "deaths"}
+                 "personas", "deadlocked", "seats_filled", "seats_vacant", "deaths",
+                 "load_max", "load_min", "load_span"}
                 | {f"seat_l{i:02d}" for i in range(32)}          # 席位（按 loci.id）
+                | {f"load_l{i:02d}" for i in range(32)}          # 每席承载
+                | {f"value_l{i:02d}" for i in range(32)}         # 每席寄存器值
                 | {f"cap_{c}" for c in CAPABILITIES}             # 能力（按配置的能力表）
                 | {f"deaths_{c}" for c in DEATH_CAUSES})         # 账本（按死因分档）
 
@@ -181,6 +184,7 @@ class ConditionReallyGatesDispatch(unittest.TestCase):
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
         first = min(data.disturbances, key=lambda r: int(r["frame"]))
         first["when"] = ("seat_l00 >= 0 && seats_filled >= 0 && seats_vacant >= 0"
+                         " && load_l00 >= 0 && load_span >= 0 && value_l00 >= 0"
                          " && cap_emit >= 0 && deaths >= 0 && deaths_aged >= 0"
                          " && deadlocked >= 0")
         data.conditioned = [first]
