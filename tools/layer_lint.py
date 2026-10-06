@@ -49,10 +49,9 @@ ORDER = {"kernel": 0, "service": 1, "presentation": 2}
 
 # ---- 已存在的越界：P0 冻结基线（棘轮，只许减不许增）---------------------------
 # 2026-10-05 首次扫描得 6 条；P1 清掉 emergence→namer；P4-0 把名字注册表下沉为内核侧的
-# vocabulary.py，清掉 loader 的 2 条；P4-S1 把不变量检查倒置成 runtime.checks，清掉 1 条。
-# 剩下 2 条要等 S2（消融探针）/ S3（裁决）倒置。
+# vocabulary.py，清掉 loader 的 2 条；P4-S1 把不变量检查倒置成 runtime.checks，清掉 1 条；
+# P4-S2 把消融探针倒置成 runtime.probe，清掉 1 条。剩下 1 条要等 S3（裁决）倒置。
 BASELINE = {
-    ("core.py", "ablation.py"),
     ("core.py", "verdicts.py"),
 }
 

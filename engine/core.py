@@ -9,7 +9,6 @@ from collections import Counter
 
 import numpy as np
 
-from . import ablation
 from .disturbance import CAPABILITIES, dispatch
 from .emergence import EmergenceRegistrar
 from .operators import OPERATORS
@@ -680,10 +679,11 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
                 assembled = _assemble(st, data)
                 ctx_run.rebind(data.stage_params(_stage_index(st, data)))
             if cfg.pipeline[idx] == "OP_ENTROPY" and n % int(p["ablation_period"]) == 0:
-                # 当前阶段的装配（门 + 参数覆盖）要进消融 —— 否则阶段机制对 progress 没有因果
+                # 当前阶段的装配（门 + 参数覆盖）要进消融 —— 否则阶段机制对 progress 没有因果。
+                # 探针实现由应用层交来（内核不认识"消融"）；它只写 locus.progress / progress2。
                 si = _stage_index(st, data)
-                ablation.solve(st, ctx_run, seed,
-                               data.stage_gates(si), data.stage_params(si))
+                runtime.probe(st, ctx_run, seed,
+                              data.stage_gates(si), data.stage_params(si))
 
         # ③ 通用检查：遍历全称域，收集全部违例（检查器由应用层交来，内核不认识它们）
         violations = runtime.checks(st, ctx_run, n)
