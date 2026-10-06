@@ -9,6 +9,8 @@
 """
 from __future__ import annotations
 
+from .vocabulary import ASSERTION_KINDS, SUFFIX_OPS, know_assertion, split_kind  # noqa: F401
+
 
 class Result:
     __slots__ = ("name", "ok", "expect", "got", "where")
@@ -72,23 +74,16 @@ _KINDS = {
 }
 
 #: 引擎认得的所有断言名（不含 `_at_least` / `_at_most` 后缀）。
+#: 名字表的【唯一来源】在内核侧的 `engine/vocabulary.py`。
 KINDS = frozenset(_KINDS)
 
-#: 断言名允许的比较后缀 → 比较方式。
-SUFFIX_OPS = (("_at_least", "ge"), ("_at_most", "le"))
-
-
-def split_kind(kind: str):
-    """`xx_at_least` → ("xx", "ge")；`xx` → ("xx", "eq")。"""
-    for suffix, op in SUFFIX_OPS:
-        if kind.endswith(suffix):
-            return kind[: -len(suffix)], op
-    return kind, "eq"
+# 核对：实现与内核侧登记的名字必须一一对应（加了实现忘了登记名字会当场报错）。
+assert KINDS == ASSERTION_KINDS, "断言的实现与 vocabulary.ASSERTION_KINDS 不一致"
 
 
 def known(kind: str) -> bool:
     """这个名字引擎认不认识（校验配置用）。"""
-    return split_kind(str(kind))[0] in _KINDS
+    return know_assertion(kind)
 
 
 def _value(kind, where, st, traj, ctx):

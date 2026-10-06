@@ -36,7 +36,8 @@ for _s in (sys.stdout, sys.stderr):
 # ---- 分层 -------------------------------------------------------------------
 # 内核：只认 位 / 变量域 / 个体 / 算子 / 帧 / 外生扰动 / 账本。零专名、不下结论。
 KERNEL = ["core.py", "disturbance.py", "emergence.py", "loader.py",
-          "operators.py", "scheduler.py", "selector.py", "state.py"]
+          "operators.py", "scheduler.py", "selector.py", "state.py",
+          "vocabulary.py"]
 # 服务：有人在"向世界提问"（裁决 / 消融 / 断言 / 不变量 / 特征 / 时间线核对）。
 SERVICE = ["ablation.py", "assertions.py", "conditions.py", "features.py",
            "invariants.py", "timeline.py", "verdicts.py"]
@@ -47,22 +48,13 @@ LAYERS = {"kernel": KERNEL, "service": SERVICE, "presentation": PRESENTATION}
 ORDER = {"kernel": 0, "service": 1, "presentation": 2}
 
 # ---- 已存在的越界：P0 冻结基线（棘轮，只许减不许增）---------------------------
-# 2026-10-05 首次扫描实测正好 6 条，分两类：
-#   真越界（该清）
-#     · emergence → namer    内核给个体起名。与自述设计（引擎只出序号、命名在锚定层）不符 → P1 清
-#     · core → ablation      内核每帧调消融探针（"提问"混进演化）                 → P4 清
-#     · core → verdicts      裁决。已定 D1「裁决 = 系统服务」                     → P4 清
-#   元数据位置问题（不是层次画错，是"名字注册表"住错了地方）
-#     · loader → verdicts    只为读 known_when / known_require 来校验配置键
-#     · loader → assertions  同上（assertions.known）
-#   边界待定
-#     · core → invariants    不变量自检：若视为"内核自检"则合理；但按配置挑检查器属实是策略
+# 2026-10-05 首次扫描得 6 条；P1 清掉 emergence→namer（1 条）；
+# P4 第一刀把"名字注册表"下沉为内核侧的 vocabulary.py，又清掉 loader 的 2 条。
+# 剩下 3 条都属于"内核在控制流里调服务"，要等 P4 的控制流倒置才动得了。
 BASELINE = {
     ("core.py", "ablation.py"),
     ("core.py", "invariants.py"),
     ("core.py", "verdicts.py"),
-    ("loader.py", "verdicts.py"),
-    ("loader.py", "assertions.py"),
 }
 
 _FROM_MOD = re.compile(r"^\s*from\s+\.(\w+)\s+import\b")

@@ -16,6 +16,8 @@
 """
 from __future__ import annotations
 
+from .vocabulary import REQUIRE_NAMES, WHEN_NAMES
+
 
 # ---- 情形：{名字: (st, cfg, sig) -> bool} -----------------------------------
 def _when_all_falsified(st, cfg, sig):
@@ -48,13 +50,20 @@ REQUIRE = {
     "counter": _req_counter,
 }
 
+# 名字表的【唯一来源】在内核侧的 `vocabulary`；这里核对实现与它一一对应 ——
+# 加了实现却忘了登记名字，会在导入时当场报错，而不是等某份配置校验时才发现。
+assert set(WHEN) == set(WHEN_NAMES), "WHEN 的实现与 vocabulary.WHEN_NAMES 不一致"
+assert set(REQUIRE) == set(REQUIRE_NAMES), "REQUIRE 的实现与 vocabulary.REQUIRE_NAMES 不一致"
+
 
 def known_when():
-    return tuple(WHEN)
+    """引擎认得的 `when` 名。"""
+    return WHEN_NAMES
 
 
 def known_require():
-    return tuple(REQUIRE)
+    """引擎认得的 `require` 名。"""
+    return REQUIRE_NAMES
 
 
 # ---- 求值 -------------------------------------------------------------------

@@ -224,12 +224,12 @@ def _check_verdict_rules(p, problems):
     （`getattr(st, counter, 0)` 取 0、`solver` 比对恒为假）。现在它们进 `require`
     列表，逐项照注册表校验，写错即启动报错。
     """
-    from .verdicts import known_require, known_when
+    from .vocabulary import REQUIRE_NAMES, WHEN_NAMES
     rules = p.get("verdict_rules")
     if not isinstance(rules, list) or not rules:
         problems.append("params.verdict_rules 应为非空数组（内层判据表）")
         return
-    whens, keys = known_when(), known_require()
+    whens, keys = WHEN_NAMES, REQUIRE_NAMES
     for i, rule in enumerate(rules):
         if not isinstance(rule, dict):
             problems.append(f"params.verdict_rules[{i}] 应为对象")
@@ -590,12 +590,12 @@ def stage_params(profiles, index) -> dict:
 
 def _check_assertions(assertions, problems):
     """断言的字段与【名字】。名字写错过去只会静默记一条 FAIL，现在启动即报。"""
-    from .assertions import known as assertion_known
+    from .vocabulary import know_assertion
     for i, a in enumerate(assertions):
         kind = a.get("assert")
         if not isinstance(kind, str) or not kind:
             problems.append(f"assertions[{i}].assert 缺失或不是字符串")
-        elif not assertion_known(kind):
+        elif not know_assertion(kind):
             problems.append(
                 f"assertions[{i}].assert = {kind!r} 不是引擎认得的断言名"
                 f"（这类名字过去只会静默记 FAIL）")
