@@ -24,6 +24,15 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PY = sys.executable
 GOLDEN = os.path.join(ROOT, "tests", "golden_fingerprints.json")
 
+# 打印中文前把 stdio 钉成 UTF-8（英文 Windows 默认 cp1252，打印会 UnicodeEncodeError）。
+# 与 engine/__init__.py 的同一处兜底一致；本脚本只在 `_fingerprint_args()` 里【延迟】导入
+# engine，走不到那条路时就没有兜底，故自带一份。
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError, OSError):
+        pass
+
 
 def _step(title, args):
     return (title, [PY] + args)

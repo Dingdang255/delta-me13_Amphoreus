@@ -16,6 +16,14 @@ for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS",
            "NUMEXPR_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
     os.environ.setdefault(_v, "1")
 
+# 打印中文前把 stdio 钉成 UTF-8（英文 Windows 默认 cp1252）：失败信息 / 断言里若有中文，
+# 会 UnicodeEncodeError 把真正的信息盖掉。与 engine/__init__.py 的同一处兜底一致。
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError, OSError):
+        pass
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)

@@ -38,15 +38,13 @@ jobs:
       - name: 自检（快档）
         run: python tools/selfcheck.py
 
-  # 参考平台指纹：把【数值层 + digest】也纳入 CI 验证。
+  # 参考平台指纹：把【数值层 + digest】也纳入 CI 验证 —— 硬门禁，失败即红。
   # 参考环境见 tests/golden_fingerprints.json 的 `_reference_platform`
   # （Windows / AMD64 / Python 3.14.0 / numpy 2.5.1）—— 四项全同，digest 才逐位可比。
-  # ⚠ 首次以 `continue-on-error` 落地：digest 是量化 float32 的哈希，其跨机器一致性
-  #   （numpy 的 SIMD 派发依 CPU 而异）尚未在 CI 上实测过。确认长期为绿后，删掉
-  #   `continue-on-error` 转为硬门禁。
+  # 2026-10-05 实测：windows-latest runner 上与参考机逐位一致（严格指纹步骤通过），
+  # 故不再挂 `continue-on-error`。
   fingerprint-reference:
     runs-on: windows-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
