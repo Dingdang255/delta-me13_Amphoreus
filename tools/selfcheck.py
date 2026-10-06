@@ -61,6 +61,7 @@ def _fingerprint_args():
 QUICK = [
     _step("红线 1：引擎零专有名词", ["tools/grep_forbidden.py"]),
     _step("红线 2：逐步推进 lint（禁止解析求解 / 预读未来）", ["tools/stepwise_lint.py"]),
+    _step("红线 3：内核分层（内核不许 import 服务 / 界面）", ["tools/layer_lint.py"]),
     _step("环境自检（解释器 / 依赖 / 数据）", ["tools/export.py", "--check-only"]),
     _step("单元测试", ["-m", "unittest", "discover", "-s", "tests"]),
     _step("判据 3：数据替换（替代世界）", ["tools/alt_world/run_alt.py"]),
