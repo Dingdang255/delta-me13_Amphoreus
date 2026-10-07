@@ -24,7 +24,7 @@ for _s in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError, OSError):
         pass
 
-# 只允许出现在 data/ 与 config/ 渲染层；engine/ 里一个字都不许有。
+# 只允许出现在 presets/ 与 config/ 渲染层；engine/ 里一个字都不许有。
 FORBIDDEN = {
     "角色": [
         "白厄", "昔涟", "刻法勒", "阿格莱雅", "缇宝", "万敌", "遐蝶", "风堇",
@@ -42,7 +42,7 @@ FORBIDDEN = {
 }
 
 # 机制名：属于引擎自己的词汇（策略键 / 算子语义），允许出现在 engine/。
-# 它们不指向任何一个具体角色或城邦，换一份 data/ 依然成立。
+# 它们不指向任何一个具体角色或城邦，换一份 presets/ 依然成立。
 ALLOW = {"再创世", "记忆"}
 
 

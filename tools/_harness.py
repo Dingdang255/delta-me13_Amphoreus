@@ -34,7 +34,7 @@ def load(root=ROOT, preset="plot", fast=0):
 def jsonl(path):
     """读「一行一条 JSON」的文件（空行略过；文件不存在返回空表）。
 
-    `presets/*.jsonl` 与 `data/*.jsonl` 都是这个形状，几个只读工具各自抄了一份 ——
+    `presets/*.jsonl` 都是这个形状，几个只读工具各自抄了一份 ——
     统一到这里，免得行/空行的口径再漂移。
     """
     import json

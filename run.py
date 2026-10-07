@@ -34,7 +34,8 @@ from engine.conditions import evaluate as eval_condition  # noqa: E402
 from engine.namer import Namer  # noqa: E402
 from engine.services import default as default_services  # noqa: E402
 from engine.features import extract  # noqa: E402
-from engine.loader import Config, DataSet, ROOT, apply_fast  # noqa: E402
+from engine.loader import (Config, DEFAULT_PRESET, DataSet, ROOT,  # noqa: E402
+                           apply_fast)
 from engine.operators import MEMORY_OWNER, consensus  # noqa: E402
 from engine.render import (Renderer, advance_label, cycle_frames,  # noqa: E402
                            myth_phase_frame, renewal_switch_frame, stage_starts,
@@ -1018,7 +1019,12 @@ def main():
                   f"（{nbytes:,} 字节 · 单文件、零外部依赖）")
 
     if args.dump_anchors:
-        path = os.path.join(ROOT, "data", "anchors.jsonl")
+        # 锚定层属于【预设】：导出到本次运行所用预设的目录；涌现版写进默认预设 _default
+        # （它就是无预设时读的那一份），免得凭空造一个永远不会被读到的 presets/emergent/。
+        name = data.preset["name"]
+        target = DEFAULT_PRESET if name in ("emergent", "none") else name
+        path = os.path.join(ROOT, "presets", target, "anchors.jsonl")
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
             for a in traj.namer.export_anchors(traj.personas):
                 f.write(json.dumps({"fingerprint": a["fingerprint"],

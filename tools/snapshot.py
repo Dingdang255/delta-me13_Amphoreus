@@ -122,7 +122,7 @@ ENTRIES = [
 
 
 def fingerprint(preset, seed, frames):
-    """跑一次并压成指纹。只读 —— 不写回任何 data/ 文件。"""
+    """跑一次并压成指纹。只读 —— 不写回任何 presets/ 文件。"""
     data = DataSet(ROOT, preset=preset)
     ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
     traj = run(ctx, data, seed=int(seed), rules=evaluate,

@@ -40,7 +40,7 @@ def build() -> str:
     loci = _load("config", "loci.json")["loci"]
     concl = _load("config", "conclusions.json")
     params = _load("config", "params.json")
-    genesis = _load("data", "genesis.json")
+    genesis = _load("presets", "_default", "genesis.json")
 
     out = []
     A = out.append
@@ -181,7 +181,7 @@ def build() -> str:
 
     A("## 十、初始变量域 · 四个阶段")
     A("")
-    A("阶段顺序取自 `data/genesis.json` 的 `domain.initial_variable`（前三档）+ **多出来的")
+    A("阶段顺序取自默认机器规格 `presets/_default/genesis.json` 的 `domain.initial_variable`（前三档）+ **多出来的")
     A("那一项**（变量域穷尽之后的阶段四）；名字取本表的 `domains` 与 `terms.domain_exhausted`；")
     A("`stage_conclusions` 是每一档的**结论**（wiki 口径）。同 `cities` 一样，它们只进")
     A("**渲染层**（报告的「阶段目录」+ 看板的阶段卡与时间线上的阶段带），**删掉它们")

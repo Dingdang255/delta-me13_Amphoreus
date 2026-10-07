@@ -285,7 +285,7 @@ class RuleTableValidation(unittest.TestCase):
         self.assertIn("OP_NOPE", str(cm.exception))
 
     def test_genesis_unknown_solver_is_rejected(self):
-        path = os.path.join(self.tmp, "data", "genesis.json")
+        path = os.path.join(self.tmp, "presets", "_default", "genesis.json")
         with open(path, encoding="utf-8") as f:
             g = json.load(f)
         g.setdefault("runtime", {})["solver"] = "OP_NOPE"

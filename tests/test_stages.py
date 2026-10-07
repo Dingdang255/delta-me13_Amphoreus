@@ -26,7 +26,7 @@ from engine.services import default as default_services
 
 
 def _rewrite_genesis(tmp, mutate):
-    path = os.path.join(tmp, "data", "genesis.json")
+    path = os.path.join(tmp, "presets", "_default", "genesis.json")
     with open(path, encoding="utf-8") as f:
         g = json.load(f)
     mutate(g)

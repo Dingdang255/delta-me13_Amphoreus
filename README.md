@@ -95,8 +95,7 @@ python run.py --preset plot --serve 9000 --no-open   # 指定端口、不自动�
 run.py              入口：命令行、编年史渲染、报告、可视化导出
 engine/             L0–L6：主循环 / 算子 / 状态 / 消融 / 命名 / 渲染 / 可视化 / 实时看板
 config/             规则与阈值：params / loci / mapping / operators / calendar / lexicon / phonology
-data/               命题（genesis）、初始变量域与阶段装配
-presets/            外生绑定：种子、名字锚定、额外事件、期望时间线
+presets/            世界与剧情：机器规格（genesis：命题 / 变量域 / 阶段装配）、种子、名字锚定、外生剧本、期望时间线
 tools/              自检与诊断脚本（见下）
 tests/              单元测试与轨迹指纹
 docs/               考据材料、术语对照表、外部变量规格
@@ -109,7 +108,7 @@ pyproject.toml      元数据（依赖 / Python 版本；安装仍走 requiremen
 
 1. **引擎零专有名词**：角色 / 泰坦 / 城邦名只能进 `presets/`、`config/lexicon.json` 与报告层。
    `python tools/grep_forbidden.py` 命中不为 0 即判失败。
-2. **改轨道配置必重测**：动 `config/loci.json`、`config/params.json`、`data/genesis.json`
+2. **改轨道配置必重测**：动 `config/loci.json`、`config/params.json`、`presets/_default/genesis.json`
    会改变轨迹，必须重跑 `presets/plot/assertions.jsonl` 与 `presets/plot/timeline.json` 的全部期望。
 3. **可视化层只读**：`engine/viz.py` 与 `engine/live.py` 只消费 `Trajectory` / 状态读数，
    绝不回写状态 —— 删掉它们（或不加 `--export` / `--serve`），演算逐帧不变。
@@ -134,7 +133,7 @@ python tools/export.py                      # 打包成可分发的 zip（含解
 > `tests/golden_fingerprints.json` 顶层的 `_reference_platform` 记着指纹是在什么环境里写的（`system` / `machine` / `python` / `numpy` 四项）；**任一项不同**，`selfcheck` 就**自动降级**为 `--structural`（只比结构层）。CI 因此在 `ubuntu-latest` 上跑。
 
 > 下面这些已**收进 `selfcheck` 各档**，不必再手动跑一遍：
-> `grep_forbidden`、`stepwise_lint` 与 `writeback_probe`（判据 6：全程零写入 `data/`）在**快档**；
+> `grep_forbidden`、`stepwise_lint` 与 `writeback_probe`（判据 6：全程零写入 `presets/`）在**快档**；
 > `reuse_equivalence`（判据 5：复用是否伪造世界状态）与 `checkpoint_replay`（判据 4：帧截断复现，存档点落在复用区间内）都在 **`--full`**。
 > `python tools/selfcheck.py --list` 可列出当前的全部步骤。CI 跑的就是快档
 > （`.github/workflows/ci.yml`）。
@@ -151,7 +150,7 @@ python tools/export.py                      # 打包成可分发的 zip（含解
 | `tools/seat_incumbents.py` | 重新测量各席在位者的编号，用于刷新 `anchors.jsonl` |
 | `tools/emergence_audit.py` | 涌现登记的审计 |
 | `tools/stepwise_lint.py` | 逐帧演化链路的静态检查（**已进 `selfcheck` 快档**） |
-| `tools/writeback_probe.py` | 是否有角色信息写回 `data/`（判据 6，**已进 `selfcheck` 快档**，应为无） |
+| `tools/writeback_probe.py` | 是否有角色信息写回 `presets/`（判据 6，**已进 `selfcheck` 快档**，应为无） |
 | `tools/excavation.py` | **遗迹勘测**：逐席的诞生 / 消亡 / 在位帧数 / 易主次数 / 承位个体数 / 峰值承载，外加三段式考古报告（`--json` 出机器可读档案） |
 | `tools/roll_call.py` | **逐火点名录**：登场与陨落总账、外生干预下的伤亡（谁被逐出 / 谁自愿让位）、承位链 |
 | `tools/mech_align.py` | **机制对齐**：每个点名角色各自在哪些帧坐在哪个席 —— 用来判断桥段帧号该往哪挪 |

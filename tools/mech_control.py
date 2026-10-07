@@ -192,13 +192,10 @@ def main():
     print(f"剧情占用的席位 {sorted(used)}　噪声席位池 {pool}　噪声组 {args.variants} 组\n")
 
     tmp = tempfile.mkdtemp(prefix="mech_control_")
-    for name in ("config", "data"):
+    # 直接把真 config/ 与 presets/ 复制进临时根（读的是同一份配置），不污染仓库。
+    # 预设现在是【自足】的 —— 机器规格 / 锚定 / 剧本都在 presets/<名>/ 里，故整目录一起搬。
+    for name in ("config", "presets"):
         shutil.copytree(os.path.join(ROOT, name), os.path.join(tmp, name))
-    os.makedirs(os.path.join(tmp, "presets"))
-    # 基准与机制：直接把真预设复制进临时根（读的是同一份配置），不污染仓库。
-    for src in (args.base, args.mech):
-        shutil.copytree(os.path.join(ROOT, "presets", src),
-                        os.path.join(tmp, "presets", src))
 
     rows = []
     for kind, name in (("base", args.base), ("mech", args.mech)):

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """判据 6：涌现无写回。
 
-对 data/ 目录挂只读探针（审计钩子 + 运行前后指纹比对）。
-引擎若能跑完而 data/ 一个字节都没变 ⇒ 角色确实由演算生成，而非从数据读出。
+对 presets/ 目录挂只读探针（审计钩子 + 运行前后指纹比对）。
+引擎若能跑完而 presets/ 一个字节都没变 ⇒ 角色确实由演算生成，而非从数据读出。
 
     python3 tools/writeback_probe.py [--frames 20000]
 """
@@ -16,12 +16,12 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import ROOT, load, rules, services   # noqa: E402
 
-DATA = os.path.join(ROOT, "data")
+DATA = os.path.join(ROOT, "presets")
 WROTE = []
 
 
 def install_guard():
-    """任何以写模式打开 data/ 下文件的行为都会当场抛错并记录。"""
+    """任何以写模式打开 presets/ 下文件的行为都会当场抛错并记录。"""
     def hook(event, args):
         if event == "open":
             path, mode = args[0], args[1]
@@ -32,17 +32,18 @@ def install_guard():
                 ap = os.path.abspath(str(path))
                 if ap == DATA or ap.startswith(DATA + os.sep):
                     WROTE.append(ap)
-                    raise RuntimeError(f"引擎试图写入 data/：{ap}")
+                    raise RuntimeError(f"引擎试图写入 presets/：{ap}")
     sys.addaudithook(hook)
 
 
 def fingerprint():
+    """递归取 presets/ 下每个文件的内容哈希（世界数据现在都住在这里）。"""
     out = {}
-    for name in sorted(os.listdir(DATA)):
-        p = os.path.join(DATA, name)
-        if os.path.isfile(p):
+    for dirpath, _dirs, files in os.walk(DATA):
+        for name in files:
+            p = os.path.join(dirpath, name)
             with open(p, "rb") as f:
-                out[name] = hashlib.sha256(f.read()).hexdigest()
+                out[os.path.relpath(p, DATA)] = hashlib.sha256(f.read()).hexdigest()
     return out
 
 
@@ -62,10 +63,10 @@ def main():
 
     changed = [k for k in set(before) | set(after) if before.get(k) != after.get(k)]
 
-    print(f"data/ 文件数 {len(before)}，运行帧预算 {args.frames:,}，"
+    print(f"presets/ 文件数 {len(before)}，运行帧预算 {args.frames:,}，"
           f"涌现角色 {len(traj.personas)} 位")
     if not WROTE and not changed:
-        print("✓ 判据 6 通过：全程零写入 data/，角色确非给定。")
+        print("✓ 判据 6 通过：全程零写入 presets/，角色确非给定。")
         return 0
     if WROTE:
         print(f"✗ 捕获到 {len(WROTE)} 次写入尝试：{WROTE[:5]}")

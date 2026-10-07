@@ -2,6 +2,34 @@
 
 > 每个版本的发布说明。发 GitHub Release 时，正文直接取对应小节即可。
 
+## 未发布 — 内核/用户态分层（P0–P4）· 预设目录归一（P2）
+
+> **非破坏性**：裁决帧、结论与 `digest` **一个都没变** —— `snapshot --fast` 6/6 逐位一致，
+> 全量 `selfcheck` 9 步全绿。因此本次**不触发** v0.1.0 指纹的重基线。
+
+### 内核：控制流倒置，分层基线归零
+
+内核（`engine/`）不再 import 服务层。不变量检查 / 消融探针 / 裁决全部由应用层经
+`run(..., rules=, runtime=, namer=)` 交入，内核只按名调用、不认识其逻辑：
+
+- `runtime.checks` —— 不变量检查（原 `core → invariants`）
+- `runtime.probe` —— 消融探针（原 `core → ablation`）
+- `runtime.judge` / `runtime.inner_verdict` —— 裁决（原 `core → verdicts`）
+
+`tools/layer_lint.py` 的棘轮基线由 **6 条收敛到 0**：`engine/` 里内核一行 import 都不再往上。
+
+### 预设：世界与剧情归一
+
+- **取消 `data/` 目录**：默认机器规格迁到 `presets/_default/`。
+- **取消「两层同名 + 隐式递归覆盖」**：预设自带 `genesis.json` 时，要么是一份**完整**规格，
+  要么在 `preset.json` 里显式写 `"extends": "_default"` 声明继承（`refuted` 用后者）。
+- 无预设 / `emergent` 显式回落到 `presets/_default/`。
+
+### 其他
+
+- 判据 6 的只读探针由守 `data/` 改为守 `presets/`（并改为递归指纹）。
+- `--dump-anchors` 导出到本次运行所用预设的目录。
+
 ## v0.1.0 — 2026-10-05
 
 首次发布。把《崩坏：星穹铁道》翁法罗斯「真相层」做成**可复现、可证伪的逐帧演算**的引擎。

@@ -10,7 +10,7 @@
 
 打包内容 = 仓库里【运行与自检所必需】的那部分：
   run.py / README.md / LICENSE / requirements.txt / pyproject.toml
-  engine/ / config/ / data/ / presets/ / tools/ / tests/
+  engine/ / config/ / presets/ / tools/ / tests/
   以及 docs/ 里真正被用到的那几份（见 DOCS_FILES，不整目录打包）
 自动剔除 __pycache__、*.pyc、dist/、.trae/ 与演算产物（编年史 .txt、可视化 .html）。
 LICENSE（MIT）必须随包 —— 许可条款要求「版权声明与许可声明须随所有副本或实质部分
@@ -50,7 +50,7 @@ PY_MIN = (3, 10)
 # 故分发包必须带它，不能只留在仓库里（见模块开头的打包说明）。
 TOP_FILES = ["run.py", "README.md", "requirements.txt", "pyproject.toml", "LICENSE"]
 # tests/ 也进包：tools/selfcheck.py 会跑单测，缺了它「解压即可自检」就不成立。
-TOP_DIRS = ["engine", "config", "data", "presets", "tools", "tests"]
+TOP_DIRS = ["engine", "config", "presets", "tools", "tests"]
 
 # docs/ 不整目录打包 —— 里面还有给 AI 用的参考料（wiki 抓取、散文考据），
 # 不进分发包。这里只列【运行与自检真正用到】的那几份（见模块开头说明）。
@@ -241,9 +241,10 @@ def verify_zip(zip_path, root_name):
             z.extractall(tmp)
         base = os.path.join(tmp, root_name)
 
-        # 关键文件清单：engine/config/data 是运行必需，docs/ 那几份是【自检与文档链接必需】。
+        # 关键文件清单：engine/config/presets 是运行必需，docs/ 那几份是【自检与文档链接必需】。
         need = ["run.py", "README.md", "requirements.txt",
-                "engine/loader.py", "config/params.json", "data/genesis.json",
+                "engine/loader.py", "config/params.json",
+                "presets/_default/genesis.json",
                 "docs/外部变量.json", "docs/术语对照表.md",
                 "docs/使用教程.md", "docs/外部变量.md"]
         missing = [n for n in need if f"{root_name}/{n}" not in names]
@@ -258,7 +259,7 @@ def verify_zip(zip_path, root_name):
             print("  [×] 解压后无法运行：")
             print("      " + info)
             return False
-        print("  [√] 解压后导入 engine、装载 config/data 并跑通 128 帧")
+        print("  [√] 解压后导入 engine、装载 config/presets 并跑通 128 帧")
 
         # tools/ 没进包时那两个探针单测也跑不了（它们要 import tools/ 下的生成器），跳过。
         if f"{root_name}/tools/lexicon_table.py" in names:

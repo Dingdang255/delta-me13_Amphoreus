@@ -65,7 +65,7 @@ QUICK = [
     _step("环境自检（解释器 / 依赖 / 数据）", ["tools/export.py", "--check-only"]),
     _step("单元测试", ["-m", "unittest", "discover", "-s", "tests"]),
     _step("判据 3：数据替换（替代世界）", ["tools/alt_world/run_alt.py"]),
-    _step("判据 6：涌现无写回（data/ 只读）", ["tools/writeback_probe.py"]),
+    _step("判据 6：涌现无写回（presets/ 只读）", ["tools/writeback_probe.py"]),
     _step("世界：tide（耗尽结论的可达世界）", ["run.py", "--preset", "tide"]),
 ]
 

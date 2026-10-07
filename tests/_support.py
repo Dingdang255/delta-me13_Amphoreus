@@ -54,10 +54,12 @@ def load(preset="plot", frames=DEFAULT_FRAMES, seed=0, **kw):
     return ctx, data, traj
 
 
-def temp_root_with_copy(tmpdir, names=("config", "data")):
-    """把仓库的 config/ 与 data/ 复制到临时目录，返回该临时根。
+def temp_root_with_copy(tmpdir, names=("config", "presets")):
+    """把仓库的 config/ 与 presets/ 复制到临时目录，返回该临时根。
 
     校验类测试要的是「改坏一个文件」—— 绝不能动仓库里的真文件。
+    世界相关的每一样现在都住在 presets/ 下（含默认机器规格 presets/_default/），
+    故整目录一起搬，临时根里的世界与仓库里的逐位一致。
     """
     import shutil
 

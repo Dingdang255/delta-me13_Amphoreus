@@ -92,7 +92,7 @@ class DashboardMatchesConfig(unittest.TestCase):
         cal = cls.ph.get("title_calibration", {})
         cls.duties = [cal.get(l["id"], ["", l["id"]])[1] or l["id"] for l in cls.loci]
         # 阶段目录：名字取 domains + terms.domain_exhausted，结论取 stage_conclusions
-        cls.gen = _load("data", "genesis.json")
+        cls.gen = _load("presets", "_default", "genesis.json")
         dom = cls.lex.get("domains") or {}
         terms = cls.lex.get("terms") or {}
         variables = (cls.gen.get("domain") or {}).get("initial_variable") or []

@@ -1,0 +1,4 @@
+{
+  "_comment": "默认机器规格（原 data/genesis.json 迁来）。它是一台【没有剧情】的机器：无锚定、无外生扰动、无期望清单。别的预设若不自带 genesis.json，用的就是它；若自带 genesis.json 并声明 \"extends\": \"_default\"，则以本标准做递归合并（显式继承）—— 世界相关的东西从此只有 presets/<名>/ 一个安放处，不再有「两层同名 + 隐式覆盖」。",
+  "name": "_default"
+}

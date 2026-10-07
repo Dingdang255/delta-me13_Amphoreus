@@ -160,7 +160,7 @@ class CalendarReuse(unittest.TestCase):
 
 
 class CalendarRealConfig(unittest.TestCase):
-    """真实 config/calendar.json 与 data/genesis.json。"""
+    """真实 config/calendar.json 与默认机器规格 presets/_default/genesis.json。"""
 
     @classmethod
     def setUpClass(cls):
@@ -169,7 +169,7 @@ class CalendarRealConfig(unittest.TestCase):
         with open(os.path.join(ROOT, "config", "calendar.json"),
                   encoding="utf-8") as f:
             cls.cal = json.load(f)
-        with open(os.path.join(ROOT, "data", "genesis.json"),
+        with open(os.path.join(ROOT, "presets", "_default", "genesis.json"),
                   encoding="utf-8") as f:
             cls.gen = json.load(f)
         cls.myth_from = cls._last_stage_boundary()

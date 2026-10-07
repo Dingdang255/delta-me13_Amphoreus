@@ -1,6 +1,6 @@
-"""L5：装载 config/ 与 data/。
+"""L5：装载 config/ 与 presets/。
 
-配置只描述【规则与阈值】，数据只描述【命题、扰动、断言】——
+配置只描述【规则与阈值】，预设只描述【命题、扰动、断言、锚定】——
 没有一个文件里躺着某个角色的名字。
 """
 from __future__ import annotations
@@ -457,7 +457,7 @@ def validate_config_raw(params, loci_raw, seeding, operators, mapping,
 
 def validate_data_raw(genesis, assertions, anchors, disturbances, actors,
                       timeline_nodes, problems):
-    """data/ + 预设侧的自洽校验。就地往 problems 追加问题，不抛异常。"""
+    """预设侧的自洽校验。就地往 problems 追加问题，不抛异常。"""
     _check_genesis(genesis, problems)
     _check_assertions(assertions, problems)
     _check_anchors(anchors, problems)
@@ -703,36 +703,44 @@ def apply_fast(cfg, data, k: int):
     data.rescale(k)
 
 
-def load_preset(root, name):
-    """预设 = 一批【外生绑定】。
+#: 默认预设目录名 —— 原 `data/genesis.json` 的家。无预设 / `none` / `emergent`
+#: 一律回落到它；别的预设也可以显式声明 `"extends": "_default"` 来继承它。
+DEFAULT_PRESET = "_default"
 
-    它只提供四样东西，全都在演算之外：
+
+def load_preset(root, name):
+    """预设 = 一批【外生绑定】+（可选）一份【机器规格】。
+
+    它提供的东西全都在演算之外：
       seed      可选的固定种子
+      genesis   机器规格（命题 / 变量域 / 阶段装配）—— 见下
       anchors   名字的渲染绑定（locus:* 给席位，emerge:* 给涌现次序）
-      events    外生扰动（可定时、可带状态条件）—— 与 data/ 的扰动流合并
+      events    外生扰动（可定时、可带状态条件）
       timeline  期望清单（哪些事件在什么帧之前发生）—— 引擎【从不读它】
 
-    name 为空 / "emergent" 表示"涌现版"：不出锚定、不加扰动、不带期望，
-    名字与轨迹全部由演算自己长出来。
+    name 为空 / "none" / "emergent" 表示"涌现版"：不出锚定、不加扰动、不带期望，
+    名字与轨迹全部由演算自己长出来；机器规格回落到默认预设 `_default`。
+
+    **机器规格只有一处可写**（不再有"两层同名 + 隐式递归覆盖"）：
+      · `preset.json` 里写 `"extends": "<别的预设名>"` ⇒ 以那个预设的 `genesis.json`
+        为底，把自己目录下的 `genesis.json` 递归并上去（**显式继承**）；
+      · 不写 extends 而自带 `genesis.json` ⇒ 它就是一份【完整】规格，原样使用；
+      · 既不写 extends 也没有 `genesis.json` ⇒ 用默认预设 `_default` 的规格。
     """
-    if not name or name in ("none", "emergent"):
-        return {"name": name or "emergent", "seed": None,
-                "anchors": [], "events": [], "timeline": {"nodes": []}}
-    d = os.path.join(root, "presets", name)
+    alias = (not name) or name in ("none", "emergent")
+    target = DEFAULT_PRESET if alias else name
+    d = os.path.join(root, "presets", target)
     meta_path = os.path.join(d, "preset.json")
     if not os.path.exists(meta_path):
         raise FileNotFoundError(f"找不到预设 {name!r}（缺 {meta_path}）")
     meta = _json(meta_path)
-    meta["name"] = name
+    meta["name"] = (name or "emergent") if alias else name
     meta.setdefault("anchors", _jsonl(os.path.join(d, "anchors.jsonl")))
     meta.setdefault("events", _jsonl(os.path.join(d, "events.jsonl")))
     meta.setdefault("disturbances", _jsonl(os.path.join(d, "disturbances.jsonl")))
     meta.setdefault("assertions", _jsonl(os.path.join(d, "assertions.jsonl")))
-    # 世界命题覆盖（可选）：预设自带 genesis.json 时，递归并到 data/genesis.json 上。
-    # 这是一条【世界级】覆盖 —— 预设据此声明一个「初始变量域 / 阶段装配不同」的世界。
-    g_path = os.path.join(d, "genesis.json")
-    if os.path.exists(g_path):
-        meta.setdefault("genesis", _json(g_path))
+    # 机器规格：显式继承 / 自带完整 / 回落默认 —— 三选一，不再是隐式合并。
+    meta["genesis"] = _load_genesis(root, target, meta)
     actors_path = os.path.join(d, "actors.json")
     if os.path.exists(actors_path):
         meta.setdefault("actors", list(_json(actors_path).get("actors") or []))
@@ -745,8 +753,29 @@ def load_preset(root, name):
     return meta
 
 
+def _load_genesis(root, name, meta):
+    """按声明装配这个预设的机器规格（见 `load_preset` 的三选一）。
+
+    继承目标必须是另一份【真的存在】的 genesis —— 缺了当场报错，绝不静默退回默认。
+    """
+    d = os.path.join(root, "presets", name)
+    g_path = os.path.join(d, "genesis.json")
+    own = _json(g_path) if os.path.exists(g_path) else None
+    base_name = meta.get("extends")
+    if base_name:
+        base_path = os.path.join(root, "presets", str(base_name), "genesis.json")
+        if not os.path.exists(base_path):
+            raise FileNotFoundError(
+                f"预设 {name!r} 声明继承 {base_name!r}，"
+                f"但它没有 genesis.json（缺 {base_path}）")
+        return _deep_merge(_json(base_path), own or {})
+    if own is not None:
+        return own
+    return _json(os.path.join(root, "presets", DEFAULT_PRESET, "genesis.json"))
+
+
 def _deep_merge(base: dict, over: dict) -> dict:
-    """递归合并（dict 递归、其余含数组整块替换）—— 预设的 genesis 覆盖用。"""
+    """递归合并（dict 递归、其余含数组整块替换）—— 只给**显式继承**（`extends`）用。"""
     out = dict(base)
     for k, v in (over or {}).items():
         if isinstance(v, dict) and isinstance(out.get(k), dict):
@@ -823,27 +852,26 @@ class Config:
 
 
 class DataSet:
-    """E：外部扰动流 + 断言 + 预设期望清单。"""
+    """E：预设自带的扰动流 + 断言 + 锚定 + 期望清单。
+
+    世界相关的每一样都只有 `presets/<名>/` 一个安放处 —— 机器规格由 `load_preset`
+    按「显式继承 / 自带完整 / 回落默认」定好，这里不再向第二个目录取任何东西。
+    """
 
     def __init__(self, root=ROOT, preset=None):
-        d = os.path.join(root, "data")
         self.preset = load_preset(root, preset)
-        # 世界命题：data/ 的基础 genesis，可被预设自带的 genesis 递归覆盖。
-        self.genesis = _deep_merge(_json(os.path.join(d, "genesis.json")),
-                                   self.preset.get("genesis") or {})
-        # 断言：data/ 的通用判据 + 预设自带的剧情判据。两者都只是【核对】，不参与演算。
-        self.assertions = (_jsonl(os.path.join(d, "assertions.jsonl"))
-                           + list(self.preset.get("assertions") or []))
-        # 锚定层：data/ 里的通用锚 + 预设里的剧情锚。两者都只是渲染绑定。
-        self.anchors = (_jsonl(os.path.join(d, "anchors.jsonl"))
-                        + list(self.preset.get("anchors") or []))
+        # 机器规格：由 load_preset 装配好（命题 / 变量域 / 阶段装配）。
+        self.genesis = self.preset["genesis"]
+        # 断言：只是【核对】，不参与演算。
+        self.assertions = list(self.preset.get("assertions") or [])
+        # 锚定层：只是渲染绑定。
+        self.anchors = list(self.preset.get("anchors") or [])
         # 外部实体表：谁在操作这个世界、各自握有哪些修改权限。它是【外生】的 ——
         # 引擎只认「已登记的实体」，不认任何一个名字。
         self.actors = list(self.preset.get("actors") or [])
-        # 扰动流：data/ 的通用剧本 + 预设自带的剧本与事件。都是【外部】投递，
-        # 不参与演算规则 —— 换一个预设，同一个世界的走向可以完全不同。
-        raw_dist = (_jsonl(os.path.join(d, "disturbances.jsonl"))
-                    + list(self.preset.get("disturbances") or [])
+        # 扰动流：预设自带的剧本与一次性事件。都是【外部】投递，不参与演算规则 ——
+        # 换一个预设，同一个世界的走向可以完全不同。
+        raw_dist = (list(self.preset.get("disturbances") or [])
                     + list(self.preset.get("events") or []))
         # 时间线：期望清单。引擎从不读它，只有报告与种子检索会用到。
         self.timeline_nodes = list((self.preset.get("timeline") or {}).get("nodes") or [])
@@ -852,7 +880,7 @@ class DataSet:
         problems = []
         validate_data_raw(self.genesis, self.assertions, self.anchors, raw_dist,
                           self.actors, self.timeline_nodes, problems)
-        _report(f"data/ + 预设 {preset!r}", problems)
+        _report(f"预设 {self.preset['name']!r}", problems)
 
         # 阶段装配（可选）：变量域每一档要装哪些机制。空列表 = 完全不装配（与历史一致）。
         self.stage_profiles = normalize_stages(self.genesis)

@@ -5,7 +5,7 @@
 给同一台引擎喂进去。它应当照跑，只是讲出另一个故事。
 
 做法：以主 config/ 为底，程序化改写 dim/loci/mapping/conclusions/lexicon，
-再配上 tools/alt_world/data/ 的替代数据。
+再配上 tools/alt_world/presets/ 的替代数据（默认机器规格落在 presets/_default/）。
 
     python3 tools/alt_world/run_alt.py
 """
@@ -35,7 +35,7 @@ def _w(path, obj):
 def build_alt_root():
     root = tempfile.mkdtemp(prefix="alt_world_")
     shutil.copytree(os.path.join(ROOT, "config"), os.path.join(root, "config"))
-    shutil.copytree(os.path.join(HERE, "data"), os.path.join(root, "data"))
+    shutil.copytree(os.path.join(HERE, "presets"), os.path.join(root, "presets"))
     cfg = os.path.join(root, "config")
 
     # 5 个位

@@ -1,0 +1,4 @@
+{
+  "_comment": "替代世界的默认机器规格（原 tools/alt_world/data/ 的迁址）。run_alt.py 会把 tools/alt_world/presets/ 整个盖进临时根，故它取代主仓的 presets/_default/。无预设（涌现版）跑的就是这一份。",
+  "name": "_default"
+}
