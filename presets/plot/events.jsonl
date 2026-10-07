@@ -1,10 +1,10 @@
 {"frame": 8000, "channel": "observer", "capability": "emit", "selector": null, "label": "◆ 黑天鹅以忆庭之镜为列车指路 —— 这个世界本不可达，镜面之外才有了入口", "payload": {"event": "swan_arrives"}}
 {"frame": 12000, "when": "load_span >= 12", "channel": "world", "capability": "emit", "selector": null, "label": "◆ 开拓者与丹恒自天外降临，协助黄金裔讨伐「纷争」尼卡多利 —— 纷争的火种被回收", "payload": {"event": "nikador_felled"}}
-{"frame": 16000, "when": "deaths_dethroned >= 205", "channel": "world", "capability": "emit", "selector": null, "label": "◆ 白厄未能通过纷争试炼，万敌通过试炼晋升新的纷争半神 —— 盗火行者随黑潮而来", "payload": {"event": "mydei_ascends"}}
-{"frame": 18400, "when": "deaths_aged >= 8500", "channel": "world", "capability": "emit", "selector": null, "label": "◆ 理性与岁月两位泰坦先后陨落 —— 两枚火种失落于黑潮之中", "payload": {"event": "two_titans_fall"}}
-{"frame": 23000, "when": "personas >= 900", "channel": "world", "capability": "emit", "selector": null, "label": "◆ 那刻夏证明了「半神会变成新世界的泰坦」，以关键一票决定继续逐火之旅；开拓者接管岁月权柄，遐蝶通过死亡试炼晋升死亡半神", "payload": {"event": "anaxa_proves"}}
-{"frame": 30000, "when": "deaths_aged >= 16000", "channel": "world", "capability": "emit", "selector": null, "label": "◆ 阿格莱雅自愿被清洗者刺杀退场；众人击败「天空」艾格勒，风堇留下支撑天空", "payload": {"event": "aglaea_exits"}}
-{"frame": 36000, "when": "deaths_dethroned >= 300", "channel": "world", "capability": "emit", "selector": null, "label": "◆ 赛飞儿以假火种骗过盗火行者，最终失手被杀；万敌、缇宝、缇宁相继牺牲", "payload": {"event": "cipher_falls"}}
+{"frame": 16000, "when": "deaths_dethroned >= 205 && event(\"nikador_felled\")", "channel": "world", "capability": "emit", "selector": null, "label": "◆ 白厄未能通过纷争试炼，万敌通过试炼晋升新的纷争半神 —— 盗火行者随黑潮而来", "payload": {"event": "mydei_ascends"}}
+{"frame": 18400, "when": "deaths_aged >= 8500 && event(\"mydei_ascends\")", "channel": "world", "capability": "emit", "selector": null, "label": "◆ 理性与岁月两位泰坦先后陨落 —— 两枚火种失落于黑潮之中", "payload": {"event": "two_titans_fall"}}
+{"frame": 23000, "when": "personas >= 900 && event(\"two_titans_fall\")", "channel": "world", "capability": "emit", "selector": null, "label": "◆ 那刻夏证明了「半神会变成新世界的泰坦」，以关键一票决定继续逐火之旅；开拓者接管岁月权柄，遐蝶通过死亡试炼晋升死亡半神", "payload": {"event": "anaxa_proves"}}
+{"frame": 30000, "when": "deaths_aged >= 16000 && event(\"anaxa_proves\")", "channel": "world", "capability": "emit", "selector": null, "label": "◆ 阿格莱雅自愿被清洗者刺杀退场；众人击败「天空」艾格勒，风堇留下支撑天空", "payload": {"event": "aglaea_exits"}}
+{"frame": 36000, "when": "deaths_dethroned >= 300 && event(\"aglaea_exits\")", "channel": "world", "capability": "emit", "selector": null, "label": "◆ 赛飞儿以假火种骗过盗火行者，最终失手被杀；万敌、缇宝、缇宁相继牺牲", "payload": {"event": "cipher_falls"}}
 {"frame": 40000, "channel": "observer", "capability": "emit", "selector": null, "label": "◆ 来古士摊牌：他才是这个世界的第一推动者 —— 十二原动力跑完三阶段，本该走向「再创世即加冕」", "payload": {"event": "admin_reveals"}}
 {"frame": 42000, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:1"}, "label": "◆ 昔涟自逝入剑、灵魂没入仪式剑 —— 岁月之位故意缺位，此后每一世白厄杀死新生的小昔涟以维持这道空缺，再创世永远差那一步", "payload": {}}
 {"frame": 33594377, "channel": "world", "capability": "emit", "selector": null, "label": "◆ 白厄与盗火行者合二为一，背负数亿颗火种去向纳努克复仇 —— 开拓者接过「负世」的职责，与昔涟踏上最后一次逐火之旅", "payload": {"event": "last_pilgrimage"}}

@@ -49,6 +49,11 @@ _TOKEN = re.compile(r"""
 
 _CMP_OPS = {">=", "<=", "==", "!=", ">", "<"}
 
+#: `terms()` 给事件名加的前缀 —— `check()` 靠它把事件名与普通观测量分开。
+#: 用 `len()` 剥离，不写死下标：早先写成 `t[7:]`（多剥一位）会让**每一个**事件名
+#: 的首字母被切掉（`nikador_felled` → `ikador_felled`），把合法条件误判为「未登记事件」。
+_EVENT_PREFIX = "event:"
+
 
 def _tokenize(expr: str):
     out, i, n = [], 0, len(expr)
@@ -253,7 +258,7 @@ def terms(expr) -> set:
             out.add(n[1])
             return
         if n[0] == "event":
-            out.add("event:" + n[1])
+            out.add(_EVENT_PREFIX + n[1])
             return
         for sub in n[1:]:
             if isinstance(sub, tuple):
@@ -269,8 +274,9 @@ def check(expr, allowed_names=(), allowed_events=()) -> set:
     返回用到的名字集合；不合规直接抛 `ConditionError`。**这里刻意不做静默降级**。
     """
     got = terms(expr)
-    bad_names = {t for t in got if not t.startswith("event:")} - set(allowed_names)
-    bad_events = {t[7:] for t in got if t.startswith("event:")} - set(allowed_events)
+    bad_names = {t for t in got if not t.startswith(_EVENT_PREFIX)} - set(allowed_names)
+    bad_events = {t[len(_EVENT_PREFIX):] for t in got
+                  if t.startswith(_EVENT_PREFIX)} - set(allowed_events)
     if bad_names:
         raise ConditionError(f"条件用了未知量：{sorted(bad_names)}")
     if bad_events:

@@ -25,6 +25,14 @@
   要么在 `preset.json` 里显式写 `"extends": "_default"` 声明继承（`refuted` 用后者）。
 - 无预设 / `emergent` 显式回落到 `presets/_default/`。
 
+### 剧情：六幕串成因果链
+
+- `presets/plot` 的第 2–6 幕各加 `&& event("上一幕")` ⇒ 无论种子快慢，六幕必定按叙事顺序发生
+  （原先各自独立，慢种子上可能乱序）。
+- **仍然非破坏性**：seed 0 满预算轨道与 `digest` 逐位不变（8/8 指纹一致）。
+- 顺带修掉 `engine/conditions.py` 的一个潜伏 off-by-one：`check()` 剥 `"event:"` 前缀时多剥一位，
+  会把每个事件名的首字母切掉、误判为「未登记事件」（此前无预设用过 `event(...)`，故未暴露）。
+
 ### 其他
 
 - 判据 6 的只读探针由守 `data/` 改为守 `presets/`（并改为递归指纹）。
