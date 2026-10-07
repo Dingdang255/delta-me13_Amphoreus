@@ -14,7 +14,6 @@ from .emergence import EmergenceRegistrar
 from .operators import OPERATORS
 from .scheduler import Scheduler
 from .state import DEATH_CAUSES, DEFAULT_SOLVER, State, mix, world_distance
-from .verdicts import ascends_of, evaluate, inner_conclusion
 
 # 等待的刻度：死循环里的时长按几何级数展开成几个读数（纯渲染，不推进任何状态）。
 # 生产值即此处的默认；可被 params.tick_marks 覆盖（--fast 提速时按比例缩短）。
@@ -45,9 +44,8 @@ class Trajectory:
         self.ascended = False            # 是否升格外溢（结论被"改写"那一改的外生产物）
 
 
-# 判据表（C4）的求值在 engine/verdicts.py：情形与附加条件都是注册表，
-# 一条规则 = when + 可选的 require 列表。这里只在每帧求值一次，供「结论里程碑」
-# 与「裁决」共用 —— 过去两处各扫一遍判据表（每帧两次），现在一次。
+# 判据（C4）的求值由应用层交来的 `runtime.judge` 负责：内核不认识判据表，
+# 只在每帧问一次，供「结论里程碑」与「裁决」共用 —— 过去两处各扫一遍（每帧两次），现在一次。
 
 
 def _stage_index(st, data) -> int:
@@ -544,9 +542,9 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
         # ⓪ 裁决即终止：命题已可判定 ⇒ 实验坍缩为「结束」。
         #    终止条件不是"跑够多少次"，而是"能不能下结论"。
         if n > int(start_frame):
-            # 判据表每帧只求值一次，里程碑与裁决共用（外生改写已并入 —— 否则
+            # 判据每帧只问一次，里程碑与裁决共用（外生改写已并入 —— 否则
             # 结论链只停在"结论二"，看不到最后那一改）。
-            inner, ascends = evaluate(st, ctx_run, last_stalled)
+            inner, ascends = runtime.judge(st, ctx_run, last_stalled)
             # 结论里程碑：只记录、只播报，不改状态、不终止（与 DEADLOCK_TICK 同性质）。
             if inner is not None and inner != traj.conclusion_seen:
                 traj.conclusion_seen = inner
@@ -803,12 +801,15 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
     # 那条判据要的正是"结构真的冻结了"，而预算耗尽 ≠ 结构冻结 —— 一个跑满预算、变量域
     # 已穷尽、却仍在演化的世界，应落「未决」而非「证伪」。
     if traj.verdict is None:
-        traj.verdict = (inner_conclusion(st, ctx_run, last_stalled) or "undecided")
-    if ascends_of(ctx_run, traj.verdict) and not traj.ascended:
-        # 兜底路径也要记升格：未被改写的世界困在循环里、预算耗尽才收场，
-        # 走不到 ⓪ 的判决分支，所以补一次 ASCENSION。
-        traj.ascended = True
-        emit(traj.reached_frame, "ASCENSION", {"conclusion": traj.verdict})
+        # 兜底裁决由应用层交来（内核不认识判据表）。它【不套外生改写】——
+        # 预算耗尽的收场要的是「世界自身走到哪」，外生改写只在 ⓪ 的闸门放行时才生效。
+        inner, ascends = runtime.inner_verdict(st, ctx_run, last_stalled)
+        traj.verdict = inner or "undecided"
+        if ascends and not traj.ascended:
+            # 兜底路径也要记升格：未被改写的世界困在循环里、预算耗尽才收场，
+            # 走不到 ⓪ 的判决分支，所以补一次 ASCENSION。
+            traj.ascended = True
+            emit(traj.reached_frame, "ASCENSION", {"conclusion": traj.verdict})
     if traj.stop_reason is None:
         traj.stop_reason = "ITER_CAP" if traj.truncated else "BUDGET"
     traj.conclusion = cfg.conclusions[traj.verdict]

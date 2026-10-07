@@ -50,10 +50,9 @@ ORDER = {"kernel": 0, "service": 1, "presentation": 2}
 # ---- 已存在的越界：P0 冻结基线（棘轮，只许减不许增）---------------------------
 # 2026-10-05 首次扫描得 6 条；P1 清掉 emergence→namer；P4-0 把名字注册表下沉为内核侧的
 # vocabulary.py，清掉 loader 的 2 条；P4-S1 把不变量检查倒置成 runtime.checks，清掉 1 条；
-# P4-S2 把消融探针倒置成 runtime.probe，清掉 1 条。剩下 1 条要等 S3（裁决）倒置。
-BASELINE = {
-    ("core.py", "verdicts.py"),
-}
+# P4-S2 把消融探针倒置成 runtime.probe，清掉 1 条；P4-S3 把裁决倒置成 runtime.judge，
+# 清掉最后 1 条 ⇒ **基线归零：内核一行 import 都不再往上**。
+BASELINE = set()
 
 _FROM_MOD = re.compile(r"^\s*from\s+\.(\w+)\s+import\b")
 _FROM_PKG = re.compile(r"^\s*from\s+\.\s+import\s+(.+)$")
