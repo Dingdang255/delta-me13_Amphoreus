@@ -2,6 +2,35 @@
 
 > 每个版本的发布说明。发 GitHub Release 时，正文直接取对应小节即可。
 
+## 未发布 — A 线维护（`script.jsonl` 样例 · 发版纪律 · 去重）
+
+> **非破坏性**：不触碰任何既有世界的轨迹 —— 指纹 6/6 逐位不变，`v0.1.1` 的全部读数仍然成立。
+
+### 新增 `presets/_demo/` —— `script.jsonl` 的可运行样例
+
+§D2 落地后，仓库里其实一个 `script.jsonl` 都没有（契约只活在测试的内联规则里）。
+现在补一个真正能跑的：
+
+```bash
+python run.py --preset _demo --frames 5000
+```
+
+三条规则分别演示三种写法：`on: "FRAME"` + `at`（定时投递，与 `events.jsonl` 一行逐字同形）、
+`on: <事件类别>` + `if` + `permit`（写回响应，下一帧生效、只触发一次）、只 `emit` 的只读响应。
+`tests/test_script.py::DemoPreset` 真跑 1300 帧，断言三件事都真的发生。
+
+### 发版纪律：版本号不许只改一处
+
+`tests/test_packaging.py::ReleaseDiscipline` 新增两条：
+`pyproject.toml` 的 `version` 必须在 CHANGELOG 有对应的 `## vX.Y.Z` 小节；
+`capabilities()["api_version"]` 必须等于 `kernel.api.API_VERSION`。
+
+### 去重（不改变任何行为）
+
+- 死因清单改由 `apps.conditions.known_names()` 单一提供（`tests/test_conditions.py` 不再手抄一份）。
+- 锚定键 `serial:<n>` 的解析统一到 `apps.namer.serial_of`（`tools/_harness.py` 转出）。
+- `tools/anomaly_check.py` 改用 `kernel.core.initial_state`，不再维护一份影子 `State` 构造。
+
 ## v0.1.1 — 2026-10-07 · 内核/用户态分层与八个系统调用（§3.1/§3.2/§D2/§D5）
 
 > **补丁版（非破坏性）**：裁决帧、结论与 `digest` **一个都没变** —— `snapshot --fast` 6/6
