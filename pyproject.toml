@@ -9,7 +9,7 @@
 # requirements.txt 仍是安装时的唯一依据，两者的版本约束由 tests/test_packaging.py 守着不许漂移。
 [project]
 name = "amphoreus"
-version = "0.1.0"
+version = "0.1.1"
 description = "δ-me13「翁法罗斯」演算引擎：抽象演算内核 + 只读可视化"
 requires-python = ">=3.10"
 dependencies = [
