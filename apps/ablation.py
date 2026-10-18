@@ -7,8 +7,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from .operators import Compete, Drift, Entropy, Interact, Repopulate
-from .state import State, mix
+from kernel.operators import Compete, Drift, Entropy, Interact, Repopulate
+from kernel.state import State, mix
 
 ABLATION_PIPELINE = (Drift(), Interact(), Compete(), Repopulate(), Entropy())
 
@@ -46,7 +46,7 @@ def _sig_params(params) -> tuple:
 
 def _sig_seeding(seeding) -> tuple:
     """播种配置的内容签名。消融管线里 `Repopulate` 会读 `seeding["alpha"]`
-    （见 `engine/operators.py`），故它必须进缓存键 —— 否则同一进程内换了播种配置
+    （见 `kernel/operators.py`），故它必须进缓存键 —— 否则同一进程内换了播种配置
     会命中陈旧浮点。`_sig_params` 的约定是「探针读到的每一个旋钮都在签名里」，
     这一项补上那个缺口。
     """

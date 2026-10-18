@@ -13,9 +13,9 @@ import unittest
 
 from _support import ROOT, state
 
-from engine.disturbance import CAPABILITIES, dispatch
-from engine.loader import Config, DataSet
-from engine.operators import MEMORY_OWNER, Occupy, is_external_owner
+from kernel.disturbance import CAPABILITIES, dispatch
+from kernel.loader import Config, DataSet
+from kernel.operators import MEMORY_OWNER, Occupy, is_external_owner
 
 
 class ExternalOwnerFamily(unittest.TestCase):

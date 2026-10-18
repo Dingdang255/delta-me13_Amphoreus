@@ -61,14 +61,14 @@ if ROOT not in sys.path:
 
 from _harness import load, num as _num, resolve_seeds, rules, services  # noqa: E402
 
-from engine.core import run                                # noqa: E402
-from engine.features import DEFAULT_COLS, extract          # noqa: E402
-from engine.loader import Config, DataSet                   # noqa: E402
-from engine.timeline import check as check_timeline         # noqa: E402
-from engine.timeline import compare as _cmp                 # noqa: E402
-from engine.timeline import make_watch, nodes_to_constraints  # noqa: E402
+from kernel.core import run                                # noqa: E402
+from apps.features import DEFAULT_COLS, extract          # noqa: E402
+from kernel.loader import Config, DataSet                   # noqa: E402
+from apps.timeline import check as check_timeline         # noqa: E402
+from apps.timeline import compare as _cmp                 # noqa: E402
+from apps.timeline import make_watch, nodes_to_constraints  # noqa: E402
 
-# 特征提取已收进 engine/features.py —— 报告与探针共用同一份，避免两处口径漂移。
+# 特征提取已收进 apps/features.py —— 报告与探针共用同一份，避免两处口径漂移。
 
 # ------------------------------------------------------------------ 约束
 OPS = {"==": "eq", "=": "eq", "!=": "ne", ">": "gt", ">=": "ge", "<": "lt", "<=": "le"}

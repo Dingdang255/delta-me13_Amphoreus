@@ -24,9 +24,9 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import BAR, ROOT, services               # noqa: E402
 
-from engine.core import run                          # noqa: E402
-from engine.loader import Config, DataSet            # noqa: E402
-from engine.namer import Namer                       # noqa: E402
+from kernel.core import run                          # noqa: E402
+from kernel.loader import Config, DataSet            # noqa: E402
+from apps.namer import Namer                       # noqa: E402
 
 
 def run_once(preset, frames, seed, conditional):
@@ -36,7 +36,7 @@ def run_once(preset, frames, seed, conditional):
     namer = Namer(ctx, data.anchors)
     kw = {}
     if conditional:
-        from engine.conditions import evaluate
+        from apps.conditions import evaluate
 
         for rec in data.disturbances:
             rec["when"] = f'frame >= {int(rec["frame"])}'

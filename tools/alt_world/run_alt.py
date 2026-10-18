@@ -21,10 +21,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, ROOT)
 
-from engine.conditions import evaluate           # noqa: E402
-from engine.core import run                      # noqa: E402
-from engine.loader import Config, DataSet        # noqa: E402
-from engine.services import default as default_services  # noqa: E402
+from apps.conditions import evaluate           # noqa: E402
+from kernel.core import run                      # noqa: E402
+from kernel.loader import Config, DataSet        # noqa: E402
+from apps.services import default as default_services  # noqa: E402
 
 
 def _w(path, obj):
@@ -106,7 +106,7 @@ def main():
     data = DataSet(root)
     traj = run(ctx, data, rules=evaluate, runtime=default_services())
 
-    from engine.assertions import AssertionRunner
+    from apps.assertions import AssertionRunner
     results = AssertionRunner(ctx, data).run(traj)
 
     st = traj.final

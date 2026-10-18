@@ -33,8 +33,8 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import BAR, ROOT, jsonl, rules, services      # noqa: E402
 
-from engine.core import run                                 # noqa: E402
-from engine.loader import Config, DataSet                    # noqa: E402
+from kernel.core import run                                 # noqa: E402
+from kernel.loader import Config, DataSet                    # noqa: E402
 
 
 def varied_records(base_events, mech_events):

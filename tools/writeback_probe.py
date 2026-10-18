@@ -55,7 +55,7 @@ def main():
     before = fingerprint()
     install_guard()
 
-    from engine.core import run
+    from kernel.core import run
     ctx, data, _ = load()
     traj = run(ctx, data, max_frames=args.frames, trace=False, rules=rules(),
                runtime=services())

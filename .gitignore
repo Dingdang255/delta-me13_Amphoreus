@@ -14,19 +14,24 @@
 !/requirements.txt
 !/pyproject.toml
 !/.github/
-!/engine/
+!/kernel/
+!/apps/
 !/config/
 !/presets/
 !/tools/
 !/tests/
 
-# docs/ 只放行 export.py 列的那四份；其余（wiki 抓取、散文考据）是给 AI 的参考料，不进仓库
+# docs/ 只放行 export.py 列的那四份 + ADR；其余（wiki 抓取、散文考据）是给 AI 的参考料，不进仓库
 !/docs/
 /docs/*
 !/docs/外部变量.json
 !/docs/术语对照表.md
 !/docs/使用教程.md
 !/docs/外部变量.md
+# ADR：接口决策的正式出处。它是"为什么是这 8 个"的唯一留档，必须随仓库走。
+!/docs/adr/
+/docs/adr/*
+!/docs/adr/*.md
 
 # 白名单目录内部也要挡住的（这些模式按 basename 匹配任意层级）
 __pycache__/

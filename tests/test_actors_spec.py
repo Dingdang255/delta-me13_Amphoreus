@@ -25,7 +25,7 @@ class ActorsFromSpec(unittest.TestCase):
             self.assertTrue(a.get("label"), a["id"])
             self.assertIsInstance(a.get("grants"), list)
 
-    def test_permissions_come_from_engine_vocabulary(self):
+    def test_permissions_come_from_kernel_vocabulary(self):
         """权限名只能是引擎的规则词汇 —— 否则 revise_protocol 永远写不进去。"""
         allowed = {"solver.direction", "promotion.mode", "suppression.release",
                    "gate.open", "locus.hand", "memory.steal"}

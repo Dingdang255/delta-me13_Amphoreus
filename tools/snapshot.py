@@ -37,10 +37,10 @@ import numpy as np
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-from engine.conditions import evaluate           # noqa: E402
-from engine.core import run                      # noqa: E402
-from engine.loader import Config, DataSet        # noqa: E402
-from engine.services import default as default_services  # noqa: E402
+from apps.conditions import evaluate           # noqa: E402
+from kernel.core import run                      # noqa: E402
+from kernel.loader import Config, DataSet        # noqa: E402
+from apps.services import default as default_services  # noqa: E402
 
 GOLDEN = os.path.join(ROOT, "tests", "golden_fingerprints.json")
 

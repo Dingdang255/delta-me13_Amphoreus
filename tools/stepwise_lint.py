@@ -4,6 +4,10 @@
 禁止任何"一眼看到未来 / 直接跳到不动点"的写法：
     state[n+k]、traj.final 读取、events.peek()、solve_fixed_point()、matrix_power()、lookahead …
 
+扫描集合 = `kernel/` + `apps/`。**用户态同样要过这一关** —— §D2 的
+`presets/<n>/script.jsonl` 让应用能"在世界的事件上响应"，而应用一旦能预读未来，
+"世界是长出来的"这个卖点就没了。红线不因分层而放松。
+
     python3 tools/stepwise_lint.py        # 命中则退出码 1
 """
 from __future__ import annotations
@@ -15,12 +19,14 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 打印中文前把 stdio 钉成 UTF-8（英文 Windows 默认 cp1252，打印会 UnicodeEncodeError）。
-# 与 engine/__init__.py 的同一处兜底一致；本脚本刻意不 import engine，故自带一份。
+# 与 kernel/__init__.py 的同一处兜底一致；本脚本刻意不 import kernel，故自带一份。
 for _s in (sys.stdout, sys.stderr):
     try:
         _s.reconfigure(encoding="utf-8")
     except (AttributeError, ValueError, OSError):
         pass
+
+SCAN_DIRS = ("kernel", "apps")
 
 BANNED = [
     (r"\bmatrix_power\b", "矩阵幂加速：等价于解析求解"),
@@ -66,19 +72,20 @@ def scan_file(path: str):
 
 
 def main():
-    engine = os.path.join(ROOT, "engine")
     total = 0
-    for name in sorted(os.listdir(engine)):
-        if not name.endswith(".py"):
-            continue
-        for ln, pat, why, line in scan_file(os.path.join(engine, name)):
-            print(f"✗ engine/{name}:L{ln}  «{pat}»  → {why}")
-            print(f"      {line.strip()[:72]}")
-            total += 1
+    for pkg in SCAN_DIRS:
+        d = os.path.join(ROOT, pkg)
+        for name in sorted(os.listdir(d)):
+            if not name.endswith(".py"):
+                continue
+            for ln, pat, why, line in scan_file(os.path.join(d, name)):
+                print(f"✗ {pkg}/{name}:L{ln}  «{pat}»  → {why}")
+                print(f"      {line.strip()[:72]}")
+                total += 1
     if total == 0:
-        print("✓ engine/ 逐步推进 lint 通过：没有解析求解 / 预读未来")
+        print("✓ kernel/ 与 apps/ 逐步推进 lint 通过：没有解析求解 / 预读未来")
         return 0
-    print(f"\n命中 {total} 处：引擎出现了非逐步的写法。")
+    print(f"\n命中 {total} 处：出现了非逐步的写法。")
     return 1
 
 

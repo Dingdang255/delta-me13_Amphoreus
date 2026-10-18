@@ -16,7 +16,7 @@ from __future__ import annotations
 import html
 import json
 
-from .operators import consensus
+from kernel.operators import consensus
 from .render import (Renderer, advance_label, cycle_frames, myth_phase_frame,
                      renewal_switch_frame, stage_starts, stage_table)
 

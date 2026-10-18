@@ -1,16 +1,16 @@
-"""投递条件求值器（`engine/conditions.py`）：三类词法 / 拒绝未知量 / 拒绝预读未来。"""
+"""投递条件求值器（`apps/conditions.py`）：三类词法 / 拒绝未知量 / 拒绝预读未来。"""
 import json
 import os
 import unittest
 
 from _support import ROOT      # noqa: F401  （挂 sys.path + 钉 BLAS 线程）
 
-from engine.services import default as default_services
+from apps.services import default as default_services
 
 
 class ParsingAndEvaluating(unittest.TestCase):
     def test_three_kinds(self):
-        from engine.conditions import evaluate
+        from apps.conditions import evaluate
 
         obs = {"frame": 12000, "promotions": 9, "order": 0.5,
                "events": {"nikador_felled"}}          # 已发生过的事件名（集合）
@@ -21,7 +21,7 @@ class ParsingAndEvaluating(unittest.TestCase):
         self.assertFalse(evaluate("order > 0.9", obs))
 
     def test_boolean_algebra_and_parens(self):
-        from engine.conditions import evaluate
+        from apps.conditions import evaluate
 
         obs = {"a": 1, "b": 0, "events": {}}
         self.assertTrue(evaluate("a && !b", obs))
@@ -30,7 +30,7 @@ class ParsingAndEvaluating(unittest.TestCase):
         self.assertTrue(evaluate("   a   ", obs))       # 前后空白不影响
 
     def test_repeated_evaluation_is_deterministic(self):
-        from engine.conditions import evaluate
+        from apps.conditions import evaluate
 
         obs = {"frame": 5, "events": {}}
         self.assertEqual({evaluate("frame >= 5", obs) for _ in range(50)}, {True})
@@ -38,42 +38,42 @@ class ParsingAndEvaluating(unittest.TestCase):
 
 class RejectsBadConditions(unittest.TestCase):
     def test_unknown_name(self):
-        from engine.conditions import ConditionError, evaluate
+        from apps.conditions import ConditionError, evaluate
         with self.assertRaises(ConditionError):
             evaluate("nonesuch >= 1", {"frame": 0, "events": {}})
 
     def test_unknown_name_is_loud_but_unknown_event_is_false(self):
         """名字读不到要报错；但**事件没发生过只能是 False**（"等它发生"是主要用法）。"""
-        from engine.conditions import ConditionError, evaluate
+        from apps.conditions import ConditionError, evaluate
         with self.assertRaises(ConditionError):                 # 名字：报错
             evaluate("nonesuch >= 1", {"frame": 0, "events": {}})
         self.assertFalse(evaluate('event("nope")', {"frame": 0, "events": {}}))
         # 拼错的事件名由静态闸门拦（见 PresetsOnlyUseKnownTerms 里传的 allowed_events）
-        from engine.conditions import ConditionError as CE
-        from engine.conditions import check
+        from apps.conditions import ConditionError as CE
+        from apps.conditions import check
         with self.assertRaises(CE):
             check('event("nope")', allowed_names=set(), allowed_events={"y"})
 
     def test_type_mismatch(self):
-        from engine.conditions import ConditionError, evaluate
+        from apps.conditions import ConditionError, evaluate
         with self.assertRaises(ConditionError):
             evaluate('frame >= "x"', {"frame": 1, "events": {}})
 
     def test_no_lookahead_shapes_parse_at_all(self):
         """预读未来的写法在【词法】这一层就不成立 —— 这正是我们要的性质。"""
-        from engine.conditions import ConditionError, parse
+        from apps.conditions import ConditionError, parse
         for bad in ("state[n+1]", "events.peek()", "traj.final",
                     "x; y", "__import__('os')", "frame >= 1 + 2"):
             with self.assertRaises(ConditionError):
                 parse(bad)
 
     def test_terms(self):
-        from engine.conditions import terms
+        from apps.conditions import terms
         self.assertEqual(terms('promotions >= 8 && event("x")'),
                          {"promotions", "event:x"})
 
     def test_check_rejects_unknown(self):
-        from engine.conditions import ConditionError, check
+        from apps.conditions import ConditionError, check
         self.assertEqual(check("frame >= 1", allowed_names={"frame"}), {"frame"})
         with self.assertRaises(ConditionError):
             check("frame >= 1", allowed_names={"promotions"})
@@ -85,7 +85,7 @@ class PresetsOnlyUseKnownTerms(unittest.TestCase):
     """闸门：仓库里每个预设的 `when`（一旦有人开始写）都必须能解析、且只用已知量。
 
     目前还没有预设写 `when`，所以这条现在恒真；它是**为第一条 `when` 准备的关卡**。
-    校验放在测试里而不是 `engine/loader.py` 里 —— 后者会让内核 import 服务层，
+    校验放在测试里而不是 `kernel/loader.py` 里 —— 后者会让内核 import 服务层，
     立刻多一条分层越界（见 tools/layer_lint.py 的棘轮）。
     """
 
@@ -103,8 +103,8 @@ class PresetsOnlyUseKnownTerms(unittest.TestCase):
     @staticmethod
     def _known_names():
         """内核 `obs_now()` 会给出的全部名字 —— 与 core.py 的构造一一对应。"""
-        from engine.disturbance import CAPABILITIES
-        from engine.state import DEATH_CAUSES
+        from kernel.disturbance import CAPABILITIES
+        from kernel.state import DEATH_CAUSES
 
         return ({"frame", "promotions", "round", "domain_index", "entropy",
                  "personas", "deadlocked", "seats_filled", "seats_vacant", "deaths",
@@ -116,7 +116,7 @@ class PresetsOnlyUseKnownTerms(unittest.TestCase):
                 | {f"deaths_{c}" for c in DEATH_CAUSES})         # 账本（按死因分档）
 
     def test_all_presets(self):
-        from engine.conditions import check
+        from apps.conditions import check
 
         root = os.path.join(ROOT, "presets")
         names = self._known_names()
@@ -149,10 +149,10 @@ class ConditionReallyGatesDispatch(unittest.TestCase):
     """
 
     def _gaze_frames(self, when, frames=1400):
-        from engine.conditions import evaluate
-        from engine.core import run
-        from engine.loader import Config, DataSet
-        from engine.namer import Namer
+        from apps.conditions import evaluate
+        from kernel.core import run
+        from kernel.loader import Config, DataSet
+        from apps.namer import Namer
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
@@ -176,10 +176,10 @@ class ConditionReallyGatesDispatch(unittest.TestCase):
         这里拿 plot 里 1200 帧那条（纳努克目光）改成"等 4000 帧的浮黎目光发生过"——
         于是它**被世界推迟**：不再固定在第 1200 帧。
         """
-        from engine.conditions import evaluate
-        from engine.core import run
-        from engine.loader import Config, DataSet
-        from engine.namer import Namer
+        from apps.conditions import evaluate
+        from kernel.core import run
+        from kernel.loader import Config, DataSet
+        from apps.namer import Namer
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
@@ -196,8 +196,8 @@ class ConditionReallyGatesDispatch(unittest.TestCase):
 
     def test_missing_predicate_is_loud(self):
         """有 when 却不给谓词 —— 必须当场报错，绝不静默忽略。"""
-        from engine.core import run
-        from engine.loader import Config, DataSet
+        from kernel.core import run
+        from kernel.loader import Config, DataSet
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
@@ -209,10 +209,10 @@ class ConditionReallyGatesDispatch(unittest.TestCase):
 
     def test_obs_exposes_seats_caps_and_ledger(self):
         """扩出来的观测量**真的读得到** —— 任一名字缺失都会让求值抛错。"""
-        from engine.conditions import evaluate
-        from engine.core import run
-        from engine.loader import Config, DataSet
-        from engine.namer import Namer
+        from apps.conditions import evaluate
+        from kernel.core import run
+        from kernel.loader import Config, DataSet
+        from apps.namer import Namer
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))

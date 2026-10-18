@@ -17,9 +17,9 @@ from collections import Counter
 
 from _support import ROOT, load, state
 
-from engine.disturbance import dispatch
-from engine.loader import Config
-from engine.state import DEATH_CAUSES
+from kernel.disturbance import dispatch
+from kernel.loader import Config
+from kernel.state import DEATH_CAUSES
 
 #: 死因的封闭集合（都是通用词，不含任何专名）—— 与引擎同一份来源。
 CAUSES = set(DEATH_CAUSES)

@@ -18,7 +18,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import load, ROOT                    # noqa: E402
 
-from engine.scheduler import Scheduler             # noqa: E402
+from kernel.scheduler import Scheduler             # noqa: E402
 
 
 class _V:
@@ -56,7 +56,7 @@ def main():
 
 def _mk_state(ctx):
     """造一个最小可运行的状态对象，只为把 VACANT 喂给调度器。"""
-    from engine.state import State
+    from kernel.state import State
     p = ctx.params
     return State(ctx.loci, int(p["dim"]), int(p["observables"]),
                  int(p["pool_capacity"]), ["x"])

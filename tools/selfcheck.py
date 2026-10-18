@@ -25,8 +25,8 @@ PY = sys.executable
 GOLDEN = os.path.join(ROOT, "tests", "golden_fingerprints.json")
 
 # 打印中文前把 stdio 钉成 UTF-8（英文 Windows 默认 cp1252，打印会 UnicodeEncodeError）。
-# 与 engine/__init__.py 的同一处兜底一致；本脚本只在 `_fingerprint_args()` 里【延迟】导入
-# engine，走不到那条路时就没有兜底，故自带一份。
+# 与 kernel/__init__.py 的同一处兜底一致；本脚本只在 `_fingerprint_args()` 里【延迟】导入
+# kernel，走不到那条路时就没有兜底，故自带一份。
 for _s in (sys.stdout, sys.stderr):
     try:
         _s.reconfigure(encoding="utf-8")
@@ -59,9 +59,9 @@ def _fingerprint_args():
 
 # 快档：红线 → 判据 → 单元测试 → 世界连通
 QUICK = [
-    _step("红线 1：引擎零专有名词", ["tools/grep_forbidden.py"]),
+    _step("红线 1：程序零专有名词（kernel/ + apps/）", ["tools/grep_forbidden.py"]),
     _step("红线 2：逐步推进 lint（禁止解析求解 / 预读未来）", ["tools/stepwise_lint.py"]),
-    _step("红线 3：内核分层（内核不许 import 服务 / 界面）", ["tools/layer_lint.py"]),
+    _step("红线 3：内核分层（kernel 不许 import apps）", ["tools/layer_lint.py"]),
     _step("环境自检（解释器 / 依赖 / 数据）", ["tools/export.py", "--check-only"]),
     _step("单元测试", ["-m", "unittest", "discover", "-s", "tests"]),
     _step("判据 3：数据替换（替代世界）", ["tools/alt_world/run_alt.py"]),

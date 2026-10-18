@@ -13,13 +13,13 @@
 """
 from __future__ import annotations
 
-#: 判据的「触发时机」（`verdict_rules[].when`）—— 实现见 `engine/verdicts.py`
+#: 判据的「触发时机」（`verdict_rules[].when`）—— 实现见 `apps/verdicts.py`
 WHEN_NAMES = ("all_falsified", "stalled_and_exhausted")
 
-#: 判据的「附加条件」（`verdict_rules[].require[].kind`）—— 实现见 `engine/verdicts.py`
+#: 判据的「附加条件」（`verdict_rules[].require[].kind`）—— 实现见 `apps/verdicts.py`
 REQUIRE_NAMES = ("solver", "counter")
 
-#: 断言的种类名（不含 `_at_least` / `_at_most` 后缀）—— 实现见 `engine/assertions.py`
+#: 断言的种类名（不含 `_at_least` / `_at_most` 后缀）—— 实现见 `apps/assertions.py`
 ASSERTION_KINDS = frozenset({
     "domains_exhausted", "black_tide_ever", "vacancy_ever", "promotion_count",
     "persona_count", "persona_with_capability", "persona_named", "deadlock_ever",
@@ -31,6 +31,18 @@ ASSERTION_KINDS = frozenset({
 
 #: 断言名允许的比较后缀 → 比较方式。
 SUFFIX_OPS = (("_at_least", "ge"), ("_at_most", "le"))
+
+#: 内核 `emit()` 会用的**事件类别**（`core.py` 里逐个 emit 的那批 kind）。
+#: 服务层（`apps/script.py` 的订阅）要在这里查得到 —— 拼错一个订阅名只会变成
+#: "这条规则永远不触发"，是最难查的那类事故，故启动即报。
+#: 它只登记**类别名**，不含任何领域知识；内核自己也不读这张表（它只管发）。
+EVENT_KINDS = frozenset({
+    "DISTURBANCE", "PROTOCOL_REWRITTEN", "DOMAIN_ADVANCE", "DOMAINS_EXHAUSTED",
+    "SOLVER_CHANGED", "PROMOTION", "CONVERGED", "EMERGENCE", "SUCCESSION",
+    "DEADLOCK_LOOP", "DEADLOCK_TICK", "DEADLOCK_END",
+    "ATTEMPT_VAIN", "ATTEMPT_TRACE",
+    "VERDICT", "CONCLUSION_REACHED", "ASCENSION", "VIOLATION_STATE",
+})
 
 
 def split_kind(kind: str):

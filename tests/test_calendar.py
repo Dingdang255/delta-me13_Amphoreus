@@ -17,7 +17,7 @@ import unittest
 
 from _support import ROOT  # noqa: F401  （把仓库根挂上 sys.path）
 
-from engine.render import Renderer
+from apps.render import Renderer
 
 
 def _fake(calendar, lexicon=None):
@@ -164,7 +164,7 @@ class CalendarRealConfig(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        from engine.loader import Config
+        from kernel.loader import Config
         cls.ctx = Config(ROOT)
         with open(os.path.join(ROOT, "config", "calendar.json"),
                   encoding="utf-8") as f:

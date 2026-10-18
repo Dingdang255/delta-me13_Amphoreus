@@ -26,9 +26,9 @@ from _harness import (BAR, load, ROOT, PALETTE as _PALETTE,  # noqa: E402
                       esc as _esc, resolve_seeds as _resolve_seeds_common,
                       rules, services)
 
-from engine.core import run                                # noqa: E402
-from engine.render import renderer_for                     # noqa: E402
-from engine.viz import Sampler                             # noqa: E402
+from kernel.core import run                                # noqa: E402
+from apps.render import renderer_for                     # noqa: E402
+from apps.viz import Sampler                             # noqa: E402
 
 import excavation                                          # noqa: E402
 

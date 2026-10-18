@@ -41,7 +41,7 @@ class LexiconTable(unittest.TestCase):
 class CapabilityLabels(unittest.TestCase):
     """扰动能力与渲染词表不许漂移。
 
-    两个方向要分开看（见 engine/loader.py `_check_capability_names` 的说明）：
+    两个方向要分开看（见 kernel/loader.py `_check_capability_names` 的说明）：
       · 注册表里【有的】能力，词表里必须【也有】——否则经编年史 / 看板渲染时
         会漏出裸的英文名（`viz.py` 的回退就是 `cap or "介入"`）；
       · 词表里【多出】的名字（如只有词条、没有投递实现的 `bind_locus`）是允许的，
@@ -49,13 +49,13 @@ class CapabilityLabels(unittest.TestCase):
     """
 
     def test_every_registered_capability_has_a_label(self):
-        from engine.disturbance import CAPABILITIES
+        from kernel.disturbance import CAPABILITIES
         labels = _json("config", "lexicon.json")["capabilities"]
         missing = sorted(set(CAPABILITIES) - set(labels))
         self.assertEqual(missing, [], f"这些已注册能力缺渲染词：{missing}")
 
     def test_capability_names_resolve_to_registered_or_declared(self):
-        from engine.disturbance import CAPABILITIES
+        from kernel.disturbance import CAPABILITIES
         labels = set(_json("config", "lexicon.json")["capabilities"])
         known = set(CAPABILITIES) | labels
         for i, nm in enumerate(_json("config", "params.json")["capability_names"]):

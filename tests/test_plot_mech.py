@@ -22,10 +22,10 @@ import unittest
 
 from _support import ROOT, load, temp_root_with_copy
 
-from engine.conditions import evaluate
-from engine.core import run
-from engine.loader import Config, DataSet
-from engine.services import default as default_services
+from apps.conditions import evaluate
+from kernel.core import run
+from kernel.loader import Config, DataSet
+from apps.services import default as default_services
 
 #: 跑到 12,001 帧：正好覆盖第一条升级（纷争那一席，第 12,000 帧）。
 FRAMES = 12001
@@ -181,7 +181,7 @@ class PlotMechRuns(unittest.TestCase):
 
     def test_features_expose_the_mechanism_ledger(self):
         """L2 之后机制不再走 emit，单看 `emitted_*` 会以为它没跑 —— 故另记一份能力账本。"""
-        from engine.features import extract
+        from apps.features import extract
         f = extract(self.traj, self.ctx)
         self.assertIn("evict_holder", f["disturb_capabilities"])
         self.assertGreaterEqual(f["disturb_total"], 1)
@@ -208,8 +208,8 @@ class PlotMechRuns(unittest.TestCase):
         这正是「机制与剧情口径一致」的可核对证据 —— 之前它 FAIL 不是因为情节没发生，
         而是因为账本漏登记。
         """
-        from engine.features import extract
-        from engine.timeline import check as check_timeline
+        from apps.features import extract
+        from apps.timeline import check as check_timeline
         feats = extract(self.traj, self.ctx)
         got = {r.id: r.ok for r in check_timeline(self.data_p.timeline_nodes, feats)}
         self.assertTrue(got["N19_ARC_3_0"], "升级为机制后这条剧情节点必须仍然命中")

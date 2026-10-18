@@ -8,7 +8,7 @@
 
 ⚠ 为什么不"连数据一起旋转"（把耦合按同一置换重排、位序也换）：
    那个**更强的命题不成立**，且原因不在引擎的动力学，而在**初始条件** ——
-   `engine/core.py` 逐位抽初始个体数是 `for locus in cfg.loci: rng.integers(…)`，
+   `kernel/core.py` 逐位抽初始个体数是 `for locus in cfg.loci: rng.integers(…)`，
    即按【位置顺序】取同一条随机流；位序一换，每个位置拿到的个体数就变了，
    于是两次跑的根本不是同一个初始世界（实测：`iterations` 488 vs 489）。
    要让那个命题成立，得把初始播种改成"按内容寻址"（随置换一起动）——
@@ -44,7 +44,7 @@ def main():
     args = ap.parse_args()
 
     ctx0, data, _ = load()
-    from engine.core import run
+    from kernel.core import run
     traj0 = run(ctx0, data, max_frames=args.frames, trace=False, rules=rules(),
                 runtime=services())
     base = summary(traj0, ctx0)

@@ -10,7 +10,7 @@
   "interact_repel": 0.02,
   "entropy_mix": 0.015,
   "noise_decay": 0.88,
-  "_noise_base_comment": "黑潮【本底】：每帧恒定注入的一丝乱码（由 engine/scheduler.py 在每帧注入，与违例判据无关）。量取自旧机制 —— 旧世界 CapacityCheck 恒真、OVERFLOW 常驻 ⇒ `noise_rate` 被每帧加一次，世界稳定在 `noise_rate/(1−noise_decay)` = 0.085/0.12 = 0.7083。判据改成【份额口径】后 OVERFLOW 变稀疏，那口恒定注入随之消失（黑潮会自熄），故显式补回本底。它与旧注入【同点、同量】⇒ 安静帧与旧世界逐位一致；只有真溢出帧（另加 policies.OVERFLOW.noise_rate 的尖峰）才偏离。",
+  "_noise_base_comment": "黑潮【本底】：每帧恒定注入的一丝乱码（由 kernel/scheduler.py 在每帧注入，与违例判据无关）。量取自旧机制 —— 旧世界 CapacityCheck 恒真、OVERFLOW 常驻 ⇒ `noise_rate` 被每帧加一次，世界稳定在 `noise_rate/(1−noise_decay)` = 0.085/0.12 = 0.7083。判据改成【份额口径】后 OVERFLOW 变稀疏，那口恒定注入随之消失（黑潮会自熄），故显式补回本底。它与旧注入【同点、同量】⇒ 安静帧与旧世界逐位一致；只有真溢出帧（另加 policies.OVERFLOW.noise_rate 的尖峰）才偏离。",
   "noise_base": 0.085,
   "noise_to_mutation": 0.55,
   "stability_eps": 0.03,
@@ -37,11 +37,11 @@
   "tau_parley": 0.32,
   "tau_noise_parley": 1.0,
 
-  "_ember_comment": "火种账本：暴力夺取（evict_holder）记一笔 embers_taken；和平归还（parley）只记 embers_returned —— **这是两种手段唯一的分别**。真正参与因果的是 ember_delay：`Promotion` 用 `embers_taken` 抬高再创世门槛（「集齐火种才能再创世」⇒「火种被夺走，终点被推远」）。实测（plot-mech：6 逐出 + 1 交涉）⇒ 换代 48、迭代 34,439（与全暴力版走向不同；两个读数随 A 批黑潮改造重测）。没有 evict_holder 的世界（如 plot）`embers_taken` 恒为 0，故**逐帧不变**。（早前曾想用 `locus.capacity` 承载「位被破坏」，实测无效已撤；其量纲问题见 engine/invariants.py 的 CapacityCheck。）",
+  "_ember_comment": "火种账本：暴力夺取（evict_holder）记一笔 embers_taken；和平归还（parley）只记 embers_returned —— **这是两种手段唯一的分别**。真正参与因果的是 ember_delay：`Promotion` 用 `embers_taken` 抬高再创世门槛（「集齐火种才能再创世」⇒「火种被夺走，终点被推远」）。实测（plot-mech：6 逐出 + 1 交涉）⇒ 换代 48、迭代 34,439（与全暴力版走向不同；两个读数随 A 批黑潮改造重测）。没有 evict_holder 的世界（如 plot）`embers_taken` 恒为 0，故**逐帧不变**。（早前曾想用 `locus.capacity` 承载「位被破坏」，实测无效已撤；其量纲问题见 apps/invariants.py 的 CapacityCheck。）",
   "ember_delay": 20,
 
   "promotion_gain": 0.30,
-  "_capacity_inherit_comment": "再创世后 capacities 的继承系数。**必须为 1.0**：`capacity` 现在是「承载份额上限」（量纲已与 load 对齐，见 engine/invariants.py 的 CapacityCheck），若仍按 0.9 逐代相乘，几十次换代后阈值会衰减到 1e-5 量级 ⇒ 判据重新变成恒真、黑潮重新变成恒压。",
+  "_capacity_inherit_comment": "再创世后 capacities 的继承系数。**必须为 1.0**：`capacity` 现在是「承载份额上限」（量纲已与 load 对齐，见 apps/invariants.py 的 CapacityCheck），若仍按 0.9 逐代相乘，几十次换代后阈值会衰减到 1e-5 量级 ⇒ 判据重新变成恒真、黑潮重新变成恒压。",
   "capacity_inherit": 1.0,
   "promotion_dwell": 10,
   "promotion_cooldown": 200,
@@ -83,7 +83,7 @@
     null, "mask_observer", "write_memory", null
   ],
 
-  "_verdict_rules_comment": "内层判据表（C4）：按顺序求值，第一条成立者即为内层结论。when 是【情形】（注册在 engine/verdicts.py 的 WHEN 表）；require 是【附加条件】列表，每项恰好含一个条件键（solver / counter，注册在 REQUIRE 表）。ascends 标出「未被改写时演算主体是否升格外溢」。于是「加一个新的结论维度」只需在这里加一行、并在 conclusions.json 补一条文案，不必改代码。",
+  "_verdict_rules_comment": "内层判据表（C4）：按顺序求值，第一条成立者即为内层结论。when 是【情形】（注册在 apps/verdicts.py 的 WHEN 表）；require 是【附加条件】列表，每项恰好含一个条件键（solver / counter，注册在 REQUIRE 表）。ascends 标出「未被改写时演算主体是否升格外溢」。于是「加一个新的结论维度」只需在这里加一行、并在 conclusions.json 补一条文案，不必改代码。",
   "verdict_rules": [
     {"id": "destruction", "when": "all_falsified", "ascends": true,
      "require": [{"solver": "OP_SOLVE_DESTRUCTION"}]},

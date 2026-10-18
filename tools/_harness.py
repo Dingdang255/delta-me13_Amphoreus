@@ -11,8 +11,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-from engine.core import run                      # noqa: E402
-from engine.loader import Config, DataSet, apply_fast   # noqa: E402
+from kernel.core import run                      # noqa: E402
+from kernel.loader import Config, DataSet, apply_fast   # noqa: E402
 
 #: 各只读工具报告里那条分隔线 —— 原先 7 个工具各写一遍，统一到这里。
 BAR = "─" * 72
@@ -77,7 +77,7 @@ def serial_of(key):
         return None
 
 
-#: 低饱和配色（与 `engine/viz.py` 的时间线打点同一路数）—— 各只读扫描器共用。
+#: 低饱和配色（与 `apps/viz.py` 的时间线打点同一路数）—— 各只读扫描器共用。
 PALETTE = ("#7fd0ff", "#7fe0a0", "#ffd27f", "#ff8a8a", "#b28dff",
            "#ff9ed6", "#8ab4ff", "#e8c06a")
 
@@ -152,19 +152,19 @@ def summary(traj, ctx) -> dict:
 
 def _default_namer(ctx, data):
     """工具侧的默认命名器（表现层物件）—— 内核只把它当不透明句柄携带。"""
-    from engine.namer import Namer
+    from apps.namer import Namer
     return Namer(ctx, data.anchors)
 
 
 def rules():
     """投递条件谓词（服务层）—— 内核不认识条件的写法，只接受一个可问的谓词。"""
-    from engine.conditions import evaluate
+    from apps.conditions import evaluate
     return evaluate
 
 
 def services():
     """应用层交给内核的【服务实现束】（不变量检查 / 探针 / 裁决）—— 内核只按名调用。"""
-    from engine.services import default
+    from apps.services import default
     return default()
 
 

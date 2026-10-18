@@ -93,12 +93,13 @@ python run.py --preset plot --serve 9000 --no-open   # 指定端口、不自动�
 
 ```
 run.py              入口：命令行、编年史渲染、报告、可视化导出
-engine/             L0–L6：主循环 / 算子 / 状态 / 消融 / 命名 / 渲染 / 可视化 / 实时看板
+kernel/             纯逻辑内核：主循环 / 算子 / 状态 / 装载 / 调度 / 记账（零专名、不下结论）
+apps/               用户态：系统服务（裁决 / 消融 / 断言 / 不变量 / 特征 / 条件）+ 界面（命名 / 渲染 / 看板）
 config/             规则与阈值：params / loci / mapping / operators / calendar / lexicon / phonology
-presets/            世界与剧情：机器规格（genesis：命题 / 变量域 / 阶段装配）、种子、名字锚定、外生剧本、期望时间线
+presets/            世界与剧情：机器规格（genesis：命题 / 变量域 / 阶段装配）、种子、名字锚定、外生剧本（events.jsonl 或 script.jsonl）、期望时间线
 tools/              自检与诊断脚本（见下）
 tests/              单元测试与轨迹指纹
-docs/               考据材料、术语对照表、外部变量规格
+docs/               考据材料、术语对照表、外部变量规格、接口决策（adr/）
 dashboard/          导出的可视化看板（`--export` 的默认去处，运行时生成）
 logs/               落盘的编年史（`--log` 的默认去处，运行时生成）
 pyproject.toml      元数据（依赖 / Python 版本；安装仍走 requirements.txt）
@@ -106,11 +107,11 @@ pyproject.toml      元数据（依赖 / Python 版本；安装仍走 requiremen
 
 ## 三条红线
 
-1. **引擎零专有名词**：角色 / 泰坦 / 城邦名只能进 `presets/`、`config/lexicon.json` 与报告层。
-   `python tools/grep_forbidden.py` 命中不为 0 即判失败。
+1. **程序零专有名词**：角色 / 泰坦 / 城邦名只能进 `presets/`、`config/lexicon.json` 与报告层。
+   `kernel/` 与 `apps/` 里一个字都不许有；`python tools/grep_forbidden.py` 命中不为 0 即判失败。
 2. **改轨道配置必重测**：动 `config/loci.json`、`config/params.json`、`presets/_default/genesis.json`
    会改变轨迹，必须重跑 `presets/plot/assertions.jsonl` 与 `presets/plot/timeline.json` 的全部期望。
-3. **可视化层只读**：`engine/viz.py` 与 `engine/live.py` 只消费 `Trajectory` / 状态读数，
+3. **可视化层只读**：`apps/viz.py` 与 `apps/live.py` 只消费 `Trajectory` / 状态读数，
    绝不回写状态 —— 删掉它们（或不加 `--export` / `--serve`），演算逐帧不变。
 
 ## 自检与诊断
@@ -121,7 +122,9 @@ python tools/selfcheck.py --full            # 连四个世界的全量演算一�
 python tools/selfcheck.py --list            # 只列出会跑哪些步骤
 
 python -m unittest discover -s tests        # 单元测试
-python tools/grep_forbidden.py              # 红线 1：引擎里不许有专有名词
+python tools/grep_forbidden.py              # 红线 1：程序里不许有专有名词（kernel/ + apps/）
+python tools/stepwise_lint.py               # 红线 2：逐步推进（禁止解析求解 / 预读未来）
+python tools/layer_lint.py                  # 红线 3：内核分层（kernel 不许 import apps）
 python tools/snapshot.py                    # 轨迹指纹：改了引擎就看这里
 python tools/snapshot.py --structural       # 只比【结构层】（跨平台用：跳过数值层与 digest）
 python tools/snapshot.py --write            # 确认轨迹该变时，重写指纹
@@ -167,5 +170,5 @@ python tools/export.py                      # 打包成可分发的 zip（含解
 
 [MIT](LICENSE)。
 
-> 引擎代码（`engine/`）本身不含任何专有名词；`presets/`、`config/lexicon.json` 与 `docs/` 下的
+> 程序代码（`kernel/` 与 `apps/`）本身不含任何专有名词；`presets/`、`config/lexicon.json` 与 `docs/` 下的
 > 考据材料含《崩坏：星穹铁道》原作的专有名词与文本，仅作同人性质的机制化演示之用。

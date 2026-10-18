@@ -13,7 +13,7 @@ import unittest
 
 from _support import ROOT, load
 
-from engine.viz import Sampler, build_html, build_live_shell, summary_cards
+from apps.viz import Sampler, build_html, build_live_shell, summary_cards
 
 SAMPLE_LINES = [
     (1, "第一行", None, 0),
@@ -50,7 +50,7 @@ class VizHtml(unittest.TestCase):
         self.assertIn("data-machine=", self.html)        # 席位卡悬浮
         self.assertIn('id="seattip"', self.html)         # 那张跟随鼠标的小卡
         # 外部变量（预设标了 `external`，含那个由「记忆」承载的席位）⇒ 报 `?`；空席不报
-        from engine.viz import _machine_of
+        from apps.viz import _machine_of
 
         ext = next(int(str(a["key"]).split(":", 1)[1])
                    for a in self.data.anchors if a.get("external"))
@@ -69,7 +69,7 @@ class VizHtml(unittest.TestCase):
         注意：页内嵌的 JS 里当然还留着这两行的模板（回放要用），故这里查的是
         `_seats_html` 的**预渲染结果**，不是整页字符串。
         """
-        from engine.viz import _machine_map, _name_map, _seat_cards, _seats_html
+        from apps.viz import _machine_map, _name_map, _seat_cards, _seats_html
 
         cities = set((self.ctx.lexicon.get("cities") or {}).values())
         self.assertTrue(cities, "词表里应当有 cities")
@@ -269,7 +269,7 @@ class VizLiveShell(unittest.TestCase):
 
     def test_make_watch_is_readonly(self):
         """实时旁路也必须只读：挂了它，演算逐帧不变。"""
-        from engine.live import LiveState, make_watch
+        from apps.live import LiveState, make_watch
 
         _c0, _d0, plain = load("plot", frames=600)
         board = LiveState()
@@ -340,9 +340,9 @@ class AdvanceLabelSplit(unittest.TestCase):
     def _labels(records):
         import types
 
-        from engine.loader import Config
-        from engine.render import Renderer
-        from engine.viz import _timeline_marks
+        from kernel.loader import Config
+        from apps.render import Renderer
+        from apps.viz import _timeline_marks
 
         traj = types.SimpleNamespace(records=list(records))
         R = Renderer(Config(ROOT))
@@ -360,8 +360,8 @@ class AdvanceLabelSplit(unittest.TestCase):
 
     def test_renewal_only_from_the_fourth_stage(self):
         """「再创世」是【第四阶段】的名字：跨过 `DOMAINS_EXHAUSTED` 之后才启用。"""
-        from engine.loader import Config
-        from engine.render import Renderer, advance_label
+        from kernel.loader import Config
+        from apps.render import Renderer, advance_label
 
         R = Renderer(Config(ROOT), myth_from=10000)
         self.assertEqual(advance_label(R, 6000, 5000), "自动更替")     # 协议改写之前
@@ -371,7 +371,7 @@ class AdvanceLabelSplit(unittest.TestCase):
 
     def test_rename_clause_only_when_the_names_differ(self):
         """切词说明那句「更替之名也从 A 改为 B」只在两档不同名时才拼（tide 一路同名 ⇒ 不拼）。"""
-        from engine.render import stage_rows
+        from apps.render import stage_rows
 
         def myth_note(preset):
             ctx, data, _traj = load(preset, frames=1)
@@ -390,8 +390,8 @@ class AdvanceLabelSplit(unittest.TestCase):
 
     def test_aggregate_name_is_the_umbrella(self):
         """聚合读数（最终状态 / 曲线图例 / 背负）用的是【不分档】的统称。"""
-        from engine.loader import Config
-        from engine.render import Renderer
+        from kernel.loader import Config
+        from apps.render import Renderer
 
         R = Renderer(Config(ROOT))
         labels = R.lex.get("stage_promotion_labels") or {}
@@ -400,9 +400,9 @@ class AdvanceLabelSplit(unittest.TestCase):
 
     def test_live_board_tracks_the_switch_too(self):
         """实时看板拿不到 traj，得自己从 `PROTOCOL_REWRITTEN` / `DOMAINS_EXHAUSTED` 认那两处界。"""
-        from engine.live import LiveState
-        from engine.loader import Config
-        from engine.render import Renderer
+        from apps.live import LiveState
+        from kernel.loader import Config
+        from apps.render import Renderer
 
         board = LiveState()
         R = Renderer(Config(ROOT))
@@ -420,7 +420,7 @@ class DownsampleKeepsNamedFrames(unittest.TestCase):
     """抽稀必须留住【点名要留】的帧（阶段起点）—— 否则看板点阶段卡落不准。"""
 
     def test_keep_frames_survive_downsampling(self):
-        from engine.viz import _downsample
+        from apps.viz import _downsample
 
         pts = [(f, 0, 0, 0, 0, 0, ()) for f in range(0, 6000)]
         out = _downsample(pts, cap=100, keep={1999, 5999})
@@ -435,8 +435,8 @@ class SamplerKeepsStageBoundaries(unittest.TestCase):
     """换档帧必须进采样序列（靠「档位变了」回推补采）—— 看板点阶段卡才落得准。"""
 
     def test_boundary_frames_are_sampled(self):
-        from engine.render import stage_starts
-        from engine.viz import Sampler
+        from apps.render import stage_starts
+        from apps.viz import Sampler
 
         s = Sampler(2600)
         _ctx, _data, traj = load("plot", frames=2600, watch=s)
@@ -475,7 +475,7 @@ class SimPhaseVocabulary(unittest.TestCase):
 
     def test_sim_phase_clock_is_the_cycle_count(self):
         """演算期没有历法 —— 时间报【第 N 次循环】，不报纪元 / 年份。"""
-        from engine.render import renderer_for, myth_phase_frame
+        from apps.render import renderer_for, myth_phase_frame
 
         R = renderer_for(self.ctx, self.traj)
         self.assertIsNone(myth_phase_frame(self.traj))     # 2,500 帧还没走到第四阶段
@@ -491,7 +491,7 @@ class SimPhaseVocabulary(unittest.TestCase):
         簡略化モデルである」—— 12 个因子是互异的。词干若少于 12 个，`order % len`
         会让第 8 位与第 0 位撞名（曾经如此）。
         """
-        from engine.viz import _sim_slots
+        from apps.viz import _sim_slots
 
         labels = _sim_slots(self.ctx)
         self.assertEqual(len(labels), 12)
@@ -520,8 +520,8 @@ class TimelineMarksMatchTheirChronicleRow(unittest.TestCase):
     """
 
     def test_every_mark_maps_to_its_own_row(self):
-        from engine.render import renderer_for
-        from engine.viz import _timeline_marks
+        from apps.render import renderer_for
+        from apps.viz import _timeline_marks
         from run import chronicle_rows
 
         ctx, _data, traj = load("plot", frames=2500)

@@ -29,7 +29,7 @@ from __future__ import annotations
 
 import re
 
-__all__ = ["ConditionError", "parse", "evaluate", "terms", "check"]
+__all__ = ["ConditionError", "parse", "evaluate", "terms", "check", "known_names"]
 
 
 class ConditionError(ValueError):
@@ -50,8 +50,10 @@ _TOKEN = re.compile(r"""
 _CMP_OPS = {">=", "<=", "==", "!=", ">", "<"}
 
 #: `terms()` 给事件名加的前缀 —— `check()` 靠它把事件名与普通观测量分开。
-#: 用 `len()` 剥离，不写死下标：早先写成 `t[7:]`（多剥一位）会让**每一个**事件名
-#: 的首字母被切掉（`nikador_felled` → `ikador_felled`），把合法条件误判为「未登记事件」。
+#: `allowed_events` 收的是**裸事件名**（`nikador_felled`，与 `payload.event` 逐字相同），
+#: 故比较前要用 `len()` 剥掉前缀，不写死下标：早先写成 `t[7:]`（多剥一位）会让**每一个**
+#: 事件名的首字母被切掉（`nikador_felled` → `ikador_felled`），把合法条件误判为
+#: 「未登记事件」；后来改成不剥，又反过来把裸名与带前缀的名相比，**同样**全判非法。
 _EVENT_PREFIX = "event:"
 
 
@@ -275,6 +277,8 @@ def check(expr, allowed_names=(), allowed_events=()) -> set:
     """
     got = terms(expr)
     bad_names = {t for t in got if not t.startswith(_EVENT_PREFIX)} - set(allowed_names)
+    # 事件名与 `allowed_events` 都在【裸名】口径上比：`terms` 给它们加了 `event:` 前缀，
+    # 这里剥掉再相减（`allowed_events` 是 `payload.event` 那批裸名）。
     bad_events = {t[len(_EVENT_PREFIX):] for t in got
                   if t.startswith(_EVENT_PREFIX)} - set(allowed_events)
     if bad_names:
@@ -282,3 +286,27 @@ def check(expr, allowed_names=(), allowed_events=()) -> set:
     if bad_events:
         raise ConditionError(f"条件用了未登记的事件：{sorted(bad_events)}")
     return got
+
+
+def known_names(cfg=None) -> set:
+    """内核 `obs_now()` 会给出的**全部名字** —— 与 `kernel/core.py` 的构造一一对应。
+
+    条件只能读观测快照里的量；这份清单就是"快照里有什么"的静态画像，供启动校验
+    （写错一个名字 ⇒ 当场报错，而不是等到那一帧求值时才炸）。
+
+    `cfg` 给的是 `Config`（用到它的位表 id）；不给则退回一张**通用**清单
+    （按 `L00..L31` 的编号形状推），够用来校验不绑定具体位表的文本。
+    """
+    from kernel.disturbance import CAPABILITIES
+    from kernel.state import DEATH_CAUSES
+
+    out = {"frame", "promotions", "round", "domain_index", "entropy", "personas",
+           "deadlocked", "seats_filled", "seats_vacant", "deaths",
+           "load_max", "load_min", "load_span"}
+    ids = ([str(l.id).lower() for l in cfg.loci] if cfg is not None
+           else [f"l{i:02d}" for i in range(32)])
+    for lid in ids:
+        out |= {"seat_" + lid, "load_" + lid, "value_" + lid}
+    out |= {"cap_" + str(c) for c in CAPABILITIES}
+    out |= {"deaths_" + str(c) for c in DEATH_CAUSES}
+    return out

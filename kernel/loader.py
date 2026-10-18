@@ -527,7 +527,7 @@ def _check_stages(dom, iv, problems):
                         f"{where}.on 里的 {g!r} 不是已登记的机制门"
                         f"（可选：{'、'.join(GATE_NAMES)}）")
         if s.get("params"):
-            # 不静默忽略：只允许覆盖【运行时真会读】的旋钮（白名单在 engine/operators.py），
+            # 不静默忽略：只允许覆盖【运行时真会读】的旋钮（白名单在 kernel/operators.py），
             # 否则写了也没人读 —— 那正是这类项目最容易烂掉的地方。
             from .operators import STAGE_TUNABLE
             params = s.get("params")
@@ -739,6 +739,16 @@ def load_preset(root, name):
     meta.setdefault("events", _jsonl(os.path.join(d, "events.jsonl")))
     meta.setdefault("disturbances", _jsonl(os.path.join(d, "disturbances.jsonl")))
     meta.setdefault("assertions", _jsonl(os.path.join(d, "assertions.jsonl")))
+    # 脚本（§D2）：同一件事的**另一种写法** —— 把「固定帧日程表」写成
+    # 「在内核事件上响应的程序」。两者是同一批投递的两个安放处，故**只许写一个**：
+    # 同时存在就是"这件东西放哪儿"没有唯一答案，当场报错（隐式择一是事故的温床）。
+    meta.setdefault("script", _jsonl(os.path.join(d, "script.jsonl")))
+    if meta["script"] and meta["events"]:
+        raise ConfigError(
+            f"预设 {name!r} 同时写了 events.jsonl 与 script.jsonl —— "
+            f"它们是同一条时间线的两种写法，只许留一个。"
+            f"（script 是 events 的后继：把 `{{\"frame\": N, \"capability\": …}}` "
+            f"写成 `{{\"on\": \"FRAME\", \"at\": N, \"do\": […]}}`。）")
     # 机器规格：显式继承 / 自带完整 / 回落默认 —— 三选一，不再是隐式合并。
     meta["genesis"] = _load_genesis(root, target, meta)
     actors_path = os.path.join(d, "actors.json")
@@ -875,6 +885,9 @@ class DataSet:
                     + list(self.preset.get("events") or []))
         # 时间线：期望清单。引擎从不读它，只有报告与种子检索会用到。
         self.timeline_nodes = list((self.preset.get("timeline") or {}).get("nodes") or [])
+        # 脚本（§D2）：事件驱动应用的**声明**。内核只把它当【数据】拿着 ——
+        # 解析 / 求值 / 响应都在服务层（apps/script.py），内核一行都不认识它。
+        self.script = list(self.preset.get("script") or [])
 
         # 校验必须排在排序【之前】：frame 一缺，下面按 frame 排序就会当场 KeyError。
         problems = []
@@ -925,6 +938,28 @@ class DataSet:
             if f > n:
                 return f
         return None
+
+    def add(self, records):
+        """并进一批【应用编译出来的】投递条目，返回并进了几条。
+
+        供事件驱动脚本（`apps/script.py`）安装它的 `FRAME` 订阅：脚本把声明式的
+        规则编译成与 `events.jsonl` **形状完全一致**的投递条目，再从这道门进世界。
+        于是"脚本的退化形式 ≡ 旧日程表"不是靠跑一遍碰运气，而是**同一条数据** ——
+        它们此后走同一个求值点（`core._advance` 的 ①'）、同一套跳帧锚。
+
+        条目须自带 `frame` 与 `capability`（脚本编译时已校验），这里只做索引。
+        """
+        for rec in records:
+            f = int(rec["frame"])
+            self.disturbances.append(rec)
+            self._by_frame.setdefault(f, []).append(rec)
+            if (rec.get("payload") or {}).get("persist"):
+                self._persist.append(rec)
+            if rec.get("when"):
+                self.conditioned.append(rec)
+            self.onsets = sorted(set(self.onsets) | {f})
+        self.disturbances.sort(key=lambda r: int(r["frame"]))
+        return len(records)
 
     def rescale(self, k: int):
         """把整条外部时间线按 k 压缩。只用于测试提速 —— 不改任何一条规则。

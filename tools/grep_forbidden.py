@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 """判据 2：特例扫描。
 
-词法扫描 engine/ ，若命中任何【专有名词】（角色名 / 泰坦名 / 城邦名 / 命途名 / 派系名），
-即视为"源程序写死了剧情"，CI 失败。
+词法扫描 `kernel/` 与 `apps/` ，若命中任何【专有名词】（角色名 / 泰坦名 / 城邦名 / 命途名 /
+派系名），即视为"源程序写死了剧情"，CI 失败。
+
+为什么两层都扫：§3.1 把 `engine/` 拆成 `kernel/` + `apps/` 是为了**依赖方向**
+（内核不认识"裁决 / 渲染"），不是为了给哪一层开后门。专名只许出现在 `presets/`
+与 `config/` —— 代码里写死一个角色名，无论在哪个包，都是"剧情渗进了程序"。
+故扫描集合与改造前**逐字相同**（原 `engine/` 21 个模块 = 现 `kernel/` + `apps/` 的全部模块），
+本防线的强度一分未减 —— §3.2 的 `kernel/api.py`、§D2 的 `apps/script.py` 也一并在扫描范围内。
 
 **注释同样在扫描范围内** —— 引擎里的考据引用只写「第 N 次循环 / 第 N 行」，
 专名（编号与称谓）一律留在 docs/ 与 presets/。
@@ -17,14 +23,17 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 打印中文前把 stdio 钉成 UTF-8（英文 Windows 默认 cp1252，打印会 UnicodeEncodeError）。
-# 与 engine/__init__.py 的同一处兜底一致；本脚本刻意不 import engine，故自带一份。
+# 与 kernel/__init__.py 的同一处兜底一致；本脚本刻意不 import kernel，故自带一份。
 for _s in (sys.stdout, sys.stderr):
     try:
         _s.reconfigure(encoding="utf-8")
     except (AttributeError, ValueError, OSError):
         pass
 
-# 只允许出现在 presets/ 与 config/ 渲染层；engine/ 里一个字都不许有。
+#: 扫描集合 = 全部"程序"（不含数据）。两个包都扫，见模块开头的口径说明。
+SCAN_DIRS = ("kernel", "apps")
+
+# 只允许出现在 presets/ 与 config/ 渲染层；kernel/ 与 apps/ 里一个字都不许有。
 FORBIDDEN = {
     "角色": [
         "白厄", "昔涟", "刻法勒", "阿格莱雅", "缇宝", "万敌", "遐蝶", "风堇",
@@ -41,7 +50,7 @@ FORBIDDEN = {
     "机器编号": ["Nammou320"],
 }
 
-# 机制名：属于引擎自己的词汇（策略键 / 算子语义），允许出现在 engine/。
+# 机制名：属于引擎自己的词汇（策略键 / 算子语义），允许出现在代码里。
 # 它们不指向任何一个具体角色或城邦，换一份 presets/ 依然成立。
 ALLOW = {"再创世", "记忆"}
 
@@ -60,19 +69,20 @@ def scan_file(path):
 
 
 def main():
-    engine = os.path.join(ROOT, "engine")
     total = 0
-    for name in sorted(os.listdir(engine)):
-        if not name.endswith(".py"):
-            continue
-        hits = scan_file(os.path.join(engine, name))
-        if hits:
-            print(f"✗ engine/{name}")
-            for ln, cat, w, line in hits:
-                print(f"    L{ln:<4} [{cat}] 「{w}」  →  {line[:70]}")
-            total += len(hits)
+    for pkg in SCAN_DIRS:
+        d = os.path.join(ROOT, pkg)
+        for name in sorted(os.listdir(d)):
+            if not name.endswith(".py"):
+                continue
+            hits = scan_file(os.path.join(d, name))
+            if hits:
+                print(f"✗ {pkg}/{name}")
+                for ln, cat, w, line in hits:
+                    print(f"    L{ln:<4} [{cat}] 「{w}」  →  {line[:70]}")
+                total += len(hits)
     if total == 0:
-        print("✓ engine/ 专有名词命中数 = 0")
+        print("✓ kernel/ 与 apps/ 专有名词命中数 = 0")
         return 0
     print(f"\n命中 {total} 处：源程序混入了剧情名词，构建失败。")
     return 1

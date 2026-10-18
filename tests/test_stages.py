@@ -17,12 +17,12 @@ import unittest
 
 from _support import ROOT, state, temp_root_with_copy
 
-from engine import ablation
-from engine.conditions import evaluate
-from engine.core import _assemble, initial_state, run
-from engine.loader import Config, ConfigError, DataSet
-from engine.operators import Annex, Compete
-from engine.services import default as default_services
+from apps import ablation
+from apps.conditions import evaluate
+from kernel.core import _assemble, initial_state, run
+from kernel.loader import Config, ConfigError, DataSet
+from kernel.operators import Annex, Compete
+from apps.services import default as default_services
 
 
 def _rewrite_genesis(tmp, mutate):
@@ -202,7 +202,7 @@ class DomainAdvanceCriterion(unittest.TestCase):
 
     def test_each_value_runs_its_budget(self):
         """逐档跑满预算 ⇒ 依次换档；末端那一档跑满 ⇒ 域穷尽。"""
-        from engine.operators import Domain
+        from kernel.operators import Domain
         ctx, st = self._st(progress=0.0, dwell=2)
         for frame in range(2):                            # 第一档跑满
             Domain().apply(st, ctx, None, frame)
@@ -216,7 +216,7 @@ class DomainAdvanceCriterion(unittest.TestCase):
 
     def test_progress_does_not_shift_the_budget(self):
         """探针提前证伪【不】提前换档 —— 这正是"阶段三只剩 1 帧"的病根所在。"""
-        from engine.operators import Domain
+        from kernel.operators import Domain
         ctx, st = self._st(progress=1.0, dwell=5)         # 一上来就全部达标
         Domain().apply(st, ctx, None, 0)
         self.assertEqual((st.domain_index, st.domains_exhausted), (0, False))
@@ -268,7 +268,7 @@ class StageParamsReachTheWorld(unittest.TestCase):
         self.addCleanup(shutil.rmtree, self.tmp, ignore_errors=True)
 
     def test_view_merges_params_and_delegates_the_rest(self):
-        from engine.core import StageCtx
+        from kernel.core import StageCtx
         ctx = Config(ROOT)
         view = StageCtx(ctx)
         self.assertEqual(view.params, ctx.params)
@@ -304,7 +304,7 @@ class StageParamsReachTheWorld(unittest.TestCase):
 class AnnexProtocol(unittest.TestCase):
     """嵌合协议（D2 形态 A）：主导因子把决策写成【协议内容】，成为后续默认。
 
-    考据见 biligame 第 1480 / 566 行；有界落法见 `engine/operators.py::Annex`。
+    考据见 biligame 第 1480 / 566 行；有界落法见 `kernel/operators.py::Annex`。
     """
 
     def setUp(self):

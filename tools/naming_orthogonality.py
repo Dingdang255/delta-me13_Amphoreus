@@ -16,7 +16,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import load, capture, diff_captures, persona_identity   # noqa: E402
 
-from engine.namer import Namer                                        # noqa: E402
+from apps.namer import Namer                                        # noqa: E402
 
 
 class SilentNamer:

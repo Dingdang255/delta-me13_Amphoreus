@@ -16,7 +16,7 @@
 """
 from __future__ import annotations
 
-from .vocabulary import REQUIRE_NAMES, WHEN_NAMES
+from kernel.vocabulary import REQUIRE_NAMES, WHEN_NAMES
 
 
 # ---- 情形：{名字: (st, cfg, sig) -> bool} -----------------------------------

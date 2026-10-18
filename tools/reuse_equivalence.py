@@ -21,7 +21,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import load, rules, services                 # noqa: E402
 
-from engine.core import run                                 # noqa: E402
+from kernel.core import run                                 # noqa: E402
 
 
 def sweep(reuse: bool, frames: int, fast: int = 0):

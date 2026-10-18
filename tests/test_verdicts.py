@@ -15,7 +15,7 @@ import unittest
 
 from _support import ROOT, load, state, temp_root_with_copy
 
-from engine.loader import Config, ConfigError
+from kernel.loader import Config, ConfigError
 
 
 class VerdictRuleTable(unittest.TestCase):
@@ -47,7 +47,7 @@ class VerdictRuleTable(unittest.TestCase):
 
     def test_display_names_come_from_config(self):
         """报告的裁决短名与停因长句都必须取自配置 —— 加维度不必改报告层。"""
-        from engine.render import Renderer
+        from apps.render import Renderer
         from _support import load as _load
 
         ctx, _data, _traj = _load("emergent", frames=200)
@@ -64,10 +64,10 @@ class VerdictRuleTable(unittest.TestCase):
     def test_rule_table_reproduces_base_behaviour(self):
         """等价性：判据表要能重现原来那段三段判据的结论。
 
-        ⑤ 之后求值在 `engine/verdicts.py`（情形 + 附加条件都是注册表），
+        ⑤ 之后求值在 `apps/verdicts.py`（情形 + 附加条件都是注册表），
         这里直接对它求值，不再依赖 core 里的私有函数。
         """
-        from engine.verdicts import evaluate, inner_conclusion
+        from apps.verdicts import evaluate, inner_conclusion
 
         ctx = Config(ROOT)
         tau = float(ctx.params["tau_falsify"])
@@ -177,7 +177,7 @@ class CompetitiveElimination(unittest.TestCase):
 
     def test_isolated_individual_is_killed(self):
         """常态口径：平均相似度低于 tau_support 且已过 tau_age 者被淘汰。"""
-        from engine.operators import Compete
+        from kernel.operators import Compete
 
         # 4 个个体，3 个彼此相似（support 3.0 ⇒ 平均 1.0），1 个谁也不像（0.0）
         ctx, st, frame, idx = self._world([3.0, 3.0, 3.0, 0.0])
@@ -189,7 +189,7 @@ class CompetitiveElimination(unittest.TestCase):
 
     def test_young_isolated_individual_survives(self):
         """孤立但还年轻 —— 不该死（tau_age 是这道门的另一半）。"""
-        from engine.operators import Compete
+        from kernel.operators import Compete
 
         ctx, st, frame, idx = self._world([3.0, 3.0, 3.0, 0.0], age=10)
         Compete().apply(st, ctx, None, frame)
@@ -198,7 +198,7 @@ class CompetitiveElimination(unittest.TestCase):
 
     def test_homogenized_individuals_are_swallowed_when_overflowing(self):
         """溢出口径：世界涨满后，改为吞没【被同化得最深】的那些（不看年龄）。"""
-        from engine.operators import Compete
+        from kernel.operators import Compete
 
         ctx, st, frame, idx = self._world([3.0, 3.0, 3.0, 0.0], age=10)
         st.noise = float(ctx.params["tau_noise_annihilation"])
@@ -208,7 +208,7 @@ class CompetitiveElimination(unittest.TestCase):
 
     def test_no_elimination_without_overflow_or_isolation(self):
         """既有世界的情形：既没越线也没孤立 ⇒ 一个都不杀。"""
-        from engine.operators import Compete
+        from kernel.operators import Compete
 
         ctx, st, frame, _idx = self._world([3.0, 3.0, 3.0, 3.0])
         Compete().apply(st, ctx, None, frame)
@@ -291,7 +291,7 @@ class RuleTableValidation(unittest.TestCase):
         g.setdefault("runtime", {})["solver"] = "OP_NOPE"
         with open(path, "w", encoding="utf-8") as f:
             json.dump(g, f, ensure_ascii=False)
-        from engine.loader import DataSet
+        from kernel.loader import DataSet
         with self.assertRaises(ConfigError) as cm:
             DataSet(self.tmp, preset="emergent")
         self.assertIn("OP_NOPE", str(cm.exception))
@@ -341,7 +341,7 @@ class RuleTableValidation(unittest.TestCase):
         with open(os.path.join(self.tmp, "presets", "t", "assertions.jsonl"),
                   "w", encoding="utf-8") as f:
             f.write(json.dumps({"assert": "eternal_return_ever", "expect": True}) + "\n")
-        from engine.loader import DataSet
+        from kernel.loader import DataSet
         with self.assertRaises(ConfigError) as cm:
             DataSet(self.tmp, preset="t")
         self.assertIn("eternal_return_ever", str(cm.exception))

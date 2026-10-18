@@ -113,7 +113,7 @@ def mechanisms_of(root, preset):
 
 
 def render(ctx, traj, anchors, win, checks, preset, reach):
-    from engine.render import renderer_for
+    from apps.render import renderer_for
     R = renderer_for(ctx, traj)
     frame = int(traj.reached_frame)
 

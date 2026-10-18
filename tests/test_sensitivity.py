@@ -17,11 +17,11 @@ import unittest
 
 from _support import ROOT, load, state
 
-from engine import ablation
-from engine.conditions import evaluate
-from engine.core import run
-from engine.loader import Config, DataSet
-from engine.services import default as default_services
+from apps import ablation
+from apps.conditions import evaluate
+from kernel.core import run
+from kernel.loader import Config, DataSet
+from apps.services import default as default_services
 
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 import sensitivity  # noqa: E402
@@ -91,8 +91,8 @@ class RefutedWorldNeverFalsifies(unittest.TestCase):
     """
 
     def test_probe_never_passes_in_any_domain(self):
-        from engine.core import _stage_index
-        from engine import verdicts
+        from kernel.core import _stage_index
+        from apps import verdicts
 
         ctx, data, _ = load("refuted", frames=600, seed=0)
         st = state(ctx, 64, list(data.genesis["domain"]["initial_variable"]))
@@ -220,7 +220,7 @@ class SensitivityScanTool(unittest.TestCase):
             sensitivity.parse_params(["nope=1,2"])
 
     def test_tunable_names_are_the_runtime_read_knobs(self):
-        from engine.operators import STAGE_TUNABLE
+        from kernel.operators import STAGE_TUNABLE
         self.assertEqual(sensitivity.tunable_names(), tuple(STAGE_TUNABLE))
         self.assertIn("tau_falsify", sensitivity.tunable_names())
 

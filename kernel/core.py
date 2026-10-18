@@ -139,11 +139,22 @@ def _vacant(st):
     return [i for i, s in enumerate(st.register.slots) if s.owner is None]
 
 
-def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
-        trace: bool = True, start_state=None, start_frame: int = 0,
-        namer=None, capture=None, iter_cap: int | None = None,
-        watch=None, on_event=None, rules=None, runtime=None) -> Trajectory:
-    """逐帧推进。
+def _advance(cfg, data, seed: int | None = None, max_frames: int | None = None,
+             trace: bool = True, start_state=None, start_frame: int = 0,
+             namer=None, capture=None, iter_cap: int | None = None,
+             watch=None, on_event=None, rules=None, runtime=None,
+             inbox=None, conditioned=None) -> Trajectory:
+    """逐帧推进。**这是主循环本身**；对外的入口是 `run()`（它退化成
+    `kernel.api.load(...).step(...)`，见本文件末尾）。
+
+    多一个参数 `inbox`：外部中断收件箱（`api.Session.inject` 的落点）。它是
+    **按帧号投递的一次性扰动**，取走即出箱；空箱（默认）时下面每一步都跳过，
+    故与没有它逐位相同。
+
+    `conditioned`：带 `when` 的投递的【待触发清单】。给 None 就现取一份
+    `data.conditioned` 的副本（`run()` 一次跑完时就是这条路，逐位不变）；
+    `api.Session` 会给它【自己那份】—— 于是分几段 `step()` 时，已经触发过的条目
+    不会被重新武装（一次运行里每条只触发一次）。
 
     start_state/start_frame：从第 k 帧的存档续跑（判据 4 帧截断复现）。
     namer：命名器的【不透明句柄】—— 内核从不使用它，只是原样挂到 traj 上，
@@ -162,12 +173,12 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
     rules：可选的【不透明谓词】rules(expr, obs) -> bool，用来求值投递条目上的 `when`。
            与 namer / watch / on_event 同一手法：内核只负责"每帧问它一次"，
            **不认识条件的写法、也不 import 任何条件语言**（那种语言住在服务层，
-           见 engine/conditions.py 与 tools/layer_lint.py 的层次表）。
+           见 apps/conditions.py 与 tools/layer_lint.py 的层次表）。
            obs 由内核自己构造（帧号 / 账本计数 / 已发生的事件表 …）—— 那本就是
            observe() 这个系统调用该干的事。
            不传 ⇒ 内核完全忽略 `when`；此时若真有条目带 when，会在启动时【报错】
            而不是静默忽略（静默会把"条件写错了"变成"这条永远不触发"，最难查）。
-    runtime：应用层交来的【服务实现束】（见 engine/services.py）—— 内核只按名调用，
+    runtime：应用层交来的【服务实现束】（见 apps/services.py）—— 内核只按名调用，
            **不 import 服务层**。其中的 `checks` 每帧收违例（调度器的控制输入）、
            `probe` 跑消融探针、`judge` 决定停不停。与 namer / rules 同一手法。
            **必须给**：缺了不是"行为略不同"，而是跑不了 —— 故不给就当场报错。
@@ -179,19 +190,25 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
     p = cfg.params
     # 带 `when` 的投递要等条件成立才触发 —— 内核不认识条件，得由应用层把谓词递进来。
     # 没递又真有条目带 when：**当场报错**，绝不静默忽略（见 run 的 docstring）。
-    pending = list(getattr(data, "conditioned", ()) or ())
+    pending = (list(getattr(data, "conditioned", ()) or ())
+               if conditioned is None else conditioned)
+    # 外部中断收件箱（`inject` 系统调用）：按帧号在到期帧投递，投完即出箱。
+    # 它是【就地】的 —— Session 拿着同一个列表，投进去的东西下一帧就会被取走。
+    # 空箱（默认）⇒ 下面每一处 `if inbox` 都不进，逐位与加入它之前相同。
+    if inbox is None:
+        inbox = []
     if pending and rules is None:
         raise ValueError(
             f"世界里有 {len(pending)} 条带 when 的投递，但 run() 没收到 rules=。"
-            "要么传 rules=engine.conditions.evaluate，要么把那些 when 去掉 ——"
+            "要么传 rules=apps.conditions.evaluate，要么把那些 when 去掉 ——"
             "内核不猜条件；静默忽略会把「条件写错」变成「这条永远不触发」。")
-    # 服务实现束：内核不 import 服务层，改由应用层交来（见 engine/services.py）。
+    # 服务实现束：内核不 import 服务层，改由应用层交来（见 apps/services.py）。
     # 它没有"合理默认" —— 少了违例读数，调度器的行为就变了，故必须显式给。
     if runtime is None:
         raise ValueError(
             "run() 需要 runtime=（应用层交来的服务实现束）。"
             "缺了它不是「行为略不同」而是跑不了 —— 违例是内核调度的控制输入。"
-            "用 engine.services.default() 即可。")
+            "用 apps.services.default() 即可。")
     if seed is None:
         seed = data.preset.get("seed")
         if seed is None:
@@ -239,7 +256,7 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
     registrar = EmergenceRegistrar(ctx_run)
     traj = Trajectory()
     # namer 只是【不透明句柄】：内核原样挂在 traj 上，既不构造它、也不调用它的
-    # 任何方法、更不知道它是什么类型。命名归表现层（engine/namer.py）负责。
+    # 任何方法、更不知道它是什么类型。命名归表现层（apps/namer.py）负责。
     traj.namer = namer
 
     st = initial_state(ctx_run, data, seed) if start_state is None else start_state
@@ -556,7 +573,8 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
             # 外生干预未穷尽之前一律不下结论 —— 下一次干预可能重新打开刚被证伪的位。
             # （实测：同一个世界里「全部位已证伪」会先出现两次，都被后续干预重新打开；
             #   只有最后一次是终局。）
-            if inner is not None and data.next_onset(n - 1) is None and not pending:
+            if inner is not None and data.next_onset(n - 1) is None and not pending \
+                    and not inbox:
                 traj.verdict = inner
                 traj.verdict_frame = n - 1
                 # 停因就是裁决枚举的大写形式 —— 它只是「为什么停下」的短码，
@@ -598,7 +616,15 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
                 if int(rec["frame"]) <= n and rules(rec["when"], obs):
                     pending.remove(rec)
                     due.append(rec)
-        for rec in data.at(n) + due:
+        # 外部中断：到期的取走、当场投递。它是"一次性"的 —— 投过即出箱，
+        # 不常驻（要常驻就带 payload.persist，与预设的扰动同一条路）。
+        due_inbox = []
+        if inbox:
+            for rec in list(inbox):
+                if int(rec.get("frame", 0)) <= n:
+                    inbox.remove(rec)
+                    due_inbox.append(rec)
+        for rec in data.at(n) + due + due_inbox:
             _, fired = dispatch(rec, st, ctx_run, n)
             if not fired:
                 continue
@@ -650,6 +676,10 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
                     cand = min(cand, deadlock["start"] + ticks[deadlock["tick_i"]])
                 if pending:
                     # 还有挂起的条件投递 ⇒ 下一帧就可能成立，不能跳过去
+                    cand = min(cand, n + 1)
+                if inbox:
+                    # 收件箱里还压着外生中断 ⇒ 它到期的帧可能就是撬动结构的那一帧，
+                    # 更不能跳过去（复用会在半路上把这一帧甩掉）。
                     cand = min(cand, n + 1)
                 if cand <= n:
                     cand = n + 1
@@ -814,3 +844,27 @@ def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
         traj.stop_reason = "ITER_CAP" if traj.truncated else "BUDGET"
     traj.conclusion = cfg.conclusions[traj.verdict]
     return traj
+
+
+def run(cfg, data, seed: int | None = None, max_frames: int | None = None,
+        trace: bool = True, start_state=None, start_frame: int = 0,
+        namer=None, capture=None, iter_cap: int | None = None,
+        watch=None, on_event=None, rules=None, runtime=None,
+        inbox=None) -> Trajectory:
+    """对外的运行入口 —— 它只是 `load(machine_spec).step(max_frames)` 的组合。
+
+    签名与 `_advance` 逐字相同（老调用方一行都不用改），另外多一个 `inbox`：
+    外部中断收件箱，等价于先 `Session.inject(...)` 再跑。**空箱时与历史逐位相同。**
+
+    `max_frames` 在这里是**绝对帧预算**（老口径）；`Session.step(n)` 吃的是
+    **相对帧数**，故这里减掉 `start_frame` 再交过去：两条口径在这一行对齐。
+    """
+    from .api import load
+    session = load({
+        "config": cfg, "data": data, "seed": seed, "runtime": runtime,
+        "namer": namer, "rules": rules, "trace": trace, "capture": capture,
+        "iter_cap": iter_cap, "watch": watch, "on_event": on_event,
+        "start_state": start_state, "start_frame": start_frame, "inbox": inbox,
+    })
+    span = None if max_frames is None else int(max_frames) - int(start_frame)
+    return session.step(span)

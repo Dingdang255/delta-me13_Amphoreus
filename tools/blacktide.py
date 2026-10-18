@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """黑潮爆发探测 —— 建议表 #5：把「帧级溢出」细化成「区域塌陷 + 周边抬升」。
 
-`engine/features.py` 里的 `black_tide_*` 是【粗判】：它数的是 `OVERFLOW` 违规——
+`apps/features.py` 里的 `black_tide_*` 是【粗判】：它数的是 `OVERFLOW` 违规——
 哪一帧席位被压垮了。那是**帧级**的（这一帧满没满），看不见**区域级**的形状：
 一整块区域被抽空、压力外溢到别的区域，才是一场「黑潮」。
 
@@ -40,9 +40,9 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import BAR, load, rules, services             # noqa: E402
 
-from engine.core import run                                 # noqa: E402
-from engine.namer import Namer                              # noqa: E402
-from engine.render import renderer_for                      # noqa: E402
+from kernel.core import run                                 # noqa: E402
+from apps.namer import Namer                              # noqa: E402
+from apps.render import renderer_for                      # noqa: E402
 
 #: 基线最远可离窗口多少倍 —— 超出即视为「采样过稀、测不准」，跳过而不是硬算。
 _GAP_TOL = 4.0
@@ -224,7 +224,7 @@ def survey_run(ctx, data, seed=None, frames=None):
 
 
 def _coarse(traj):
-    """粗判口径（`engine/features.py` 那套）的读数，用来对照细化的增益。
+    """粗判口径（`apps/features.py` 那套）的读数，用来对照细化的增益。
 
     `frames` 取 `violation_counts`（与 features 的 `black_tide_frames` 同源）；
     `first_frame` 取首条【含 OVERFLOW 的违规播报】帧（与 features 的

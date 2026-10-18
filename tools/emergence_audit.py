@@ -16,7 +16,7 @@ from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import load, rules, services   # noqa: E402
 
-from engine.render import Renderer   # noqa: E402
+from apps.render import Renderer   # noqa: E402
 
 
 def main():
@@ -25,8 +25,8 @@ def main():
     ap.add_argument("--seed", type=int, default=None)
     args = ap.parse_args()
 
-    from engine.core import run
-    from engine.namer import Namer
+    from kernel.core import run
+    from apps.namer import Namer
     ctx, data, _ = load()
     traj = run(ctx, data, seed=args.seed, max_frames=args.frames, trace=False,
                namer=Namer(ctx, data.anchors), rules=rules(), runtime=services())

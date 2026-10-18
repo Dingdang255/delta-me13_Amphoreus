@@ -24,9 +24,9 @@ from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import BAR, load, rules, services             # noqa: E402
 
-from engine.core import run                                 # noqa: E402
-from engine.render import renderer_for                      # noqa: E402
-from engine.state import DEATH_CAUSES, EXTERNAL_CAUSES      # noqa: E402
+from kernel.core import run                                 # noqa: E402
+from apps.render import renderer_for                      # noqa: E402
+from kernel.state import DEATH_CAUSES, EXTERNAL_CAUSES      # noqa: E402
 
 #: 死因 → 人话。都是通用词（引擎侧只记枚举名，中文只在这一层）。键集取自引擎的
 #: `DEATH_CAUSES` —— 少一条文案会在 import 时 KeyError（不静默漏字）。

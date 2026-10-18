@@ -13,8 +13,8 @@ import numpy as np
 
 from _support import ROOT, load
 
-from engine.namer import Namer
-from engine.services import default as default_services
+from apps.namer import Namer
+from apps.services import default as default_services
 
 
 class Determinism(unittest.TestCase):
@@ -28,9 +28,9 @@ class Determinism(unittest.TestCase):
 
     def test_resume_from_checkpoint_matches(self):
         """从第 k 帧的存档续跑，应与全程跑到那里逐帧一致。"""
-        from engine.conditions import evaluate
-        from engine.core import run
-        from engine.loader import Config, DataSet
+        from apps.conditions import evaluate
+        from kernel.core import run
+        from kernel.loader import Config, DataSet
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
@@ -64,7 +64,7 @@ class ResumeInsideDeadlock(unittest.TestCase):
 
     @classmethod
     def _load(cls):
-        from engine.loader import Config, DataSet, apply_fast
+        from kernel.loader import Config, DataSet, apply_fast
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
@@ -72,8 +72,8 @@ class ResumeInsideDeadlock(unittest.TestCase):
         return ctx, data
 
     def test_resume_inside_deadlock_matches(self):
-        from engine.conditions import evaluate
-        from engine.core import run
+        from apps.conditions import evaluate
+        from kernel.core import run
 
         c1, d1 = self._load()
         full = run(c1, d1, seed=0, max_frames=self.N, rules=evaluate,
@@ -107,8 +107,8 @@ class RelabellingInvariance(unittest.TestCase):
     """
 
     def test_relabelled_loci_keep_every_observable(self):
-        from engine.conditions import evaluate
-        from engine.core import run
+        from apps.conditions import evaluate
+        from kernel.core import run
 
         sys.path.insert(0, os.path.join(ROOT, "tools"))
         import shuffle_loci                                     # noqa: E402
@@ -131,9 +131,9 @@ class NamingOrthogonality(unittest.TestCase):
     """名字不参与运算：换一套音位风格（换种子即换风格），轨迹必须逐帧不变。"""
 
     def test_style_does_not_change_trajectory(self):
-        from engine.conditions import evaluate
-        from engine.core import run
-        from engine.loader import Config, DataSet
+        from apps.conditions import evaluate
+        from kernel.core import run
+        from kernel.loader import Config, DataSet
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
@@ -159,9 +159,9 @@ class NamingOrthogonality(unittest.TestCase):
         命名与词表都只属于表层（L5）：名字不参与运算，词表只改措辞。
         故任意组合跑出来的世界必须【同一个】（digest 相同）。
         """
-        from engine.conditions import evaluate
-        from engine.core import run
-        from engine.loader import Config, DataSet
+        from apps.conditions import evaluate
+        from kernel.core import run
+        from kernel.loader import Config, DataSet
 
         data = DataSet(ROOT, preset="plot")
         overlays = (None, {"terms": {"deadlock": "另一种叫法", "promotion": "另一种叫法2"}})
@@ -184,8 +184,8 @@ class NamingOrthogonality(unittest.TestCase):
         重测一遍），故这里从锚定文件里**现取**一条 `serial:` 绑定 —— 写死一个数字
         会让每次重测锚定都假红。
         """
-        from engine.emergence import EmergenceRegistrar
-        from engine.loader import Config, DataSet
+        from kernel.emergence import EmergenceRegistrar
+        from kernel.loader import Config, DataSet
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
@@ -209,7 +209,7 @@ class MachineNumbering(unittest.TestCase):
 
     @staticmethod
     def _namer(anchors=()):
-        from engine.loader import Config
+        from kernel.loader import Config
 
         ctx = Config(ROOT)
         ctx.seed = 0
@@ -235,7 +235,7 @@ class MachineNumbering(unittest.TestCase):
 
     def test_preset_pins_only_the_evidenced_machines(self):
         """预设只钉【原作有据】的两个编号（白厄 / 昔涟），其余不冒称。"""
-        from engine.loader import Config, DataSet
+        from kernel.loader import Config, DataSet
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
@@ -257,7 +257,7 @@ class MachineNumbering(unittest.TestCase):
 
     def test_external_marker_comes_from_the_preset(self):
         """「外部变量」标在锚定层（红线 1：这类判断只能放预设）—— 他们不领机器编号。"""
-        from engine.loader import Config, DataSet
+        from kernel.loader import Config, DataSet
 
         data = DataSet(ROOT, preset="plot")
         ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))

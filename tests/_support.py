@@ -11,13 +11,13 @@ import sys
 
 # 钉住 BLAS 线程数 —— 与 `tools/seed_probe.py` / `tools/sensitivity.py` 同一套变量。
 # numpy 的归约在多线程下末位可能与单线程不同，而测试里有「两次跑 digest 一致」这类
-# 断言；必须在 import numpy 之前设好才生效（各测试都在导入 engine 之前先导入本模块）。
+# 断言；必须在 import numpy 之前设好才生效（各测试都在导入 kernel 之前先导入本模块）。
 for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS",
            "NUMEXPR_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
     os.environ.setdefault(_v, "1")
 
 # 打印中文前把 stdio 钉成 UTF-8（英文 Windows 默认 cp1252）：失败信息 / 断言里若有中文，
-# 会 UnicodeEncodeError 把真正的信息盖掉。与 engine/__init__.py 的同一处兜底一致。
+# 会 UnicodeEncodeError 把真正的信息盖掉。与 kernel/__init__.py 的同一处兜底一致。
 for _s in (sys.stdout, sys.stderr):
     try:
         _s.reconfigure(encoding="utf-8")
@@ -37,11 +37,11 @@ def load(preset="plot", frames=DEFAULT_FRAMES, seed=0, **kw):
     命名器在**测试侧**造好传进去：内核只把它当不透明句柄携带（不构造、不调用）。
     不传的话 `traj.namer` 就是 None，凡是要用名字的断言都会炸。
     """
-    from engine.conditions import evaluate
-    from engine.core import run
-    from engine.loader import Config, DataSet
-    from engine.namer import Namer
-    from engine.services import default as default_services
+    from apps.conditions import evaluate
+    from kernel.core import run
+    from kernel.loader import Config, DataSet
+    from apps.namer import Namer
+    from apps.services import default as default_services
 
     data = DataSet(ROOT, preset=preset)
     ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
@@ -75,7 +75,7 @@ def seat_name(ctx, traj, locus_id):
     `R.seat(...)`」；抽到这里，顺带保证口径与生产代码一致（少传一个参数就会
     静默退化成「没有复用 / 还没到世界内」）。
     """
-    from engine.render import renderer_for
+    from apps.render import renderer_for
 
     return renderer_for(ctx, traj).seat(traj.namer, traj.reached_frame, locus_id)
 
@@ -86,7 +86,7 @@ def state(ctx, cap=64, domain=None, dim=None, observables=None):
     `cap` 是池容量；`domain` 是初始变量域（阶段数 = 它的长度）；`dim` / `observables`
     默认取 `ctx.params`，个别测试要别的形状时才显式传。
     """
-    from engine.state import State
+    from kernel.state import State
 
     p = ctx.params
     return State(ctx.loci,

@@ -418,7 +418,7 @@ class Domain(Operator):
     机制根本来不及起作用（"人类演算期"成了一个瞬时事件）。故改为**按预算**：
     每档跑满才换，与 wiki「各阶段跑到它的循环数才结束」一致。
     `progress` / `tau_falsify` 回到它本来的岗位 —— 只判裁决，不管换档
-    （见 engine/verdicts.py 的 `all_falsified`）。
+    （见 apps/verdicts.py 的 `all_falsified`）。
     """
 
     name = "OP_DOMAIN"

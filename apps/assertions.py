@@ -4,12 +4,13 @@
 跑不出来 = 引擎错了，而不是回来改数据。
 
 断言的种类集中在下面这张表里：它既是求值入口，也是**权威名单** ——
-配置校验（engine/loader.py）拿它核对预设里写的断言名，于是「名字写错、
+配置校验（kernel/loader.py）拿它核对预设里写的断言名，于是「名字写错、
 永远记 FAIL」这类事在启动时就会报出来，而不是等到报告里看见一行怪东西。
 """
 from __future__ import annotations
 
-from .vocabulary import ASSERTION_KINDS, SUFFIX_OPS, know_assertion, split_kind  # noqa: F401
+from kernel.vocabulary import (ASSERTION_KINDS, SUFFIX_OPS,  # noqa: F401
+                               know_assertion, split_kind)
 
 
 class Result:
@@ -74,7 +75,7 @@ _KINDS = {
 }
 
 #: 引擎认得的所有断言名（不含 `_at_least` / `_at_most` 后缀）。
-#: 名字表的【唯一来源】在内核侧的 `engine/vocabulary.py`。
+#: 名字表的【唯一来源】在内核侧的 `kernel/vocabulary.py`。
 KINDS = frozenset(_KINDS)
 
 # 核对：实现与内核侧登记的名字必须一一对应（加了实现忘了登记名字会当场报错）。

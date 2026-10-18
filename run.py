@@ -28,20 +28,21 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from engine.assertions import AssertionRunner  # noqa: E402
-from engine.core import run  # noqa: E402
-from engine.conditions import evaluate as eval_condition  # noqa: E402
-from engine.namer import Namer  # noqa: E402
-from engine.services import default as default_services  # noqa: E402
-from engine.features import extract  # noqa: E402
-from engine.loader import (Config, DEFAULT_PRESET, DataSet, ROOT,  # noqa: E402
+from apps.assertions import AssertionRunner  # noqa: E402
+from kernel.api import load  # noqa: E402
+from apps.conditions import evaluate as eval_condition  # noqa: E402
+from apps.namer import Namer  # noqa: E402
+from apps.script import Script  # noqa: E402
+from apps.services import default as default_services  # noqa: E402
+from apps.features import extract  # noqa: E402
+from kernel.loader import (Config, DEFAULT_PRESET, DataSet, ROOT,  # noqa: E402
                            apply_fast)
-from engine.operators import MEMORY_OWNER, consensus  # noqa: E402
-from engine.render import (Renderer, advance_label, cycle_frames,  # noqa: E402
+from kernel.operators import MEMORY_OWNER, consensus  # noqa: E402
+from apps.render import (Renderer, advance_label, cycle_frames,  # noqa: E402
                            myth_phase_frame, renewal_switch_frame, stage_starts,
                            stage_table)
-from engine.timeline import check as check_timeline  # noqa: E402
-from engine.viz import (Sampler, build_html, build_live_shell,  # noqa: E402
+from apps.timeline import check as check_timeline  # noqa: E402
+from apps.viz import (Sampler, build_html, build_live_shell,  # noqa: E402
                         summary_cards, texture_of)
 
 BAR = "─" * 72
@@ -917,6 +918,15 @@ def main():
             ap.error(str(err))
         ctx.params["verbosity"] = merged
     explore = args.explore if args.explore is not None else args.fast
+
+    # §D2 事件驱动应用：预设的 `script.jsonl`（声明式订阅 + 响应）。
+    # `FRAME` 订阅编译成与 `events.jsonl` 同形的定时投递、并进世界；其余订阅是
+    # 反应，挂在内核的事件回调上。它必须排在 `--fast` **之前**装：脚本那些帧也是
+    # "外部时间线"，不跟着压缩就会落在 --fast 早就跑过去的帧号上（永不触发）。
+    # 预设没写 script.jsonl ⇒ 空脚本，下面每一步都不进，逐帧与从前相同。
+    script = Script.from_preset(data, cfg=ctx)
+    script.install(data)
+
     if explore and int(explore) > 1:
         apply_fast(ctx, data, int(explore))
 
@@ -932,7 +942,7 @@ def main():
     board = None
     board_url = None
     if args.serve is not None:
-        from engine.live import LiveState, make_watch, serve as serve_board
+        from apps.live import LiveState, make_watch, serve as serve_board
         total = int(args.frames if args.frames is not None
                     else ctx.params.get("frames", 20000))
         board = LiveState(ctx, data)
@@ -973,14 +983,34 @@ def main():
     if board is not None:
         watch = make_watch(board, sampler)
 
-    # 命名器由【应用层】自己造 —— 内核只把它当不透明句柄携带（见 engine/core.py::run）。
-    # 条件谓词同理：内核只负责"每帧问一次"，条件的写法与求值都在服务层（engine/conditions.py）。
+    # 命名器由【应用层】自己造 —— 内核只把它当不透明句柄携带（见 kernel/core.py::run）。
+    # 条件谓词同理：内核只负责"每帧问一次"，条件的写法与求值都在服务层（apps/conditions.py）。
     # 预设里没写 when 时，内核那边一个条件都不会挂 ⇒ 与不传它逐位相同。
     namer = Namer(ctx, data.anchors)
-    traj = run(ctx, data, seed=seed, max_frames=args.frames, namer=namer,
-               rules=eval_condition, runtime=default_services(),
-               on_event=(stream.on_event if stream else None),
-               watch=watch)
+    # 事件回调可能有两家：实时编年史（只读）与脚本的反应（写回）。都走同一个出口 ——
+    # `emit()` 每记一条就调用一次（见 kernel/core.py）。没有处理器时传 None（内核那边
+    # 就是"没人听"，与从前逐位相同）。
+    handlers = ([stream.on_event] if stream else []) \
+        + ([script.on_event] if script.reactive else [])
+    if not handlers:
+        on_event = None
+    elif len(handlers) == 1:
+        on_event = handlers[0]
+    else:
+        _handlers = tuple(handlers)
+
+        def on_event(frame, kind, payload=None, clock=None, namer=None):
+            for h in _handlers:
+                h(frame, kind, payload, clock, namer)
+
+    # 用 8 个系统调用跑（而不是 `run()` 那个一步到位的包装器）：脚本的反应要 `inject`
+    # 写回，得先拿到会话本体。`script.bind()` 必须排在 `step()` 之前 —— 反应在下一次
+    # 事件时就要用。
+    sess = load({"config": ctx, "data": data, "seed": seed, "namer": namer,
+                 "rules": eval_condition, "runtime": default_services(),
+                 "on_event": on_event, "watch": watch})
+    script.bind(sess)
+    traj = sess.step(args.frames)
     # 机器编号按【登记次序】一次发齐 —— 发号会推进计数器，晚发 / 漏发都会串号。
     namer.bind_machines(traj.personas)
 

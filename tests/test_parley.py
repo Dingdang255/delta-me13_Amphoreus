@@ -18,10 +18,10 @@ import unittest
 
 from _support import ROOT, state
 
-from engine.disturbance import CAPABILITIES, dispatch
-from engine.loader import Config
-from engine.render import Renderer
-from engine.services import default as default_services
+from kernel.disturbance import CAPABILITIES, dispatch
+from kernel.loader import Config
+from apps.render import Renderer
+from apps.services import default as default_services
 
 #: 实测：plot 在位者的 slot.value 分位（见设计稿 2.4）
 V_P25, V_MED, V_P75 = 0.3053, 0.3188, 0.3314
@@ -190,7 +190,7 @@ class ConfigIsNotMutated(unittest.TestCase):
     """★ 回归守卫：`State` 不许持有 `cfg.loci`。
 
     本账本一度改过 `locus.capacity`（想让"位被破坏"参与动力学，实测无效已撤），
-    那时才发现 [`State.__init__`](../../engine/state.py) 里 `self.loci = loci` 是
+    那时才发现 [`State.__init__`](../../kernel/state.py) 里 `self.loci = loci` 是
     **共享引用** —— 于是同一个 `Config` 上的第二次 run 会带着被上一次改烂的位表开始。
     现在虽已不削 capacity，但「State 不持有调用方对象」这条契约仍须守住。
     """
@@ -202,9 +202,9 @@ class ConfigIsNotMutated(unittest.TestCase):
 
         from _support import ROOT, temp_root_with_copy
 
-        from engine.conditions import evaluate
-        from engine.core import run
-        from engine.loader import Config, DataSet
+        from apps.conditions import evaluate
+        from kernel.core import run
+        from kernel.loader import Config, DataSet
 
         with tempfile.TemporaryDirectory() as tmp:
             root = temp_root_with_copy(tmp)
@@ -243,7 +243,7 @@ class ParleyRegistry(unittest.TestCase):
 
     def test_thresholds_are_stage_tunable(self):
         """旋钮必须进白名单 —— 否则写了也没人读（那正是这类项目最容易烂掉的地方）。"""
-        from engine.operators import STAGE_TUNABLE
+        from kernel.operators import STAGE_TUNABLE
         self.assertIn("tau_parley", STAGE_TUNABLE)
         self.assertIn("tau_noise_parley", STAGE_TUNABLE)
 

@@ -7,7 +7,7 @@
 不依赖任何专有名词：只有位次、编号与帧号。
 
 **考古报告**：`build_report(...)` 把遗迹档案 + 涌现 + 裁决聚合成三段 ——
-【一】遗址总览 ·【二】逐处遗迹 ·【三】终局结论。取词一律经 `engine.render.Renderer`，
+【一】遗址总览 ·【二】逐处遗迹 ·【三】终局结论。取词一律经 `apps.render.Renderer`，
 本文件不写死任何一个世界内名词 —— 换一份预设 / 词表，同一段演算就被讲成另一个世界。
 
 **红线：只读**。`RuinSurvey` 只往自己的列表里写、返回值恒 `True`（从不剪枝）；
@@ -28,9 +28,9 @@ from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import BAR, fmt, load, rules, services         # noqa: E402
 
-from engine.core import run                                  # noqa: E402
-from engine.namer import Namer                               # noqa: E402
-from engine.render import renderer_for                       # noqa: E402
+from kernel.core import run                                  # noqa: E402
+from apps.namer import Namer                               # noqa: E402
+from apps.render import renderer_for                       # noqa: E402
 
 #: 遗迹标记的显示名。条件写在 `marks_of`，这里只管怎么讲 —— 都是通用词，不含专名。
 MARK_LABELS = {

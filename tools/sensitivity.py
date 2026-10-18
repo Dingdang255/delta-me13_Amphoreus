@@ -16,7 +16,7 @@
 **只读**：参数只改内存里的 `ctx.params` 副本，不写回 `config/`；每个格子都是一次正常的
 `run()`，不改引擎、不落盘。同一组输入跑两遍，矩阵逐格一致。
 
-**参数白名单**：只认 `engine.operators.STAGE_TUNABLE` 里那些「运行时真会读」的数值旋钮。
+**参数白名单**：只认 `kernel.operators.STAGE_TUNABLE` 里那些「运行时真会读」的数值旋钮。
 写一个没人读的键（如 `drift`）会当场报错 —— 否则整张热力图会是一张「什么都没变的图」，
 比不扫更危险。结构参数（`dim` / `pool_capacity`）与循环控制旋钮（`frames` / `attempt_*`）
 不在表内：前者中途改不了，后者改了不作用于演算。
@@ -41,23 +41,23 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-from engine.core import run                                # noqa: E402
-from engine.loader import Config, DataSet                   # noqa: E402
-from engine.render import Renderer                          # noqa: E402
+from kernel.core import run                                # noqa: E402
+from kernel.loader import Config, DataSet                   # noqa: E402
+from apps.render import Renderer                          # noqa: E402
 
 # 公共实现（分隔线 / 配色 / HTML 转义 / 数值解析 / 种子序列）统一在 `tools/_harness.py`。
 from _harness import BAR, PALETTE as _PALETTE, esc as _esc, rules, services  # noqa: E402
 from _harness import fmt as _fmt, num as _num, resolve_seeds as _resolve_seeds_common  # noqa: E402
 
 #: 热力配色：按裁决【首次出现】的顺序分配，故同一份扫描总是同一套颜色（色表见
-#: `_harness.PALETTE`，与 `engine/viz.py` 的时间线打点同一路数）。
+#: `_harness.PALETTE`，与 `apps/viz.py` 的时间线打点同一路数）。
 _TENTATIVE = "#6b7280"      # 截断 / 未裁决：灰
 
 
 # ------------------------------------------------------------------ 扫描
 def tunable_names():
     """可扫描的参数名（运行时真会读的数值旋钮）。"""
-    from engine.operators import STAGE_TUNABLE
+    from kernel.operators import STAGE_TUNABLE
     return tuple(STAGE_TUNABLE)
 
 
@@ -368,7 +368,7 @@ def main():
     args = ap.parse_args()
 
     if args.list_params:
-        print("可扫描的参数（engine.operators.STAGE_TUNABLE —— 运行时真会读的旋钮）：")
+        print("可扫描的参数（kernel.operators.STAGE_TUNABLE —— 运行时真会读的旋钮）：")
         for n in tunable_names():
             print("  " + n)
         return 0

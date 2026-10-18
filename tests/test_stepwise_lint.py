@@ -25,15 +25,16 @@ def _write(tmpdir, name, text):
 
 
 class StepwiseLint(unittest.TestCase):
-    def test_engine_is_clean(self):
-        engine = os.path.join(ROOT, "engine")
+    def test_code_is_clean(self):
         offenders = {}
-        for name in sorted(os.listdir(engine)):
-            if name.endswith(".py"):
-                hits = stepwise_lint.scan_file(os.path.join(engine, name))
-                if hits:
-                    offenders[name] = hits
-        self.assertEqual(offenders, {}, f"引擎出现了非逐步写法：{offenders}")
+        for pkg in stepwise_lint.SCAN_DIRS:
+            d = os.path.join(ROOT, pkg)
+            for name in sorted(os.listdir(d)):
+                if name.endswith(".py"):
+                    hits = stepwise_lint.scan_file(os.path.join(d, name))
+                    if hits:
+                        offenders[f"{pkg}/{name}"] = hits
+        self.assertEqual(offenders, {}, f"出现了非逐步写法：{offenders}")
 
     def test_catches_direct_final_read(self):
         """反向自检：非 POST_HOC 文件里读 `traj.final` 必须命中。"""

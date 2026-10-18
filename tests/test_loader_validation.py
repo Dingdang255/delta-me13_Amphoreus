@@ -13,7 +13,7 @@ import unittest
 
 from _support import ROOT, temp_root_with_copy
 
-from engine.loader import Config, ConfigError, DataSet
+from kernel.loader import Config, ConfigError, DataSet
 
 PRESETS = ("emergent", "plot", "plot-mech", "nullify", "destruction", "tide", "refuted")
 

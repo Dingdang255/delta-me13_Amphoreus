@@ -14,7 +14,7 @@ import unittest
 
 from _support import ROOT, load
 
-from engine.render import renderer_for
+from apps.render import renderer_for
 
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 import blacktide  # noqa: E402
