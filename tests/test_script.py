@@ -276,5 +276,39 @@ class EventsAndScriptAreExclusive(unittest.TestCase):
                 DataSet(root, preset="_default")
 
 
+class DemoPreset(unittest.TestCase):
+    """仓库自带的示例预设 `presets/_demo/`：两种时机都真的会动。
+
+    它同时是 `script.jsonl` 的**可运行样例** —— 只有测试里的内联规则、仓库里却没有任何
+    `script.jsonl`，会让「这个契约到底长什么样」只能靠读模块文档。
+    """
+
+    def test_demo_script_actually_responds(self):
+        from apps.conditions import evaluate
+        from apps.script import Script
+        from apps.services import default as default_services
+        from kernel.api import load
+        from kernel.loader import Config, DataSet
+
+        data = DataSet(ROOT, preset="_demo")
+        ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
+        script = Script.from_preset(data, cfg=ctx)
+        self.assertGreater(len(script.scheduled), 0)     # ① 定时投递
+        self.assertTrue(script.reactive)                 # ②③ 反应
+        script.install(data)
+
+        sess = load({"config": ctx, "data": data, "seed": 0,
+                     "rules": evaluate, "runtime": default_services(),
+                     "on_event": script.on_event})
+        script.bind(sess)
+        sess.step(1300)
+
+        self.assertIn("demo_gaze", sess.observe()["events"])         # ① 到点真的发了
+        self.assertIn("demo_generation_seen", sess.observe()["events"])   # ③ 只读响应
+        # ② 见到 demo_gaze 后写回一次 raise_noise（下一帧生效、只一次）
+        self.assertEqual(sess.report.final.score.get("disturb:raise_noise"), 1.0)
+        self.assertEqual(script.fired, [0, 1])           # 两条反应各触发一次，没有重复
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -63,5 +63,36 @@ class PackagingConsistency(unittest.TestCase):
         self.assertIn("<", _requirements()["numpy"])
 
 
+class ReleaseDiscipline(unittest.TestCase):
+    """发版纪律：版本号不许只改一处（ADR-0001 §3.4）。
+
+    过去 `pyproject.toml` 的 `version`、`CHANGELOG.md` 的小节、内核的 `API_VERSION`
+    三处各写各的，靠人记 —— 改漏一处不会有任何报错。这里把两条最便宜的等式钉住：
+    ① 包版本必须在 CHANGELOG 里有对应的 `## vX.Y.Z` 小节；
+    ② 内核接口版本必须由 `capabilities()` 一并报出（应用据此判断兼容）。
+    """
+
+    def test_pyproject_version_has_a_changelog_section(self):
+        from _support import ROOT as root
+
+        with io.open(os.path.join(root, "pyproject.toml"), encoding="utf-8") as f:
+            m = re.search(r'^version\s*=\s*"([^"]+)"', f.read(), re.M)
+        self.assertIsNotNone(m, "pyproject.toml 里没有 version")
+        version = m.group(1)
+
+        with io.open(os.path.join(root, "CHANGELOG.md"), encoding="utf-8") as f:
+            headings = re.findall(r"^## v(\d+\.\d+\.\d+)", f.read(), re.M)
+        self.assertIn(version, headings,
+                      f"pyproject 的 version = {version} 在 CHANGELOG 里没有对应小节"
+                      f"（已有：{headings}）")
+
+    def test_api_version_is_reported_by_capabilities(self):
+        from kernel.api import API_VERSION, load
+
+        self.assertRegex(API_VERSION, r"^\d+$")
+        # 只建会话、不 step：装载是纯读，不跑演算。
+        self.assertEqual(load().capabilities()["api_version"], API_VERSION)
+
+
 if __name__ == "__main__":
     unittest.main()

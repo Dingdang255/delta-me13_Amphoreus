@@ -13,6 +13,8 @@ if ROOT not in sys.path:
 
 from kernel.core import run                      # noqa: E402
 from kernel.loader import Config, DataSet, apply_fast   # noqa: E402
+# 锚定键 `serial:<n>` 的解析只有一处：命名器那份。工具这边只是转出（见 apps/namer.py）。
+from apps.namer import serial_of                  # noqa: E402,F401
 
 #: 各只读工具报告里那条分隔线 —— 原先 7 个工具各写一遍，统一到这里。
 BAR = "─" * 72
@@ -64,17 +66,6 @@ def esc(txt):
 def fmt(n) -> str:
     """千分位整数（`12345` → `"12,345"`）—— 各只读工具的报告共用。"""
     return f"{int(n):,}"
-
-
-def serial_of(key):
-    """`"serial:<n>"` → n；形状不符（或 n 非整数）则 None。锚定层的键都过它。"""
-    k = str(key or "")
-    if not k.startswith("serial:"):
-        return None
-    try:
-        return int(k.split(":", 1)[1])
-    except ValueError:
-        return None
 
 
 #: 低饱和配色（与 `apps/viz.py` 的时间线打点同一路数）—— 各只读扫描器共用。

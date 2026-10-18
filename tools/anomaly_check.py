@@ -18,6 +18,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _harness import load, ROOT                    # noqa: E402
 
+from kernel.core import initial_state              # noqa: E402
 from kernel.scheduler import Scheduler             # noqa: E402
 
 
@@ -37,13 +38,15 @@ def main():
     ok &= not has
 
     # ② 取策略 → CONTINUE；调度器动作 → STEP（不改状态）
-    ctx, _data, _ = load()
+    ctx, data, _ = load()
     pol = ctx.policy("VACANT")
     print(f"[{'✓' if pol.get('strategy') == 'CONTINUE' else '✗'}] "
           f"ctx.policy('VACANT') = {pol}")
     ok &= pol.get("strategy") == "CONTINUE"
 
-    st = _mk_state(ctx)
+    # 用生产侧那个建世界工厂，而不是在本工具里手搓一个 State ——
+    # 后者是 core.initial_state 的一份影子实现，参数一改就会悄悄与真实世界分叉。
+    st = initial_state(ctx, data, 0)
     act = Scheduler().decide(st, [_V("VACANT")], ctx, 0, snapshot=st.snapshot())
     print(f"[{'✓' if act.kind == 'STEP' else '✗'}] 调度器对 VACANT 的动作 = {act.kind}"
           f"（应为 STEP = CONTINUE，世界继续演化而非被重放）")
@@ -52,14 +55,6 @@ def main():
     print("✓ 判据 6 通过：死循环是【没有策略可受理】的后果，不是配置出来的。"
           if ok else "✗ 判据 6 失败。")
     return 0 if ok else 1
-
-
-def _mk_state(ctx):
-    """造一个最小可运行的状态对象，只为把 VACANT 喂给调度器。"""
-    from kernel.state import State
-    p = ctx.params
-    return State(ctx.loci, int(p["dim"]), int(p["observables"]),
-                 int(p["pool_capacity"]), ["x"])
 
 
 if __name__ == "__main__":

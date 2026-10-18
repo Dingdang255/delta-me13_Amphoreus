@@ -102,18 +102,14 @@ class PresetsOnlyUseKnownTerms(unittest.TestCase):
 
     @staticmethod
     def _known_names():
-        """内核 `obs_now()` 会给出的全部名字 —— 与 core.py 的构造一一对应。"""
-        from kernel.disturbance import CAPABILITIES
-        from kernel.state import DEATH_CAUSES
+        """内核 `obs_now()` 会给出的全部名字 —— **直接取服务层那份清单**，不另抄一遍。
 
-        return ({"frame", "promotions", "round", "domain_index", "entropy",
-                 "personas", "deadlocked", "seats_filled", "seats_vacant", "deaths",
-                 "load_max", "load_min", "load_span"}
-                | {f"seat_l{i:02d}" for i in range(32)}          # 席位（按 loci.id）
-                | {f"load_l{i:02d}" for i in range(32)}          # 每席承载
-                | {f"value_l{i:02d}" for i in range(32)}         # 每席寄存器值
-                | {f"cap_{c}" for c in CAPABILITIES}             # 能力（按配置的能力表）
-                | {f"deaths_{c}" for c in DEATH_CAUSES})         # 账本（按死因分档）
+        原先这里是 `apps/conditions.known_names()` 的手抄副本；两份一旦分叉，闸门就会
+        放行一个内核根本给不出的名字（或误杀一个已经给出的）。现改为单一来源。
+        """
+        from apps.conditions import known_names
+
+        return known_names()
 
     def test_all_presets(self):
         from apps.conditions import check

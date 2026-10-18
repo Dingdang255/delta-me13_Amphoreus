@@ -21,6 +21,7 @@ python -m pip install -r requirements.txt
 ```bash
 python run.py                                  # 涌现版：名字全由演算生成
 python run.py --preset plot                    # 剧情锚定版：名字按剧情绑定（不改轨迹）
+python run.py --preset _demo --frames 5000     # script.jsonl 样例：订阅 + 响应（定时投递 / 写回 / 只读）
 python run.py --preset plot --live             # 演算过程中实时输出编年史
 python run.py --preset plot --log               # 编年史落盘 → logs/翁法罗斯编年史_演算N.txt
 python run.py --preset plot --export           # 导出 dashboard → dashboard/翁法罗斯-可视化.html
@@ -32,7 +33,7 @@ python run.py --help                           # 查看全部参数
 
 | 开关 | 作用 |
 |---|---|
-| `--preset <名>` | 选预设：`emergent` 涌现版（默认）/ `plot` 剧情锚定版 / `plot-mech` 剧情机制版 / `nullify` 否定版 / `destruction` 毁灭版 / `tide` 淹没版 / `refuted` 证伪版 |
+| `--preset <名>` | 选预设：`emergent` 涌现版（默认）/ `plot` 剧情锚定版 / `plot-mech` 剧情机制版 / `nullify` 否定版 / `destruction` 毁灭版 / `tide` 淹没版 / `refuted` 证伪版 / `_demo` `script.jsonl` 样例（`FRAME` 定时投递 + 事件响应） |
 | `--list-presets` | 列出 `presets/` 下可用的预设（含预设目录里自带 `preset.json` 的世界） |
 | `--seed <n>` | 换一个世界种子（只影响角色涌现，不改裁决结果与时刻） |
 | `--frames <n>` | 只跑到第 n 帧（调试用） |

@@ -31,6 +31,21 @@ def _split_machine(machine):
     return m.group(1).lower(), int(m.group(2))
 
 
+def serial_of(key):
+    """`"serial:<n>"` → n；形状不符（或 n 非整数）则 None。锚定层的键都过它。
+
+    工具侧（`tools/_harness.py`）与命名器**共用这一份** —— 同一套键格式只许有一处解析，
+    否则两边的宽容度一旦分叉，就会出现「工具认得出、命名器认不出」这种最难查的偏差。
+    """
+    k = str(key or "")
+    if not k.startswith("serial:"):
+        return None
+    try:
+        return int(k.split(":", 1)[1])
+    except ValueError:
+        return None
+
+
 class Namer:
     def __init__(self, ctx, anchors=None):
         self.ctx = ctx
@@ -65,11 +80,9 @@ class Namer:
             if not a.get("external"):
                 continue
             key = str(a.get("key", ""))
-            if key.startswith("serial:"):
-                try:
-                    self.external.add(int(key.split(":", 1)[1]))
-                except ValueError:
-                    pass
+            serial = serial_of(key)
+            if serial is not None:
+                self.external.add(serial)
         self._corpus = self._corpus_weights()
         self.style = self._style()
 

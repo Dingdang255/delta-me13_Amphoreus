@@ -1,0 +1,6 @@
+{
+  "_comment": "§D2 的示例预设：同一批投递用 script.jsonl（订阅 + 响应）写，而不是 events.jsonl（日程表）。它只带一份 script.jsonl —— 两者同存会被 kernel/loader.py 当场拒收（同一条时间线只许有一个安放处）。",
+  "name": "_demo",
+  "seed": 0,
+  "note": "三条规则分别演示三种写法：① on=FRAME + at —— 定时投递，编译结果与 events.jsonl 的一行逐字同形；② on=事件类别 + if + permit —— 响应式写回，走 Session.inject，下一帧生效，每条只触发一次；③ 只 emit 的响应 —— 不写回世界，故不需 permit。跑法：python run.py --preset _demo --frames 5000。它不影响任何别的预设：世界规格回落到 presets/_default。"
+}

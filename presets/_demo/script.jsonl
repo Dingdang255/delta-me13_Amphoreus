@@ -1,0 +1,3 @@
+{"on": "FRAME", "at": 1200, "label": "◆ 示例①：定时投递 —— 与 events.jsonl 的一行逐字同形", "do": [{"emit": "demo_gaze"}]}
+{"on": "DISTURBANCE", "if": "event(\"demo_gaze\")", "permit": "preset", "label": "◆ 示例②：响应式写回 —— 见到 demo_gaze 就抬 0.02 的噪声（下一帧生效，只触发一次）", "do": [{"inject": "raise_noise", "payload": {"amplitude": 0.02}}]}
+{"on": "PROMOTION", "if": "promotions >= 1", "label": "◆ 示例③：只读响应 —— 首次再创世之后播报一次，不申报 permit（它不写回世界）", "do": [{"emit": "demo_generation_seen"}]}
