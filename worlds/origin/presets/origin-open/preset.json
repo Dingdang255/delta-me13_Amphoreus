@@ -1,0 +1,7 @@
+{
+  "_comment": "失败分支：原初成形、缺失节点也都补上了，但有一笔借出的锚点还不上（能量不足）⇒ origin_open。",
+  "name": "origin-open",
+  "seed": 0,
+  "extends": "origin",
+  "narrative": {"terminal": false, "archive": false, "origin": true}
+}

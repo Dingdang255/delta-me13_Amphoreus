@@ -1,0 +1,12 @@
+{
+  "_comment": "开拓演示：十二席被外力封住 ⇒ 世界停滞；原初能量足够时内生地拨动演算方向并开门。",
+  "name": "origin-stall",
+  "seed": 0,
+  "extends": "origin",
+  "params": {
+    "origin_create_cost": 999.0,
+    "origin_trailblaze_dwell": 64,
+    "origin_trailblaze_cost": 0.5
+  },
+  "narrative": {"terminal": false, "archive": false, "origin": true}
+}

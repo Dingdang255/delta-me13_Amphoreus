@@ -1,0 +1,7 @@
+{
+  "_comment": "失败分支：原初从未成形。第十三席被外力永久封住，德谬歌没有醒来。",
+  "name": "origin-absent",
+  "seed": 0,
+  "extends": "origin",
+  "narrative": {"terminal": false, "archive": false, "origin": true}
+}

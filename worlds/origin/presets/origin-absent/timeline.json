@@ -1,0 +1,8 @@
+{
+  "nodes": [
+    {"id": "A01_NOT_FORMED", "feature": "origin_ever", "op": "eq", "value": false,
+     "label": "原初从未成形"},
+    {"id": "A02_ABSENT", "feature": "verdict", "op": "eq", "value": "origin_absent",
+     "label": "裁决落在 origin_absent"}
+  ]
+}

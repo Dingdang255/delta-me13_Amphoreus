@@ -1,0 +1,21 @@
+{
+  "_comment": "origin 世界的机器规格。与 canonical 的 _default 同一套命题与变量域；这里自带完整规格，不依赖 world_root 下的 _default。",
+  "proposition": {
+    "id": "P_LIFE_FIRST_CAUSE",
+    "form": "exists_constant",
+    "target": "first_cause_of_life",
+    "note": "求：生命的第一因"
+  },
+  "domain": {
+    "initial_variable": ["inorganic", "organic", "human"],
+    "disorder": [0.0, 0.0, 0.010],
+    "stages": [
+      {"on": [], "params": {"life_span": 175, "domain_dwell": 2000}},
+      {"on": [], "params": {"life_span": 700, "mutation": 0.02, "domain_dwell": 4000}},
+      {"on": ["OP_MEMORY_INHERIT", "OP_BIFURCATE", "OP_ANNEX", "OP_ACTIVE_RENEWAL"],
+       "params": {"mutation": 0.01, "domain_dwell": 5000}},
+      {"on": []}
+    ]
+  },
+  "seed": 0
+}

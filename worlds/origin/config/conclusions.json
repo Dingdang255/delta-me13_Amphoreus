@@ -1,0 +1,53 @@
+{
+  "_comment": "origin 世界的结论文案。除三条基础结论外，另有原初四态：closed / unstable / open / absent。判据表只引用这四条。",
+  "_framing": "原初四态是【重演收尾】的经验裁决：它问的是「回望锚点在固定点上是否把缺失节点都补上了」，不是形式证明。",
+  "proved": {
+    "id": "C_STATIC_FIRST_CAUSE",
+    "template": "生命的第一因为静态取值，无法决定事物的发展路径",
+    "label": "证真",
+    "stop": "PROVED",
+    "stop_label": "命题已证真"
+  },
+  "refuted": {
+    "id": "C_NO_FIRST_CAUSE",
+    "template": "反例无法穷尽：不存在可判定的第一因",
+    "label": "证伪",
+    "stop": "REFUTED",
+    "stop_label": "命题已证伪"
+  },
+  "undecided": {
+    "id": "C_UNDECIDED",
+    "template": "未结束：既定因果关系缺失，实验不向「结束」坍缩",
+    "label": "未决",
+    "stop": "UNDECIDED",
+    "stop_label": "未能判定"
+  },
+  "origin_closed": {
+    "id": "C_ORIGIN_CLOSED",
+    "template": "回望闭合：原初带着未来的记忆回到缺失节点，把浮黎本该投下的目光补上了",
+    "label": "原初闭合",
+    "stop": "ORIGIN_CLOSED",
+    "stop_label": "回望固定点已闭合"
+  },
+  "origin_open": {
+    "id": "C_ORIGIN_OPEN",
+    "template": "原初已成形，但仍有借出的锚点没有还上：回望尚未闭合",
+    "label": "原初未闭",
+    "stop": "ORIGIN_OPEN",
+    "stop_label": "原初成形但未闭合"
+  },
+  "origin_unstable": {
+    "id": "C_ORIGIN_UNSTABLE",
+    "template": "锚点固定点仍不稳定：重演后仍有缺失节点",
+    "label": "原初不稳",
+    "stop": "ORIGIN_UNSTABLE",
+    "stop_label": "锚点固定点仍有缺失"
+  },
+  "origin_absent": {
+    "id": "C_ORIGIN_ABSENT",
+    "template": "原初未成形：本轨道没有长出第十三席",
+    "label": "原初缺席",
+    "stop": "ORIGIN_ABSENT",
+    "stop_label": "原初未成形"
+  }
+}

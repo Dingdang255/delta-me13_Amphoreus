@@ -1,0 +1,56 @@
+{
+  "_comment": "外部实体表：谁在操作这个世界、各自握有哪些修改权限。白厄/昔涟是池中自诞生的因子，不在这里 —— 他们由演算自己长出来。",
+  "actors": [
+    {
+      "id": "external_x",
+      "label": "开拓者（外部变量）",
+      "vector": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.60],
+      "attrs": {"source": "external", "resonates_with": "memory"},
+      "grants": []
+    },
+    {
+      "id": "dan_heng",
+      "label": "丹恒（外部变量）",
+      "vector": [0.02, 0.02, 0.02, 0.02, 0.02, 0.60, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02],
+      "attrs": {"source": "external"},
+      "grants": []
+    },
+    {
+      "id": "longnight",
+      "label": "长夜月（外部变量）",
+      "vector": [0.02, 0.60, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02],
+      "attrs": {"source": "external"},
+      "grants": []
+    },
+    {
+      "id": "fuli",
+      "label": "浮黎",
+      "attrs": {"source": "external"},
+      "grants": []
+    },
+    {
+      "id": "thief",
+      "label": "窃忆者",
+      "attrs": {"source": "external"},
+      "grants": []
+    },
+    {
+      "id": "hacker",
+      "label": "黑塔与螺丝咕姆",
+      "attrs": {"source": "external"},
+      "grants": ["promotion.mode"]
+    },
+    {
+      "id": "zandar",
+      "label": "赞达尔",
+      "attrs": {"source": "external"},
+      "grants": []
+    },
+    {
+      "id": "alliance",
+      "label": "公司·仙舟联军",
+      "attrs": {"source": "external"},
+      "grants": []
+    }
+  ]
+}

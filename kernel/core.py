@@ -39,6 +39,7 @@ class Trajectory:
         self.verdict_frame = None   # 命题被裁决的那一帧
         self.stop_reason = None     # PROVED | REFUTED | ITER_CAP | BUDGET
         self.reached_frame = 0      # 实际走到的最后一帧
+        self.rewinds = 0            # 真实回退（checkpoint → rewind）发生次数
         self.conclusion_seen = None      # 里程碑：当前已播报过的内层结论
         self.conclusion_trail = []       # [(frame, conclusion)]：结论链
         self.ascended = False            # 是否升格外溢（结论被"改写"那一改的外生产物）
@@ -128,7 +129,15 @@ def initial_state(cfg, data, seed: int) -> State:
     for a in (getattr(data, "actors", None) or []):
         st.actors[str(a["id"])] = {"label": a.get("label", ""),
                                    "grants": tuple(a.get("grants") or ()),
-                                   "state": {}}
+                                   "state": {},
+                                   # 外部变量可以带自己的【属性向量】与附加属性；
+                                   # 不带这两个键的既有世界逐字不变。
+                                   "vector": a.get("vector"),
+                                   "attrs": dict(a.get("attrs") or {})}
+    # 命途权柄：谁管哪条命途，由世界配置声明（canonical 没有 paths.json ⇒ 空）。
+    paths_conf = getattr(cfg, "paths", None) or {}
+    for actor, ids in (paths_conf.get("authorities") or {}).items():
+        st.authorities[str(actor)] = set(str(x) for x in ids)
     # 阶段装配：第 0 阶段的机制从一开始就装上（没配 stages ⇒ 这里什么都不会发生）。
     _assemble(st, data)
     return st
@@ -264,6 +273,11 @@ def _advance(cfg, data, seed: int | None = None, max_frames: int | None = None,
     n = int(start_frame)
 
     seen_events = set()          # 已经发生过的事件名 —— 供 event("X") 这类条件读
+    # 已经投递过的【同一条记录】。正常世界帧只向前走，这张表不会命中；只有
+    # `gaze.rollback` 把帧钟拨回去时，才会挡住「同一手外生干预被重复投递」。
+    # `persist`（按帧常驻）与 `payload.repeat` 例外：它们本来就该继续生效。
+    fired_records = set()
+    rewound = False
 
     def emit(frame, kind, payload):
         """记下一条事件：写进 Telemetry（trace 时），并立即转给实时回调。
@@ -625,9 +639,15 @@ def _advance(cfg, data, seed: int | None = None, max_frames: int | None = None,
                     inbox.remove(rec)
                     due_inbox.append(rec)
         for rec in data.at(n) + due + due_inbox:
+            rid = id(rec)
+            pay = rec.get("payload") or {}
+            if (rewound and rid in fired_records
+                    and not pay.get("repeat") and not pay.get("persist")):
+                continue
             _, fired = dispatch(rec, st, ctx_run, n)
             if not fired:
                 continue
+            fired_records.add(rid)
             # 事件名在这里收：它在【投递记录】上（`payload.event`），不在播报载荷里。
             # `event("X")` 这类条件读的就是"这个事件发生过没有"。
             ev = (rec.get("payload") or {}).get("event")
@@ -644,6 +664,32 @@ def _advance(cfg, data, seed: int | None = None, max_frames: int | None = None,
                 "selector": (rec.get("selector") or {}).get("expr"),
                 "label": rec.get("label"),
             })
+        # ④' 真实回退：`gaze.rollback` 请求把世界退回 checkpoint 存下的位置。
+        #     只搬世界（copy_world_from），账本（score / 轮次 / 个体史）不回退；
+        #     帧钟也跟着退回去，于是「本轮重来」是逐帧真的重来，不是跳过。
+        #     外生记录用 `fired_records` 挡住，不会被同一手干预重复投递。
+        if getattr(st, "rewind_to", False):
+            st.rewind_to = False
+            chk = getattr(st, "rewind_state", None)
+            if chk is not None:
+                from_frame = int(n)
+                back = int(getattr(st, "rewind_frame", from_frame))
+                st.copy_world_from(chk)
+                st.score["rollbacks"] = float(
+                    st.score.get("rollbacks", 0.0) + 1.0)
+                traj.rewinds += 1
+                rewound = True
+                emit(from_frame, "ROLLBACK", {
+                    "to": back, "from": from_frame,
+                    "rollbacks": int(st.score["rollbacks"])})
+                # 世界已退回循环之前：把循环/冻结的局部状态一并复位。
+                deadlock = None
+                prev_sig = None
+                freeze_run = 0
+                last_stalled = False
+                n = max(0, back)
+                continue
+
         # 覆盖表若被外生实体改写，逐条播报 —— 观测者只读，不改状态一个比特。
         if st.overrides != before_overrides:
             emit(n, "PROTOCOL_REWRITTEN", {
@@ -760,6 +806,9 @@ def _advance(cfg, data, seed: int | None = None, max_frames: int | None = None,
                 known = registrar.registered
                 for i, (was, now) in enumerate(zip(last["owners"], owners)):
                     if was == now:
+                        continue
+                    # 第十三席是 meta：它不属于「十二席承位易主」那条编年史。
+                    if getattr(cfg.loci[i], "meta", False):
                         continue
                     # 无名者之间的流转是常态竞争，不入编年史。但「失位 / 补位」两端里
                     # 只要有一端有名就照报 —— 点名与否由 L5 命名器说了算，引擎不替它判断

@@ -69,6 +69,11 @@ class EmergenceRegistrar:
         return int(st.pool.seated_clock[k]) in (clock, clock - 1)
 
     def passes(self, st, k, frame) -> bool:
+        # ⓪ 原初世界的忆灵：它一出世就是一个独立个体（要有自己的名字与成长），
+        #    不必先满足「承过位 / 熬够年岁」—— 它本来就是原初分出来的那一个。
+        if (self.ctx.params.get("origin_world", False)
+                and "origin_companion" in st.pool.tags[int(k)]):
+            return True
         # ① 本世逐火承位（正解）；或 ② 四条全称判据（角色也能自人海长出）。
         return (self._p5_pilgrim(st, k, frame)
                 or (self._p1_age(st, k, frame) and self._p2_stable(st, k, frame)
@@ -90,7 +95,15 @@ class EmergenceRegistrar:
         p2 = pool.stable[idx] >= p["tau_stable"]
         p3 = pool.support[idx].astype(np.float64) >= float(p["tau_influence"])
         p4 = pool.held[idx]
-        return p5 | (p1 & p2 & p3 & p4)
+        out = p5 | (p1 & p2 & p3 & p4)
+        # 原初世界的忆灵直接通过（与 `passes()` 的 ⓪ 逐位一致）。
+        # canonical 世界没有 `origin_world` ⇒ 不建这张掩码，行为与从前逐位相同。
+        if p.get("origin_world", False):
+            comp = np.fromiter(
+                ("origin_companion" in pool.tags[int(i)] for i in idx),
+                dtype=bool, count=idx.size)
+            out = out | comp
+        return out
 
     # ---- 扫描 --------------------------------------------------------
     def _held_order(self, st, serial):
@@ -101,6 +114,9 @@ class EmergenceRegistrar:
 
     def scan(self, st, frame):
         if not self.ctx.params.get("emergence", True):
+            return []
+        # 十二席定席之后不再登记新角色：故事已经收束，不该再「涌现」。
+        if getattr(st, "seats_frozen", False):
             return []
         idx = st.pool.index()
         if idx.size == 0:
@@ -118,6 +134,10 @@ class EmergenceRegistrar:
             if not self.passes(st, k, frame):
                 continue
             order = self._held_order(st, serial)
+            # 第十三席是 meta：它不参与「十二席角色」那条叙事，故不把
+            # 它记成某个 locus 的承位者（名字仍然照给，只是不说「接掌原初之位」）。
+            if order is not None and getattr(self.ctx.loci[order], "meta", False):
+                order = None
             caps = frozenset(
                 t.split(":", 1)[1] for t in st.pool.tags[k] if t.startswith("capability:")
             )

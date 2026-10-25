@@ -1,0 +1,14 @@
+{
+  "_comment": "这个节点要的是一件从未发生的事：repair=wake_origin 不会把它带来（只有 seed_memory / open_gate 才会记事件），故重演后仍缺失 ⇒ origin_unstable。",
+  "nodes": [
+    {
+      "id": "U1_UNREACHABLE_EVENT",
+      "frame": 1600,
+      "missing": "not_seen",
+      "event": "savior_memory_never",
+      "repair": "wake_origin",
+      "cost": 0.5,
+      "label": "回望投下了锚点，但那件事仍然没有发生"
+    }
+  ]
+}

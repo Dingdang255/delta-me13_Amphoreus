@@ -117,6 +117,11 @@ def solve(st, ctx, seed, stage_gates=(), stage_overrides=None):
     # 用 τ=1 等于要求「删掉任意一席都不损失失序度」，在期望上就是假的。
     # 现在的语义是「删掉任一席，失序度损失不超过 (1 − band)」= 没有哪一席是瓶颈。
     for i, locus in enumerate(st.loci):
+        # meta 席（原初）不进 12 因子判据：它的读数单独作为 origin_selfhood 暴露。
+        if getattr(locus, "meta", False):
+            locus.progress = 0.0
+            locus.progress2 = 0.0
+            continue
         solo_e = _mean_entropy(st, sub, i, sig, gates, _SOLO, None, None, 1)
         leave_e = _mean_entropy(st, sub, i, sig, gates, _OFF, _PEAK_OFF, "argmax", draws)
         locus.progress = solo_e / tau if tau > 0 else 0.0
@@ -153,6 +158,11 @@ def _mini_world(st, sub, index, rng, stage_gates=(), peak=None, home=None):
     alpha = np.full(dim, 0.10, dtype=np.float32)
     alpha[index] = _PEAK_SOLO if peak is None else float(peak)
     vecs = rng.dirichlet(alpha, size=size).astype(np.float32)
+    # 迷你世界只演 12 个非 meta 因子：把 meta 维归零再归一，免得第 13 维分走质量、
+    # 把 12 因子的 progress 污染。canonical 世界没有 meta 维 ⇒ 这一步是空操作。
+    meta = [i for i, l in enumerate(st.loci) if getattr(l, "meta", False)]
+    if meta:
+        vecs[:, meta] = 0.0
     vecs /= vecs.sum(axis=1, keepdims=True)
     for k in range(size):
         j = mini.pool.alloc()
@@ -163,6 +173,21 @@ def _mini_world(st, sub, index, rng, stage_gates=(), peak=None, home=None):
                                else int(np.argmax(vecs[k])))
         mini.pool.born[j] = 0
     return mini
+
+
+def _strip_meta(mini):
+    """把迷你世界里的 meta 分量清零并重新归一（没有 meta 席时是空操作）。"""
+    meta = [i for i, l in enumerate(mini.loci) if getattr(l, "meta", False)]
+    if not meta:
+        return
+    idx = mini.pool.index()
+    if idx.size == 0:
+        return
+    v = mini.pool.vec[idx].copy()
+    v[:, meta] = 0.0
+    s = v.sum(axis=1, keepdims=True)
+    s[s <= 0] = 1.0
+    mini.pool.vec[idx] = v / s
 
 
 def _entropy(st, sub, index, sig, gates, tag, draw, peak=None, home=None):
@@ -180,6 +205,7 @@ def _entropy(st, sub, index, sig, gates, tag, draw, peak=None, home=None):
     for t in range(int(sub.params["ablation_frames"])):     # ← 逐帧，不是解析解
         for op in ABLATION_PIPELINE:
             op.apply(mini, sub, rng, t)
+        _strip_meta(mini)
 
     val = float(mini.entropy)
     if len(_CACHE) >= _CACHE_MAX:      # 上限：纯函数，清空无副作用，防长进程无界增长

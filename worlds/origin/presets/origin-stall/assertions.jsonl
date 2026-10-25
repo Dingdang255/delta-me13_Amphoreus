@@ -1,0 +1,3 @@
+{"assert": "origin_awake", "expect": true}
+{"assert": "origin_ever", "expect": true}
+{"assert": "origin_trailblaze_at_least", "expect": 1}

@@ -14,7 +14,12 @@
 from __future__ import annotations
 
 #: 判据的「触发时机」（`verdict_rules[].when`）—— 实现见 `apps/verdicts.py`
-WHEN_NAMES = ("all_falsified", "stalled_and_exhausted")
+#:
+#: 后四条只在【原初世界】里用：它们读 `State.origin` 的四态（成形 / 未闭合 /
+#: 锚点固定点不稳定 / 未成形）。canonical 的判据表一条都不引用它们 —— 名字登记在
+#: 这里只是让配置校验「认得出来」，不会改变任何既有世界的裁决。
+WHEN_NAMES = ("all_falsified", "stalled_and_exhausted",
+              "origin_closed", "origin_unstable", "origin_open", "origin_absent")
 
 #: 判据的「附加条件」（`verdict_rules[].require[].kind`）—— 实现见 `apps/verdicts.py`
 REQUIRE_NAMES = ("solver", "counter")
@@ -27,6 +32,39 @@ ASSERTION_KINDS = frozenset({
     "conclusion", "solver_changed", "population_final", "destruction_ever",
     "conclusion_reached", "ascended", "protocol_rewritten", "promotion_mode",
     "memory_repaired", "destruction_events", "emitted_events",
+    "skipped_frames", "iterations",
+    # —— 原初（第十三席）的真实读数 ——
+    "origin_ever", "origin_selfhood", "origin_closure", "origin_borrowed",
+    "origin_repaid", "origin_occupant", "origin_anchors", "origin_missing",
+    "origin_awake", "origin_create", "origin_love", "origin_trailblaze",
+    "origin_dissolved", "origin_form", "origin_coverage", "origin_factor_rows",
+    "origin_companion", "origin_companion_alive", "origin_companion_serial",
+    "origin_companion_spawn", "origin_companion_host", "origin_attach",
+    "origin_companion_stage", "origin_companion_age", "origin_companion_carry",
+    "origin_companion_bond", "origin_companion_grow",
+    "origin_companion_rebind", "origin_companion_rebond",
+    "origin_companion_seat", "origin_companion_eminence",
+    "origin_memory_seats", "origin_rebind",
+    "origin_resonance", "origin_resonance_value", "origin_resonance_host",
+    "origin_resonance_wake", "origin_savior", "origin_savior_active",
+    "origin_savior_transfer", "origin_memory_fragment", "origin_memory_transfer",
+    "origin_memory_coupling", "origin_memory_mutation", "origin_memory_tick",
+    "origin_memory_phase", "origin_gazed", "origin_seat_seized",
+    "origin_seat_reclaimed",
+    # —— 权柄层：命途 ——
+    "path_joined", "path_defected", "path_members", "path_affinity",
+    "path_emanators", "path_revoked", "path_authorities",
+    # —— 剧情接线的真实读数（事件标签不算证明） ——
+    "memory_rows", "suppressed_slots", "embers_taken", "external_seats",
+    "override_rules",
+    # —— 真实回退 ——
+    "origin_rewinds", "origin_rollbacks",
+    # —— 具名因子（候选必须已经在池里） ——
+    "factor_named",
+    # —— 因子的决策 / 权杖入口 ——
+    "factor_certainty", "factor_decided", "years_loophole",
+    "entry_locked", "entry_unlocked", "final_recreation",
+    "fuli_anchor_past",
 })
 
 #: 断言名允许的比较后缀 → 比较方式。
@@ -42,6 +80,7 @@ EVENT_KINDS = frozenset({
     "DEADLOCK_LOOP", "DEADLOCK_TICK", "DEADLOCK_END",
     "ATTEMPT_VAIN", "ATTEMPT_TRACE",
     "VERDICT", "CONCLUSION_REACHED", "ASCENSION", "VIOLATION_STATE",
+    "ROLLBACK",
 })
 
 

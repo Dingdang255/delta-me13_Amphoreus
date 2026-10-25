@@ -44,10 +44,14 @@ KERNEL = ["api.py", "core.py", "disturbance.py", "emergence.py", "loader.py",
           "vocabulary.py"]
 # 用户态：服务（裁决 / 消融 / 断言 / 不变量 / 特征 / 时间线 / 条件 / 服务束）
 #         + 界面（命名 / 渲染 / 看板 / 可视化）
-#         + 应用模型（`script.py`：声明式订阅与响应，§D2）。
-APPS = ["ablation.py", "assertions.py", "conditions.py", "features.py",
-        "invariants.py", "live.py", "namer.py", "render.py", "script.py",
-        "services.py", "timeline.py", "verdicts.py", "viz.py"]
+#         + 应用模型（`script.py`：声明式订阅与响应，§D2）
+#         + 只读叙事层（`terminal.py` 按帧回放预设的系统消息 / `archive.py` 渲染档案 /
+#           `terminal_bridge.py` 与 `terminal_window.py` 负责独立 CLI 窗口的 socket 通道）。
+APPS = ["ablation.py", "archive.py", "assertions.py", "conditions.py", "features.py",
+        "invariants.py", "live.py", "namer.py", "origin.py", "origin_loop.py",
+        "render.py", "script.py",
+        "services.py", "terminal.py", "terminal_bridge.py", "terminal_window.py",
+        "timeline.py", "verdicts.py", "viz.py"]
 
 PACKAGES = {"kernel": KERNEL, "apps": APPS}
 

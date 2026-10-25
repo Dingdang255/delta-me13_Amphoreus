@@ -131,4 +131,114 @@ def extract(traj, ctx) -> dict:
         "style_syllables_max": style["syllables"][1],
         "style_coda_tilt": round(style["coda_tilt"], 3),
         "style_onset_tilt": round(style["onset_tilt"], 3),
+        # —— 原初（第十三席）的真实读数 ——
+        # 全由 `State.origin` 与回望驱动写下的 `traj.origin` 汇总给出；canonical 世界
+        # 从不驱动它，故这里恒是「未成形 / 0 / 无在位者」。
+        **_origin_features(st, traj),
+    }
+
+
+def _origin_features(st, traj) -> dict:
+    o = getattr(st, "origin", None)
+    meta = [i for i, l in enumerate(getattr(st, "loci", ()))
+            if getattr(l, "meta", False)]
+    occ = (st.register.slots[meta[0]].owner if meta else None)
+    summ = getattr(traj, "origin", None) or {}
+    return {
+        "origin_ever": bool(o.ever) if o is not None else False,
+        "origin_selfhood": round(float(o.selfhood), 6) if o is not None else 0.0,
+        "origin_closure": int(o.closure) if o is not None else 0,
+        "origin_borrowed": int(o.borrowed) if o is not None else 0,
+        "origin_repaid": int(o.repaid) if o is not None else 0,
+        "origin_occupant": occ,
+        "origin_anchors": int(summ.get("anchors", getattr(o, "borrowed", 0) if o else 0)),
+        "origin_missing": int(summ.get("missing", 0)),
+        "origin_awake": bool(getattr(o, "awake", False)),
+        "origin_create": int(st.score.get("origin_create", 0.0)),
+        "origin_love": int(st.score.get("origin_love", 0.0)),
+        "origin_trailblaze": int(st.score.get("origin_trailblaze", 0.0)),
+        "origin_dissolved": int(st.score.get("origin_dissolved", 0.0)),
+        "origin_form": int(getattr(o, "form", 0)) if o is not None else 0,
+        "origin_coverage": round(float(getattr(o, "coverage", 0.0)), 6),
+        "origin_factor_rows": int(getattr(o, "factor_rows", 0)) if o is not None else 0,
+        "origin_companion": int(st.score.get("origin_companion", 0.0)),
+        "origin_companion_alive": bool(
+            int(getattr(o, "companion_serial", -1)) >= 0
+            and st.pool.index_of_serial(int(getattr(o, "companion_serial", -1))) >= 0),
+        "origin_companion_serial": int(getattr(o, "companion_serial", -1))
+        if o is not None else -1,
+        "origin_companion_spawn": int(st.score.get("origin_companion_spawn", 0.0)),
+        "origin_companion_host": int(getattr(o, "companion_host", -1))
+        if o is not None else -1,
+        "origin_companion_stage": int(getattr(o, "companion_stage", 0))
+        if o is not None else 0,
+        "origin_companion_age": int(getattr(o, "companion_age", 0))
+        if o is not None else 0,
+        "origin_companion_carry": int(getattr(o, "companion_carry", 0))
+        if o is not None else 0,
+        "origin_companion_bond": int(getattr(o, "companion_bond", 0))
+        if o is not None else 0,
+        "origin_companion_grow": int(st.score.get("origin_companion_grow", 0.0)),
+        "origin_companion_rebind": int(st.score.get("origin_companion_rebind", 0.0)),
+        "origin_companion_rebond": int(st.score.get("origin_companion_rebond", 0.0)),
+        "origin_companion_seat": int(st.score.get("origin_companion_seat", 0.0)),
+        "origin_companion_eminence": int(
+            "emitted_origin_companion_eminence" in st.score),
+        "origin_attach": int(st.score.get("origin_attach", 0.0)),
+        "origin_memory_seats": len(getattr(st, "memory_seats", ())),
+        "origin_rebind": int(st.score.get("origin_rebind", 0.0)),
+        "origin_resonance": int(st.score.get("origin_resonance", 0.0)),
+        "origin_resonance_value": round(float(getattr(o, "resonance", 0.0)), 6)
+        if o is not None else 0.0,
+        "origin_resonance_host": int(getattr(o, "resonance_host", -1))
+        if o is not None else -1,
+        "origin_resonance_wake": int(st.score.get("origin_resonance_wake", 0.0)),
+        "origin_savior": int(st.score.get("origin_savior", 0.0)),
+        "origin_savior_active": bool(getattr(o, "savior_active", False))
+        if o is not None else False,
+        "origin_savior_transfer": int(st.score.get("origin_savior_transfer", 0.0)),
+        "origin_memory_fragment": int(st.score.get("origin_memory_fragment", 0.0)),
+        "origin_memory_transfer": int(st.score.get("origin_memory_transfer", 0.0)),
+        "origin_memory_coupling": round(
+            float(getattr(o, "memory_coupling_gain", 0.0)), 6) if o is not None else 0.0,
+        "origin_memory_mutation": round(
+            float(getattr(o, "memory_mutation_damp", 0.0)), 6) if o is not None else 0.0,
+        "origin_memory_tick": int(st.score.get("origin_memory_tick", 0.0)),
+        "origin_memory_phase": int(st.score.get("origin_memory_phase", 0.0)),
+        "origin_gazed": int("emitted_origin_gazed" in st.score),
+        "origin_seat_seized": int("emitted_seat_seized" in st.score),
+        "origin_seat_reclaimed": int("emitted_origin_seat_reclaimed" in st.score),
+        # —— 权柄层：命途 ——（canonical 世界恒为空）
+        "path_joined": int(st.score.get("path_joined", 0.0)),
+        "path_defected": int(st.score.get("path_defected", 0.0)),
+        "path_members": len(getattr(st, "paths", {})),
+        "path_emanators": len(getattr(st, "grants", {})),
+        "path_revoked": int(st.score.get("path_revoked", 0.0)),
+        "path_authorities": len(getattr(st, "authorities", {})),
+        "path_affinity": round(max((float(v.get("affinity", 0.0))
+                                    for v in getattr(st, "paths", {}).values()),
+                                   default=0.0), 6),
+        # —— 剧情接线的读数：全部来自真实状态，不是事件标签 ——
+        "memory_rows": int(getattr(st, "memory_bank").shape[0]),
+        "suppressed_slots": len(getattr(st, "suppressed", ())),
+        "embers_taken": int(st.score.get("embers_taken", 0.0)),
+        "external_seats": sum(
+            1 for s in st.register.slots
+            if s.owner is not None and int(s.owner) < 0 and int(s.owner) != -1),
+        # 真实回退：checkpoint → gaze.rollback，世界真的退回本轮起点。
+        "origin_rewinds": int(getattr(traj, "rewinds", 0)),
+        "origin_rollbacks": int(st.score.get("rollbacks", 0.0)),
+        # 具名因子：名字只是叙事标签，候选必须是池里真的长出来的个体。
+        "factor_named": int(st.score.get("factor_named", 0.0)),
+        # 决策：知道多少 → 决定 → 漏洞；入口：权杖防火墙。
+        "factor_certainty": round(max(
+            (float(v.get("certainty", 0.0))
+             for v in getattr(st, "factor_ledger", {}).values()), default=0.0), 6),
+        "factor_decided": int(st.score.get("factor_decided", 0.0)),
+        "years_loophole": int(st.score.get("years_loophole", 0.0)),
+        "entry_locked": int(bool(getattr(st, "entry_locked", False))),
+        "entry_unlocked": int("entry_unlocked" in st.score),
+        "final_recreation": int(st.score.get("final_recreation", 0.0)),
+        # 浮黎锚定过去：把已经走过的那一段写进记忆（真实写入，不只是标签）。
+        "fuli_anchor_past": int(st.score.get("fuli_anchor_past", 0.0)),
     }

@@ -1,0 +1,19 @@
+{
+  "_comment": "永劫回归演示：原初闭合之后，世界被重新封住、再创世永远差那一步 —— 结构冻结，引擎沿参考轨道复用，帧钟真的走到 3,355 万量级。循环由外部变量在原著那一刻结束。",
+  "name": "origin-eternal",
+  "seed": 0,
+  "extends": "origin",
+  "params": {
+    "frames": 33594545,
+    "origin_companion_stage2_age": 500,
+    "origin_companion_stage3_age": 1200,
+    "origin_companion_stage4_age": 1800,
+    "origin_companion_span": 8000
+  },
+  "narrative": {
+    "terminal": false,
+    "archive": false,
+    "origin": true
+  },
+  "note": "这不是把 3,355 万轮逐轮算完：冻结之后每一帧都是「同一段时间在轮回」，引擎按参考轨道复用（traj.skipped_frames 记真实跳过的帧数），只在外部变量介入的那一帧重新真算。"
+}

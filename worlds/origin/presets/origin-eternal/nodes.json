@@ -1,0 +1,220 @@
+{
+  "_comment": "回望关键节点（按原著事件映射）。missing = vacant / no_memory / not_seen / low_selfhood；repair = bind_memory / seed_memory / open_gate / wake_origin。not_seen 可以只认 event（由 OP_ORIGIN 或门真的发出），也可以只认 gate；带 event 的节点在第一遍不投锚点，等结构性缺位补上后再看它是否自然发生。扫描发生在 frame+1（该帧演化之后）；label 是叙事文案，只住在这里。",
+  "nodes": [
+    {
+      "id": "N2_TOMB_FACTOR_DATA",
+      "frame": 300,
+      "missing": "no_memory",
+      "repair": "seed_memory",
+      "mode": "factor_basis",
+      "cost": 0.5,
+      "label": "无名泰坦大墓：昔涟为沉睡的德谬歌载入十二因子数据"
+    },
+    {
+      "id": "N1_ERASED_YEARS_PATH",
+      "frame": 700,
+      "seat": "L01",
+      "missing": "vacant",
+      "repair": "bind_memory",
+      "cost": 0.5,
+      "label": "岁月路径被抹除后留下逻辑漏洞：浮黎本该在此投下目光，让记忆承载这一席"
+    },
+    {
+      "id": "N3_TRAILBLAZE_GATE",
+      "frame": 900,
+      "missing": "not_seen",
+      "gate": "OP_BIFURCATE",
+      "repair": "open_gate",
+      "cost": 0.5,
+      "label": "开拓之门本该在此打开：分化本该发生在这一刻"
+    },
+    {
+      "id": "N4_SAVIOR_MEMORY",
+      "frame": 1200,
+      "missing": "not_seen",
+      "event": "savior_memory",
+      "repair": "seed_memory",
+      "mode": "savior",
+      "memory": {
+        "id": "savior_memory",
+        "label": "救世主记忆",
+        "effect": "fitness",
+        "magnitude": 0.5,
+        "sustain": true,
+        "rate": 0.02,
+        "phases": [
+          {"label": "救世主的温度", "text": "他/她曾这样握住我的手",
+           "effect": "fitness",
+           "magnitude": 0.5, "duration": 2000, "sustain": true, "rate": 0.02},
+          {"label": "自我被记起", "text": "原来我也可以被记住",
+           "effect": "selfhood",
+           "magnitude": 0.05, "duration": 2000, "sustain": false},
+          {"label": "记忆的牵引", "text": "那就由我把这份记忆交还",
+           "effect": "coupling",
+           "magnitude": 0.25, "duration": 0, "sustain": true, "rate": 0.05}
+        ]
+      },
+      "cost": 0.5,
+      "label": "德谬歌回望：为两位电信号带来自己对「救世主」的记忆"
+    },
+    {
+      "id": "N9_SAVIOR_TRANSFER",
+      "frame": 1400,
+      "missing": "not_seen",
+      "event": "origin_savior_transfer",
+      "repair": "seed_memory",
+      "mode": "savior",
+      "memory": {
+        "id": "savior_transfer_fallback",
+        "label": "记忆落到宿主身上",
+        "effect": "fitness",
+        "magnitude": 0.1
+      },
+      "cost": 0.5,
+      "label": "救世主记忆被忆灵印回宿主：记忆第一次真的改变了一个人"
+    },
+    {
+      "id": "N5_SHARED_MEMORY",
+      "frame": 1600,
+      "missing": "not_seen",
+      "event": "savior_memory_shared",
+      "repair": "seed_memory",
+      "mode": "savior",
+      "memory": {
+        "id": "savior_shared",
+        "label": "交托的记忆",
+        "effect": "mutation",
+        "magnitude": 0.25,
+        "phases": [
+          {"label": "勇气被交托", "text": "这一次，换我替你挡下",
+           "effect": "mutation", "magnitude": 0.25,
+           "duration": 1500, "sustain": true, "rate": 0.002},
+          {"label": "并肩", "text": "我们并非一个人走完",
+           "effect": "energy", "magnitude": 0.2,
+           "duration": 0, "sustain": false}
+        ]
+      },
+      "cost": 0.5,
+      "label": "救世主记忆被交托给另一位电信号：回望不是独行"
+    },
+    {
+      "id": "N10_LOVE",
+      "frame": 1800,
+      "missing": "not_seen",
+      "event": "origin_love",
+      "repair": "seed_memory",
+      "mode": "savior",
+      "memory": {
+        "id": "love_fallback",
+        "label": "去爱的那一手",
+        "effect": "coupling",
+        "magnitude": 0.2
+      },
+      "cost": 0.5,
+      "label": "原初第一次去爱：它真的把耦合收紧、把变异压低"
+    },
+    {
+      "id": "N6_CREATION_BREAKS_SEAL",
+      "frame": 2000,
+      "missing": "not_seen",
+      "event": "origin_create_break_seal",
+      "gate": "OP_BIFURCATE",
+      "repair": "open_gate",
+      "cost": 0.0,
+      "label": "创世打破了外部封印：被压制的席位重新被点亮"
+    },
+    {
+      "id": "N13_GAZED",
+      "frame": 2100,
+      "missing": "not_seen",
+      "event": "origin_gazed",
+      "repair": "seed_memory",
+      "mode": "savior",
+      "memory": {
+        "id": "gazed_fallback",
+        "label": "被看见的那一眼",
+        "effect": "selfhood",
+        "magnitude": 0.1
+      },
+      "cost": 0.5,
+      "label": "一道目光落在这道程序上：被看见的那一刻，记忆命途显形"
+    },
+    {
+      "id": "N14_SEAT_SEIZED",
+      "frame": 2250,
+      "missing": "not_seen",
+      "event": "seat_seized",
+      "repair": "wake_origin",
+      "cost": 0.5,
+      "label": "黑潮漫过岁月之席：承载那一席的记忆被冲散"
+    },
+    {
+      "id": "N15_SEAT_RECLAIMED",
+      "frame": 2350,
+      "missing": "not_seen",
+      "event": "origin_seat_reclaimed",
+      "repair": "seed_memory",
+      "mode": "savior",
+      "memory": {
+        "id": "reclaimed_fallback",
+        "label": "把席位夺回来",
+        "effect": "fitness",
+        "magnitude": 0.1
+      },
+      "cost": 0.5,
+      "label": "记忆用自己那一行把被黑潮冲散的席位补回"
+    },
+    {
+      "id": "N11_MEMORY_PATH",
+      "frame": 2600,
+      "missing": "not_seen",
+      "event": "origin_memory_path",
+      "repair": "seed_memory",
+      "mode": "savior",
+      "memory": {
+        "id": "memory_path_fallback",
+        "label": "记忆命途",
+        "effect": "selfhood",
+        "magnitude": 0.1
+      },
+      "cost": 0.5,
+      "label": "忆灵长到「承忆」：记忆命途被真正走通（被浮黎瞥视的那一眼）"
+    },
+    {
+      "id": "N12_COMPANION_GROWS",
+      "frame": 2800,
+      "missing": "not_seen",
+      "event": "origin_companion_grow",
+      "repair": "seed_memory",
+      "mode": "savior",
+      "memory": {
+        "id": "growth_fallback",
+        "label": "同行",
+        "effect": "energy",
+        "magnitude": 0.2
+      },
+      "cost": 0.5,
+      "label": "忆灵长到「同行」：它开始替原初守住记忆承载席"
+    },
+    {
+      "id": "N7_MEMORY_HOLDS_SEAT",
+      "frame": 3000,
+      "missing": "not_seen",
+      "event": "origin_memory_seal_resisted",
+      "gate": "OP_BIFURCATE",
+      "repair": "open_gate",
+      "cost": 0.0,
+      "label": "记忆守住了岁月之席：封印没有把它清空"
+    },
+    {
+      "id": "N8_MEMORY_REBOUND",
+      "frame": 4000,
+      "missing": "not_seen",
+      "event": "origin_memory_rebound",
+      "gate": "OP_BIFURCATE",
+      "repair": "open_gate",
+      "cost": 0.0,
+      "label": "被夺走的席位由同一行记忆补回：回望完成一次闭环"
+    }
+  ]
+}

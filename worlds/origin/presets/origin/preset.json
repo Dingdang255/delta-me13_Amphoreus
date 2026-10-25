@@ -1,0 +1,11 @@
+{
+  "_comment": "原初世界：第十三席（原初 / 自我）是真实的动力学 locus。presets/origin/nodes.json 存在即启用「锚点注入 + 固定点重演」。canonical 的 config/ 与 presets/plot* 一个字节都不动。",
+  "name": "origin",
+  "seed": 0,
+  "narrative": {
+    "terminal": false,
+    "archive": false,
+    "origin": true
+  },
+  "note": "本世界有自己的 config/（dim=13、L12 meta），与原初四态结论。回望由 apps/origin_loop.py 驱动：第一遍正向扫描缺失节点，第二遍从帧 0 重演并在缺失帧投递 origin_anchor；每一遍严格单向，不做逐帧反向因果。"
+}

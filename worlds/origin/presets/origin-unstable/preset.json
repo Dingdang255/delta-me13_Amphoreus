@@ -1,0 +1,7 @@
+{
+  "_comment": "失败分支：原初成形了，但回望固定点不稳定 —— 有一个节点投了锚点仍然缺失。",
+  "name": "origin-unstable",
+  "seed": 0,
+  "extends": "origin",
+  "narrative": {"terminal": false, "archive": false, "origin": true}
+}

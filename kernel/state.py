@@ -45,14 +45,18 @@ class Locus:
     """一个「位」。没有 name 字段；名字由 L5 命名器在渲染时事后赋予。"""
 
     __slots__ = ("id", "order", "capacity", "decay", "couplings", "progress",
-                 "progress2", "load")
+                 "progress2", "load", "meta")
 
-    def __init__(self, id: str, order: int, capacity: float, decay: float, couplings):
+    def __init__(self, id: str, order: int, capacity: float, decay: float, couplings,
+                 meta: bool = False):
         self.id = id
         self.order = int(order)
         self.capacity = float(capacity)
         self.decay = float(decay)
         self.couplings = np.asarray(couplings, dtype=np.float32)
+        # meta 席：结构上存在、可被个体占据，但【不参与 12 因子判据】
+        # （齐备 / 空缺 / 消融 / 裁决都跳过它）。canonical 世界一个都没有。
+        self.meta = bool(meta)
         # 反证法得出的【连续】进度：消融熵 / 消融阈值（≥ tau_falsify 即被证伪）。
         # 它是连续量，不是布尔量 —— 于是阈值 tau_falsify 是真的可调旋钮，
         # 渲染层也能读出「还差多少」而不只是「是 / 否」。
@@ -67,13 +71,14 @@ class Locus:
 class Slot:
     """一位当前的状态。"""
 
-    __slots__ = ("locus_id", "value", "owner", "vector")
+    __slots__ = ("locus_id", "value", "owner", "vector", "meta")
 
-    def __init__(self, locus_id: str, dim: int):
+    def __init__(self, locus_id: str, dim: int, meta: bool = False):
         self.locus_id = locus_id
         self.value = 0.0
         self.owner = None                       # 承载者的 serial（不代表"角色名"）
         self.vector = np.zeros(dim, dtype=np.float32)
+        self.meta = bool(meta)
 
     def filled(self) -> bool:
         return self.owner is not None
@@ -83,10 +88,16 @@ class Register:
     __slots__ = ("slots",)
 
     def __init__(self, loci, dim: int):
-        self.slots = [Slot(l.id, dim) for l in loci]
+        self.slots = [Slot(l.id, dim, getattr(l, "meta", False)) for l in loci]
 
-    def vacant(self):
-        return [i for i, s in enumerate(self.slots) if not s.filled()]
+    def vacant(self, include_meta: bool = False):
+        """空缺的位次。默认【不含 meta 席】—— 12 因子判据只问那 12 席。
+
+        meta 席（若世界配了它）空着是常态：它由原初动力学另行接管，
+        不该让「十二席齐备」永远差一步。要连它一起看时显式传 include_meta=True。
+        """
+        return [i for i, s in enumerate(self.slots)
+                if not s.filled() and (include_meta or not s.meta)]
 
     def complete(self) -> bool:
         return not self.vacant()
@@ -198,6 +209,205 @@ class AgentPool:
         return n
 
 
+def _phase(raw, fallback_label=""):
+    """归一化一个记忆阶段（引擎只认这些通用字段）。"""
+    return {
+        "effect": str(raw.get("effect") or "fitness"),
+        "magnitude": float(raw.get("magnitude", 0.0) or 0.0),
+        "duration": int(raw.get("duration", 0) or 0),
+        "sustain": bool(raw.get("sustain", False)),
+        "rate": float(raw.get("rate", 0.0) or 0.0),
+        "label": str(raw.get("label") or fallback_label),
+        "text": str(raw.get("text") or ""),
+    }
+
+
+class MemoryFragment:
+    """一段可被读取 / 转印的【记忆片段】。
+
+    引擎只知道通用字段：id / label / vector / effect / magnitude / until / phases。
+    `phases` 让记忆按顺序推进（每一阶段有自己的 effect、时长与持续速率），
+    剧情含义留在数据里，程序不解释专名。
+    """
+
+    __slots__ = ("id", "label", "vector", "effect", "magnitude", "until",
+                 "sustain", "rate", "phases", "phase_index", "start_frame",
+                 "ticks", "transferred")
+
+    def __init__(self, id, label, vector, effect, magnitude, until=0,
+                 sustain=False, rate=0.0, phases=None):
+        self.id = str(id)
+        self.label = str(label)
+        self.vector = np.asarray(vector, dtype=np.float32).copy()
+        self.until = int(until)
+        raw = list(phases or [])
+        if not raw:
+            raw = [{"effect": effect, "magnitude": magnitude, "duration": 0,
+                    "sustain": sustain, "rate": rate, "label": label}]
+        self.phases = [_phase(p, label) for p in raw]
+        first = self.phases[0]
+        self.effect = first["effect"]
+        self.magnitude = first["magnitude"]
+        self.sustain = first["sustain"]
+        self.rate = first["rate"]
+        self.phase_index = 0
+        self.start_frame = -1
+        self.ticks = 0
+        self.transferred = False
+
+    def copy(self):
+        n = MemoryFragment(self.id, self.label, self.vector, self.effect,
+                           self.magnitude, self.until, self.sustain, self.rate,
+                           phases=[dict(p) for p in self.phases])
+        n.phase_index = self.phase_index
+        n.start_frame = self.start_frame
+        n.ticks = self.ticks
+        n.transferred = self.transferred
+        return n
+
+    def active(self, frame) -> bool:
+        return int(self.until) == 0 or int(frame) < int(self.until)
+
+    def phase_at(self, elapsed) -> int:
+        """按已过去的帧数定位阶段（末阶段 duration=0 表示永久）。"""
+        elapsed = max(0, int(elapsed))
+        idx = 0
+        for i, p in enumerate(self.phases):
+            idx = i
+            d = int(p["duration"])
+            if d <= 0:
+                return i
+            if elapsed < d:
+                return i
+            elapsed -= d
+        return idx
+
+
+class OriginState:
+    """原初（第十三席）的【真实】状态。
+
+    它随世界一起回滚（`copy_world_from`）、随存档一起复制（`clone`），
+    但只把【结构标志】放进 `world_signature()` —— 连续量（能量 / 自我度 / 向量）
+    只进 `digest()`，否则死循环检测永远等不到「结构重复」。
+
+    没有专名：这里的字段只说明「这一席此刻是否成形、能量多少、借还几笔」。
+    """
+
+    __slots__ = ("filled", "energy", "age", "selfhood", "closure", "borrowed",
+                 "repaid", "seed_vector", "ever", "unstable", "final",
+                 "awake", "form", "factor_rows", "coverage",
+                 "companion_serial", "companion_host", "companion_until",
+                 "companion_stage", "companion_age", "companion_carry",
+                 "companion_bond", "companion_rebond_until",
+                 "gaze_until",
+                 "resonance", "resonance_host", "resonated",
+                 "savior_vector", "savior_active", "savior_transferred",
+                 "memory_fragments",
+                 "memory_coupling_until", "memory_coupling_gain",
+                 "memory_mutation_until", "memory_mutation_damp",
+                 "love_until", "dissolve_run", "stagnant_run",
+                 "trailblaze_until", "last_sig")
+
+    def __init__(self):
+        self.filled = False
+        self.energy = 0.0
+        self.age = 0
+        self.selfhood = 0.0
+        self.closure = 0
+        self.borrowed = 0
+        self.repaid = 0
+        self.seed_vector = None
+        # 「沉睡 / 苏醒」：原初可以一开始就占着席位却不成形（休眠），
+        # 只有外部干涉（自动唤醒帧或 wake_origin 锚点）才让它开始累积自我。
+        self.awake = False
+        # 形态：0 沉睡 / 1 苏醒 / 2 忆灵（读入十二因子数据之后才可能进入 2）。
+        self.form = 0
+        self.factor_rows = 0
+        self.coverage = 0.0
+        # 忆灵（伴生体）：一个真实的派生个体，载体是池中编号；死后可再凝。
+        self.companion_serial = -1
+        self.companion_host = -1
+        self.companion_until = 0
+        # 忆灵自己的成长：0 未凝 / 1 初凝 / 2 同行 / 3 承忆。
+        # 阶段只看真实读数：活了多久、随身带过几段记忆、换过几个宿主。
+        self.companion_stage = 0
+        self.companion_age = 0
+        self.companion_carry = 0
+        self.companion_bond = 0
+        self.companion_rebond_until = 0
+        # 「被瞥视」：某个具名实体的目光落到原初身上，到这帧为止它的自我分量被抬高。
+        self.gaze_until = 0
+        # 外部变量（负编号的场外参与者）与记忆/原初的共鸣。
+        self.resonance = 0.0
+        self.resonance_host = -1
+        self.resonated = False
+        # 「救世主记忆」：回望时收下的一段真实记忆内容，可由忆灵转印给宿主。
+        self.savior_vector = None
+        self.savior_active = False
+        self.savior_transferred = False
+        # 当前携带的记忆片段（可读、可转印、可过期）。
+        self.memory_fragments = []
+        # 记忆片段转印后的【短时作用窗】（Drift 真读）。
+        self.memory_coupling_until = 0
+        self.memory_coupling_gain = 0.0
+        self.memory_mutation_until = 0
+        self.memory_mutation_damp = 0.0
+        self.ever = False
+        self.unstable = False
+        self.final = False
+        # 「爱」的时间窗：到这帧为止，Drift 读到更高的耦合 / 更低的变异。
+        self.love_until = 0
+        self.dissolve_run = 0
+        self.stagnant_run = 0
+        self.trailblaze_until = 0
+        self.last_sig = None
+
+    def copy(self):
+        n = OriginState()
+        n.filled = self.filled
+        n.energy = self.energy
+        n.age = self.age
+        n.selfhood = self.selfhood
+        n.closure = self.closure
+        n.borrowed = self.borrowed
+        n.repaid = self.repaid
+        n.seed_vector = None if self.seed_vector is None else self.seed_vector.copy()
+        n.awake = self.awake
+        n.form = self.form
+        n.factor_rows = self.factor_rows
+        n.coverage = self.coverage
+        n.companion_serial = self.companion_serial
+        n.companion_host = self.companion_host
+        n.companion_until = self.companion_until
+        n.companion_stage = self.companion_stage
+        n.companion_age = self.companion_age
+        n.companion_carry = self.companion_carry
+        n.companion_bond = self.companion_bond
+        n.companion_rebond_until = self.companion_rebond_until
+        n.gaze_until = self.gaze_until
+        n.resonance = self.resonance
+        n.resonance_host = self.resonance_host
+        n.resonated = self.resonated
+        n.savior_vector = (None if self.savior_vector is None
+                           else self.savior_vector.copy())
+        n.savior_active = self.savior_active
+        n.savior_transferred = self.savior_transferred
+        n.memory_fragments = [f.copy() for f in self.memory_fragments]
+        n.memory_coupling_until = self.memory_coupling_until
+        n.memory_coupling_gain = self.memory_coupling_gain
+        n.memory_mutation_until = self.memory_mutation_until
+        n.memory_mutation_damp = self.memory_mutation_damp
+        n.ever = self.ever
+        n.unstable = self.unstable
+        n.final = self.final
+        n.love_until = self.love_until
+        n.dissolve_run = self.dissolve_run
+        n.stagnant_run = self.stagnant_run
+        n.trailblaze_until = self.trailblaze_until
+        n.last_sig = self.last_sig
+        return n
+
+
 class State:
     """一帧的完整状态。"""
 
@@ -214,7 +424,8 @@ class State:
         # 【深拷贝】位表，不持有调用方的对象 —— 演算会在 `locus` 上改结构位
         # （承载量等），若与 `cfg.loci` 共享引用，同一个 Config 上的第二次 run
         # 就会带着被上一次改烂的位表开始（**跨 run 污染**）。数值逐项相同，故轨迹不变。
-        self.loci = [Locus(l.id, l.order, l.capacity, l.decay, l.couplings) for l in loci]
+        self.loci = [Locus(l.id, l.order, l.capacity, l.decay, l.couplings,
+                           getattr(l, "meta", False)) for l in loci]
         self.pool = AgentPool(capacity, dim)
         self.register = Register(self.loci, dim)
 
@@ -237,6 +448,9 @@ class State:
         self.solver = DEFAULT_SOLVER
         self.suppressed = set()         # 被压制的位
         self.memory_bank = np.zeros((0, dim), dtype=np.float32)
+        # 由【十二因子数据】逐行补上的席位：这些席位由记忆承载，且能抵抗外部封印 /
+        # 空置后再由记忆补回。canonical 世界从不使用，故它是空集。
+        self.memory_seats = set()
 
         self.promotions = 0
         self.promotion_dwell = 0
@@ -265,6 +479,13 @@ class State:
         # 外部实体表：{id: {"label", "grants", "state"}}（账本语义）。
         # 「谁在操作这个世界、各自握有哪些修改权限」由此成为登记过的真东西。
         self.actors = {}
+        # 命途（权柄层）：serial → {id, affinity, joined, low}。空 = 这个世界没有命途
+        # （canonical 世界恒为空，故它既不进摘要也不进结构签名）。
+        self.paths = {}
+        # 权柄层：星神的管辖范围（actor → 命途 id 集合）与令使（serial → 授权记录）。
+        # 与 paths 一样：canonical 恒为空，不进摘要、不进结构签名。
+        self.authorities = {}
+        self.grants = {}
 
         # ---- 账本 L：单调累积，是「记得」。世界 W 可回滚，账本永不回滚。
         self.attempts = 0               # 承载者发起的尝试次数（换法子算新的一次）
@@ -275,6 +496,33 @@ class State:
         # 死循环的【锚】（0 = 未进入）。它进存档：续跑时据此重建循环，
         # 使尝试/刻度的落点成为「帧 + 状态」的纯函数 —— 帧截断复现因此成立。
         self.deadlock_anchor = 0
+
+        # ---- 回退（真实的「本轮重来」）-----------------------------------------
+        # 世界可以真的退回本轮起点：`checkpoint` 存一份世界，`gaze.rollback`
+        # 请求退回。它只搬【世界】，不搬账本（score / 轮次 / 个体史留在外面），
+        # 与 `copy_world_from` 的语义一致。canonical 世界从不 checkpoint，
+        # 故这三个字段恒为初值，不进 digest / world_signature。
+        self.rewind_state = None
+        self.rewind_frame = 0
+        self.rewind_to = False
+
+        # ---- 具名因子的决策（可选的 origin 机制）--------------------------------
+        # 账本：谁被登记成具名因子、他们「知道了什么 / 有多确定」。只增不回滚 ——
+        # 这正是「因子记得前几轮」的那条线。
+        self.factor_ledger = {}
+        # 世界：此刻的意图。它随世界一起回滚 —— 退回去之后，因子会重新做一次决定。
+        self.factor_intent = {}
+        # 权杖防火墙：外部参与者默认被挡在外面，直到有人从外面把入口打开。
+        # canonical 世界从不设置它（恒 False），故不进 digest / 签名。
+        self.entry_locked = False
+        # 十二席是否已经「定席」：最后一次再创世之后置真，此后不再有新的
+        # 承位 / 涌现 / 死亡换手（故事已经收束）。canonical 恒 False。
+        self.seats_frozen = False
+
+        # ---- 原初（第十三席）的真实状态 -------------------------------------
+        # canonical 世界从不驱动它（pipeline 里没有 OP_ORIGIN），故它恒为初始值，
+        # 既不改摘要也不改签名。origin 世界才有真实生命周期。
+        self.origin = OriginState()
 
     # ---- 工具 --------------------------------------------------------
     def gate(self, name: str) -> bool:
@@ -334,6 +582,65 @@ class State:
         # 「再创世」的驻留帧会被误判成不动点而被周期跳跃跳过，跃迁永不发生。
         h.update(bytes(str((self.promotions, self.promotion_dwell,
                             self.promotion_cooldown, self.converged)), "utf-8"))
+        # 命途只在启用的世界里非空；canonical 恒为空 ⇒ 摘要逐位不变。
+        if self.paths:
+            h.update(bytes(str(sorted(
+                (int(k), str(v.get("id")), round(float(v.get("affinity", 0.0)), 6),
+                 int(v.get("joined", 0)), int(v.get("low", 0)))
+                for k, v in self.paths.items())), "utf-8"))
+        if self.authorities or self.grants:
+            h.update(bytes(str((
+                sorted((str(k), tuple(sorted(v)))
+                       for k, v in self.authorities.items()),
+                sorted((int(k), str(v.get("path")), str(v.get("by")),
+                        int(v.get("frame", 0)))
+                       for k, v in self.grants.items()))), "utf-8"))
+        # 原初的连续量只在这里进摘要。**canonical 世界从不触发这段**（origin 从未成形），
+        # 故既有指纹逐位不变；origin 世界则靠它保证帧截断复现。
+        o = self.origin
+        if o.awake or o.ever or o.filled or o.closure:
+            h.update(bytes(str((int(o.filled), int(o.ever), int(o.closure),
+                                int(o.awake), int(o.form), int(o.factor_rows),
+                                round(float(o.coverage), 6),
+                                int(o.companion_serial), int(o.companion_host),
+                                int(o.companion_until),
+                                int(o.companion_stage), int(o.companion_age),
+                                int(o.companion_carry), int(o.companion_bond),
+                                int(o.companion_rebond_until),
+                                int(o.gaze_until),
+                                round(float(o.resonance), 6),
+                                int(o.resonance_host), int(o.resonated),
+                                int(o.savior_active), int(o.savior_transferred),
+                                int(o.memory_coupling_until),
+                                round(float(o.memory_coupling_gain), 6),
+                                int(o.memory_mutation_until),
+                                round(float(o.memory_mutation_damp), 6),
+                                int(o.unstable), int(o.final), int(o.borrowed),
+                                int(o.repaid), int(o.age), round(float(o.energy), 6),
+                                round(float(o.selfhood), 6), int(o.love_until),
+                                int(o.dissolve_run), int(o.stagnant_run),
+                                int(o.trailblaze_until), str(o.last_sig))), "utf-8"))
+            if o.seed_vector is not None:
+                q = np.rint(np.asarray(o.seed_vector, dtype=np.float32)
+                            * 4096).astype(np.int32)
+                h.update(q.tobytes())
+            if o.savior_vector is not None:
+                q = np.rint(np.asarray(o.savior_vector, dtype=np.float32)
+                            * 4096).astype(np.int32)
+                h.update(q.tobytes())
+            for f in o.memory_fragments:
+                h.update(bytes(str((f.id, f.label, f.effect, round(f.magnitude, 6),
+                                    int(f.until), int(f.sustain), round(f.rate, 6),
+                                    int(f.ticks), int(f.transferred),
+                                    int(f.phase_index), int(f.start_frame),
+                                    f.phases)), "utf-8"))
+                q = np.rint(np.asarray(f.vector, dtype=np.float32)
+                            * 4096).astype(np.int32)
+                h.update(q.tobytes())
+        # 记忆承载的席位（canonical 恒为空 ⇒ 既有摘要不变）。
+        if self.memory_seats:
+            h.update(bytes(str(tuple(sorted(int(i) for i in self.memory_seats))),
+                           "utf-8"))
         return h.hexdigest()
 
     def world_signature(self):
@@ -355,12 +662,16 @@ class State:
                     for i, s in enumerate(self.register.slots))
         sup = tuple(1 if i in self.suppressed else 0
                     for i in range(len(self.register.slots)))
+        # 原初只贡献两个【结构】标志（是否成形 / 是否闭合）—— 能量 / 自我度是连续量，
+        # 放进来会让结构签名永不重复，死循环检测随之失效。
         return occ + sup + (
             tuple(sorted(self.gates)), self.solver,
             int(self.domains_exhausted), int(self.converged),
             int(self.promotions), int(self.promotion_dwell),
             int(self.promotion_cooldown), int(self.round),
-            int(self.world_clock), int(self.domain_index))
+            int(self.world_clock), int(self.domain_index),
+            int(self.origin.form), int(self.origin.filled),
+            int(self.origin.closure))
 
     def copy_world_from(self, other):
         """只把【世界 W】搬过来；账本（轮次 / 尝试 / 得分 / 取得量 / 轮回计数）留在原地。
@@ -389,6 +700,7 @@ class State:
         self.solver = other.solver
         self.suppressed = set(other.suppressed)
         self.memory_bank = other.memory_bank.copy()
+        self.memory_seats = set(other.memory_seats)
         self.domain = list(other.domain)
         self.domain_index = other.domain_index
         self.domain_dwell = other.domain_dwell
@@ -396,6 +708,16 @@ class State:
         self.converged = other.converged
         self.promotion_dwell = other.promotion_dwell
         self.promotion_cooldown = other.promotion_cooldown
+        # 原初是「世界 W」的一部分：成形 / 能量 / 借还都随世界一起搬。
+        self.origin = other.origin.copy()
+        self.paths = {int(k): dict(v) for k, v in other.paths.items()}
+        self.authorities = {str(k): set(v) for k, v in other.authorities.items()}
+        self.grants = {int(k): dict(v) for k, v in other.grants.items()}
+        # 决策：意图与防火墙是【世界】的一部分，随回滚一起退；因子知道什么
+        # （factor_ledger）是账本，不回退 —— 所以退回去之后他们会再决定一次。
+        self.factor_intent = dict(getattr(other, "factor_intent", {}))
+        self.entry_locked = bool(getattr(other, "entry_locked", False))
+        self.seats_frozen = bool(getattr(other, "seats_frozen", False))
 
     def snapshot(self):
         return self.clone()
@@ -404,7 +726,8 @@ class State:
         n = State.__new__(State)
         n.dim = self.dim
         n.obs_dim = self.obs_dim
-        n.loci = [Locus(l.id, l.order, l.capacity, l.decay, l.couplings) for l in self.loci]
+        n.loci = [Locus(l.id, l.order, l.capacity, l.decay, l.couplings,
+                        l.meta) for l in self.loci]
         n.pool = self.pool.clone()
         n.register = Register(n.loci, self.dim)
         for i, s in enumerate(self.register.slots):
@@ -427,6 +750,7 @@ class State:
         n.solver = self.solver
         n.suppressed = set(self.suppressed)
         n.memory_bank = self.memory_bank.copy()
+        n.memory_seats = set(self.memory_seats)
         n.promotions = self.promotions
         n.promotion_dwell = self.promotion_dwell
         n.promotion_cooldown = self.promotion_cooldown
@@ -439,16 +763,37 @@ class State:
         n.traces = self.traces
         n.seeds = self.seeds
         n.deadlock_anchor = self.deadlock_anchor
+        n.origin = self.origin.copy()
+        n.paths = {int(k): dict(v) for k, v in self.paths.items()}
+        n.authorities = {str(k): set(v) for k, v in self.authorities.items()}
+        n.grants = {int(k): dict(v) for k, v in self.grants.items()}
         n.conclusion_override = self.conclusion_override
         n.overrides = dict(self.overrides)
         n.actors = {k: {"label": v.get("label", ""),
                         "grants": tuple(v.get("grants") or ()),
-                        "state": dict(v.get("state") or {})}
+                        "state": dict(v.get("state") or {}),
+                        "vector": (None if v.get("vector") is None
+                                   else list(v["vector"])),
+                        "attrs": dict(v.get("attrs") or {})}
                     for k, v in self.actors.items()}
         # 个体史是【主轨道】的记录：克隆体从零开始（见 __init__ 的说明）。
         # 必须显式给 —— `clone` 走的是 `__new__`，绕过 `__init__`。
         n.tombstones = []
         n.chronicle = {}
+        # 回退的存档不跟着克隆体走：克隆体自己不能持有「上一份世界」，
+        # 否则每帧 snapshot 都会套一层、内存无底。试算世界也不需要 rollback。
+        n.rewind_state = None
+        n.rewind_frame = int(self.rewind_frame)
+        n.rewind_to = False
+        # 试算世界要看到同样的「因子知道什么 / 此刻想做什么 / 入口锁没锁」。
+        n.factor_ledger = {
+            str(k): {"serial": int(v.get("serial", -1)),
+                     "certainty": float(v.get("certainty", 0.0)),
+                     "knowledge": dict(v.get("knowledge") or {})}
+            for k, v in self.factor_ledger.items()}
+        n.factor_intent = dict(self.factor_intent)
+        n.entry_locked = bool(self.entry_locked)
+        n.seats_frozen = bool(self.seats_frozen)
         return n
 
 

@@ -1,0 +1,6 @@
+{
+  "_comment": "统计播种：个体不是被指定的，而是从位的基里采样出来的。",
+  "per_locus": { "min": 5, "max": 7 },
+  "distribution": "dirichlet",
+  "alpha": 0.35
+}

@@ -1,0 +1,13 @@
+{"key": "locus:L00", "latin": "Kephale", "hanzi": "负世"}
+{"key": "locus:L01", "latin": "Oronyx", "hanzi": "岁月"}
+{"key": "locus:L02", "latin": "Janus", "hanzi": "门径"}
+{"key": "locus:L03", "latin": "Talanton", "hanzi": "律法"}
+{"key": "locus:L04", "latin": "Aquila", "hanzi": "天空"}
+{"key": "locus:L05", "latin": "Georios", "hanzi": "大地"}
+{"key": "locus:L06", "latin": "Phagousa", "hanzi": "海洋"}
+{"key": "locus:L07", "latin": "Cerces", "hanzi": "理性"}
+{"key": "locus:L08", "latin": "Mnestia", "hanzi": "浪漫"}
+{"key": "locus:L09", "latin": "Zagreus", "hanzi": "诡计"}
+{"key": "locus:L10", "latin": "Nikador", "hanzi": "纷争"}
+{"key": "locus:L11", "latin": "Thanatos", "hanzi": "死亡"}
+{"key": "serial:-2", "latin": "Trailblazer", "hanzi": "开拓者", "external": true, "seat": "L00", "note": "外部变量：以场外参与者身份进入演算进程，携带与记忆共鸣的特殊属性"}

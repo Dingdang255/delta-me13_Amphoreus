@@ -1,0 +1,26 @@
+{"key": "locus:L00", "latin": "Kephale", "hanzi": "负世"}
+{"key": "locus:L01", "latin": "Oronyx", "hanzi": "岁月"}
+{"key": "locus:L02", "latin": "Janus", "hanzi": "门径"}
+{"key": "locus:L03", "latin": "Talanton", "hanzi": "律法"}
+{"key": "locus:L04", "latin": "Aquila", "hanzi": "天空"}
+{"key": "locus:L05", "latin": "Georios", "hanzi": "大地"}
+{"key": "locus:L06", "latin": "Phagousa", "hanzi": "海洋"}
+{"key": "locus:L07", "latin": "Cerces", "hanzi": "理性"}
+{"key": "locus:L08", "latin": "Mnestia", "hanzi": "浪漫"}
+{"key": "locus:L09", "latin": "Zagreus", "hanzi": "诡计"}
+{"key": "locus:L10", "latin": "Nikador", "hanzi": "纷争"}
+{"key": "locus:L11", "latin": "Thanatos", "hanzi": "死亡"}
+{"key": "locus:L12", "latin": "Demiorgos", "hanzi": "原初"}
+{"key": "serial:-2", "latin": "Trailblazer", "hanzi": "开拓者", "external": true, "seat": "L00", "note": "场外参与者：3.5 长夜月还负世、3.7 正式坐负世"}
+{"key": "serial:-3", "latin": "Dan Heng", "hanzi": "丹恒", "external": true, "seat": "L05", "note": "场外参与者：3.6 接住大地的权能"}
+{"key": "serial:-1", "latin": "Evernight", "hanzi": "长夜月", "external": true, "seat": "L01", "note": "岁月由记忆承载：3.6 长夜月接掌（不是外部编号 -4）"}
+{"key": "serial:10872", "latin": "Tribbie", "hanzi": "缇里西庇俄丝", "seat": "L02", "note": "本届门径那一席（实测编号；引擎改轨迹后需重测）"}
+{"key": "serial:11260", "latin": "Kleodra", "hanzi": "刻律德菈", "seat": "L03", "note": "本届律法那一席"}
+{"key": "serial:11175", "latin": "Hyacine", "hanzi": "风堇", "seat": "L04", "note": "本届天空那一席"}
+{"key": "serial:11184", "latin": "Hysilens", "hanzi": "海瑟音", "seat": "L06", "note": "本届海洋那一席"}
+{"key": "serial:11001", "latin": "Anaxa", "hanzi": "阿那克萨戈拉斯", "seat": "L07", "note": "本届理性那一席"}
+{"key": "serial:11022", "latin": "Aglaea", "hanzi": "阿格莱雅", "seat": "L08", "note": "本届浪漫那一席（3.3 退场后由新人接火）"}
+{"key": "serial:11265", "latin": "Cipher", "hanzi": "赛飞儿", "seat": "L09", "note": "本届诡计那一席（3.3 失手后由新人接火）"}
+{"key": "serial:11263", "latin": "Mydei", "hanzi": "迈德漠斯", "seat": "L10", "note": "本届纷争那一席（3.0 讨伐后由新人接火）"}
+{"key": "serial:11038", "latin": "Castorice", "hanzi": "遐蝶", "seat": "L11", "note": "本届死亡那一席"}
+{"key": "serial:11202", "latin": "Cyrene", "hanzi": "昔涟", "seat": "L12", "note": "第十三席（原初）末态的承载者：昔涟/德谬歌；名字钉在这个个体上"}

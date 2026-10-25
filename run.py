@@ -21,6 +21,7 @@
 from __future__ import annotations
 
 import argparse
+import atexit
 import json
 import os
 import sys
@@ -28,12 +29,19 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+from apps.archive import load_archive, render as render_archive  # noqa: E402
 from apps.assertions import AssertionRunner  # noqa: E402
 from kernel.api import load  # noqa: E402
 from apps.conditions import evaluate as eval_condition  # noqa: E402
 from apps.namer import Namer  # noqa: E402
+from apps.origin import (OriginProbe, render as render_origin,  # noqa: E402
+                         render_state as render_origin_state)
+from apps.origin_loop import Planner as OriginPlanner  # noqa: E402
+from apps.origin_loop import nodes_path as origin_nodes_path  # noqa: E402
 from apps.script import Script  # noqa: E402
 from apps.services import default as default_services  # noqa: E402
+from apps.terminal import TerminalFeed, load_messages  # noqa: E402
+from apps.terminal_bridge import TerminalBridge  # noqa: E402
 from apps.features import extract  # noqa: E402
 from kernel.loader import (Config, DEFAULT_PRESET, DataSet, ROOT,  # noqa: E402
                            apply_fast)
@@ -161,8 +169,14 @@ class Cast:
         self.by_rank = {}
 
     def see(self, payload):
-        """从一条 EMERGENCE 记下一名角色：按 serial 查、按 rank 定位首位涌现者。"""
-        name = payload.get("hanzi") or payload.get("latin") or "?"
+        """从一条 EMERGENCE 记下一名角色：按 serial 查、按 rank 定位首位涌现者。
+
+        没名字就不记 —— 否则「?接掌某位」会混进编年史。无名者之间的流转是噪声，
+        真要报的时候由 `resolve` 退回命名器（它认识锚定层点过名的个体）。
+        """
+        name = payload.get("hanzi") or payload.get("latin")
+        if not name:
+            return
         s = payload.get("serial")
         if s is not None:
             self.by_serial[int(s)] = name
@@ -619,6 +633,10 @@ def _progress_note(namer, ctx, traj):
     loci = getattr(traj.final, "loci", None) if traj.final is not None else None
     if not loci:
         return []
+    # 12 因子判据只读非 meta 席；origin 席的读数单独在【八】里报。
+    loci = [l for l in loci if not getattr(l, "meta", False)]
+    if not loci:
+        return []
     tau = float(ctx.params.get("tau_falsify", 0.0))
     pros = [float(l.progress) for l in loci]
 
@@ -644,7 +662,7 @@ def _progress_note(namer, ctx, traj):
     return lines
 
 
-def report(ctx, data, traj, results, explore=False):
+def report(ctx, data, traj, results, explore=False, narrative=None):
     R = Renderer(ctx, traj.spans, cycle_frames(traj), myth_phase_frame(traj))
     p = ctx.params
     gen = data.genesis
@@ -828,6 +846,12 @@ def report(ctx, data, traj, results, explore=False):
                    f"共 {fmt(span)} 帧（世界自己的走向，引擎未预设此情形）")
     if traj.converged:
         out.append(f"  · 轨道收敛：{R.term('converged')}（{R.term('memory')}路径）")
+    # 只读档案层（启用时才有）：章节内容全由 apps/archive.py 渲染，这里只负责拼接。
+    if narrative:
+        for title, lines in narrative:
+            out.append(title)
+            out.extend(lines)
+            out.append("")
     out.append(BAR)
     return "\n".join(out)
 
@@ -844,6 +868,11 @@ def _next_free(directory, stem, ext=".txt"):
         if not os.path.exists(path):
             return path
         n += 1
+
+
+def _narrative_flag(cli_value, narrative, key):
+    """叙事层的三态开关：CLI 显式给了就用它，否则取预设 `narrative` 表（缺省关闭）。"""
+    return bool(cli_value) if cli_value is not None else bool((narrative or {}).get(key, False))
 
 
 def main():
@@ -869,6 +898,11 @@ def main():
     ap.add_argument("--no-open", action="store_true",
                     help="配 --serve 用：不自动打开浏览器（自己访问打印出的地址）")
     ap.add_argument("--dump-anchors", action="store_true", help="导出命名标定语料")
+    ap.add_argument("--root", default=None, metavar="DIR",
+                    help="世界根目录（其下有 config/ 与 presets/）；默认项目根。"
+                         "例：--root worlds/origin --preset origin —— "
+                         "日志 / 看板 / 锚定语料等【世界路径】跟随它，"
+                         "而 TerminalBridge 的 PYTHONPATH / cwd 仍指向项目根。")
     ap.add_argument("--preset", default="emergent",
                     help="presets/ 下的预设名；emergent = 涌现版（默认）")
     ap.add_argument("--live", action="store_true",
@@ -877,6 +911,26 @@ def main():
                     help="把实时编年史同时写入该文件（不配 --live 时只落盘、不刷屏）。"
                          "不给 PATH 时自动写到 ./logs/翁法罗斯编年史_演算N.txt"
                          "（N 依次递增，不覆盖已有文件）")
+    ap.add_argument("--terminal", action=argparse.BooleanOptionalAction, default=None,
+                    help="按帧输出预设的 δ-me13 系统消息；只读，不改轨迹"
+                         "（默认取 preset.json 的 narrative.terminal）")
+    ap.add_argument("--terminal-ask", action="store_true",
+                    help="在 prompt 处等待输入；非 TTY 自动回落默认答案")
+    ap.add_argument("--terminal-window", action=argparse.BooleanOptionalAction,
+                    default=None,
+                    help="另开一个独立 CLI 窗口显示系统消息并处理 prompt；"
+                         "Windows 用新控制台，其它平台尝试常见终端模拟器，"
+                         "失败时回退同控制台。只读，不改轨迹")
+    ap.add_argument("--terminal-window-timeout", type=float, default=60.0,
+                    metavar="SEC",
+                    help="独立 CLI 窗口等待 prompt 回答的秒数（默认 60；"
+                         "超时用默认答案继续）")
+    ap.add_argument("--archive", action=argparse.BooleanOptionalAction, default=None,
+                    help="在报告里追加实验档案 / 异常记录 / 实验进度；只读，不改轨迹"
+                         "（默认取 preset.json 的 narrative.archive）")
+    ap.add_argument("--origin", action=argparse.BooleanOptionalAction, default=None,
+                    help="输出原初目标只读探针（自我度 / 记忆闭合 / 第十三因子反事实）；"
+                         "不改轨迹（默认取 preset.json 的 narrative.origin）")
     ap.add_argument("--list-presets", action="store_true", help="列出可用预设")
     ap.add_argument("--verbosity", default=None, metavar="LVL 或 类别=LVL[,…]",
                     help="输出文本的详细程度：0 静默 / 1 摘要 / 2 常规 / 3 详细。"
@@ -893,8 +947,14 @@ def main():
                     metavar="K", help="--explore 的旧名，等价")
     args = ap.parse_args()
 
+    # ---- 世界根 vs 程序根 ---------------------------------------------------
+    # 世界路径（config / presets / logs / dashboard / anchors 导出）跟随 --root；
+    # 程序路径（TerminalBridge 的 PYTHONPATH / cwd）永远是项目根 —— 那边要能找到
+    # apps/ 与 kernel/。
+    world_root = os.path.abspath(args.root) if args.root else ROOT
+
     if args.list_presets:
-        d = os.path.join(ROOT, "presets")
+        d = os.path.join(world_root, "presets")
         names = sorted(n for n in os.listdir(d)
                        if os.path.exists(os.path.join(d, n, "preset.json"))) if os.path.isdir(d) else []
         print("可用预设：emergent（涌现版）")
@@ -904,11 +964,13 @@ def main():
 
     # --log 不给路径：自动落到 ./logs/翁法罗斯编年史_演算N.txt（N 递增，不覆盖旧的）。
     if args.log == "":
-        args.log = _next_free(os.path.join(ROOT, "logs"), "翁法罗斯编年史_演算")
+        args.log = _next_free(os.path.join(world_root, "logs"), "翁法罗斯编年史_演算")
 
-    data = DataSet(ROOT, preset=args.preset)
+    data = DataSet(world_root, preset=args.preset)
     # 词表可由预设覆盖：同一段演算，预设可以把它讲成另一个世界的神话。
-    ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
+    ctx = Config(world_root, lex_overlay=data.preset.get("lexicon"))
+    # 预设级参数覆盖（分支预设用；未知键当场报错）。
+    data.apply_params(ctx)
     # 输出详细程度：命令行优先于 config/params.json（它只影响渲染，不影响演算）。
     if args.verbosity:
         merged = dict(ctx.params.get("verbosity") or {})
@@ -918,6 +980,19 @@ def main():
             ap.error(str(err))
         ctx.params["verbosity"] = merged
     explore = args.explore if args.explore is not None else args.fast
+
+    # 叙事层开关：CLI 显式给了就用它，否则取预设的 `narrative` 表（缺省关闭）。
+    # 它们只影响渲染 / 只读采样 —— 与 `sess.step()` 的世界状态无关。
+    nar = data.preset.get("narrative") or {}
+    use_terminal = _narrative_flag(args.terminal, nar, "terminal")
+    use_archive = _narrative_flag(args.archive, nar, "archive")
+    use_origin = _narrative_flag(args.origin, nar, "origin")
+    # 独立 CLI 窗口：CLI-only 的运行时选择（不写进预设）；它隐含终端层。
+    use_window = bool(args.terminal_window)
+    if use_window and args.terminal is False:
+        ap.error("--terminal-window 与 --no-terminal 冲突")
+    if use_window:
+        use_terminal = True
 
     # §D2 事件驱动应用：预设的 `script.jsonl`（声明式订阅 + 响应）。
     # `FRAME` 订阅编译成与 `events.jsonl` 同形的定时投递、并进世界；其余订阅是
@@ -936,6 +1011,22 @@ def main():
         seed = data.preset.get("seed")
         if seed is None:
             seed = data.genesis.get("seed", 0)
+
+    total_frames = int(args.frames if args.frames is not None
+                       else ctx.params.get("frames", 20000))
+    target_name = (DEFAULT_PRESET if data.preset["name"] in ("emergent", "none")
+                   else data.preset["name"])
+    # origin 世界：配置声明 origin_world，或 presets/<name>/nodes.json 存在，
+    # 即启用「锚点注入 + 固定点重演」。
+    is_origin_world = (bool(ctx.params.get("origin_world"))
+                       or os.path.exists(origin_nodes_path(world_root, target_name)))
+    planner = None
+    if is_origin_world:
+        planner = OriginPlanner(ctx, data, seed, frames=total_frames)
+        if not explore:
+            planner.plan()
+        # --explore 压缩了时间刻度，但 nodes.json 的帧号不会跟着压缩：
+        # 探路档只验机制连通，不跑锚点固定点（正式验收不要带 --explore）。
 
     # 实时看板（--serve）：先起服务、把空看板交给浏览器，再开始演算 ——
     # 于是打开就看到世界在长。它只读：删掉这一整块，演算逐帧不变。
@@ -979,9 +1070,54 @@ def main():
         if args.live or args.log:
             stream.header()
 
+    # 独立 CLI 窗口：本地 socket 桥。窗口起不来就回退同控制台，演算不受影响。
+    bridge = None
+    if use_window:
+        bridge = TerminalBridge(timeout=args.terminal_window_timeout)
+        if not bridge.start(ROOT):
+            print("（独立 CLI 窗口启动失败，回退同控制台终端）", flush=True)
+            bridge = None
+        else:
+            atexit.register(bridge.close)
+
+    # 只读终端层：按帧把预设的系统消息打到与编年史同一条输出通道上（stdout / 日志）。
+    # 它只读 —— `TerminalFeed.__call__` 恒返回 True，绝不触发内核剪枝。
+    term = None
+    if use_terminal:
+        target = (DEFAULT_PRESET if data.preset["name"] in ("emergent", "none")
+                  else data.preset["name"])
+        path = os.path.join(world_root, "presets", target, "messages.jsonl")
+        msgs = load_messages(path)
+        if msgs:
+            term = TerminalFeed(msgs, write=(stream._write if stream else print),
+                                ask=args.terminal_ask, source=path, sink=bridge)
+        else:
+            print("（本预设没有终端消息）", flush=True)
+
+    # 原初目标只读探针：按访问帧采样席位向量（死循环复用区不重复计算），报告前补采末帧。恒返回 True。
+    # origin 世界不挂它 —— 那个世界有【真实】的 `State.origin`，报告【八】读真状态。
+    origin_probe = (OriginProbe()
+                    if (use_origin and not is_origin_world) else None)
+
+    if planner is not None:
+        planner.begin_final()          # 最终一遍重新采样节点读数
+
     watch = sampler
     if board is not None:
         watch = make_watch(board, sampler)
+
+    # 逐帧钩子组合：只读钩子恒返回 True，故组合后与原先的剪枝语义一致。
+    watches = [w for w in (watch, term, origin_probe,
+                           planner.watch if planner is not None else None)
+               if w is not None]
+
+    def _composed(frame, st, traj):
+        for w in watches:
+            if not w(frame, st, traj):
+                return False
+        return True
+
+    watch = _composed if watches else None
 
     # 命名器由【应用层】自己造 —— 内核只把它当不透明句柄携带（见 kernel/core.py::run）。
     # 条件谓词同理：内核只负责"每帧问一次"，条件的写法与求值都在服务层（apps/conditions.py）。
@@ -1008,9 +1144,15 @@ def main():
     # 事件时就要用。
     sess = load({"config": ctx, "data": data, "seed": seed, "namer": namer,
                  "rules": eval_condition, "runtime": default_services(),
-                 "on_event": on_event, "watch": watch})
+                 "on_event": on_event, "watch": watch,
+                 "inbox": (list(planner.anchors) if planner is not None else None)})
     script.bind(sess)
     traj = sess.step(args.frames)
+    if planner is not None:
+        # 最终一遍跑完：按真实读数写四态 / 借还 / closure，并给出 origin 裁决。
+        planner.finalize(traj)
+    if origin_probe is not None:
+        origin_probe.close(traj)
     # 机器编号按【登记次序】一次发齐 —— 发号会推进计数器，晚发 / 漏发都会串号。
     namer.bind_machines(traj.personas)
 
@@ -1022,9 +1164,47 @@ def main():
         stream.footer(traj)
         stream.close()
 
+    if term is not None:
+        term.close()
+
+    if bridge is not None:
+        bridge.end(traj.reached_frame, traj.verdict)
+        bridge.close()
+
     results = [] if explore else AssertionRunner(ctx, data).run(traj)
 
-    print(report(ctx, data, traj, results, explore=bool(explore)))
+    # 只读叙事层：档案（【六】【七】）与原初目标（【八】）。它们只读 —— 不改轨迹、
+    # 不写状态；未启用时报告逐字不变。
+    narrative = []
+    if use_archive:
+        target = (DEFAULT_PRESET if data.preset["name"] in ("emergent", "none")
+                  else data.preset["name"])
+        arc = load_archive(os.path.join(world_root, "presets", target, "archive.json"))
+        narrative.extend(render_archive(ctx, data, traj, arc))
+        if not narrative:
+            print("（本预设没有实验档案）", flush=True)
+    if planner is not None and use_origin:
+        # origin 世界：读【真实】的 traj.final.origin（由回望驱动收尾时写入）。
+        origin_lex = ctx.lexicon.get("origin") or {}
+        # 忆灵已登记为独立个体（有名字），按编号从 personas 里取它的名字。
+        comp_name = None
+        comp_serial = int((planner.summary or {}).get("companion_serial", -1))
+        if comp_serial >= 0:
+            for per in traj.personas:
+                if int(getattr(per, "serial", -1)) == comp_serial:
+                    comp_name = namer.persona_name(per)[1]
+                    break
+        narrative.append(("【八】" + origin_lex.get("title", "原初目标"),
+                          render_origin_state(planner.summary or {},
+                                              ctx.lexicon, namer, comp_name)))
+    elif origin_probe is not None:
+        # canonical（如 plot-full）：仍走只读探针，读数与改动前逐字一致。
+        origin_lex = ctx.lexicon.get("origin") or {}
+        narrative.append(("【八】" + origin_lex.get("title", "原初目标"),
+                          render_origin(origin_probe.summary(traj), ctx.lexicon)))
+    narrative = narrative or None
+
+    print(report(ctx, data, traj, results, explore=bool(explore), narrative=narrative))
 
     # 可视化页面：导出（落盘）与实时看板的【收官页】用的是**同一次** build_html ——
     # 于是 --serve 的世界跑完后，页面重载出来就是与 --export 逐字一致的那张
@@ -1034,11 +1214,12 @@ def main():
                                lines=chronicle_rows(ctx, traj),
                                title=f"δ-me13「翁法罗斯」演算 · {data.preset['name']}",
                                data=data,
-                               texture=sampler.texture if sampler else None)
+                               texture=sampler.texture if sampler else None,
+                               origin_series=sampler.origin if sampler else None)
         if board is not None:
             board.set_final_page(html_text)     # 实时页据此自动重载成完整静态页
         if args.export is not None:
-            path = args.export or os.path.join(ROOT, "dashboard", "翁法罗斯-可视化.html")
+            path = args.export or os.path.join(world_root, "dashboard", "翁法罗斯-可视化.html")
             if not os.path.splitext(path)[1]:
                 path += ".html"
             os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
@@ -1053,7 +1234,7 @@ def main():
         # （它就是无预设时读的那一份），免得凭空造一个永远不会被读到的 presets/emergent/。
         name = data.preset["name"]
         target = DEFAULT_PRESET if name in ("emergent", "none") else name
-        path = os.path.join(ROOT, "presets", target, "anchors.jsonl")
+        path = os.path.join(world_root, "presets", target, "anchors.jsonl")
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
             for a in traj.namer.export_anchors(traj.personas):

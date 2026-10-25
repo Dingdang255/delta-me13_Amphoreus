@@ -1,0 +1,10 @@
+{
+  "nodes": [
+    {"id": "U01_FORMED", "feature": "origin_ever", "op": "eq", "value": true,
+     "label": "原初成形"},
+    {"id": "U02_STILL_MISSING", "feature": "origin_missing", "op": "ge", "value": 1,
+     "label": "固定点仍有缺失"},
+    {"id": "U03_UNSTABLE", "feature": "verdict", "op": "eq", "value": "origin_unstable",
+     "label": "裁决落在 origin_unstable"}
+  ]
+}

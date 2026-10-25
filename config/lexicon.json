@@ -190,6 +190,7 @@
     "suppress_slot": "封印火种",
     "release_slot": "解封火种",
     "bind_locus": "锚定神位",
+    "origin_anchor": "回望锚点",
     "write_memory": "收拢记忆",
     "raise_noise": "黑潮上涌",
     "plead": "游说",
@@ -201,6 +202,11 @@
     "gaze": "投下目光",
     "interstice": "狭间",
     "freeze_privilege": "冻结权限",
+    "checkpoint": "存下本轮",
+    "name_factor": "因子具名",
+    "hint": "一句提示",
+    "entry": "权杖入口",
+    "recreate": "最后再创世",
     "emit": "登记事件"
   },
 

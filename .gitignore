@@ -20,6 +20,14 @@
 !/presets/
 !/tools/
 !/tests/
+# 独立世界根：origin 世界的 13 席 config/ 与 presets/ 是数据，必须随仓库走。
+# 只放行 worlds/origin/；worlds/ 下的其它实验世界仍被挡在外面。
+!/worlds/
+/worlds/*
+!/worlds/origin/
+# 但世界根下的演算产物仍不进仓库（--export / --log 的默认去处）。
+/worlds/origin/dashboard/
+/worlds/origin/logs/
 
 # docs/ 只放行 export.py 列的那四份 + ADR；其余（wiki 抓取、散文考据）是给 AI 的参考料，不进仓库
 !/docs/

@@ -1,0 +1,4 @@
+{"assert": "origin_ever", "expect": false}
+{"assert": "origin_closure", "expect": 0}
+{"assert": "origin_anchors", "expect": 0}
+{"assert": "verdict", "expect": "origin_absent"}

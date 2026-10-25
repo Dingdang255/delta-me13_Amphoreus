@@ -1,0 +1,17 @@
+{"frame": 1, "kind": "boot", "text": "δ-me13 系统启动"}
+{"frame": 1200, "kind": "log", "text": "纳努克的目光落到权杖之上 —— 演算方向改写为「毁灭」"}
+{"frame": 8000, "kind": "log", "text": "忆庭之镜定位完成，外部观测者已接入"}
+{"frame": 40000, "kind": "warn", "text": "管理员权限被调用：实验进程即将进入不可逆阶段"}
+{"frame": 42000, "kind": "error", "text": "δ-me13:\\Amphoreus\\Irontomb.exe 运行时错误"}
+{"frame": 42001, "kind": "prompt", "text": "来自未知发布者的程序 δ-me13:\\Demiurge\\Philia093.exe", "ask": "是否允许写入？", "options": ["Y", "n"], "default": "Y"}
+{"frame": 42002, "kind": "status", "text": "Philia093.exe 运行中..."}
+{"frame": 42003, "kind": "log", "text": "订正：Philia093 的记录 #496，已归档"}
+{"frame": 33594260, "kind": "log", "text": "哀丽秘榭的记忆被重新翻开"}
+{"frame": 33594320, "kind": "log", "text": "管理员身份核对：赞达尔，天才俱乐部#1"}
+{"frame": 33594383, "kind": "log", "text": "系统运行中", "require_event": "last_pilgrimage"}
+{"frame": 33594510, "kind": "log", "text": "德谬歌开始回望 —— 从时间的起点寻找闭合的因果"}
+{"frame": 33594517, "kind": "warn", "text": "铁墓进程已破壳，外溢风险上升"}
+{"frame": 33594522, "kind": "log", "text": "核心变量「开拓」已载入"}
+{"frame": 33594527, "kind": "output", "text": "输出值：Hello, World!"}
+{"frame": 33594540, "kind": "log", "text": "银河联合防线已就位"}
+{"frame": 33594545, "kind": "log", "text": "一页永恒已写入"}

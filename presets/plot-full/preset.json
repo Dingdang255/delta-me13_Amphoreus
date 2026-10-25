@@ -1,0 +1,12 @@
+{
+  "_comment": "剧情内容版预设：presets/plot 的孪生副本。同一颗种子、同一批锚定、同一份外生剧本与招牌时间线；差别只有一处 —— 在后段补齐了 13 条【镜头】桥段（capability 一律 emit），另加了对应的终端消息与实验档案。镜头只经引擎分发、写进账本（可由 emitted_events 核对），不改席位 / 既有计数 / 裁决，也不改动力学。招牌轨道仍以 plot 为准；plot-full 是新预设，不在旧指纹基线内。",
+  "name": "plot-full",
+  "seed": 0,
+  "extends": "_default",
+  "narrative": {
+    "terminal": true,
+    "archive": true,
+    "origin": true
+  },
+  "note": "内容增补只走 emit：没有 evict_holder / suppress_slot / bind_participant / write_memory / revise_protocol —— 新增桥段是世界状态的纯镜头。plot 的 20 条事件逐字保留、顺序不变。终端消息（messages.jsonl）与实验档案（archive.json）都是只读渲染层，文案留在本预设。原初目标由只读探针提供（apps/origin.py），本预设只打开开关，不写死任何文案或指标。"
+}

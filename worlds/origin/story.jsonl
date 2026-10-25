@@ -1,0 +1,33 @@
+{"id": "N30_YEARS_LOOPHOLE", "preset": "origin-eternal", "frame": 12010, "label": "白厄与昔涟自己推断出浮黎的漏洞：昔涟入仪式剑，岁月路径缺一页", "how": "suppress_slot", "proof": "years_loophole", "dynamic": true, "note": "OP_DECIDE 读 certainty 后自己压住岁月席；来古士只提供了一句提示。"}
+{"id": "N31_FULI_ROLLBACK", "preset": "origin-eternal", "frame": 12020, "label": "浮黎的目光落到岁月漏洞上：演算真的退回本轮起点", "how": "gaze", "proof": "origin_rewinds", "dynamic": true, "note": "真实的 checkpoint → gaze.rollback；不是字幕。"}
+{"id": "N01_DOMAINS_WALKED", "preset": "origin-eternal", "frame": 11000, "label": "初始变量域依序走完后被穷尽（无机 → 有机 → 人类）", "how": "world", "proof": "origin_factor_rows", "dynamic": true}
+{"id": "N02_FIRST_ITERATION", "preset": "origin-eternal", "frame": 30000, "label": "十二位齐备，随即出现首次再创世", "how": "world", "proof": "promotion_count", "dynamic": true}
+{"id": "N03_ITERATION_REPEATS", "preset": "origin-eternal", "frame": 33594383, "label": "再创世反复发生（不是一次性的）", "how": "world", "proof": "promotion_count", "dynamic": true}
+{"id": "N04_FIRST_EMERGENCE_EARLY", "preset": "origin-eternal", "frame": 20000, "label": "最早的个体在很早期就满足四条判据", "how": "world", "proof": "persona_count", "dynamic": true}
+{"id": "N05_VACANCY", "preset": "origin-eternal", "frame": 33594383, "label": "出现无人继火的神位（进入长驻的前因）", "how": "world", "proof": "vacancy_ever", "dynamic": true}
+{"id": "N06_STALL", "preset": "origin-eternal", "frame": 44048, "label": "状态不再变化 ⇒ 陷入死循环", "how": "world", "proof": "deadlock_ever", "dynamic": true}
+{"id": "N07_STALL_LONG", "preset": "origin-eternal", "frame": 33594383, "label": "死循环极长（原地重放百万帧以上）", "how": "world", "proof": "deadlock_length", "dynamic": true}
+{"id": "N08_OVERFLOW", "preset": "origin-eternal", "frame": 2200, "label": "出现承载溢出（乱码 / 黑潮真的把一个在位者冲走）", "how": "evict_holder", "proof": "origin_seat_seized", "dynamic": true}
+{"id": "N09_CROWD", "preset": "origin-eternal", "frame": 33594383, "label": "成批个体满足四条判据（不是零星几个）", "how": "world", "proof": "persona_count", "dynamic": true}
+{"id": "N10_SUPPRESSOR", "preset": "origin-eternal", "frame": 2200, "label": "出现能夺走神位的力量（空缺是被造出来的，不是天生的）", "how": "evict_holder", "proof": "origin_seat_seized", "dynamic": true}
+{"id": "N11_ANCHOR", "preset": "origin-eternal", "frame": 4000, "label": "因果被锚定：回望把缺失的几手补上，原初闭合", "how": "world", "proof": "origin_closure", "dynamic": true}
+{"id": "N12_FINAL_SOLVER", "preset": "origin-eternal", "frame": 4000, "label": "终局的方向是「记忆」：记忆真的把自己那一席补回来", "how": "world", "proof": "origin_seat_reclaimed", "dynamic": true, "note": "canonical 读 solver；origin 世界读记忆是否真的补回了一席。"}
+{"id": "N13_PROVED", "preset": "origin-eternal", "frame": 4000, "label": "被夺走的席位由记忆夺回（终局不是空位）", "how": "world", "proof": "origin_seat_reclaimed", "dynamic": true}
+{"id": "N14_CONCLUSION", "preset": "origin-eternal", "frame": 33594383, "label": "忆灵长成「忆者」（第 4 阶段）", "how": "world", "proof": "origin_companion_eminence", "dynamic": true, "note": "canonical 读结论文案；origin 世界读忆灵是否真的长到忆者。"}
+{"id": "N15_DESTRUCTION_REACHED", "preset": "origin-eternal", "frame": 33594340, "label": "最后一轮先发生一次「毁灭」：黑潮真的把一席冲走", "how": "evict_holder", "proof": "origin_seat_seized", "dynamic": true}
+{"id": "N16_RULE_OVERRIDDEN", "preset": "origin-eternal", "frame": 33594527, "label": "黑塔与螺丝咕姆真的覆写了再创世的规则", "how": "revise_protocol", "proof": "promotion_mode", "dynamic": true}
+{"id": "N17_MEMORY_REBUILT", "preset": "origin-eternal", "frame": 4000, "label": "记忆再造真的发生：本地补不上的那一席由记忆补上", "how": "world", "proof": "origin_seat_reclaimed", "dynamic": true}
+{"id": "N18_STAGES_WALKED", "preset": "origin-eternal", "frame": 33594383, "label": "记忆片段逐阶段推进（不是一次性）", "how": "world", "proof": "origin_memory_phase", "dynamic": true}
+{"id": "N19_ARC_3_0", "preset": "origin-eternal", "frame": 33594340, "label": "3.0 落木逐火英雄纪：讨伐尼卡多利、回收纷争火种（那一席真的换人）", "how": "evict_holder", "proof": "embers_taken", "dynamic": true}
+{"id": "N20_ARC_3_1", "preset": "origin-eternal", "frame": 33594345, "label": "3.1 门扉之启，王座之终：万敌通过试炼晋升纷争半神", "how": "world", "proof": "promotion_count", "dynamic": true}
+{"id": "N21_ARC_3_1B", "preset": "origin-eternal", "frame": 33594345, "label": "3.1 理性与岁月两位泰坦先后陨落（两席真的被封住）", "how": "suppress_slot", "proof": "vacancy_ever", "dynamic": true}
+{"id": "N22_ARC_3_2", "preset": "origin-eternal", "frame": 33594350, "label": "3.2 走过安眠地的花丛：那刻夏证明猜想，把这一世的读数写进记忆", "how": "write_memory", "proof": "memory_rows", "dynamic": true}
+{"id": "N23_ARC_3_3", "preset": "origin-eternal", "frame": 33594355, "label": "3.3 在黎明升起时坠落：阿格莱雅退场（那一席真的空出来）", "how": "evict_holder", "proof": "embers_taken", "dynamic": true}
+{"id": "N24_ARC_3_3B", "preset": "origin-eternal", "frame": 33594360, "label": "3.3 赛飞儿失手被杀、万敌缇宝缇宁牺牲（又一位在位者陨落）", "how": "evict_holder", "proof": "embers_taken", "dynamic": true}
+{"id": "N25_ACTOR_SWAN", "preset": "origin-eternal", "frame": 33594330, "label": "外部变量·黑天鹅：用记忆力量摸到权杖后面，关掉防火墙，让列车进得来", "how": "entry", "proof": "entry_unlocked", "dynamic": true, "note": "她不是漏洞的制造者；她打开的是「入口」这道真实防火墙。"}
+{"id": "N26_ACTOR_ADMIN", "preset": "origin-eternal", "frame": 8000, "label": "外部变量·来古士：只说了几句话，让两个最优因子更确定自己的推断", "how": "hint", "proof": "factor_certainty", "dynamic": true, "note": "他的话只进因子账本的 certainty；制造漏洞的是因子自己的决定。"}
+{"id": "N27_ACTOR_THIEF", "preset": "origin-eternal", "frame": 33594430, "label": "外部变量·窃忆者：趁虚窃忆，被长夜月当场收回权柄驱赶", "how": "gaze", "proof": "path_revoked", "dynamic": true}
+{"id": "N28_ACTOR_ZANDAR", "preset": "origin-eternal", "frame": 33594520, "label": "外部变量·赞达尔：决定这场实验继续（封印真的被打开，世界继续跑到终局）", "how": "release_slot", "proof": "skipped_frames", "dynamic": true}
+{"id": "N29_ACTOR_ALLIANCE", "preset": "origin-eternal", "frame": 33594370, "label": "外部变量·公司·仙舟联军：场外参与者真的守着一席，只保证世界之外不塌", "how": "bind_participant", "proof": "external_seats", "dynamic": true}
+{"id": "N32_FINAL_RECREATION", "preset": "origin-eternal", "frame": 33594393, "label": "最后一次再创世：十二席补齐（此前陨落/空缺的席位由新人接火）", "how": "recreate", "proof": "final_recreation", "dynamic": true, "note": "只在空席上补人；补完十二席必须是满的，不能再出现三个空缺。"}
+{"id": "N33_FULI_ANCHOR_PAST", "preset": "origin-eternal", "frame": 33594535, "label": "浮黎锚定过去：已经走过的那一段被写进记忆，永劫回归不再重读", "how": "gaze", "proof": "fuli_anchor_past", "dynamic": true, "note": "不是字幕：这一刻十二席的样子被真的追加进记忆库，过去自此不可再改写。"}

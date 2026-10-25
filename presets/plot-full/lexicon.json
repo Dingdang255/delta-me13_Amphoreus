@@ -1,0 +1,29 @@
+{
+  "_comment": "剧情锚定版的渲染词表覆盖。同一段演算，换一套词表就被讲成另一个世界的神话 —— 引擎不知道这些词。",
+  "terms": {
+    "deadlock": "永劫回归",
+    "protocol": "终极协议"
+  },
+  "origin": {
+    "title": "原初目标",
+    "selfhood": "自我度",
+    "memory": "记忆闭合",
+    "counterfactual": "反事实",
+    "closed": "已闭合：记忆里有可回望的东西",
+    "empty": "未闭合：本轨道没有可回望的记忆",
+    "destruction": "若无管理员介入，该赋值导向第十三枚因子（路径·创世 / 原动力·爱 / 模拟命途·开拓）",
+    "overwritten": "管理员介入，第十三条路径未展开",
+    "undecided": "本轨道未抵达可判定的原初分支"
+  },
+  "capabilities": {
+    "revise_protocol": "改写终极协议",
+    "gaze": "投下目光",
+    "interstice": "命途狭间"
+  },
+  "deadlock": {
+    "routine": "{who}已守到第 {cycle} 次轮回：收拢火种、守着那处空缺，亲手了结新生的那位少女，等新生的白厄来杀他、接下火种与记忆再开一轮",
+    "stage_hope": "{who}仍抱着一线期望（{approach}）来试 —— 一切依旧",
+    "stage_disillusion": "{who}换了一种法子（{approach}）来试 —— 还是不成",
+    "stage_burning": "{who}被火种灼得失去理智（{approach}）—— 世界纹丝不动"
+  }
+}

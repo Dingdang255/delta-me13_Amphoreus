@@ -1,0 +1,22 @@
+{
+  "_comment": "两个记忆节点：第一个成功写入记忆；第二个的成本远高于原初当时的能量，锚点被拒。第二节点的条件被第一笔锚点顺带满足 ⇒ 无缺失，但借出 > 还上 ⇒ origin_open。第二个节点标记 keep：这笔「还不上」的借出是叙事本身要的，精简阶段不许删。",
+  "nodes": [
+    {
+      "id": "O1_MEMORY_FIRST",
+      "frame": 300,
+      "missing": "no_memory",
+      "repair": "seed_memory",
+      "cost": 0.5,
+      "label": "第一次回望：记忆里还没有可回望的东西"
+    },
+    {
+      "id": "O2_MEMORY_TOO_EXPENSIVE",
+      "frame": 600,
+      "missing": "no_memory",
+      "repair": "seed_memory",
+      "cost": 40.0,
+      "keep": true,
+      "label": "第二次回望：这一手太重，原初当时的能量付不起"
+    }
+  ]
+}

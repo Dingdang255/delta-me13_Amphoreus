@@ -44,7 +44,7 @@ BANNED = [
 # 这些是 L5 / 事后核对 / 只读渲染层：它们在演算【结束后】读取结果，属于合法读者。
 # （viz.py 是 A2–A7 的只读看板：席位卡、曲线右端、摘要卡都要读终局 —— 与 render.py 同性质。）
 POST_HOC = {"assertions.py", "render.py", "namer.py", "loader.py", "features.py",
-            "viz.py"}
+            "viz.py", "archive.py", "origin.py", "origin_loop.py"}
 TRAJ_FINAL = (r"traj\.final(?!\s*=[^=])", "读取最终态作为捷径")
 
 

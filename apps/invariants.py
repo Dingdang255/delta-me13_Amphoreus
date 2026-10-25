@@ -49,7 +49,7 @@ class ProgressCheck(Invariant):
         return [
             Violation("UNSOLVED", i, tau - l.progress, frame)
             for i, l in enumerate(st.loci)
-            if l.progress < tau
+            if l.progress < tau and not getattr(l, "meta", False)
         ]
 
 

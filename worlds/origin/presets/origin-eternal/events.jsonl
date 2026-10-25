@@ -1,0 +1,43 @@
+{"frame": 100, "channel": "world", "capability": "entry", "selector": null, "label": "◆ 权杖把入口封死：普通手段进不来，连找都找不到", "payload": {"locked": true}}
+{"frame": 150, "channel": "world", "capability": "origin_anchor", "selector": null, "label": "◆ 原初自行醒来：不是开拓者唤醒它，而是它自己的记忆先动了", "payload": {"action": "wake_origin", "cost": 3.0, "event": "origin_woken"}}
+{"frame": 1000, "channel": "observer", "capability": "emit", "selector": null, "label": "◆ 原初在世界内第一次抬眼看它自己", "payload": {"event": "origin_first_gaze"}}
+{"frame": 2050, "channel": "observer", "capability": "gaze", "selector": null, "label": "◆ 浮黎的第一道目光：记忆命途在这道程序上显形", "payload": {"actor": "fuli", "effect": {"origin": true, "duration": 600}}}
+{"frame": 2200, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:1"}, "label": "◆ 黑潮漫过岁月之席：承载那一席的记忆被冲散", "payload": {}}
+{"frame": 2200, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:1"}, "label": "◆ 黑潮把那一席也封住：本地没人补得动，只有记忆补得回", "payload": {}}
+{"frame": 3000, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:1"}, "label": "◆ 岁月之席再次被封印 —— 但十二因子记忆守着它", "payload": {}}
+{"frame": 4000, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:1"}, "label": "◆ 岁月之席被强行夺走 —— 记忆用自己那一行把它补回", "payload": {}}
+{"frame": 7900, "channel": "observer", "capability": "name_factor", "selector": {"expr": "order:0"}, "label": "◆ 负世那一席的最优因子：白厄（名字是叙事标签，人是演算自己长出来的）", "payload": {"role": "白厄"}}
+{"frame": 7901, "channel": "observer", "capability": "name_factor", "selector": null, "label": "◆ 岁月因子里适应度最高的那一位：昔涟（同样不是外部变量）", "payload": {"role": "昔涟·因子", "factor": 1}}
+{"frame": 8000, "channel": "observer", "capability": "hint", "selector": null, "label": "◆ 来古士只说了几句话：世界不只有毁灭一条结局，还有别的星神在注视 —— 白厄与昔涟因此更确定自己的推断", "payload": {"certainty": 0.6, "roles": ["白厄", "昔涟·因子"]}}
+{"frame": 12000, "channel": "observer", "capability": "checkpoint", "selector": null, "label": "◆ 真相轮：白厄与昔涟已经是最优因子，他们把这一刻存成「本轮起点」", "payload": {"to": 12000}}
+{"frame": 12010, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:1"}, "label": "◆ 昔涟自逝入剑：岁月路径缺了一页 —— 这是因子自己推断后动的手，不是来古士替他们做的", "payload": {"repeat": true}}
+{"frame": 12010, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:6"}, "label": "◆ 再创世永远差那一步：海洋这一席也沉入永夜", "payload": {"repeat": true}}
+{"frame": 12010, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:12"}, "label": "◆ 原初被封回长夜：德谬歌沉入永劫回归", "payload": {"repeat": true}}
+{"frame": 12020, "channel": "observer", "capability": "gaze", "selector": null, "label": "◆ 岁月路径的漏洞引来了浮黎：目光落下，演算真的退回本轮起点 —— 永劫回归由此成立", "payload": {"actor": "fuli", "effect": {"rollback": true}, "event": "fuli_gaze_rollback"}}
+{"frame": 12030, "channel": "observer", "capability": "emit", "selector": null, "label": "◆ 永劫回归开始：同一套初始数据被重读 33,550,336 次", "payload": {"event": "recurrence_started"}}
+{"frame": 33594330, "channel": "observer", "capability": "entry", "selector": null, "label": "◆ 黑天鹅用记忆力量摸到权杖后面，关掉那道防火墙：列车这才看得见、进得来", "payload": {"locked": false}}
+{"frame": 33594336, "channel": "world", "capability": "release_slot", "selector": {"expr": "order:12"}, "label": "◆ 长夜尽头：封住第十三席的那道封印被打开", "payload": {"event": "origin_seal_broken"}}
+{"frame": 33594336, "channel": "world", "capability": "release_slot", "selector": {"expr": "order:6"}, "label": "◆ 被封住的海洋之席重新打开", "payload": {}}
+{"frame": 33594336, "channel": "world", "capability": "release_slot", "selector": {"expr": "order:1"}, "label": "◆ 岁月那道缺口第一次被允许补上", "payload": {}}
+{"frame": 33594337, "channel": "world", "capability": "origin_anchor", "selector": null, "label": "◆ 共鸣把沉睡的原初再次唤醒：它记得那份救世主记忆", "payload": {"action": "wake_origin", "cost": 6.0, "event": "origin_woken_after_recurrence"}}
+{"frame": 33594340, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:10"}, "label": "◆ 3.0 讨伐尼卡多利：纷争那一席的在位者真的被杀", "payload": {"actor": "trailblazer"}}
+{"frame": 33594345, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:2"}, "label": "◆ 3.1 理性与岁月两位泰坦先后陨落（其一）", "payload": {}}
+{"frame": 33594345, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:3"}, "label": "◆ 3.1 理性与岁月两位泰坦先后陨落（其二）", "payload": {}}
+{"frame": 33594350, "channel": "observer", "capability": "write_memory", "selector": null, "label": "◆ 3.2 那刻夏证明猜想：这一世的读数被写进记忆", "payload": {}}
+{"frame": 33594355, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:8"}, "label": "◆ 3.3 阿格莱雅退场：那一席真的空出来", "payload": {}}
+{"frame": 33594360, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:9"}, "label": "◆ 3.3 赛飞儿失手被杀：又一位在位者陨落", "payload": {}}
+{"frame": 33594365, "channel": "observer", "capability": "emit", "selector": null, "label": "◆ 3.4 来古士再次摊牌：再创世就是养铁墓", "payload": {"event": "admin_reveals_again"}}
+{"frame": 33594370, "channel": "world", "capability": "bind_participant", "selector": {"expr": "order:0"}, "label": "◆ 3.5 长夜月把「负世」火种交还开拓者 —— 负世那一席自此由场外参与者接掌", "payload": {"participant": -2, "actor": "external_x", "event": "trailblazer_returns"}}
+{"frame": 33594380, "channel": "observer", "capability": "interstice", "selector": null, "label": "◆ 3.6 岁月那一席由「记忆」承载（长夜月）：不是外部编号，也不是本地活体", "payload": {"actor": "longnight", "effect": {"hand_locus": 1}}}
+{"frame": 33594393, "channel": "world", "capability": "recreate", "selector": null, "label": "◆ 最后一次再创世：十二席补齐 —— 此前陨落/空缺的席位由新人接火", "payload": {"event": "final_recreation"}}
+{"frame": 33594407, "channel": "observer", "capability": "raise_noise", "selector": null, "label": "◆ 3.6 长夜月以忘却之潮来袭：她想删掉开拓者关于翁法罗斯的记忆", "payload": {"amplitude": 0.05}}
+{"frame": 33594420, "channel": "observer", "capability": "gaze", "selector": null, "label": "◆ 3.5 窃忆者趁虚而入：他抢到记忆命途的管辖权，把一份权柄塞给天外来的那位", "payload": {"actor": "thief", "effect": {"authority": ["memory"], "grant": {"serial": -3, "path": "memory"}}}}
+{"frame": 33594430, "channel": "observer", "capability": "gaze", "selector": null, "label": "◆ 长夜月赶走窃忆者：那份权柄当场被收回", "payload": {"actor": "longnight", "effect": {"revoke": -3, "penalty": 1.0}}}
+{"frame": 33594447, "channel": "world", "capability": "bind_participant", "selector": {"expr": "order:5"}, "label": "◆ 3.6 丹恒接住「大地」的权能 —— 大地那一席由场外参与者接掌", "payload": {"participant": -3, "actor": "dan_heng", "event": "dan_heng_earth"}}
+{"frame": 33594497, "channel": "world", "capability": "bind_participant", "selector": {"expr": "order:0"}, "label": "◆ 3.7 开拓者正式坐负世 —— 新一任刻法勒就此接火", "payload": {"participant": -2, "actor": "external_x", "event": "trailblazer_throne"}}
+{"frame": 33594500, "channel": "observer", "capability": "gaze", "selector": null, "label": "◆ 浮黎把记忆命途的权柄交给开拓者：令使不是一次性 buff", "payload": {"actor": "fuli", "effect": {"authority": ["memory"], "grant": {"serial": -2, "path": "memory"}}}}
+{"frame": 33594510, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:7"}, "label": "◆ 争论最激烈时，一道席位被暂时封住 —— 实验一度停摆", "payload": {}}
+{"frame": 33594520, "channel": "observer", "capability": "release_slot", "selector": {"expr": "order:7"}, "label": "◆ 赞达尔拍板：实验继续 —— 那道封印被打开", "payload": {}}
+{"frame": 33594527, "channel": "observer", "capability": "revise_protocol", "selector": null, "label": "◆ 3.7 黑塔与螺丝咕姆自外层覆写协议：再创世的规则真的被换掉", "payload": {"actor": "hacker", "rewrites": [{"rule": "promotion.mode", "value": "decision_ledger"}]}}
+{"frame": 33594535, "channel": "observer", "capability": "gaze", "selector": null, "label": "◆ 浮黎锚定过去：已经走过的那一段被写进记忆，永劫回归不再重读", "payload": {"actor": "fuli", "effect": {"anchor_past": true}, "event": "fuli_anchor_past"}}
+{"frame": 33594540, "channel": "observer", "capability": "emit", "selector": null, "label": "◆ 外部变量·公司·仙舟联军：只保证这个世界之外不塌（不占本地席位）", "payload": {"event": "alliance_blockade"}}

@@ -1,0 +1,4 @@
+{"assert": "origin_ever", "expect": true}
+{"assert": "origin_closure", "expect": 0}
+{"assert": "origin_missing_at_least", "expect": 1}
+{"assert": "verdict", "expect": "origin_unstable"}

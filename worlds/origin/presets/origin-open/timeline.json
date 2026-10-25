@@ -1,0 +1,12 @@
+{
+  "nodes": [
+    {"id": "P01_FORMED", "feature": "origin_ever", "op": "eq", "value": true,
+     "label": "原初成形"},
+    {"id": "P02_NO_MISSING", "feature": "origin_missing", "op": "eq", "value": 0,
+     "label": "缺失节点都补上了"},
+    {"id": "P03_UNREPAID", "feature": "origin_repaid", "op": "lt", "value": 3,
+     "label": "仍有借出的锚点没有还上"},
+    {"id": "P04_OPEN", "feature": "verdict", "op": "eq", "value": "origin_open",
+     "label": "裁决落在 origin_open"}
+  ]
+}

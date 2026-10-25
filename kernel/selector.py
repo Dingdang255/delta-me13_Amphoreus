@@ -26,6 +26,8 @@ class Selector:
 # 每个表达式都是通用的：它只看数值，不看 id / 名字。
 _EXPRS = {
     "all":      lambda c, st, ctx: list(c),
+    # 结构上非 meta 的席位（canonical 世界里等于 all）—— 用于「十二因子」口径的投递。
+    "non_meta": lambda c, st, ctx: [i for i in c if not getattr(st.loci[i], "meta", False)],
     "any":      lambda c, st, ctx: [c[0]],
     "min_progress": lambda c, st, ctx: [min(c, key=lambda i: st.loci[i].progress)],
     "max_progress": lambda c, st, ctx: [max(c, key=lambda i: st.loci[i].progress)],

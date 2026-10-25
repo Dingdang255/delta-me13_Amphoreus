@@ -137,6 +137,8 @@ def _check_loci(loci_raw, dim, problems):
             _num(problems, f"loci.loci[{i}]", l, "decay", lo=0.0)
         if "couplings" in l and not isinstance(l["couplings"], list):
             problems.append(f"loci.loci[{i}].couplings 应为数组")
+        if "meta" in l and not isinstance(l["meta"], bool):
+            problems.append(f"loci.loci[{i}].meta 应为布尔")
     if len(set(ids)) != len(ids):
         problems.append("loci.loci 的 id 有重复")
     if orders and sorted(orders) != list(range(len(loci_raw))):
@@ -829,8 +831,40 @@ class Config:
         self.lexicon = _merge_lex(_json(os.path.join(cfg, "lexicon.json")),
                                   lex_overlay)
         self.calendar = _json(os.path.join(cfg, "calendar.json"))
+        # 命途（权柄层）是可选的：canonical 世界没有这份文件 ⇒ `paths=None`，
+        # pipeline 里也没有 OP_PATH，行为与从前逐位相同。
+        paths_path = os.path.join(cfg, "paths.json")
+        self.paths = _json(paths_path) if os.path.exists(paths_path) else None
+        # 因子的决策（可选）：canonical 世界没有这份文件，pipeline 里也没有
+        # OP_DECIDE ⇒ 具名因子为空、决策算子不跑，行为与从前逐位相同。
+        dec_path = os.path.join(cfg, "decision.json")
+        self.decision = _json(dec_path) if os.path.exists(dec_path) else None
 
         problems = []
+        if self.paths:
+            dim = int(self.params.get("dim", 12))
+            plist = self.paths.get("paths") or []
+            if not plist:
+                problems.append("config/paths.json: paths 为空")
+            for p in plist:
+                axis = p.get("axis") or []
+                if (not axis
+                        or any(not (0 <= int(i) < dim) for i in axis)):
+                    problems.append(
+                        f"config/paths.json: {p.get('id')} 的 axis 越界")
+            if (float(self.paths.get("leave_threshold", 0.0))
+                    >= float(self.paths.get("join_threshold", 1.0))):
+                problems.append(
+                    "config/paths.json: leave_threshold 必须小于 join_threshold")
+        if self.decision:
+            dim = int(self.params.get("dim", 12))
+            seat = self.decision.get("loophole_seat")
+            if seat is not None and not (0 <= int(seat) < dim):
+                problems.append("config/decision.json: loophole_seat 越界")
+            th = float(self.decision.get("certainty_threshold", 0.5))
+            if not (0.0 <= th <= 1.0):
+                problems.append(
+                    "config/decision.json: certainty_threshold 必须在 0..1")
         validate_config_raw(self.params, loci_raw, self.seeding, ops, mapping,
                             self.conclusions, self.calendar, self.lexicon,
                             self.phonology, problems)
@@ -852,7 +886,8 @@ class Config:
         self.mapping = np.asarray(mapping["matrix"], dtype=np.float32)
 
         self.loci = [
-            Locus(l["id"], l["order"], l["capacity"], l["decay"], l["couplings"])
+            Locus(l["id"], l["order"], l["capacity"], l["decay"], l["couplings"],
+                  bool(l.get("meta", False)))
             for l in loci_raw
         ]
         self.coupling = np.stack([l.couplings for l in self.loci])
@@ -872,6 +907,9 @@ class DataSet:
         self.preset = load_preset(root, preset)
         # 机器规格：由 load_preset 装配好（命题 / 变量域 / 阶段装配）。
         self.genesis = self.preset["genesis"]
+        # 预设级的参数覆盖（只用于同一世界根下的分支预设，例如失败分支要关掉创世）。
+        # 键必须真的在 params.json 里 —— 写错当场报错，不静默失效。
+        self.param_overrides = dict(self.preset.get("params") or {})
         # 断言：只是【核对】，不参与演算。
         self.assertions = list(self.preset.get("assertions") or [])
         # 锚定层：只是渲染绑定。
@@ -911,6 +949,18 @@ class DataSet:
         # 条件 —— 由内核的条件槽按"条件首次成立"触发（见 core.run 的 ①'）。内核只把它们
         # 当【数据】拿着，不认识条件的写法（谓词由应用层传进来）。今天的预设一条都没有。
         self.conditioned = [r for r in self.disturbances if r.get("when")]
+
+    def apply_params(self, cfg) -> None:
+        """把预设声明的参数覆盖写进配置。未知键当场报错（不静默忽略）。"""
+        over = self.param_overrides
+        if not over:
+            return
+        unknown = sorted(k for k in over if k not in cfg.params)
+        if unknown:
+            raise ConfigError(
+                f"预设 {self.preset.get('name')!r} 的 params 里有配置不认得的键："
+                f"{'、'.join(unknown)}")
+        cfg.params.update(over)
 
     def stage_gates(self, index: int):
         """阶段 0..index 累积开启的门（装配是累积的）。没配 stages 时恒为空。"""

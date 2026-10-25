@@ -433,6 +433,8 @@ def load(machine_spec=None):
         if overlay is None:
             overlay = data.preset.get("lexicon")
         cfg = Config(root, lex_overlay=overlay)
+    # 预设级参数覆盖（分支预设用）：对已装配好的 Config 也生效，幂等。
+    data.apply_params(cfg)
 
     opts = {k: v for k, v in spec.items() if k not in ("root", "preset", "lexicon",
                                                        "config", "data")}

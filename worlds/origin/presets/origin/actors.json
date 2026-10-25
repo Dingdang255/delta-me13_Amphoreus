@@ -1,0 +1,12 @@
+{
+  "_comment": "外部变量属性表。场外参与者（负编号）可以带自己的属性向量；bind_participant 按 actor id 查这张表，于是「开拓者的特殊属性」是数据，不是代码里的专名。",
+  "actors": [
+    {
+      "id": "external_x",
+      "label": "开拓者（外部变量）",
+      "vector": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.60],
+      "attrs": {"source": "external", "resonates_with": "memory"},
+      "grants": []
+    }
+  ]
+}

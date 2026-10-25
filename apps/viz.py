@@ -16,7 +16,7 @@ from __future__ import annotations
 import html
 import json
 
-from kernel.operators import consensus
+from kernel.operators import consensus, meta_indices
 from .render import (Renderer, advance_label, cycle_frames, myth_phase_frame,
                      renewal_switch_frame, stage_starts, stage_table)
 
@@ -133,6 +133,10 @@ class Sampler:
         # 「世界纹理」序列：低频（每 texture_every 个到访帧一组），独立于 points 的几何步长。
         # 形状 (frame, 相似度中位, 能量集中度, 区域连通分量数) —— 供后期画「世界演化地形图」。
         self.texture = []
+        # 原初（第十三席）读数序列，与 points 同一批几何步长：
+        # (frame, 自我度, 能量, closure, 忆灵阶段, 随身记忆数, 忆灵是否在)。
+        # canonical 世界 `origin.ever` 恒为假 ⇒ 这里恒空，页面逐字不变。
+        self.origin = []
         self._tex_gap = max(1, int(texture_every))
         self._tex_next = 0
         self._thr = 0.0
@@ -162,6 +166,16 @@ class Sampler:
 
         if changed or frame >= self._thr:
             self.points.append(point)
+            # 原初读数与 points 同一批采样点：两条曲线共用一条对数帧轴。
+            o = getattr(st, "origin", None)
+            if o is not None and bool(getattr(o, "ever", False)):
+                cs = int(getattr(o, "companion_serial", -1))
+                self.origin.append((
+                    int(frame), round(float(o.selfhood), 5),
+                    round(float(o.energy), 5), int(o.closure),
+                    int(getattr(o, "companion_stage", 0)),
+                    int(getattr(o, "companion_carry", 0)),
+                    bool(cs >= 0 and st.pool.index_of_serial(cs) >= 0)))
             self._step *= self._ratio
             self._thr = frame + max(1.0, self._step)
 
@@ -275,6 +289,7 @@ def _seat_cards(ctx, traj, names, machines):
     for i, locus in enumerate(ctx.loci):
         owner = st.register.slots[i].owner
         title = cal.get(locus.id, ["", locus.id])
+        nm = _resolve(traj, names, owner) or "（空置）"
         cards.append({
             "id": locus.id,
             "duty": title[1] or locus.id,
@@ -283,7 +298,7 @@ def _seat_cards(ctx, traj, names, machines):
             "city_idx": city_idx[i],
             # 「电信号序列 <号>」——悬浮卡用（与席位卡的 data-machine 同源）
             "machine": _machine_of(traj, machines, owner),
-            "name": _resolve(traj, names, owner) or "（空置）",
+            "name": nm,
             "vacant": owner is None,
             "suppressed": i in sup,
             "progress": float(getattr(st.loci[i], "progress", 0.0)),
@@ -419,7 +434,7 @@ def _seat_table(traj, names, machines, pts, final_point):
 
 def _data_blob(R, pts, lines, total, marks, table, seats_per_sample,
                promos, spans, machines=(), stages=(), live=False, mythfrom=None,
-               autoreload=True, texture=()):
+               autoreload=True, texture=(), origin=None):
     """塞给 JS 的那份数据。JSON 里不能出现 `</`（会被当成标签结束），故转义掉。
 
     十二席的职位 / 称号 / 城邦由 R.ctx 现算 —— 它们只随词表变，与演算无关。
@@ -457,6 +472,9 @@ def _data_blob(R, pts, lines, total, marks, table, seats_per_sample,
         # 只读；当前只随数据下发（供后续画「演化地形图」），页面暂未绘制。
         "texture": [[int(t[0]), float(t[1]), float(t[2]), int(t[3])]
                     for t in (texture or ())],
+        # 原初读数（曲线 / 记忆泳道 / 锚点刻度）：与指标曲线共用同一套 JS 绘制，
+        # 故它只是这份数据里的又一条序列；canonical 世界恒为空对象 ⇒ 页面逐字不变。
+        "origin": origin or {},
         "live": bool(live),
         # 演算跑完、服务端备好完整静态页之后：默认自动重载过去；关掉则右下角弹提示
         # （`--no-serve-reload`）。静态页用不到它，留着无害。
@@ -593,10 +611,24 @@ h2{font-size:15px;color:var(--gold);margin:26px 0 10px;font-weight:600;
 #liveflag{color:#7fe0a0;}
 noscript p{font-size:12px;color:var(--dim);}
 code{background:#0b0d13;border-radius:4px;padding:1px 5px;font-size:11.5px;}
+/* 原初（第十三席）专属小节：图与指标曲线共用同一套 JS（对数帧轴 + 缩放 + 悬停） */
+.origin-box{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+ padding:10px 12px;margin-bottom:14px;}
+/* 小节里的图容器只借 .chart-box 的定位上下文，不再叠一层边框 */
+.origin-box .chart-box{background:none;border:0;padding:0;margin:0;}
+.origin-head{font-size:12.5px;color:#aeb6c8;}
+.origin-head b{color:var(--gold);font-weight:600;margin-right:2px;}
+.origin-note{font-size:11px;color:var(--dim);margin-top:5px;}
+.origin-legend{font-size:11px;color:var(--dim);margin-top:5px;}
+.origin-legend span{display:inline-block;margin-right:12px;}
+.origin-legend i{display:inline-block;width:8px;height:8px;border-radius:2px;
+ margin-right:4px;vertical-align:middle;}
 """
 
 
 # ---- 内联 JS：图表绘制 / 缩放平移 / 回放 / 检索 / 实时 ----------------------
+# 原初（第十三席）的四张图也由这一套画：同一把对数帧轴、同一个 win 时间窗、
+# 同一套滚轮缩放 / 拖动平移 / 悬停读数 —— 不再另写一份 viewBox 缩放。
 _JS = r"""
 (function(){
   var D = JSON.parse(document.getElementById('viz-data').textContent);
@@ -739,6 +771,7 @@ _JS = r"""
   function drawAll(){
     for (var i = 0; i < CHARTS.length; i++) drawChart(CHARTS[i]);
     drawTimeline();
+    drawOrigin();
     cursorLine();
     if ($('listmode') && $('listmode').checked) renderEventList();
     var txt = fmt(Math.round(win.lo)) + ' – ' + fmt(Math.round(win.hi)) + ' 帧';
@@ -1019,6 +1052,312 @@ _JS = r"""
       e.preventDefault();
       revealInChronicle(marks[j][4], marks[j][0]);   // 事件号优先，帧号兜底
     });
+  }
+
+  // ---------- 原初（第十三席）图表 ----------
+  // 与上面的指标曲线【共用】同一套 win / xOf / bindZoom / .tip：滚轮缩放、按住拖动、
+  // 悬停读数全部一致；缩放的是同一段【对数帧窗口】，不是 SVG 的 viewBox。
+  var ORIGIN = D.origin || null;
+  var ORI = (ORIGIN && ORIGIN.series) || [];
+  var OMEM = (ORIGIN && ORIGIN.memory) || [];
+  var OANC = (ORIGIN && ORIGIN.anchors) || [];
+  var OW = (ORIGIN && ORIGIN.stagewords) || {};
+  var OC = (ORIGIN && ORIGIN.stagecolors) || {};
+  var OL = (ORIGIN && ORIGIN.labels) || ['自我度', '能量'];
+
+  function visibleOrigin(){
+    var out = [], i;
+    for (i = 0; i < ORI.length; i++){
+      if (ORI[i][0] >= win.lo && ORI[i][0] <= win.hi) out.push(ORI[i]);
+    }
+    for (i = ORI.length - 1; i >= 0; i--){
+      if (ORI[i][0] < win.lo){ out.unshift(ORI[i]); break; }
+    }
+    for (i = 0; i < ORI.length; i++){
+      if (ORI[i][0] > win.hi){ out.push(ORI[i]); break; }
+    }
+    return out;
+  }
+  function originNear(f){
+    var best = null, bd = Infinity;
+    for (var i = 0; i < ORI.length; i++){
+      var d = Math.abs(ORI[i][0] - f);
+      if (d < bd){ bd = d; best = ORI[i]; }
+    }
+    return best;
+  }
+  // 读数浮层：与指标曲线同一个 `.tip`、同一套摆位（右侧放不下就翻到左边）。
+  function showTip(tip, svg, e, text){
+    if (!tip) return;
+    if (!text){ tip.style.display = 'none'; return; }
+    tip.textContent = text;
+    tip.style.display = 'block';
+    var b = svg.parentNode.parentNode.getBoundingClientRect();
+    var x = e.clientX - b.left + 8;
+    if (x > b.width / 2){ tip.style.right = Math.max(8, b.width - x + 16) + 'px';
+                          tip.style.left = 'auto'; }
+    else { tip.style.left = Math.max(8, x) + 'px'; tip.style.right = 'auto'; }
+  }
+  function bindOriginTip(svg, fn){
+    if (!svg) return;
+    var tip = svg.parentNode.parentNode.querySelector('.tip');
+    svg.addEventListener('mousemove', function(e){
+      if (!tip) return;
+      var r = svg.getBoundingClientRect();
+      showTip(tip, svg, e, fn((e.clientX - r.left) / r.width * W));
+    });
+    svg.addEventListener('mouseleave', function(){
+      if (tip) tip.style.display = 'none';
+    });
+  }
+  // 十进制刻度：跟着窗口走 —— 放大到某一带时，剩下的都是那一带的整数级刻度。
+  function decadeTicks(parts, top, bot){
+    var p = Math.pow(10, Math.floor(log10(win.lo)));
+    while (p <= win.hi * 1.00001){
+      if (p >= win.lo){
+        var gx = xOf(p);
+        parts.push('<line x1="' + gx.toFixed(1) + '" y1="' + top + '" x2="' + gx.toFixed(1) +
+                   '" y2="' + bot + '" stroke="#2a2f3d" stroke-width="1"/>');
+        parts.push('<text x="' + gx.toFixed(1) + '" y="' + (bot + 13) +
+                   '" fill="#8b93a7" font-size="9.5" text-anchor="middle">' +
+                   fmt(Math.round(p)) + '</text>');
+      }
+      p *= 10;
+    }
+  }
+
+  function drawOriginCurves(){
+    var box = $('ocv1'); if (!box) return;
+    var S = visibleOrigin(), h = 176, top = 16, bot = h - 26;
+    var parts = ['<svg viewBox="0 0 ' + W + ' ' + h +
+                 '" class="chart" preserveAspectRatio="none">'];
+    for (var g = 0; g <= 4; g++){
+      var gy = top + (bot - top) * g / 4;
+      parts.push('<line x1="' + PAD + '" y1="' + gy.toFixed(1) + '" x2="' + (W - PAD) +
+                 '" y2="' + gy.toFixed(1) + '" stroke="#222633" stroke-width="1" ' +
+                 'opacity="0.75"/>');
+    }
+    decadeTicks(parts, top, bot);
+    var legend = [], cols = ['#7fd0ff', '#e8c06a'];
+    for (var k = 0; k < 2; k++){
+      var idx = k + 1;
+      var vals = S.map(function(p){ return p[idx]; });
+      if (!vals.length) continue;
+      var vmin = Math.min.apply(null, vals), vmax = Math.max.apply(null, vals);
+      if (vmax === vmin){ vmax += 1; vmin -= 1; }
+      var poly = S.map(function(p){
+        var y = bot - (p[idx] - vmin) / (vmax - vmin) * (bot - top);
+        return xOf(p[0]).toFixed(1) + ',' + y.toFixed(1);
+      }).join(' ');
+      parts.push('<polyline points="' + poly + '" fill="none" stroke="' + cols[k] +
+                 '" stroke-width="1.6"/>');
+      legend.push('<span style="color:' + cols[k] + '">■</span> ' + esc(OL[k]) +
+                  ' <em>[' + vmin + ' ~ ' + vmax + ']</em>');
+    }
+    for (var q = 0; q < ORI.length; q++){
+      if (!ORI[q][3] || ORI[q][0] < win.lo || ORI[q][0] > win.hi) continue;
+      var cx = xOf(ORI[q][0]).toFixed(1);
+      parts.push('<line x1="' + cx + '" y1="' + top + '" x2="' + cx + '" y2="' + bot +
+                 '" stroke="#e8c06a" stroke-width="1" stroke-dasharray="3 3" ' +
+                 'opacity="0.8"/>');
+      break;
+    }
+    parts.push('<line class="curline" x1="0" y1="' + top + '" x2="0" y2="' + bot +
+               '" stroke="#e8c06a" stroke-width="1" stroke-dasharray="4 3" opacity="0"/>');
+    parts.push('</svg>');
+    box.innerHTML = parts.join('');
+    var lg = $('olg1'); if (lg) lg.innerHTML = legend.join(' &nbsp; ');
+    bindOriginTip(box.firstChild, function(ux){
+      var s = originNear(frameAt(ux)); if (!s) return '';
+      var stage = s[4] ? ('（' + (OW[String(s[4])] || s[4]) + ' ' + s[4] + '/4）') : '';
+      return '帧 ' + fmt(s[0]) + ' · ' + OL[0] + ' ' + s[1] + ' · ' + OL[1] + ' ' + s[2] +
+             ' · 记忆闭合 ' + (s[3] ? '是' : '否') + ' · 忆灵 ' + (s[6] ? '在' : '散') +
+             stage + ' · 携 ' + s[5] + ' 段';
+    });
+  }
+
+  function drawOriginMemory(){
+    var box = $('ocv2'); if (!box) return;
+    var h = 26 * OMEM.length + 30;
+    var parts = ['<svg viewBox="0 0 ' + W + ' ' + h +
+                 '" class="chart" preserveAspectRatio="none">'];
+    decadeTicks(parts, 6, h - 18);
+    for (var i = 0; i < OMEM.length; i++){
+      var lane = OMEM[i], y = 12 + i * 26;
+      var name = lane.label || '';
+      if (name.length > 14) name = name.slice(0, 13) + '…';
+      parts.push('<text x="' + (PAD - 6) + '" y="' + (y + 10) + '" fill="#d8dbe6" ' +
+                 'font-size="10.5" text-anchor="end">' + esc(name) + '</text>');
+      if (!lane.start || !lane.phases.length){
+        parts.push('<text x="' + (PAD + 2) + '" y="' + (y + 10) +
+                   '" fill="#8b93a7" font-size="9.5">未转印</text>');
+        continue;
+      }
+      var cur = lane.start;
+      for (var j = 0; j < lane.phases.length; j++){
+        var ph = lane.phases[j];
+        var end = ph.d <= 0 ? TOTAL : Math.min(TOTAL, cur + ph.d);
+        if (end <= cur) end = cur + Math.max(1, Math.floor(TOTAL / 400));
+        if (end >= win.lo && cur <= win.hi){
+          var x1 = xOf(Math.max(cur, win.lo)), x2 = xOf(Math.min(end, win.hi));
+          var w = Math.max(1.5, x2 - x1);
+          parts.push('<rect x="' + x1.toFixed(1) + '" y="' + y + '" width="' + w.toFixed(1) +
+                     '" height="13" rx="2" fill="' + ph.color + '" opacity="' +
+                     (j === lane.cur ? 0.92 : 0.45) + '"/>');
+          // 文本显隐：放得下才在条上写阶段名，放不下就交给悬停读数。
+          if (w > 56){
+            parts.push('<text x="' + (x1 + 3).toFixed(1) + '" y="' + (y + 10) +
+                       '" fill="#0f1117" font-size="8.5">' + esc(ph.label) + '</text>');
+          }
+        }
+        cur = end;
+      }
+      if (lane.start >= win.lo && lane.start <= win.hi){
+        parts.push('<text x="' + (xOf(lane.start) + 3).toFixed(1) + '" y="' + (y + 11) +
+                   '" fill="#0f1117" font-size="8.5">' +
+                   (lane.transferred ? '✓' : '…') + '</text>');
+      }
+    }
+    parts.push('</svg>');
+    box.innerHTML = parts.join('');
+    bindOriginTip(box.firstChild, function(ux){
+      var f = frameAt(ux);
+      for (var i = 0; i < OMEM.length; i++){
+        var lane = OMEM[i];
+        if (!lane.start || !lane.phases.length) continue;
+        var cur = lane.start;
+        for (var j = 0; j < lane.phases.length; j++){
+          var ph = lane.phases[j];
+          var end = ph.d <= 0 ? TOTAL : Math.min(TOTAL, cur + ph.d);
+          if (end <= cur) end = cur + Math.max(1, Math.floor(TOTAL / 400));
+          if (f >= cur && f <= end){
+            return lane.label + ' · 阶段 ' + (j + 1) + '/' + lane.phases.length +
+                   ' · ' + ph.label + '（' + ph.effect + ' · ' + ph.d + ' 帧）';
+          }
+          cur = end;
+        }
+      }
+      return '';
+    });
+  }
+
+  function drawOriginCompanion(){
+    var box = $('ocv3'); if (!box) return;
+    var h = 78, y0 = 30, y1 = 46, i;
+    var runs = [];
+    for (i = 0; i < ORI.length; i++){
+      var alive = !!ORI[i][6], stage = ORI[i][4];
+      var last = runs[runs.length - 1];
+      if (last && last.alive === alive && last.stage === stage) last.b = ORI[i][0];
+      else runs.push({alive: alive, stage: stage, a: ORI[i][0], b: ORI[i][0]});
+    }
+    var parts = ['<svg viewBox="0 0 ' + W + ' ' + h +
+                 '" class="chart" preserveAspectRatio="none">',
+                 '<line x1="' + PAD + '" y1="' + ((y0 + y1) / 2) + '" x2="' + (W - PAD) +
+                 '" y2="' + ((y0 + y1) / 2) + '" stroke="#2a2f3d" stroke-width="1"/>'];
+    for (i = 0; i < runs.length; i++){
+      var r = runs[i];
+      if (r.b < win.lo || r.a > win.hi) continue;
+      var x1 = xOf(Math.max(r.a, win.lo)), x2 = xOf(Math.min(r.b, win.hi));
+      var w = Math.max(1.5, x2 - x1);
+      if (r.alive){
+        parts.push('<rect x="' + x1.toFixed(1) + '" y="' + y0 + '" width="' + w.toFixed(1) +
+                   '" height="' + (y1 - y0) + '" rx="2" fill="' +
+                   (OC[String(r.stage)] || '#6fa8dc') + '" opacity="0.85"/>');
+      }
+      var prevAlive = i > 0 ? runs[i - 1].alive : null;
+      if (prevAlive !== null){
+        if (r.alive && !prevAlive){
+          parts.push('<text x="' + x1.toFixed(1) + '" y="' + (y0 - 4) + '" fill="#7fe0a0" ' +
+                     'font-size="9.5" text-anchor="middle">凝</text>');
+        } else if (!r.alive && prevAlive){
+          parts.push('<text x="' + x1.toFixed(1) + '" y="' + (y1 + 14) + '" fill="#ff8a8a" ' +
+                     'font-size="9.5" text-anchor="middle">散</text>');
+        } else if (r.alive && r.stage > 0){
+          parts.push('<text x="' + x1.toFixed(1) + '" y="' + (y0 - 4) + '" fill="#e8c06a" ' +
+                     'font-size="9" text-anchor="middle">' +
+                     esc(OW[String(r.stage)] || '') + '</text>');
+        }
+      }
+    }
+    parts.push('<line class="curline" x1="0" y1="' + y0 + '" x2="0" y2="' + y1 +
+               '" stroke="#e8c06a" stroke-width="1" stroke-dasharray="4 3" opacity="0"/>');
+    parts.push('</svg>');
+    box.innerHTML = parts.join('');
+    bindOriginTip(box.firstChild, function(ux){
+      var f = frameAt(ux);
+      for (var i = 0; i < runs.length; i++){
+        var r = runs[i];
+        if (f < r.a || f > r.b) continue;
+        if (!r.alive) return '忆灵 · 散（' + fmt(r.a) + ' – ' + fmt(r.b) + ' 帧）';
+        return '忆灵 · ' + (OW[String(r.stage)] || r.stage) + '（' + r.stage + '/4）· ' +
+               fmt(r.a) + ' – ' + fmt(r.b) + ' 帧';
+      }
+      return '';
+    });
+  }
+
+  function drawOriginAnchors(){
+    var box = $('ocv4'); if (!box) return;
+    var h = 92, base = 52;
+    var parts = ['<svg viewBox="0 0 ' + W + ' ' + h +
+                 '" class="chart" preserveAspectRatio="none">',
+                 '<line x1="' + PAD + '" y1="' + base + '" x2="' + (W - PAD) +
+                 '" y2="' + base + '" stroke="#2a2f3d" stroke-width="1"/>'];
+    // 刻度常显；文字默认收起 —— 鼠标靠近某一手才展开（与时间线节点同一套）。
+    for (var i = 0; i < OANC.length; i++){
+      var a = OANC[i];
+      if (a.frame < win.lo || a.frame > win.hi) continue;
+      var ax = xOf(a.frame), up = i % 2 === 0;
+      var y2 = up ? base - 16 : base + 16;
+      var ty = up ? y2 - 5 : y2 + 11;
+      parts.push('<line x1="' + ax.toFixed(1) + '" y1="' + base + '" x2="' + ax.toFixed(1) +
+                 '" y2="' + y2 + '" stroke="#e8c06a" stroke-width="1.2"/>');
+      parts.push('<text class="al" data-i="' + i + '" x="' + ax.toFixed(1) + '" y="' + ty +
+                 '" fill="#e8c06a" font-size="9.5" text-anchor="middle" opacity="0">' +
+                 esc(a.label) + '</text>');
+    }
+    parts.push('<line class="curline" x1="0" y1="' + (base - 16) + '" x2="0" y2="' +
+               (base + 16) + '" stroke="#e8c06a" stroke-width="1" stroke-dasharray="4 3" ' +
+               'opacity="0"/>');
+    parts.push('</svg>');
+    box.innerHTML = parts.join('');
+    var svg = box.firstChild;
+    var tip = svg.parentNode.parentNode.querySelector('.tip');
+    var labels = svg.querySelectorAll('text.al');
+    function hideLabels(){
+      for (var t = 0; t < labels.length; t++) labels[t].setAttribute('opacity', '0');
+    }
+    svg.addEventListener('mousemove', function(e){
+      var r = svg.getBoundingClientRect();
+      var ux = (e.clientX - r.left) / r.width * W;
+      var near = -1, nd = 22;
+      for (var j = 0; j < OANC.length; j++){
+        if (OANC[j].frame < win.lo || OANC[j].frame > win.hi) continue;
+        var dd = Math.abs(xOf(OANC[j].frame) - ux);
+        if (dd < nd){ nd = dd; near = j; }
+      }
+      for (var t = 0; t < labels.length; t++){
+        labels[t].setAttribute(
+          'opacity', Number(labels[t].getAttribute('data-i')) === near ? '1' : '0');
+      }
+      if (near < 0 || !tip){ if (tip) tip.style.display = 'none'; return; }
+      var a = OANC[near];
+      showTip(tip, svg, e, '@' + fmt(a.frame) + ' · ' + a.label +
+              ' · 花费 ' + a.cost.toFixed(1) + (a.keep ? ' · 必留' : ''));
+    });
+    svg.addEventListener('mouseleave', function(){
+      hideLabels();
+      if (tip) tip.style.display = 'none';
+    });
+  }
+
+  function drawOrigin(){
+    if (!ORIGIN) return;
+    drawOriginCurves();
+    drawOriginMemory();
+    drawOriginCompanion();
+    drawOriginAnchors();
   }
 
   // ---------- 回放 ----------
@@ -1426,6 +1765,8 @@ _JS = r"""
   bindSeatHover();
   bindStageClicks();
   bindZoom($('cv1')); bindZoom($('cv2')); bindZoom($('tl-box'));   // 挂在稳定的 div 上
+  // 原初四张图挂在同一套缩放上：放大 / 平移的是同一段对数帧窗口，主曲线跟着一起动。
+  bindZoom($('ocv1')); bindZoom($('ocv2')); bindZoom($('ocv3')); bindZoom($('ocv4'));
   drawAll();
   applyCursor();
   if (live) poll();
@@ -1542,7 +1883,181 @@ def _rules_html(ctx, traj):
             f'<div class="obsrow">{cells}</div></div>')
 
 
-def _page(R, title, live, cards_html, seats_html, blob, stages_html="", rules_html=""):
+# ---- 原初（第十三席）专属小节 ----------------------------------------------
+#
+# 只读 `traj.origin`（回望收尾时写入的真实读数）与采样序列，整理成一份数据交给
+# 页面 —— 四张图与【指标曲线】共用同一套前端（同一把对数帧轴、同一个时间窗、
+# 同一套滚轮缩放 / 拖动平移 / 悬停读数）。canonical 世界没有 `traj.origin`
+# ⇒ 整块不渲染，页面逐字不变。
+
+_ORIGIN_STATE_WORDS = {
+    "origin_closed": "已闭合", "origin_open": "未闭合",
+    "origin_unstable": "不稳定", "origin_absent": "未成形",
+}
+_ORIGIN_STAGE_WORDS = {0: "未凝", 1: "初凝", 2: "同行", 3: "承忆", 4: "忆者"}
+_ORIGIN_STAGE_COLORS = {1: "#6fa8dc", 2: "#8fbc8f", 3: "#e8c06a", 4: "#d98cb3"}
+_ORIGIN_EFFECT_COLORS = {
+    "fitness": "#8fbc8f", "support": "#8fbc8f", "energy": "#e8c06a",
+    "selfhood": "#d98cb3", "coupling": "#6fa8dc", "mutation": "#9b8fd6",
+    "memory_seat": "#7fc7c7", "rebind": "#7fc7c7",
+}
+_ORIGIN_ACTION_WORDS = {
+    "wake_origin": "唤醒", "seed_memory": "记忆", "open_gate": "开门",
+    "bind_memory": "补席", "repair_slot": "补席",
+}
+
+
+def _origin_pts(summary, series, total):
+    """采样序列 + 收尾补点；极短轨道（采样没赶上）时至少留一个点。"""
+    total = max(2, int(total or summary.get("reached_frame", 0) or 2))
+    pts = [tuple(p) for p in (series or ()) if int(p[0]) >= 1]
+    if not pts and bool(summary.get("ever")):
+        pts = [(max(1, int(summary.get("reached_frame", total) or total)),
+                float(summary.get("selfhood", 0.0)),
+                float(summary.get("energy", 0.0)),
+                int(bool(summary.get("closure"))),
+                int(summary.get("companion_stage", 0)),
+                int(summary.get("companion_carry", 0)),
+                bool(summary.get("companion_alive")))]
+    return pts, total
+
+
+def _anchor_label(a) -> str:
+    """锚点刻度上那行字：动作词 · 目标节点（词表缺项就退回原样）。"""
+    word = _ORIGIN_ACTION_WORDS.get(str(a.get("action") or ""),
+                                    str(a.get("action") or "锚"))
+    node = str(a.get("node") or "")
+    return f"{word}·{node}" if node else word
+
+
+def origin_payload(summary, series, total) -> dict:
+    """交给页面的原初读数（与指标曲线同一份数据通道、同一把对数帧轴）。
+
+    只做整理：曲线点 / 记忆泳道 / 锚点刻度 / 阶段配色与文案。坐标、缩放与悬停
+    读数全部由页面按同一套 JS 现算 —— 于是在原初图上滚轮，主曲线也会一起缩放。
+    """
+    if not summary:
+        return {}
+    pts, total = _origin_pts(summary, series, total)
+    lanes = []
+    for f in (summary.get("memory_fragments") or ()):
+        if not isinstance(f, dict):
+            continue
+        phases = []
+        for ph in (f.get("phases") or ()):
+            eff = str(ph.get("effect") or "")
+            phases.append({"d": int(ph.get("duration", 0) or 0),
+                           "label": str(ph.get("label") or f.get("label") or ""),
+                           "effect": eff,
+                           "color": _ORIGIN_EFFECT_COLORS.get(eff, "#8b93a7")})
+        lanes.append({"label": str(f.get("label") or f.get("id") or ""),
+                      "start": int(f.get("start_frame", -1) or -1),
+                      "cur": int(f.get("phase_index", 0) or 0),
+                      "transferred": bool(f.get("transferred")),
+                      "phases": phases})
+    anchors = [{"frame": int(a.get("frame", 0) or 0),
+                "label": _anchor_label(a),
+                "cost": float(a.get("cost", 0.0) or 0.0),
+                "keep": bool(a.get("keep"))}
+               for a in (summary.get("anchor_frames") or ())
+               if int(a.get("frame", 0) or 0) >= 1]
+    return {
+        "series": [[int(p[0]), round(float(p[1]), 5), round(float(p[2]), 5),
+                    int(p[3]), int(p[4]), int(p[5]), 1 if p[6] else 0]
+                   for p in pts],
+        "memory": lanes,
+        "anchors": anchors,
+        "stagewords": {str(k): v for k, v in _ORIGIN_STAGE_WORDS.items()},
+        "stagecolors": {str(k): v for k, v in _ORIGIN_STAGE_COLORS.items()},
+        "labels": ["自我度", "能量"],
+        "total": int(total),
+    }
+
+
+def origin_panel(summary, series, total) -> str:
+    """原初专属小节：双曲线 / 记忆泳道 / 忆灵生命线 / 锚点借还刻度。
+
+    四张图由页面用【指标曲线那一套】JS 现画（同一把对数帧轴、同一套缩放平移与
+    悬停读数），这里只摆容器、图例与收尾读数。没有原初读数（canonical 世界）
+    时返回空串 —— 页面逐字不变。
+    """
+    if not summary:
+        return ""
+    pts, total = _origin_pts(summary, series, total)
+    state = str(summary.get("state") or "")
+    head = (f'<div class="origin-head"><b>'
+            f'{html.escape(_ORIGIN_STATE_WORDS.get(state, state or "原初"))}</b>'
+            f' · 自我度 {float(summary.get("selfhood", 0.0)):.4f}'
+            f' · 能量 {float(summary.get("energy", 0.0)):.2f}</div>')
+    if not pts:
+        return ("<h2>原初（第十三席）</h2>\n"
+                f'<div class="origin-box">{head}'
+                '<div class="origin-note">（这次没有采到原初读数）</div></div>')
+    out = ["<h2>原初（第十三席）</h2>",
+           '<div class="origin-note">与指标曲线共用同一套读图：滚轮缩放 · 按住拖动平移 · '
+           '双击复位 · 悬停看该帧 / 该阶段 / 该手锚点的读数（缩放的是同一段对数帧窗口）</div>',
+           f'<div class="origin-box">{head}</div>']
+    out.append('<div class="origin-box">'
+               '<div class="chart-title">自我度 / 能量（对数帧轴）</div>'
+               '<div class="chart-box"><div class="tip"></div><div id="ocv1"></div>'
+               '<div class="legend" id="olg1"></div></div>'
+               '<div class="origin-legend">'
+               '<span><i style="background:#7fd0ff"></i>自我度</span>'
+               '<span><i style="background:#e8c06a"></i>能量</span>'
+               '<span><i style="background:#e8c06a;opacity:.5"></i>竖虚线 = 记忆闭合</span>'
+               '</div></div>')
+    frags = [f for f in (summary.get("memory_fragments") or ())
+             if isinstance(f, dict)]
+    if frags:
+        mem_list = " · ".join(
+            f"{html.escape(str(f.get('label') or f.get('id') or ''))}"
+            f"（{len(f.get('phases') or ()) or 1} 阶段"
+            f"{' · 已转印' if f.get('transferred') else ''}）" for f in frags)
+        mem_note = f'<div class="origin-legend">记忆片段：{mem_list}</div>'
+    else:
+        mem_note = '<div class="origin-note">（本轨道没有记忆片段）</div>'
+    out.append('<div class="origin-box">'
+               '<div class="chart-title">记忆阶段泳道</div>'
+               '<div class="chart-box"><div class="tip"></div><div id="ocv2"></div></div>'
+               + mem_note +
+               '<div class="origin-legend">'
+               '<span><i style="background:#8fbc8f"></i>fitness / support</span>'
+               '<span><i style="background:#e8c06a"></i>energy</span>'
+               '<span><i style="background:#d98cb3"></i>selfhood</span>'
+               '<span><i style="background:#6fa8dc"></i>coupling</span>'
+               '<span><i style="background:#9b8fd6"></i>mutation</span>'
+               '</div></div>')
+    comp_note = ""
+    spawn = int(summary.get("companion_spawn", 0))
+    stage = int(summary.get("companion_stage", 0))
+    if spawn > 0 or stage > 0:
+        comp_note = (f'<div class="origin-note">凝聚 {spawn} 次 · 成长 '
+                     f'{_ORIGIN_STAGE_WORDS.get(stage, stage)}（{stage}/4）· 携 '
+                     f'{int(summary.get("companion_carry", 0))} 段记忆</div>')
+    out.append('<div class="origin-box">'
+               '<div class="chart-title">忆灵生命线（凝 / 散 / 再凝）</div>'
+               '<div class="chart-box"><div class="tip"></div><div id="ocv3"></div></div>'
+               + comp_note + '</div>')
+    anchors = [a for a in (summary.get("anchor_frames") or ())
+               if int(a.get("frame", 0) or 0) >= 1]
+    anc_list = (" · ".join(f"{html.escape(_anchor_label(a))}"
+                           f" @{int(a.get('frame', 0)):,}" for a in anchors)
+                if anchors else "")
+    out.append('<div class="origin-box">'
+               '<div class="chart-title">锚点借还刻度（每一手借出落在哪一帧）</div>'
+               '<div class="chart-box"><div class="tip"></div><div id="ocv4"></div></div>'
+               + (f'<div class="origin-legend">锚点：{anc_list}</div>' if anc_list else "")
+               + '<div class="origin-note">借出 '
+               f'{int(summary.get("borrowed", 0))} 手 · 还上 '
+               f'{int(summary.get("repaid", 0))} 笔 · 缺失 '
+               f'{int(summary.get("missing", 0))}'
+               + ("" if anchors else "（这次没有借出锚点 —— 世界自己走到了这里）")
+               + '</div></div>')
+    return "\n".join(out)
+
+
+def _page(R, title, live, cards_html, seats_html, blob, stages_html="", rules_html="",
+          origin_html=""):
     """把各部分拼成一张完整的页面（静态导出与实时看板共用）。"""
     js = _JS.replace("__ROWS__", "120")
     note = ('<div class="sub" id="sub">实时看板 —— 演算每前进一步，本页自动跟着更新'
@@ -1579,6 +2094,7 @@ def _page(R, title, live, cards_html, seats_html, blob, stages_html="", rules_ht
          title="拖动查看任意时刻（按对数时间轴）">
   <span id="cursor" class="dim"></span>
 </div></div>
+{origin_html}
 <h2>十二席状态（A2）</h2>
 {seats_html}
 {stages_html}
@@ -1644,7 +2160,7 @@ def summary_cards(ctx, traj, genesis=None):
     st = traj.final
     prop = ((genesis or {}).get("proposition") or {})
     note, pid = str(prop.get("note", "")), str(prop.get("id", ""))
-    return [
+    cards = [
         ("命题", f"{note}   [{pid}]" if pid else note, False),
         ("结论", traj.conclusion.get("template", ""), False),
         ("结论编号", traj.conclusion.get("id", ""), True),
@@ -1654,15 +2170,95 @@ def summary_cards(ctx, traj, genesis=None):
         ("最终状态", f"熵 {st.entropy:.4f} · {R.term('overflow')} {st.noise:.4f} · "
                      f"{R.term('promotion')} {st.promotions} 次", False),
     ]
+    # 原初世界单独一张卡（canonical 世界没有 traj.origin，故逐字不变）。
+    o = getattr(traj, "origin", None)
+    if o:
+        form = {0: "沉睡", 1: "苏醒", 2: "忆灵"}.get(int(o.get("form", 0)), "?")
+        comp = int(o.get("companion_serial", -1))
+        host = int(o.get("companion_host", -1))
+        if comp >= 0:
+            comp_txt = f" · 忆灵 #{comp}"
+            if host != -1:
+                comp_txt += f"（依附 #{host}）"
+        elif form == "忆灵":
+            comp_txt = " · 忆灵（散·待再凝）"
+        else:
+            comp_txt = ""
+        rh = int(o.get("resonance_host", -1))
+        if rh != -1:
+            comp_txt += f" · 共鸣 #{rh}"
+        frags = o.get("memory_fragments") or []
+        if frags:
+            comp_txt += " · 记忆 " + "、".join(
+                str(f.get("label") or f.get("id"))
+                + ("(持续)" if f.get("sustain") else "") for f in frags)
+        elif o.get("savior_active"):
+            comp_txt += " · 救世主记忆"
+        cards.append((
+            "原初",
+            f"形态 {form} · 自我度 {float(o.get('selfhood', 0.0)):.3f}"
+            f" · 十二因子 {int(o.get('factor_rows', 0))}/12"
+            f" · 借还 {int(o.get('borrowed', 0))}/{int(o.get('repaid', 0))}"
+            f" · 缺失 {int(o.get('missing', 0))}"
+            f" · 记忆席位 {int(o.get('memory_seats', 0))}{comp_txt}",
+            False))
+        # 第十三席（meta 席）自己的一张卡：席位此刻归谁、原初是否在位、忆灵长到哪一步。
+        meta = meta_indices(st)
+        li = int(meta[0]) if meta else -1
+        if 0 <= li < len(st.register.slots):
+            owner = st.register.slots[li].owner
+            if owner is None:
+                seat_txt = "空席"
+            elif int(owner) >= 0:
+                seat_txt = f"#{int(owner)} {_resolve(traj, _name_map(traj), int(owner))}"
+            else:
+                seat_txt = f"#{int(owner)}（场外）"
+            stage = int(o.get("companion_stage", 0))
+            stage_word = {0: "未凝", 1: "初凝", 2: "同行", 3: "承忆",
+                          4: "忆者"}.get(stage, str(stage))
+            l12 = (f"L{li:02d} · 席位 {seat_txt}"
+                   f" · 自我度 {float(o.get('selfhood', 0.0)):.3f}"
+                   f" · 忆灵 {stage_word}（{stage}/4）")
+            if comp >= 0:
+                l12 += (f" · 陪伴 {int(o.get('companion_age', 0))} 帧"
+                        f" · 携 {int(o.get('companion_carry', 0))} 段记忆")
+            if int(o.get("path_members", 0)) > 0:
+                l12 += f" · 命途行者 {int(o.get('path_members', 0))}"
+            if int(o.get("emanators", 0)) > 0:
+                l12 += f" · 令使 {int(o.get('emanators', 0))}"
+            cards.append(("第十三席", l12, False))
+    return cards
 
 
-def build_html(ctx, traj, points, lines=None, title=None, data=None, texture=None):
+def _origin_series(traj, series):
+    """采样序列 + 收尾那一帧（真终局，不是最后一个采样点）。"""
+    pts = list(series or ())
+    st = getattr(traj, "final", None)
+    o = getattr(st, "origin", None)
+    if o is None or not bool(getattr(o, "ever", False)):
+        return pts
+    reached = int(getattr(traj, "reached_frame", 0) or 0)
+    if pts and int(pts[-1][0]) >= reached:
+        return pts
+    cs = int(getattr(o, "companion_serial", -1))
+    pts.append((max(1, reached), round(float(o.selfhood), 5),
+                round(float(o.energy), 5), int(o.closure),
+                int(getattr(o, "companion_stage", 0)),
+                int(getattr(o, "companion_carry", 0)),
+                bool(cs >= 0 and st.pool.index_of_serial(cs) >= 0)))
+    return pts
+
+
+def build_html(ctx, traj, points, lines=None, title=None, data=None, texture=None,
+               origin_series=None):
     """把一次演算装配成单文件 HTML（静态导出）。
 
     points 来自 Sampler（可为 None）；lines 是编年史行 [(frame, text, badge, rid), ...]
     （`rid` = 事件号，与时间线打点末尾那个同源 —— 供双击节点精确回跳）。
     data 用来摆「阶段目录」（`stage_table` 需要 `genesis.domain.stages`）——
     不给就整块略过（老调用方与实时看板都不受影响）。
+    origin_series 是 `Sampler.origin`（原初读数采样）；只有 origin 世界会有内容，
+    canonical 世界 `traj.origin` 与它都为空 ⇒ 原初小节整块不渲染。
     """
     R = Renderer(ctx, getattr(traj, "spans", ()), cycle_frames(traj),
                  myth_phase_frame(traj))
@@ -1681,13 +2277,18 @@ def build_html(ctx, traj, points, lines=None, title=None, data=None, texture=Non
     promos = [(f, p.get("round", 0)) for f, k, p in traj.records if k == "PROMOTION"]
     spans = [(s, e) for _k, s, e in traj.spans]
     rows = list(lines or [])[:_CHRON_LIMIT]
+    osum = getattr(traj, "origin", None) or {}
+    oser = _origin_series(traj, origin_series)
     blob = _data_blob(R, pts, rows, total, marks, table, seats_per_sample,
                       promos, spans, machines=mach, stages=stages,
-                      mythfrom=myth_phase_frame(traj), texture=texture)
+                      mythfrom=myth_phase_frame(traj), texture=texture,
+                      origin=origin_payload(osum, oser, total))
+    origin_html = origin_panel(osum, oser, total)
     return _page(R, title or "δ-me13 演算可视化", False, _cards_html(cards),
                  _seats_html(_seat_cards(ctx, traj, names, machines), tau,
                              show_places=myth_phase_frame(traj) is not None),
-                 blob, _stages_html(stages), _rules_html(ctx, traj))
+                 blob, _stages_html(stages), _rules_html(ctx, traj),
+                 origin_html=origin_html)
 
 
 def build_live_shell(ctx, total, title=None, autoreload=True):

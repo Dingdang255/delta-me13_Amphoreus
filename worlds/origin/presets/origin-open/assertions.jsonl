@@ -1,0 +1,6 @@
+{"assert": "origin_ever", "expect": true}
+{"assert": "origin_closure", "expect": 0}
+{"assert": "origin_missing", "expect": 0}
+{"assert": "origin_borrowed", "expect": 3}
+{"assert": "origin_repaid", "expect": 2}
+{"assert": "verdict", "expect": "origin_open"}

@@ -1,0 +1,8 @@
+{
+  "nodes": [
+    {"id": "S01_AWAKE", "feature": "origin_awake", "op": "eq", "value": true,
+     "label": "原初被外部干涉唤醒"},
+    {"id": "S02_TRAILBLAZE", "feature": "origin_trailblaze", "op": "ge", "value": 1,
+     "label": "开拓真的发生：停滞时内生地改方向 / 开门"}
+  ]
+}

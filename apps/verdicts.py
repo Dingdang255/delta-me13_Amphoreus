@@ -30,9 +30,40 @@ def _when_stalled_and_exhausted(st, cfg, sig):
     return sig["stalled"] and st.domains_exhausted
 
 
+def _origin_settled(st) -> bool:
+    """原初的四态只在【整轮重演结束、账本封笔】之后才可裁决（`origin.final`）。
+
+    内层逐帧求值时它恒 False ⇒ 这四条判据不会在半路上把世界停掉；
+    它们的答案由回望驱动在重演收尾时写入状态，再由 `finalize()` 给出裁决。
+    """
+    o = getattr(st, "origin", None)
+    return bool(o is not None and o.final)
+
+
+def _when_origin_closed(st, cfg, sig):
+    return _origin_settled(st) and int(st.origin.closure) == 1
+
+
+def _when_origin_unstable(st, cfg, sig):
+    return _origin_settled(st) and bool(st.origin.unstable)
+
+
+def _when_origin_open(st, cfg, sig):
+    return (_origin_settled(st) and bool(st.origin.ever)
+            and int(st.origin.closure) != 1 and not bool(st.origin.unstable))
+
+
+def _when_origin_absent(st, cfg, sig):
+    return _origin_settled(st) and not bool(st.origin.ever)
+
+
 WHEN = {
     "all_falsified": _when_all_falsified,
     "stalled_and_exhausted": _when_stalled_and_exhausted,
+    "origin_closed": _when_origin_closed,
+    "origin_unstable": _when_origin_unstable,
+    "origin_open": _when_origin_open,
+    "origin_absent": _when_origin_absent,
 }
 
 
@@ -83,7 +114,9 @@ def _falsified(st, cfg) -> bool:
     """
     tau = float(cfg.params["tau_falsify"])
     band = float(cfg.params.get("tau_falsify_band", tau))
-    return all(l.progress >= tau and l.progress2 >= band for l in st.loci)
+    # meta 席（原初）不参与 12 因子判据：它的读数单独作为 origin_* 暴露。
+    return all(l.progress >= tau and l.progress2 >= band
+               for l in st.loci if not getattr(l, "meta", False))
 
 
 def _rule_holds(st, cfg, rule, sig) -> bool:

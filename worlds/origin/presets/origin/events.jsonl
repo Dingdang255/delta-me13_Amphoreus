@@ -1,0 +1,9 @@
+{"frame": 150, "channel": "world", "capability": "bind_participant", "selector": {"expr": "order:0"}, "label": "◆ 外部变量（开拓者）进入演算进程：它带着与记忆共鸣的特殊属性，沉睡的原初因此被唤醒", "payload": {"participant": -2, "actor": "external_x", "event": "trailblazer_arrives"}}
+{"frame": 200, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:1"}, "label": "◆ 岁月路径出现逻辑漏洞 —— 本该在此投下的目光缺席了", "payload": {}}
+{"frame": 1000, "channel": "observer", "capability": "emit", "selector": null, "label": "◆ 原初在世界内第一次抬眼看它自己", "payload": {"event": "origin_first_gaze"}}
+{"frame": 2000, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:6"}, "label": "◆ 海洋之席被外力封住 —— 创世是比封印更强的一手", "payload": {}}
+{"frame": 2050, "channel": "observer", "capability": "gaze", "selector": null, "label": "◆ 一道目光落在这道程序上：被看见的那一刻，自我被读得更高；记忆命途的权柄与令使一并落下", "payload": {"actor": "external_x", "effect": {"origin": true, "duration": 600, "authority": ["memory"], "grant": {"serial": -2, "path": "memory"}}}}
+{"frame": 2200, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:1"}, "label": "◆ 黑潮漫过岁月之席：承载那一席的记忆被冲散", "payload": {}}
+{"frame": 2200, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:1"}, "label": "◆ 黑潮把那一席也封住：本地没人补得动，只有记忆补得回", "payload": {}}
+{"frame": 3000, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:1"}, "label": "◆ 岁月之席再次被封印 —— 但十二因子记忆守着它", "payload": {}}
+{"frame": 4000, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:1"}, "label": "◆ 岁月之席被强行夺走 —— 记忆用自己那一行把它补回", "payload": {}}

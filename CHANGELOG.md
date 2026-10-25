@@ -2,6 +2,53 @@
 
 > 每个版本的发布说明。发 GitHub Release 时，正文直接取对应小节即可。
 
+## 未发布 — 原初世界与叙事层（第十三席真实动力学）
+
+> **非破坏性（对 canonical）**：`config/`、`presets/plot` 零改动，`snapshot --fast` 六条指纹逐位一致；
+> `presets/plot-full` 是新增内容版，不纳入旧基线；所有新动力学都住在独立世界根 `worlds/origin/`。
+
+### 独立世界根与第十三席
+
+- `run.py` 新增 `--root <dir>`：`Config` / `DataSet` 从该根的 `config/`、`presets/` 读取；
+  日志 / 看板 / anchors 路径跟随 root，`TerminalBridge` 的程序路径仍用项目根。
+- 新增 `worlds/origin/`：13 席配置（`dim=13`、`mapping` 13×6、`capability_names` 13 项），
+  `L12` 标记 `"meta": true` —— 普通个体可占据，但 `Register.complete()` / `Promotion` /
+  `Ablation` / `Verdicts` / `Invariants` 一律跳过它，12 因子判据不受污染。
+- `State.origin` 与 `OP_ORIGIN`：自我度 / 能量 / 生命周期 / 消散；创世、爱、开拓三面都是真实反馈。
+  `world_signature()` 只放 `filled` / `closure` 结构标志，连续量只进 `digest`。
+- 结论四态：`origin_closed` / `origin_open` / `origin_unstable` / `origin_absent`；
+  报告【八】在 origin 世界读真实 `traj.final.origin`，canonical `plot-full` 仍走只读探针。
+
+### 回望：锚点注入 + 固定点重演
+
+- `nodes.json` 列出关键节点（`frame / seat / missing / repair / cost`）；第一遍正向扫描，
+  第二遍从帧 0 重演并在缺失帧投递 `origin_anchor`，新缺失并入锚点继续迭代（`origin_max_iters` 上限）。
+- 每一遍严格单向、逐帧可复现；**没有**逐帧反向因果，也没有回写历史帧。
+- 锚点稳定、无缺失、`repaid >= borrowed`、selfhood 达标 ⇒ `origin_closed`。
+
+### 忆灵、记忆、命途与剧情接线
+
+- 忆灵是真实派生个体：四段成长（初凝 / 同行 / 承忆 / 忆者）、独立寿命、独立守席、再印。
+- 记忆：十二行逐席、effect 族、持续记忆场、多阶段、每阶段场景文案。
+- 命途 / 星神 / 令使：`State.paths` / `authorities` / `grants` + `OP_PATH`，只在启用世界里跑。
+- `worlds/origin/story.jsonl` 把 **33 个 plot 节拍**挂到登记断言与真实读数上（33/33 动态）；
+  `tests/test_story_coverage.py` 守住 ≥90%、拒绝把 `emitted_events` 当证明。
+
+### 只读叙事层（canonical 也可用）
+
+- `apps/terminal.py` / `terminal_bridge.py` / `terminal_window.py`：`messages.jsonl` 的 `>>>` 终端层，
+  非 TTY 自动用默认答案；`apps/archive.py`：实验档案 / 异常记录 / 进度里程碑（报告【六】【七】）；
+  `apps/origin.py`：canonical 的原初只读探针（报告【八】）。
+- 新增内容版预设 `presets/plot-full/`：补齐 3.0–3.3 / 3.5–3.7 镜头与终端消息、档案；
+  新增桥段一律 `emit`，`plot` 的轨道、断言、时间线与指纹原样保留。
+
+### 验证
+
+- 全量单测通过（基线 508 项）；`snapshot --structural` canonical 逐项一致。
+- `origin`：39 条断言全过 / 5 锚点 / `origin_closed`。
+- `origin-eternal`：53 条断言全过 / 40 条时间线全过 / `origin_closed` / 复用 33,580,277 帧。
+- `grep_forbidden` / `layer_lint` / `stepwise_lint` 全过；`kernel/` 与 `apps/` 零专名。
+
 ## 未发布 — A 线维护（`script.jsonl` 样例 · 发版纪律 · 去重）
 
 > **非破坏性**：不触碰任何既有世界的轨迹 —— 指纹 6/6 逐位不变，`v0.1.1` 的全部读数仍然成立。

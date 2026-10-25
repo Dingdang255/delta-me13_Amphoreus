@@ -70,8 +70,124 @@ _KINDS = {
                                                          "in_place_upgrade"),
     "memory_repaired":      lambda e: int(e.st.score.get("memory_repaired", 0.0)),
     "destruction_events":   lambda e: int(e.st.destruction_events),
+    "skipped_frames":       lambda e: int(e.traj.skipped_frames),
+    "iterations":           lambda e: int(e.traj.iterations),
     "emitted_events":       lambda e: ",".join(sorted(
         k[len("emitted_"):] for k in e.st.score if k.startswith("emitted_"))),
+    # —— 原初（第十三席）的真实读数 ——（全部只读；canonical 世界恒为未成形）
+    "origin_ever":          lambda e: bool(getattr(e.st.origin, "ever", False)),
+    "origin_selfhood":      lambda e: float(getattr(e.st.origin, "selfhood", 0.0)),
+    "origin_closure":       lambda e: int(getattr(e.st.origin, "closure", 0)),
+    "origin_borrowed":      lambda e: int(getattr(e.st.origin, "borrowed", 0)),
+    "origin_repaid":        lambda e: int(getattr(e.st.origin, "repaid", 0)),
+    "origin_occupant":      lambda e: next(
+        (s.owner for s in e.st.register.slots if getattr(s, "meta", False)), None),
+    "origin_anchors":       lambda e: int(
+        (getattr(e.traj, "origin", None) or {}).get(
+            "anchors", getattr(e.st.origin, "borrowed", 0))),
+    "origin_missing":       lambda e: int(
+        (getattr(e.traj, "origin", None) or {}).get("missing", 0)),
+    "origin_awake":         lambda e: bool(getattr(e.st.origin, "awake", False)),
+    "origin_create":        lambda e: int(e.st.score.get("origin_create", 0.0)),
+    "origin_love":          lambda e: int(e.st.score.get("origin_love", 0.0)),
+    "origin_trailblaze":    lambda e: int(e.st.score.get("origin_trailblaze", 0.0)),
+    "origin_dissolved":     lambda e: int(e.st.score.get("origin_dissolved", 0.0)),
+    "origin_form":          lambda e: int(getattr(e.st.origin, "form", 0)),
+    "origin_coverage":      lambda e: float(getattr(e.st.origin, "coverage", 0.0)),
+    "origin_factor_rows":   lambda e: int(getattr(e.st.origin, "factor_rows", 0)),
+    "origin_companion":     lambda e: int(e.st.score.get("origin_companion", 0.0)),
+    "origin_companion_alive": lambda e: bool(
+        int(getattr(e.st.origin, "companion_serial", -1)) >= 0
+        and e.st.pool.index_of_serial(
+            int(getattr(e.st.origin, "companion_serial", -1))) >= 0),
+    "origin_companion_serial": lambda e: int(
+        getattr(e.st.origin, "companion_serial", -1)),
+    "origin_companion_spawn": lambda e: int(
+        e.st.score.get("origin_companion_spawn", 0.0)),
+    "origin_companion_host": lambda e: int(
+        getattr(e.st.origin, "companion_host", -1)),
+    "origin_companion_stage": lambda e: int(
+        getattr(e.st.origin, "companion_stage", 0)),
+    "origin_companion_age": lambda e: int(
+        getattr(e.st.origin, "companion_age", 0)),
+    "origin_companion_carry": lambda e: int(
+        getattr(e.st.origin, "companion_carry", 0)),
+    "origin_companion_bond": lambda e: int(
+        getattr(e.st.origin, "companion_bond", 0)),
+    "origin_companion_grow": lambda e: int(
+        e.st.score.get("origin_companion_grow", 0.0)),
+    "origin_companion_rebind": lambda e: int(
+        e.st.score.get("origin_companion_rebind", 0.0)),
+    "origin_companion_rebond": lambda e: int(
+        e.st.score.get("origin_companion_rebond", 0.0)),
+    "origin_companion_seat": lambda e: int(
+        e.st.score.get("origin_companion_seat", 0.0)),
+    "origin_companion_eminence": lambda e: int(
+        "emitted_origin_companion_eminence" in e.st.score),
+    "origin_attach": lambda e: int(e.st.score.get("origin_attach", 0.0)),
+    "origin_memory_seats": lambda e: len(getattr(e.st, "memory_seats", ())),
+    "origin_rebind": lambda e: int(e.st.score.get("origin_rebind", 0.0)),
+    "origin_resonance": lambda e: int(e.st.score.get("origin_resonance", 0.0)),
+    "origin_resonance_value": lambda e: float(
+        getattr(e.st.origin, "resonance", 0.0)),
+    "origin_resonance_host": lambda e: int(
+        getattr(e.st.origin, "resonance_host", -1)),
+    "origin_resonance_wake": lambda e: int(
+        e.st.score.get("origin_resonance_wake", 0.0)),
+    "origin_savior": lambda e: int(e.st.score.get("origin_savior", 0.0)),
+    "origin_savior_active": lambda e: bool(
+        getattr(e.st.origin, "savior_active", False)),
+    "origin_savior_transfer": lambda e: int(
+        e.st.score.get("origin_savior_transfer", 0.0)),
+    "origin_memory_fragment": lambda e: int(
+        e.st.score.get("origin_memory_fragment", 0.0)),
+    "origin_memory_transfer": lambda e: int(
+        e.st.score.get("origin_memory_transfer", 0.0)),
+    "origin_memory_coupling": lambda e: float(
+        getattr(e.st.origin, "memory_coupling_gain", 0.0)),
+    "origin_memory_mutation": lambda e: float(
+        getattr(e.st.origin, "memory_mutation_damp", 0.0)),
+    "origin_memory_tick": lambda e: int(
+        e.st.score.get("origin_memory_tick", 0.0)),
+    "origin_memory_phase": lambda e: int(
+        e.st.score.get("origin_memory_phase", 0.0)),
+    "origin_gazed": lambda e: int("emitted_origin_gazed" in e.st.score),
+    "origin_seat_seized": lambda e: int("emitted_seat_seized" in e.st.score),
+    "origin_seat_reclaimed": lambda e: int(
+        "emitted_origin_seat_reclaimed" in e.st.score),
+    # —— 权柄层：命途 ——（canonical 世界恒为空）
+    "path_joined": lambda e: int(e.st.score.get("path_joined", 0.0)),
+    "path_defected": lambda e: int(e.st.score.get("path_defected", 0.0)),
+    "path_members": lambda e: len(getattr(e.st, "paths", {})),
+    "path_emanators": lambda e: len(getattr(e.st, "grants", {})),
+    "path_revoked": lambda e: int(e.st.score.get("path_revoked", 0.0)),
+    "path_authorities": lambda e: len(getattr(e.st, "authorities", {})),
+    "path_affinity": lambda e: max(
+        (float(v.get("affinity", 0.0)) for v in getattr(e.st, "paths", {}).values()),
+        default=0.0),
+    # —— 剧情接线的读数：全部读真实状态（事件标签不算证明） ——
+    "memory_rows": lambda e: int(getattr(e.st, "memory_bank").shape[0]),
+    "suppressed_slots": lambda e: len(getattr(e.st, "suppressed", ())),
+    "embers_taken": lambda e: int(e.st.score.get("embers_taken", 0.0)),
+    "external_seats": lambda e: sum(
+        1 for s in e.st.register.slots
+        if s.owner is not None and int(s.owner) < 0 and int(s.owner) != -1),
+    "override_rules": lambda e: ",".join(sorted(getattr(e.st, "overrides", {}))),
+    # —— 真实回退（世界退回本轮起点） ——
+    "origin_rewinds": lambda e: int(getattr(e.traj, "rewinds", 0)),
+    "origin_rollbacks": lambda e: int(e.st.score.get("rollbacks", 0.0)),
+    # —— 具名因子（候选必须已经在池里） ——
+    "factor_named": lambda e: int(e.st.score.get("factor_named", 0.0)),
+    # —— 因子的决策 / 权杖入口 ——
+    "factor_certainty": lambda e: max(
+        (float(v.get("certainty", 0.0))
+         for v in getattr(e.st, "factor_ledger", {}).values()), default=0.0),
+    "factor_decided": lambda e: int(e.st.score.get("factor_decided", 0.0)),
+    "years_loophole": lambda e: int(e.st.score.get("years_loophole", 0.0)),
+    "entry_locked": lambda e: int(bool(getattr(e.st, "entry_locked", False))),
+    "entry_unlocked": lambda e: int("entry_unlocked" in e.st.score),
+    "final_recreation": lambda e: int(e.st.score.get("final_recreation", 0.0)),
+    "fuli_anchor_past": lambda e: int(e.st.score.get("fuli_anchor_past", 0.0)),
 }
 
 #: 引擎认得的所有断言名（不含 `_at_least` / `_at_most` 后缀）。
