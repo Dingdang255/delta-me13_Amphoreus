@@ -48,11 +48,11 @@
 |---|---|---|---|---|
 | D1 种子/世界生成 | `D1_seed/` | seed_terms.md, worldgen_dimensions.jsonl(20), random_streams.json, inheritance.json, pseudocode/(4), unknowns.jsonl | covered（生成规则 6 条 unknown） | 官方只给"机制描述"，未给数值域 |
 | D2 趋势/微变量 | `D2_trends/` | trends.jsonl(8), micro_variables.jsonl(31), causal_links.jsonl(18), pseudocode/(4), unknowns.jsonl | covered | 微变量全部有官方首次出现轮次 |
-| D3 剧情 | `D3_plot/` | wiki_claims.jsonl(24), plot_expansion.jsonl(26), battle_lines.jsonl(572), preset_beats.jsonl(33), coverage_matrix.md, gaps.jsonl(8), pseudocode/(3) | partial | 主线 3.0–3.7 有 A 级概述+台词；任务级 66 条由 S-024（B 级）补足；3.4 主线归属已确认（CF-007 关闭） |
+| D3 剧情 | `D3_plot/` | wiki_claims.jsonl(24), plot_expansion.jsonl(26), battle_lines.jsonl(572), preset_beats.jsonl(37), coverage_matrix.md, gaps.jsonl(8), pseudocode/(3) | partial | 主线 3.0–3.7 有 A 级概述+台词；任务级 66 条由 S-024（B 级）补足；3.4 主线归属已确认（CF-007 关闭） |
 | D4 对话 | `D4_dialogue/` | scenes.jsonl(12), dialogues.jsonl(357), dialogue_tree.json, speaker_map.json, pseudocode/(3), unknowns.jsonl(6) | covered（终章场景 A 级） | Philia093↔德谬歌 逐字取自 `S-001` 记录簇 225852–226200；55 行说话人由 `S-024`（B 级）确认为 `official` |
 | D5 轮回日志 | `D5_loops/` | loops.jsonl(35), official_anchors.jsonl(46), rebuild_rules.json, pseudocode/(3), unknowns.jsonl(5) | covered（官方锚点 + 16 条 B 级） | 官方明示轮次：1/2/3/15/42/133/134/…/33550336/33550337；另 16 条来自 S-024 wiki |
 | D6 终端 | `D6_terminal/` | terminals.jsonl(282), triggers.json, multilingual.jsonl(8), pseudocode/(3), unknowns.jsonl(5) | covered（A 级 81 + B 级 201） | `>>>`/`【】`/错误/prompt/归档/乱码；wiki 补充 201 条标 B 级 |
-| D7 社区 | `D7_community/` | fragments.jsonl(13), channel_matrix.md, crosscheck.jsonl(13), debunked.jsonl(5), pseudocode/(3) | partial | 5/14 渠道有结果，其余 unknown |
+| D7 社区 | `D7_community/` | fragments.jsonl(27), channel_matrix.md, crosscheck.jsonl(14), debunked.jsonl(8), pseudocode/(3) | partial | 7/14 渠道有结果；其余 5 个为登录墙/反爬，2 个不可行 |
 | D8 角色 | `D8_characters/` | roster.json, characters/(27), relations.jsonl(47), scenarios.jsonl(81), pseudocode/(4), ooc_guards.jsonl(35) | covered | 12 泰坦+12 黄金裔+外部变量+派生体；16 卡补 `stories`，15 卡补 `ruwoshuo`（S-024，B 级） |
 
 ---

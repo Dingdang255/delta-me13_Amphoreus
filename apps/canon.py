@@ -35,7 +35,7 @@ JSONL_KINDS = (
     "entity", "event", "term", "conflict", "unknown", "worldgen",
     "trend", "micro_event", "causal",
     "wiki_claim", "plot", "gap",
-    "scene", "dialogue", "loop", "anchor",
+    "scene", "dialogue", "preset_beat", "loop", "anchor",
     "terminal", "multilingual",
     "fragment", "crosscheck", "debunked",
     "relation", "scenario", "guard",
@@ -45,7 +45,7 @@ JSONL_KINDS = (
 KIND_PRIORITY = (
     "character", "scene", "dialogue", "terminal", "loop", "anchor",
     "worldgen", "micro_event", "trend", "causal", "scenario", "guard",
-    "relation", "plot", "wiki_claim", "gap", "event", "term",
+    "relation", "plot", "preset_beat", "wiki_claim", "gap", "event", "term",
     "fragment", "crosscheck", "debunked", "multilingual",
     "conflict", "unknown", "entity",
 )
@@ -184,6 +184,17 @@ class CanonBundle:
 
     def ids_of_kind(self, kind: str) -> set[str]:
         return {e.id for e in self.of_kind(kind)}
+
+    def beats_for(self, ref: str, *, preset: str | None = None) -> list[Entry]:
+        """只读反查：`lore_refs` 里含 `ref` 的 preset 节拍，按 frame 升序。
+
+        `ref` 是任意 canon id（PLOT-* / EVT-* / TRM-* …）；`preset` 可按
+        `presets` 字段再筛一层。找不到就是空列表，不抛错 —— 这是查询，不是断言。
+        """
+        rows = [e for e in self.of_kind("preset_beat")
+                if ref in (e.get("lore_refs") or [])
+                and (preset is None or preset in (e.get("presets") or []))]
+        return sorted(rows, key=lambda e: e.get("frame") or 0)
 
     def trace(self, rid: str, kind: str | None = None) -> dict:
         if kind is not None:

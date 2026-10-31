@@ -108,10 +108,10 @@
     {
       "id": "channel_missing",
       "dimension": "D7_community",
-      "observed": 5,
+      "observed": 7,
       "total": 14,
       "cap": 0.3,
-      "_comment": "社区渠道有结果的 5 / 总数 14；未检索与无结果都计入缺口，条目一条不删。"
+      "_comment": "社区渠道有结果的 7 / 总数 14（第 2 轮补检索后）；登录墙/反爬与无结果都计入缺口，条目一条不删。"
     }
   ]
 }

@@ -48,6 +48,7 @@ OUT_NAMES = {
     "causal": "causal_links.jsonl",
     "wiki_claim": "plot_claims.jsonl",
     "plot": "plot_expansions.jsonl",
+    "preset_beat": "preset_beats.jsonl",
     "gap": "gaps.jsonl",
     "scene": "scenes.jsonl",
     "dialogue": "dialogues.jsonl",

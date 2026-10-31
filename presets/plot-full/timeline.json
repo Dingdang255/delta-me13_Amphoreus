@@ -312,12 +312,12 @@
       "label": "载入核心变量，输出 Hello, World!"
     },
     {
-      "id": "N41_WAND",
+      "id": "N41_CORE_SIEGE",
       "feature": "emitted_events",
       "op": "contains",
-      "value": "wand_explosion",
-      "by": 33594547,
-      "label": "权杖爆炸、星体化"
+      "value": "core_siege",
+      "by": 33594535,
+      "label": "外部持续攻击德谬歌矩阵，权杖报废计划（未写成功）"
     },
     {
       "id": "N42_PAGE",

@@ -1,5 +1,164 @@
 # 13 Changelog
 
+## v1.22 — 2026-10-31（`preset_beat` 注册为 canon kind；新增 PLOT→节拍 只读反查）
+
+### 入库
+
+- `D3_plot/preset_beats.jsonl` 正式注册为 canon kind **`preset_beat`**：
+  - `tools/lore_lint.py`：KINDS 增加 `preset_beat`（必填 `frame/label/lore_refs/source`，来源必填），ID 规则 `PB-###`；
+  - `tools/lore_compile.py`：OUT_NAMES 增加 `preset_beat → preset_beats.jsonl`；
+  - `apps/canon.py`：`JSONL_KINDS` 与 `KIND_PRIORITY` 纳入 `preset_beat`。
+
+### 查询
+
+- 新增只读查询 `CanonBundle.beats_for(ref, *, preset=None)`：
+  返回 `lore_refs` 含 `ref` 的节拍，按 `frame` 升序；可按 `presets` 再筛；查不到返回空列表（不抛错）。
+  例：`beats_for("PLOT-011")` → PB-014/024/026/028/031/032。
+
+### 测试
+
+- `tests/test_canon_contract.py` 新增 `PresetBeatQueryTest`（3 个用例）：反查命中且升序、`preset` 过滤、未知 id 返回空。
+
+### 影响
+
+- canon 条目 **1,392 → 1,429**（+37 节拍）；`baseline.json` 随条目数重写。
+- 八维保真分不变：`preset_beat` 不属于任何维度。
+
+### 校验
+
+- `lore_lint` **0 errors / 0 warnings**（`preset_beat` 37 条，必填 `frame/label/lore_refs/source`）。
+- `lore_compile` **1,429 条 / 57 文件**（新增 `preset_beats.jsonl`）；`--check` canon ok；`baseline --check` 0 drift。
+- 反查自检：`beats_for("PLOT-011")` → PB-014/024/026/028/031/032；`beats_for("PLOT-014")` → PB-034/PB-004/PB-018。
+- `python -m unittest discover -s tests -q` → **Ran 615 tests in 232.3s, OK**（新增 `PresetBeatQueryTest` 3 例）。
+- 保真分仍 **0.9135**（`preset_beat` 不进任何维度）。
+
+> 注：中途两次全量测试被残留的 python 进程拖死（exit -1），清掉后重跑通过，代码本身无问题。
+
+---
+
+## v1.21 — 2026-10-31（删掉「权杖爆炸」：wiki 侧复核确认 3.0–3.7 无此剧情）
+
+### 依据（wiki 侧复核，全文 8 卷）
+
+- **3.7 魔女的孤诣课题**：螺丝咕姆「"赞达尔"引爆了一颗星核，只为彻底"清洗"权杖系统」——这是**背景事件**，
+  同一任务梗概写「内核层严重损毁，宛如废墟」，玩家看到的是爆炸后的废墟。
+- **3.7 星路长驰，穹宇远征**：黑塔称将从外部攻击德谬歌矩阵，「一定能让这台铁疙瘩彻底报废」——**计划，未写成功**。
+- **3.6 重逢啊，笑泪相拥的约定**：三月七「只要黑塔女士愿意，她随时可以掏出虚数武器，把这台'权杖'炸个灰飞烟灭」——**玩笑**。
+- 3.4「巨大的爆炸粉碎了世界」指演算出的世界崩坏；3.3 艾格勒胸口爆炸生成黑潮核心；3.4 来古士的「一场爆炸后基本粒子诞生」是宇宙起源比喻。**均非权杖本体**。
+- 结局（3.7 落英）：铁墓静默、昔涟逆时收束因果，**权杖没有被炸掉**。
+
+### 变更
+
+- `presets/plot-full/events.jsonl`：`33594530` 的 `wand_explosion` → **`core_siege`**，
+  文案改为「黑塔与螺丝咕姆自外部持续攻击德谬歌矩阵，誓让权杖报废（是计划，原文未写成功）」，补 `lore_ref:["PLOT-011"]`。
+- `presets/plot-full/timeline.json`：断言 `N41_WAND` → **`N41_CORE_SIEGE`**（`value: core_siege`，`by: 33594535`），标签同步。
+- `D3_plot/preset_beats.jsonl`：`PB-031` 由 `match:none` 升为 **`partial`**、`lore_refs:["PLOT-011"]`，`note` 记录上述四处原文。
+- 此前 v1.17 里「唯一没有映射的是 wand_explosion」的表述，由本条取代。
+
+### 校验
+
+- `plot-full` 37 行 `compile_rules(from_events(rows)) == rows` → True；`PB-031` 的 `lore_ref` 可解析。
+- `lore_lint` 0/0 · canon 1,392 条 / 56 文件 · `baseline --check` 0 drift。
+- `python -m unittest discover -s tests -q` → **Ran 612 tests in 238.2s, OK**。
+- 保真分不变（preset 内容不进八维评分）。
+
+---
+
+## v1.20 — 2026-10-31（D7 第 2 轮补检索：渠道 5→7，碎片 13→27）
+
+### 入库
+
+- `D7_community/fragments.jsonl`：新增 **CM-014..CM-027**（14 条）。
+  平台分布：TapTap 4、贴吧 3、B 站 2、YouTube 2（仅标题/ID）、攻略站 2（Fandom / Moyens）、NGA 1。
+  `supported` 5 条、`unverified` 9 条；来源等级 C 10 / D 4；无同人二创。
+- `D7_community/crosscheck.jsonl`：新增 **CC-014** —— CM-022「逆时闭合因果」vs CM-023「永恒循环」的术语分歧。
+- `D7_community/debunked.jsonl`：新增 **DB-006..008**
+  - DB-006（CM-014）德谬歌不是昔涟制造的 NPC，而是权杖原本的演算目标／翁法罗斯之心；
+  - DB-007（CM-016）永劫回归已进入最终阶段（33550337），不是「无限轮回继续」；
+  - DB-008（CM-027）「402,604,032 颗火种」是 12×33,550,336 的自算值，A 级只有概数（同 CF-001）。
+- `D7_community/channel_matrix.md`：重写为两轮合并视图。
+
+### 口径修正
+
+- `config/fidelity.json` 的 `channel_missing`：`observed` 5 → **7**（有结果的渠道：B 站、米游社、贴吧、NGA、YouTube〔部分〕、攻略站、其他）。
+  登录墙/反爬的 5 个渠道（小红书、微博、Reddit、HoYoLAB、X）仍计为缺口，**不当成「无内容」**。
+- `lore/00_manifest.md`：D7 条数与 D3 的 `preset_beats(37)` 同步。
+
+### 结果
+
+- canon 条目 **1,374 → 1,392**（+14 碎片、+1 交叉核对、+3 证伪）。
+- **D7 0.58 → 0.62**：缺口罚分从 9/14×0.30 = −0.193 降到 7/14×0.30 = −0.150；
+  代价是覆盖从 0.58 降到 0.55（新增 9 条 `unverified` 计入 0.25 分），这是如实计入，不刷分。
+- **加权保真分 0.9092 → 0.9135**。
+
+### 校验
+
+- `lore_lint` 0/0 · `lore_compile` 1,392 条 / 56 文件 · `--check` canon ok · `baseline --check` 0 drift。
+- `python -m unittest discover -s tests -q` → **Ran 612 tests in 232.6s, OK**。
+  其中 `test_fidelity.py` 的 D7 期望值随口径更新：`channel_missing.count` 9→7、`fragment` 13→27。
+
+---
+
+## v1.19 — 2026-10-31（CF-008 纠正：3.8 归属；plot-full 补齐 4 段未演剧情）
+
+### CF-008 纠正
+
+用户指出：**「记忆是梦的开场白」是匹诺康尼 3.8 的终末任务**，不是翁法罗斯 3.7 的章节名，也不是 3.7 的别名。
+已改写 CF-008 的 `assessment`：3.7＝成为昨日的明天（用户确认）；`S-001:107177` 归 3.8；
+107169–107178 的 10 条章节名不能按 8 个版本一一对齐，映射仍需逐条核对。
+
+### plot-full 补齐 4 段此前未演的剧情（纯 emit 镜头，不改动力学）
+
+| frame | 新事件 | 对应 lore |
+|---|---|---|
+| 17000 | `grove_falls` 黑潮倾覆神悟树庭（瑟希斯火种三分、缇安开百界门） | PLOT-014 |
+| 21000 | `anaxa_bargain` 那刻夏与元老院交易、登泰坦断崖 | PLOT-015 |
+| 33594270 | `kleodra_council` 同盟会议与讨伐法吉娜的战令 | PLOT-020 |
+| 33594310 | `undersea_500` 海底五百黄金裔与「律法」真相 | PLOT-021 |
+
+- 只加到 `plot-full`（其定位本就是「plot + 纯 emit 镜头」），**plot / plot-mech / nullify 一字未动**，
+  因此 `plot` 的 golden 指纹不受影响。
+- `preset_beats.jsonl` 追加 `PB-034..037`（37 条），每条带 `lore_ref`。
+- `plot-full/preset.json` 的 `_comment`：13 条镜头 → **17 条**。
+
+### 校验
+
+- `compile_rules(from_events(rows)).scheduled == rows`（plot-full 37 行）→ True。
+- 37 条 `preset_beats` 的 `lore_refs` 全部可在 canon index 解析；`frame+payload` 与三个预设逐条一致。
+- 事件帧号单调不减。
+
+---
+
+## v1.18 — 2026-10-31（CF-008 关闭：3.7 章节名定为「成为昨日的明天」）
+
+### 依据
+
+用户确认：游戏内 3.7 的章节名就是「成为昨日的明天」。S-001 章节表（107169–107178，10 条名对 8 个版本）
+中的「记忆是梦的开场白」(107177) 当时被误判为 3.7 的相邻别名；**该判断已由 v1.19 纠正**——
+107177 属匹诺康尼 3.8 的终末任务，与翁法罗斯 3.7 无关。
+
+### 变更
+
+- `04_event_index.jsonl`：`EVT-008` 名称 → 「成为昨日的明天（主线 3.7）」；
+  `EVT-071/072/073/074/093/094/095` 的 `chapter` → 成为昨日的明天，移除重复的 `wiki_chapter`，保留 `conflict_refs:["CF-008"]`。
+- `D3_plot/wiki_claims.jsonl`：`WC-020..022` 的 `chapter` 同步。
+- `D3_plot/plot_expansion.jsonl`：`PLOT-011/012/024` 的 `chapter` 同步。
+- `10_conflicts.jsonl`：CF-008 `pending` → **`resolved`**，`versions` 追加用户判定，`assessment` 重写。
+- `D3_plot/coverage_matrix.md`：3.7 行章节名与「版本归属证据强度」表同步。
+
+### 结果
+
+9 条冲突现已 **9 resolved / 0 pending**（CF-001..009；CF-003 是分层解释，不是矛盾）。
+
+### 校验
+
+- `lore_lint` 0/0 · `lore_compile` 1,374 条 / 56 文件 · `--check` canon ok · `baseline --check` 0 drift。
+- `fidelity_report` 0.9092 / 0.85 / 通过（章节名不参与评分）。
+- `python -m unittest discover -s tests -q` → **Ran 612 tests in 229.8s, OK**
+  （含 `test_script.py` 的双轨等价断言，确认 apps/script.py 的 `lore_ref` 改造未破坏往返）。
+
+---
+
 ## v1.17 — 2026-10-31（方案 B：preset 事件带 lore_ref，双向可 join）
 
 ### 变更

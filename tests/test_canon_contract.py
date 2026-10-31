@@ -101,5 +101,30 @@ class TestCanonBundle(unittest.TestCase):
             )
 
 
+@unittest.skipUnless(os.path.exists(os.path.join(CANON_DIR, "manifest.json")),
+                     "lore/canon not compiled")
+class PresetBeatQueryTest(unittest.TestCase):
+    """`preset_beat` 的只读反查：lore id → 节拍。"""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.bundle = canon.CanonBundle.load()
+
+    def test_reverse_lookup_by_lore_ref(self):
+        beats = self.bundle.beats_for("PLOT-011")
+        self.assertTrue(beats, "PLOT-011 应当至少有一个预设节拍")
+        for entry in beats:
+            self.assertIn("PLOT-011", entry.get("lore_refs") or [])
+        frames = [entry.get("frame") or 0 for entry in beats]
+        self.assertEqual(frames, sorted(frames), "节拍应按 frame 升序")
+
+    def test_preset_filter(self):
+        self.assertTrue(self.bundle.beats_for("PLOT-011", preset="plot-full"))
+        self.assertFalse(self.bundle.beats_for("PLOT-011", preset="_default"))
+
+    def test_unknown_ref_is_empty(self):
+        self.assertEqual(self.bundle.beats_for("PLOT-999"), [])
+
+
 if __name__ == "__main__":
     unittest.main()

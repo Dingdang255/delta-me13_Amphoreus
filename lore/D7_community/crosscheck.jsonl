@@ -11,3 +11,4 @@
 {"id":"CC-011","fragment_id":"CM-011","claim":"永恒一页是世界维度","a_level_match":"S-001:18270 作『一页永恒』；S-001:30431 作『永恒的一页』","result":"supported_with_diff","note":"三种写法并存，见 CF-005"}
 {"id":"CC-012","fragment_id":"CM-012","claim":"昔涟分为两个灵魂","a_level_match":"S-001:226150『把我的笔，我的书，还有我的名字，一起送给你』；无灵魂分裂","result":"unsupported","note":"纯社区推论"}
 {"id":"CC-013","fragment_id":"CM-013","claim":"33550336 对白厄有特殊意义","a_level_match":"S-001:425068 / 75058","result":"confirmed","note":"只确认数字，不确认『意义』的解释"}
+{"id": "CC-014", "fragment_id": "CM-022", "claim": "昔涟走向过去是「逆时闭合因果」，并非循环", "a_level_match": "S-001:30433（回望与因果闭合）；与 CM-023 的「永恒的时间循环」相反", "result": "supported_with_diff", "note": "CM-023 把同一动作称「永恒的时间循环」，属术语混用；A 级表述为回望／补全因果"}

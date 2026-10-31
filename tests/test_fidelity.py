@@ -75,9 +75,9 @@ class FidelityGateTest(unittest.TestCase):
         self.assertEqual(rows["D8_characters"]["counts"]["scenario"], 81)
 
         d7 = {p["id"]: p for p in rows["D7_community"]["penalties"]}["channel_missing"]
-        self.assertEqual(d7["count"], 9)
+        self.assertEqual(d7["count"], 7)          # 7/14 渠道有结果；登录墙也算缺口
         self.assertEqual(d7["denominator"], 14)
-        self.assertEqual(rows["D7_community"]["counts"]["fragment"], 13)
+        self.assertEqual(rows["D7_community"]["counts"]["fragment"], 27)
 
     def test_gate_is_read_only_and_deterministic(self):
         before = _digest_tree(os.path.join(ROOT, "lore", "canon"),
