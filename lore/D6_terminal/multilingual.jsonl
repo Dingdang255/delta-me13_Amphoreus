@@ -1,0 +1,8 @@
+{"id":"ML-001","term_id":"TRM-001","zh":">>>系统运行中…","en":"UNKNOWN","jp":"UNKNOWN","note":"本轮只抽取 cn 文本表；en/jp 表未读取","source":"S-001","coverage":"zh_only"}
+{"id":"ML-002","term_id":"TRM-004","zh":">>>是否允许写入？","en":"UNKNOWN","jp":"UNKNOWN","note":"同上","source":"S-001","coverage":"zh_only"}
+{"id":"ML-003","term_id":"TRM-005","zh":">>>Philia<unbreak>093</unbreak>.exe 运行中…","en":"UNKNOWN","jp":"UNKNOWN","note":"程序名在各国语言中应一致，但未核验","source":"S-001","coverage":"zh_only"}
+{"id":"ML-004","term_id":"TRM-010","zh":">>>发生了未经处理的异常(1/3) 对象名:\"每一页…记录…\"","en":"UNKNOWN","jp":"UNKNOWN","note":"同上","source":"S-001","coverage":"zh_only"}
+{"id":"ML-005","term_id":"TRM-056","zh":">>>订正：PhiLia<unbreak>093</unbreak>的记录#496，已归档。","en":"UNKNOWN","jp":"UNKNOWN","note":"同上","source":"S-001","coverage":"zh_only"}
+{"id":"ML-006","term_id":"TRM-070","zh":">>>第<unbreak>33550337</unbreak>次运算终止>>>「铁墓」进度：<unbreak>96.75%</unbreak>","en":"UNKNOWN","jp":"UNKNOWN","note":"数字应一致；『铁墓』英译 Irontomb 见于 S-001:424949","source":"S-001","coverage":"zh_only"}
+{"id":"ML-007","term_id":"TRM-075","zh":"δ-me13 实验进度：99%","en":"UNKNOWN","jp":"UNKNOWN","note":"日文 wiki（S-015）提到『実験レポート』但未给终端逐字","source":"S-001","coverage":"zh_only"}
+{"id":"ML-008","term_id":"TRM-081","zh":"δ-me13","en":"UNKNOWN","jp":"δ-me13（S-015 标题直用符号）","note":"日文 wiki 标题保留 δ-me13，可作为符号一致性的旁证","source":"S-015","coverage":"partial"}

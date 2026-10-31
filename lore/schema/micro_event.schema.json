@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "micro_event.schema.json",
+  "title": "micro variable record",
+  "type": "object",
+  "required": ["id", "name", "category", "trigger", "effect", "persistence", "observable", "source"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^MV-[0-9]{3}$" },
+    "name": { "type": "string", "minLength": 1 },
+    "category": {
+      "enum": [
+        "individual", "resource", "technology", "belief",
+        "population", "geography", "event", "protocol", "external"
+      ]
+    },
+    "first_seen": {
+      "type": "object",
+      "properties": {
+        "loop": { "type": "integer" },
+        "source": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "trigger": {
+      "type": "object",
+      "required": ["condition"],
+      "properties": {
+        "condition": { "type": "string" },
+        "evidence": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "effect": {
+      "type": "object",
+      "required": ["target", "type"],
+      "properties": {
+        "target": { "type": "string" },
+        "type": { "type": "string" },
+        "magnitude": {},
+        "duration": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "persistence": {
+      "type": "object",
+      "required": ["inherits"],
+      "properties": {
+        "inherits": { "type": "boolean" },
+        "how": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "observable": { "type": "string" },
+    "causal_links": { "type": "array", "items": { "type": "string" } },
+    "unknowns": { "type": "array", "items": { "type": "string" } },
+    "source": { "type": "string" }
+  },
+  "additionalProperties": true
+}

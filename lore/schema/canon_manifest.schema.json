@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "canon_manifest.schema.json",
+  "title": "compiled canon manifest",
+  "type": "object",
+  "required": ["schema_version", "compiled_at", "source_digest", "kinds", "files"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "compiled_at": { "type": "string" },
+    "source_digest": { "type": "string" },
+    "entry_count": { "type": "integer" },
+    "kinds": {
+      "type": "object",
+      "additionalProperties": { "type": "integer" }
+    },
+    "files": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "unresolved": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

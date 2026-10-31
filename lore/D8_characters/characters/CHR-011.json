@@ -1,0 +1,127 @@
+{
+ "id": "CHR-011",
+ "names": {
+  "zh": "螺丝咕姆",
+  "en": "Screwllum",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "ScreW"
+  ]
+ },
+ "identity": {
+  "kind": "外部变量",
+  "continuity": "跨轮",
+  "memory": "完整",
+  "permissions": [
+   "天才俱乐部",
+   "外部通信"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "协助黑塔解明铁墓",
+   "priority": 1,
+   "source": "S-001:424966"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "需要数据才能下判断",
+   "confidence": "A",
+   "source": "S-001:30405"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "信息不足",
+   "response": "要求更多样本",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:30405"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-001",
+   "when": "当黑塔提出方案",
+   "then": "提供外部支援",
+   "priority": 1,
+   "conflict": "—",
+   "source": "S-001:30405"
+  },
+  {
+   "id": "R-002",
+   "when": "当需要内应",
+   "then": "请求开拓者留下",
+   "priority": 2,
+   "conflict": "—",
+   "source": "S-001:30405"
+  },
+  {
+   "id": "R-003",
+   "when": "当铁墓加冕",
+   "then": "从外部攻击内核层",
+   "priority": 3,
+   "conflict": "—",
+   "source": "S-001:30429"
+  }
+ ],
+ "speech": {
+  "tone": "礼貌、精确",
+  "address": {
+   "to_peer": "阁下",
+   "to_enemy": "—",
+   "to_self": "我"
+  },
+  "catchphrases": [],
+  "taboo_topics": [],
+  "sentence_style": "完整句"
+ },
+ "relations": [
+  {
+   "target": "CHR-010",
+   "type": "trust",
+   "intensity": 0.8,
+   "source": "S-001:424966"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "协作",
+   "action": "提供数据与外部火力",
+   "reason": "—",
+   "source": "S-001:30429"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "天才俱乐部成员",
+   "source": "S-001:424966"
+  },
+  {
+   "phase": "turn",
+   "state": "进入内核层",
+   "source": "S-001:30429"
+  },
+  {
+   "phase": "end",
+   "state": "参与决战",
+   "source": "S-001:30431"
+  }
+ ],
+ "failure_modes": [
+  "过于依赖数据"
+ ],
+ "ooc_guards": [
+  "不得写成情绪化"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:424966",
+  "S-001:30405",
+  "S-001:30429"
+ ],
+ "confidence": "A"
+}

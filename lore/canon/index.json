@@ -1,0 +1,8542 @@
+{
+  "ids": {
+    "CC-001": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CC-002": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "CC-003": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "CC-004": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "CC-005": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "CC-006": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 6
+      }
+    ],
+    "CC-007": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 7
+      }
+    ],
+    "CC-008": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 8
+      }
+    ],
+    "CC-009": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 9
+      }
+    ],
+    "CC-010": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 10
+      }
+    ],
+    "CC-011": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 11
+      }
+    ],
+    "CC-012": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 12
+      }
+    ],
+    "CC-013": [
+      {
+        "file": "crosschecks.jsonl",
+        "kind": "crosscheck",
+        "label": "",
+        "line": 13
+      }
+    ],
+    "CF-001": [
+      {
+        "file": "conflicts.jsonl",
+        "kind": "conflict",
+        "label": "火种精确总数",
+        "line": 1
+      }
+    ],
+    "CF-002": [
+      {
+        "file": "conflicts.jsonl",
+        "kind": "conflict",
+        "label": "『实验进度百分比』有多套体系",
+        "line": 2
+      }
+    ],
+    "CF-003": [
+      {
+        "file": "conflicts.jsonl",
+        "kind": "conflict",
+        "label": "永劫回归对铁墓是抑制还是强化",
+        "line": 3
+      }
+    ],
+    "CF-004": [
+      {
+        "file": "conflicts.jsonl",
+        "kind": "conflict",
+        "label": "『种子』是否指演算随机种子",
+        "line": 4
+      }
+    ],
+    "CF-005": [
+      {
+        "file": "conflicts.jsonl",
+        "kind": "conflict",
+        "label": "『一页永恒』的写法",
+        "line": 5
+      }
+    ],
+    "CF-006": [
+      {
+        "file": "conflicts.jsonl",
+        "kind": "conflict",
+        "label": "NeiKos496 自毁的目的",
+        "line": 6
+      }
+    ],
+    "CF-007": [
+      {
+        "file": "conflicts.jsonl",
+        "kind": "conflict",
+        "label": "3.4 是否为主线章节",
+        "line": 7
+      }
+    ],
+    "CHR-001": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "卡厄斯兰那",
+        "line": 1
+      },
+      {
+        "file": "characters/CHR-001.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-002": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "PhiLia093",
+        "line": 2
+      },
+      {
+        "file": "characters/CHR-002.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-003": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "德谬歌",
+        "line": 3
+      },
+      {
+        "file": "characters/CHR-003.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-004": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "迷迷",
+        "line": 4
+      },
+      {
+        "file": "characters/CHR-004.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-005": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "无漏净子（昔涟）",
+        "line": 5
+      },
+      {
+        "file": "characters/CHR-005.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-006": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "长夜月",
+        "line": 6
+      },
+      {
+        "file": "characters/CHR-006.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-007": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "三月七",
+        "line": 7
+      },
+      {
+        "file": "characters/CHR-007.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-008": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "开拓者",
+        "line": 8
+      },
+      {
+        "file": "characters/CHR-008.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-009": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "丹恒",
+        "line": 9
+      },
+      {
+        "file": "characters/CHR-009.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-010": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "黑塔",
+        "line": 10
+      },
+      {
+        "file": "characters/CHR-010.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-011": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "螺丝咕姆",
+        "line": 11
+      },
+      {
+        "file": "characters/CHR-011.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-012": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "黑天鹅",
+        "line": 12
+      },
+      {
+        "file": "characters/CHR-012.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-013": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "来古士",
+        "line": 13
+      },
+      {
+        "file": "characters/CHR-013.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-014": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "铁墓",
+        "line": 14
+      },
+      {
+        "file": "characters/CHR-014.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-015": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "阿格莱雅",
+        "line": 15
+      },
+      {
+        "file": "characters/CHR-015.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-016": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "缇宝",
+        "line": 16
+      },
+      {
+        "file": "characters/CHR-016.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-017": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "万敌",
+        "line": 17
+      },
+      {
+        "file": "characters/CHR-017.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-018": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "遐蝶",
+        "line": 18
+      },
+      {
+        "file": "characters/CHR-018.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-019": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "那刻夏",
+        "line": 19
+      },
+      {
+        "file": "characters/CHR-019.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-020": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "风堇",
+        "line": 20
+      },
+      {
+        "file": "characters/CHR-020.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-021": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "赛飞儿",
+        "line": 21
+      },
+      {
+        "file": "characters/CHR-021.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-022": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "海瑟音",
+        "line": 22
+      },
+      {
+        "file": "characters/CHR-022.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-023": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "刻律德菈",
+        "line": 23
+      },
+      {
+        "file": "characters/CHR-023.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-024": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "荒笛",
+        "line": 24
+      },
+      {
+        "file": "characters/CHR-024.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-025": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "刻法勒",
+        "line": 25
+      },
+      {
+        "file": "characters/CHR-025.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-026": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "欧洛尼斯",
+        "line": 26
+      }
+    ],
+    "CHR-027": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "雅努斯",
+        "line": 27
+      }
+    ],
+    "CHR-028": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "塔兰顿",
+        "line": 28
+      }
+    ],
+    "CHR-029": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "艾格勒",
+        "line": 29
+      }
+    ],
+    "CHR-030": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "吉奥里亚",
+        "line": 30
+      }
+    ],
+    "CHR-031": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "法吉娜",
+        "line": 31
+      }
+    ],
+    "CHR-032": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "瑟希斯",
+        "line": 32
+      }
+    ],
+    "CHR-033": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "墨涅塔",
+        "line": 33
+      }
+    ],
+    "CHR-034": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "扎格列斯",
+        "line": 34
+      }
+    ],
+    "CHR-035": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "尼卡多利",
+        "line": 35
+      }
+    ],
+    "CHR-036": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "塞纳托斯",
+        "line": 36
+      }
+    ],
+    "CHR-037": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "纳努克",
+        "line": 37
+      },
+      {
+        "file": "characters/CHR-037.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-038": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "浮黎",
+        "line": 38
+      },
+      {
+        "file": "characters/CHR-038.json",
+        "kind": "character",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CHR-039": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "博识尊",
+        "line": 39
+      }
+    ],
+    "CHR-040": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "塞涅俄丝",
+        "line": 40
+      }
+    ],
+    "CHR-041": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "克拉特鲁斯",
+        "line": 41
+      }
+    ],
+    "CHR-042": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "巴特鲁斯",
+        "line": 42
+      }
+    ],
+    "CHR-043": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "玻吕茜亚",
+        "line": 43
+      }
+    ],
+    "CHR-044": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "格奈乌斯",
+        "line": 44
+      }
+    ],
+    "CHR-045": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "星期日",
+        "line": 45
+      }
+    ],
+    "CHR-046": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "姬子",
+        "line": 46
+      }
+    ],
+    "CHR-047": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "瓦尔特",
+        "line": 47
+      }
+    ],
+    "CHR-048": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "帕姆",
+        "line": 48
+      }
+    ],
+    "CL-001": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CL-002": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "CL-003": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "CL-004": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "CL-005": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "CL-006": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 6
+      }
+    ],
+    "CL-007": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 7
+      }
+    ],
+    "CL-008": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 8
+      }
+    ],
+    "CL-009": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 9
+      }
+    ],
+    "CL-010": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 10
+      }
+    ],
+    "CL-011": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 11
+      }
+    ],
+    "CL-012": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 12
+      }
+    ],
+    "CL-013": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 13
+      }
+    ],
+    "CL-014": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 14
+      }
+    ],
+    "CL-015": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 15
+      }
+    ],
+    "CL-016": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 16
+      }
+    ],
+    "CL-017": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 17
+      }
+    ],
+    "CL-018": [
+      {
+        "file": "causal_links.jsonl",
+        "kind": "causal",
+        "label": "",
+        "line": 18
+      }
+    ],
+    "CM-001": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "CM-002": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "CM-003": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "CM-004": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "CM-005": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "CM-006": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 6
+      }
+    ],
+    "CM-007": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 7
+      }
+    ],
+    "CM-008": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 8
+      }
+    ],
+    "CM-009": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 9
+      }
+    ],
+    "CM-010": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 10
+      }
+    ],
+    "CM-011": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 11
+      }
+    ],
+    "CM-012": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 12
+      }
+    ],
+    "CM-013": [
+      {
+        "file": "community.jsonl",
+        "kind": "fragment",
+        "label": "",
+        "line": 13
+      }
+    ],
+    "DB-001": [
+      {
+        "file": "debunked.jsonl",
+        "kind": "debunked",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "DB-002": [
+      {
+        "file": "debunked.jsonl",
+        "kind": "debunked",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "DB-003": [
+      {
+        "file": "debunked.jsonl",
+        "kind": "debunked",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "DB-004": [
+      {
+        "file": "debunked.jsonl",
+        "kind": "debunked",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "DB-005": [
+      {
+        "file": "debunked.jsonl",
+        "kind": "debunked",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "DLG-001": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "DLG-002": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "DLG-003": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "DLG-004": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "DLG-005": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "DLG-006": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 6
+      }
+    ],
+    "DLG-007": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 7
+      }
+    ],
+    "DLG-008": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 8
+      }
+    ],
+    "DLG-009": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 9
+      }
+    ],
+    "DLG-010": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 10
+      }
+    ],
+    "DLG-011": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 11
+      }
+    ],
+    "DLG-012": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 12
+      }
+    ],
+    "DLG-013": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 13
+      }
+    ],
+    "DLG-014": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 14
+      }
+    ],
+    "DLG-015": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 15
+      }
+    ],
+    "DLG-016": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 16
+      }
+    ],
+    "DLG-017": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 17
+      }
+    ],
+    "DLG-018": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 18
+      }
+    ],
+    "DLG-019": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 19
+      }
+    ],
+    "DLG-020": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 20
+      }
+    ],
+    "DLG-021": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 21
+      }
+    ],
+    "DLG-022": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 22
+      }
+    ],
+    "DLG-023": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 23
+      }
+    ],
+    "DLG-024": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 24
+      }
+    ],
+    "DLG-025": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 25
+      }
+    ],
+    "DLG-026": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 26
+      }
+    ],
+    "DLG-027": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 27
+      }
+    ],
+    "DLG-028": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 28
+      }
+    ],
+    "DLG-029": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 29
+      }
+    ],
+    "DLG-030": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 30
+      }
+    ],
+    "DLG-031": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 31
+      }
+    ],
+    "DLG-032": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 32
+      }
+    ],
+    "DLG-033": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 33
+      }
+    ],
+    "DLG-034": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 34
+      }
+    ],
+    "DLG-035": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 35
+      }
+    ],
+    "DLG-036": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 36
+      }
+    ],
+    "DLG-037": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 37
+      }
+    ],
+    "DLG-038": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 38
+      }
+    ],
+    "DLG-039": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 39
+      }
+    ],
+    "DLG-040": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 40
+      }
+    ],
+    "DLG-041": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 41
+      }
+    ],
+    "DLG-042": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 42
+      }
+    ],
+    "DLG-043": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 43
+      }
+    ],
+    "DLG-044": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 44
+      }
+    ],
+    "DLG-045": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 45
+      }
+    ],
+    "DLG-046": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 46
+      }
+    ],
+    "DLG-047": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 47
+      }
+    ],
+    "DLG-048": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 48
+      }
+    ],
+    "DLG-049": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 49
+      }
+    ],
+    "DLG-050": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 50
+      }
+    ],
+    "DLG-051": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 51
+      }
+    ],
+    "DLG-052": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 52
+      }
+    ],
+    "DLG-053": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 53
+      }
+    ],
+    "DLG-054": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 54
+      }
+    ],
+    "DLG-055": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 55
+      }
+    ],
+    "DLG-056": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 56
+      }
+    ],
+    "DLG-057": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 57
+      }
+    ],
+    "DLG-058": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 58
+      }
+    ],
+    "DLG-059": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 59
+      }
+    ],
+    "DLG-060": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 60
+      }
+    ],
+    "DLG-061": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 61
+      }
+    ],
+    "DLG-062": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 62
+      }
+    ],
+    "DLG-063": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 63
+      }
+    ],
+    "DLG-064": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 64
+      }
+    ],
+    "DLG-065": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 65
+      }
+    ],
+    "DLG-066": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 66
+      }
+    ],
+    "DLG-067": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 67
+      }
+    ],
+    "DLG-068": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 68
+      }
+    ],
+    "DLG-069": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 69
+      }
+    ],
+    "DLG-070": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 70
+      }
+    ],
+    "DLG-071": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 71
+      }
+    ],
+    "DLG-072": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 72
+      }
+    ],
+    "DLG-073": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 73
+      }
+    ],
+    "DLG-074": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 74
+      }
+    ],
+    "DLG-075": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 75
+      }
+    ],
+    "DLG-076": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 76
+      }
+    ],
+    "DLG-077": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 77
+      }
+    ],
+    "DLG-078": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 78
+      }
+    ],
+    "DLG-079": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 79
+      }
+    ],
+    "DLG-080": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 80
+      }
+    ],
+    "DLG-081": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 81
+      }
+    ],
+    "DLG-082": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 82
+      }
+    ],
+    "DLG-083": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 83
+      }
+    ],
+    "DLG-084": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 84
+      }
+    ],
+    "DLG-085": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 85
+      }
+    ],
+    "DLG-086": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 86
+      }
+    ],
+    "DLG-087": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 87
+      }
+    ],
+    "DLG-088": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 88
+      }
+    ],
+    "DLG-089": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 89
+      }
+    ],
+    "DLG-090": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 90
+      }
+    ],
+    "DLG-091": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 91
+      }
+    ],
+    "DLG-092": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 92
+      }
+    ],
+    "DLG-093": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 93
+      }
+    ],
+    "DLG-094": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 94
+      }
+    ],
+    "DLG-095": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 95
+      }
+    ],
+    "DLG-096": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 96
+      }
+    ],
+    "DLG-097": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 97
+      }
+    ],
+    "DLG-098": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 98
+      }
+    ],
+    "DLG-099": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 99
+      }
+    ],
+    "DLG-100": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 100
+      }
+    ],
+    "DLG-101": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 101
+      }
+    ],
+    "DLG-102": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 102
+      }
+    ],
+    "DLG-103": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 103
+      }
+    ],
+    "DLG-104": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 104
+      }
+    ],
+    "DLG-105": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 105
+      }
+    ],
+    "DLG-106": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 106
+      }
+    ],
+    "DLG-107": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 107
+      }
+    ],
+    "DLG-108": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 108
+      }
+    ],
+    "DLG-109": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 109
+      }
+    ],
+    "DLG-110": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 110
+      }
+    ],
+    "DLG-111": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 111
+      }
+    ],
+    "DLG-112": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 112
+      }
+    ],
+    "DLG-113": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 113
+      }
+    ],
+    "DLG-114": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 114
+      }
+    ],
+    "DLG-115": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 115
+      }
+    ],
+    "DLG-116": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 116
+      }
+    ],
+    "DLG-117": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 117
+      }
+    ],
+    "DLG-118": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 118
+      }
+    ],
+    "DLG-119": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 119
+      }
+    ],
+    "DLG-120": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 120
+      }
+    ],
+    "DLG-121": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 121
+      }
+    ],
+    "DLG-122": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 122
+      }
+    ],
+    "DLG-123": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 123
+      }
+    ],
+    "DLG-124": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 124
+      }
+    ],
+    "DLG-125": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 125
+      }
+    ],
+    "DLG-126": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 126
+      }
+    ],
+    "DLG-127": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 127
+      }
+    ],
+    "DLG-128": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 128
+      }
+    ],
+    "DLG-129": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 129
+      }
+    ],
+    "DLG-130": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 130
+      }
+    ],
+    "DLG-131": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 131
+      }
+    ],
+    "DLG-132": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 132
+      }
+    ],
+    "DLG-133": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 133
+      }
+    ],
+    "DLG-134": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 134
+      }
+    ],
+    "DLG-135": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 135
+      }
+    ],
+    "DLG-136": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 136
+      }
+    ],
+    "DLG-137": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 137
+      }
+    ],
+    "DLG-138": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 138
+      }
+    ],
+    "DLG-139": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 139
+      }
+    ],
+    "DLG-140": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 140
+      }
+    ],
+    "DLG-141": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 141
+      }
+    ],
+    "DLG-142": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 142
+      }
+    ],
+    "DLG-143": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 143
+      }
+    ],
+    "DLG-144": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 144
+      }
+    ],
+    "DLG-145": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 145
+      }
+    ],
+    "DLG-146": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 146
+      }
+    ],
+    "DLG-147": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 147
+      }
+    ],
+    "DLG-148": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 148
+      }
+    ],
+    "DLG-149": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 149
+      }
+    ],
+    "DLG-150": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 150
+      }
+    ],
+    "DLG-151": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 151
+      }
+    ],
+    "DLG-152": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 152
+      }
+    ],
+    "DLG-153": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 153
+      }
+    ],
+    "DLG-154": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 154
+      }
+    ],
+    "DLG-155": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 155
+      }
+    ],
+    "DLG-156": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 156
+      }
+    ],
+    "DLG-157": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 157
+      }
+    ],
+    "DLG-158": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 158
+      }
+    ],
+    "DLG-159": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 159
+      }
+    ],
+    "DLG-160": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 160
+      }
+    ],
+    "DLG-161": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 161
+      }
+    ],
+    "DLG-162": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 162
+      }
+    ],
+    "DLG-163": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 163
+      }
+    ],
+    "DLG-164": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 164
+      }
+    ],
+    "DLG-165": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 165
+      }
+    ],
+    "DLG-166": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 166
+      }
+    ],
+    "DLG-167": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 167
+      }
+    ],
+    "DLG-168": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 168
+      }
+    ],
+    "DLG-169": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 169
+      }
+    ],
+    "DLG-170": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 170
+      }
+    ],
+    "DLG-171": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 171
+      }
+    ],
+    "DLG-172": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 172
+      }
+    ],
+    "DLG-173": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 173
+      }
+    ],
+    "DLG-174": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 174
+      }
+    ],
+    "DLG-175": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 175
+      }
+    ],
+    "DLG-176": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 176
+      }
+    ],
+    "DLG-177": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 177
+      }
+    ],
+    "DLG-178": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 178
+      }
+    ],
+    "DLG-179": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 179
+      }
+    ],
+    "DLG-180": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 180
+      }
+    ],
+    "DLG-181": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 181
+      }
+    ],
+    "DLG-182": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 182
+      }
+    ],
+    "DLG-183": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 183
+      }
+    ],
+    "DLG-184": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 184
+      }
+    ],
+    "DLG-185": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 185
+      }
+    ],
+    "DLG-186": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 186
+      }
+    ],
+    "DLG-187": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 187
+      }
+    ],
+    "DLG-188": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 188
+      }
+    ],
+    "DLG-189": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 189
+      }
+    ],
+    "DLG-190": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 190
+      }
+    ],
+    "DLG-191": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 191
+      }
+    ],
+    "DLG-192": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 192
+      }
+    ],
+    "DLG-193": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 193
+      }
+    ],
+    "DLG-194": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 194
+      }
+    ],
+    "DLG-195": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 195
+      }
+    ],
+    "DLG-196": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 196
+      }
+    ],
+    "DLG-197": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 197
+      }
+    ],
+    "DLG-198": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 198
+      }
+    ],
+    "DLG-199": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 199
+      }
+    ],
+    "DLG-200": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 200
+      }
+    ],
+    "DLG-201": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 201
+      }
+    ],
+    "DLG-202": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 202
+      }
+    ],
+    "DLG-203": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 203
+      }
+    ],
+    "DLG-204": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 204
+      }
+    ],
+    "DLG-205": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 205
+      }
+    ],
+    "DLG-206": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 206
+      }
+    ],
+    "DLG-207": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 207
+      }
+    ],
+    "DLG-208": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 208
+      }
+    ],
+    "DLG-209": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 209
+      }
+    ],
+    "DLG-210": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 210
+      }
+    ],
+    "DLG-211": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 211
+      }
+    ],
+    "DLG-212": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 212
+      }
+    ],
+    "DLG-213": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 213
+      }
+    ],
+    "DLG-214": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 214
+      }
+    ],
+    "DLG-215": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 215
+      }
+    ],
+    "DLG-216": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 216
+      }
+    ],
+    "DLG-217": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 217
+      }
+    ],
+    "DLG-218": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 218
+      }
+    ],
+    "DLG-219": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 219
+      }
+    ],
+    "DLG-220": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 220
+      }
+    ],
+    "DLG-221": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 221
+      }
+    ],
+    "DLG-222": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 222
+      }
+    ],
+    "DLG-223": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 223
+      }
+    ],
+    "DLG-224": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 224
+      }
+    ],
+    "DLG-225": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 225
+      }
+    ],
+    "DLG-226": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 226
+      }
+    ],
+    "DLG-227": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 227
+      }
+    ],
+    "DLG-228": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 228
+      }
+    ],
+    "DLG-229": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 229
+      }
+    ],
+    "DLG-230": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 230
+      }
+    ],
+    "DLG-231": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 231
+      }
+    ],
+    "DLG-232": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 232
+      }
+    ],
+    "DLG-233": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 233
+      }
+    ],
+    "DLG-234": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 234
+      }
+    ],
+    "DLG-235": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 235
+      }
+    ],
+    "DLG-236": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 236
+      }
+    ],
+    "DLG-237": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 237
+      }
+    ],
+    "DLG-238": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 238
+      }
+    ],
+    "DLG-239": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 239
+      }
+    ],
+    "DLG-240": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 240
+      }
+    ],
+    "DLG-241": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 241
+      }
+    ],
+    "DLG-242": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 242
+      }
+    ],
+    "DLG-243": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 243
+      }
+    ],
+    "DLG-244": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 244
+      }
+    ],
+    "DLG-245": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 245
+      }
+    ],
+    "DLG-246": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 246
+      }
+    ],
+    "DLG-247": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 247
+      }
+    ],
+    "DLG-248": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 248
+      }
+    ],
+    "DLG-249": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 249
+      }
+    ],
+    "DLG-250": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 250
+      }
+    ],
+    "DLG-251": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 251
+      }
+    ],
+    "DLG-252": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 252
+      }
+    ],
+    "DLG-253": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 253
+      }
+    ],
+    "DLG-254": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 254
+      }
+    ],
+    "DLG-255": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 255
+      }
+    ],
+    "DLG-256": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 256
+      }
+    ],
+    "DLG-257": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 257
+      }
+    ],
+    "DLG-258": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 258
+      }
+    ],
+    "DLG-259": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 259
+      }
+    ],
+    "DLG-260": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 260
+      }
+    ],
+    "DLG-261": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 261
+      }
+    ],
+    "DLG-262": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 262
+      }
+    ],
+    "DLG-263": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 263
+      }
+    ],
+    "DLG-264": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 264
+      }
+    ],
+    "DLG-265": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 265
+      }
+    ],
+    "DLG-266": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 266
+      }
+    ],
+    "DLG-267": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 267
+      }
+    ],
+    "DLG-268": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 268
+      }
+    ],
+    "DLG-269": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 269
+      }
+    ],
+    "DLG-270": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 270
+      }
+    ],
+    "DLG-271": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 271
+      }
+    ],
+    "DLG-272": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 272
+      }
+    ],
+    "DLG-273": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 273
+      }
+    ],
+    "DLG-274": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 274
+      }
+    ],
+    "DLG-275": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 275
+      }
+    ],
+    "DLG-276": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 276
+      }
+    ],
+    "DLG-277": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 277
+      }
+    ],
+    "DLG-278": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 278
+      }
+    ],
+    "DLG-279": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 279
+      }
+    ],
+    "DLG-280": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 280
+      }
+    ],
+    "DLG-281": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 281
+      }
+    ],
+    "DLG-282": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 282
+      }
+    ],
+    "DLG-283": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 283
+      }
+    ],
+    "DLG-284": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 284
+      }
+    ],
+    "DLG-285": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 285
+      }
+    ],
+    "DLG-286": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 286
+      }
+    ],
+    "DLG-287": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 287
+      }
+    ],
+    "DLG-288": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 288
+      }
+    ],
+    "DLG-289": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 289
+      }
+    ],
+    "DLG-290": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 290
+      }
+    ],
+    "DLG-291": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 291
+      }
+    ],
+    "DLG-292": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 292
+      }
+    ],
+    "DLG-293": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 293
+      }
+    ],
+    "DLG-294": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 294
+      }
+    ],
+    "DLG-295": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 295
+      }
+    ],
+    "DLG-296": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 296
+      }
+    ],
+    "DLG-297": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 297
+      }
+    ],
+    "DLG-298": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 298
+      }
+    ],
+    "DLG-299": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 299
+      }
+    ],
+    "DLG-300": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 300
+      }
+    ],
+    "DLG-301": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 301
+      }
+    ],
+    "DLG-302": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 302
+      }
+    ],
+    "DLG-303": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 303
+      }
+    ],
+    "DLG-304": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 304
+      }
+    ],
+    "DLG-305": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 305
+      }
+    ],
+    "DLG-306": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 306
+      }
+    ],
+    "DLG-307": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 307
+      }
+    ],
+    "DLG-308": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 308
+      }
+    ],
+    "DLG-309": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 309
+      }
+    ],
+    "DLG-310": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 310
+      }
+    ],
+    "DLG-311": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 311
+      }
+    ],
+    "DLG-312": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 312
+      }
+    ],
+    "DLG-313": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 313
+      }
+    ],
+    "DLG-314": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 314
+      }
+    ],
+    "DLG-315": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 315
+      }
+    ],
+    "DLG-316": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 316
+      }
+    ],
+    "DLG-317": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 317
+      }
+    ],
+    "DLG-318": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 318
+      }
+    ],
+    "DLG-319": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 319
+      }
+    ],
+    "DLG-320": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 320
+      }
+    ],
+    "DLG-321": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 321
+      }
+    ],
+    "DLG-322": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 322
+      }
+    ],
+    "DLG-323": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 323
+      }
+    ],
+    "DLG-324": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 324
+      }
+    ],
+    "DLG-325": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 325
+      }
+    ],
+    "DLG-326": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 326
+      }
+    ],
+    "DLG-327": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 327
+      }
+    ],
+    "DLG-328": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 328
+      }
+    ],
+    "DLG-329": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 329
+      }
+    ],
+    "DLG-330": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 330
+      }
+    ],
+    "DLG-331": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 331
+      }
+    ],
+    "DLG-332": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 332
+      }
+    ],
+    "DLG-333": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 333
+      }
+    ],
+    "DLG-334": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 334
+      }
+    ],
+    "DLG-335": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 335
+      }
+    ],
+    "DLG-336": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 336
+      }
+    ],
+    "DLG-337": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 337
+      }
+    ],
+    "DLG-338": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 338
+      }
+    ],
+    "DLG-339": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 339
+      }
+    ],
+    "DLG-340": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 340
+      }
+    ],
+    "DLG-341": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 341
+      }
+    ],
+    "DLG-342": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 342
+      }
+    ],
+    "DLG-343": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 343
+      }
+    ],
+    "DLG-344": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 344
+      }
+    ],
+    "DLG-345": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 345
+      }
+    ],
+    "DLG-346": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 346
+      }
+    ],
+    "DLG-347": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 347
+      }
+    ],
+    "DLG-348": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 348
+      }
+    ],
+    "DLG-349": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 349
+      }
+    ],
+    "DLG-350": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 350
+      }
+    ],
+    "DLG-351": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 351
+      }
+    ],
+    "DLG-352": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 352
+      }
+    ],
+    "DLG-353": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 353
+      }
+    ],
+    "DLG-354": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 354
+      }
+    ],
+    "DLG-355": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 355
+      }
+    ],
+    "DLG-356": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 356
+      }
+    ],
+    "DLG-357": [
+      {
+        "file": "dialogues.jsonl",
+        "kind": "dialogue",
+        "label": "",
+        "line": 357
+      }
+    ],
+    "EVT-001": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "落木逐火英雄纪（主线 3.0）",
+        "line": 1
+      }
+    ],
+    "EVT-002": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "门扉之启，王座之终（主线 3.1）",
+        "line": 2
+      }
+    ],
+    "EVT-003": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "走过安眠地的花丛（主线 3.2）",
+        "line": 3
+      }
+    ],
+    "EVT-004": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "在黎明升起时坠落（主线 3.3）",
+        "line": 4
+      }
+    ],
+    "EVT-005": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "因为太阳将要毁伤",
+        "line": 5
+      }
+    ],
+    "EVT-006": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "英雄未死之前",
+        "line": 6
+      }
+    ],
+    "EVT-007": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "于长夜重返大地",
+        "line": 7
+      }
+    ],
+    "EVT-008": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "记忆是梦的开场白",
+        "line": 8
+      }
+    ],
+    "EVT-009": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "讨伐尼卡多利",
+        "line": 9
+      }
+    ],
+    "EVT-010": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "白厄的纷争试炼失败",
+        "line": 10
+      }
+    ],
+    "EVT-011": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "万敌登神并独自返乡",
+        "line": 11
+      }
+    ],
+    "EVT-012": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "树庭覆灭与瑟希斯托付",
+        "line": 12
+      }
+    ],
+    "EVT-013": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "公民大会表决继续逐火",
+        "line": 13
+      }
+    ],
+    "EVT-014": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "遐蝶完成死亡试炼",
+        "line": 14
+      }
+    ],
+    "EVT-015": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "那刻夏与火种熔合",
+        "line": 15
+      }
+    ],
+    "EVT-016": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "阿格莱雅之死",
+        "line": 16
+      }
+    ],
+    "EVT-017": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "讨伐艾格勒（晨昏之眼）",
+        "line": 17
+      }
+    ],
+    "EVT-018": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "赛飞儿之死与黎明机器停摆",
+        "line": 18
+      }
+    ],
+    "EVT-019": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "白厄完成再创世（第一次）",
+        "line": 19
+      }
+    ],
+    "EVT-020": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "来古士揭示逐火本质与铁墓",
+        "line": 20
+      }
+    ],
+    "EVT-021": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "回到第一次逐火之旅的时代",
+        "line": 21
+      }
+    ],
+    "EVT-022": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "赞达尔身份揭露与再创世延缓",
+        "line": 22
+      }
+    ],
+    "EVT-023": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "长夜月事件与三月七沉睡",
+        "line": 23
+      }
+    ],
+    "EVT-024": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "大墓探索与德谬歌矩阵",
+        "line": 24
+      }
+    ],
+    "EVT-025": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "千年负世试炼与最终循环",
+        "line": 25
+      }
+    ],
+    "EVT-026": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "铁墓决战与银河再创世",
+        "line": 26
+      }
+    ],
+    "EVT-027": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "德谬歌回望与因果闭合",
+        "line": 27
+      }
+    ],
+    "EVT-028": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "第33550337次循环",
+        "line": 28
+      }
+    ],
+    "GAP-D3-001": [
+      {
+        "file": "gaps.jsonl",
+        "kind": "gap",
+        "label": "3.4 是否为主线章节，章节名与任务区间的对应",
+        "line": 1
+      }
+    ],
+    "GAP-D3-002": [
+      {
+        "file": "gaps.jsonl",
+        "kind": "gap",
+        "label": "主要战斗演出的逐字台词",
+        "line": 2
+      }
+    ],
+    "GAP-D3-003": [
+      {
+        "file": "gaps.jsonl",
+        "kind": "gap",
+        "label": "阿格莱雅、赛飞儿的遗言",
+        "line": 3
+      }
+    ],
+    "GAP-D3-004": [
+      {
+        "file": "gaps.jsonl",
+        "kind": "gap",
+        "label": "来古士『沉浸式戏剧』的全部台词",
+        "line": 4
+      }
+    ],
+    "GAP-D3-005": [
+      {
+        "file": "gaps.jsonl",
+        "kind": "gap",
+        "label": "长夜月与三月七的完整对峙",
+        "line": 5
+      }
+    ],
+    "GAP-D3-006": [
+      {
+        "file": "gaps.jsonl",
+        "kind": "gap",
+        "label": "铁墓决战的完整过程",
+        "line": 6
+      }
+    ],
+    "GAP-D3-007": [
+      {
+        "file": "gaps.jsonl",
+        "kind": "gap",
+        "label": "时间线（游戏内历法）",
+        "line": 7
+      }
+    ],
+    "GAP-D3-008": [
+      {
+        "file": "gaps.jsonl",
+        "kind": "gap",
+        "label": "同行任务/角色任务/活动剧情的完整清单",
+        "line": 8
+      }
+    ],
+    "ITEM-001": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "《如我所书》",
+        "line": 74
+      }
+    ],
+    "ITEM-002": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "仪式剑",
+        "line": 75
+      }
+    ],
+    "ITEM-003": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "泰坦符文",
+        "line": 76
+      }
+    ],
+    "ITEM-004": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "贤者之石",
+        "line": 77
+      }
+    ],
+    "ITEM-005": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "神谕牌册",
+        "line": 78
+      }
+    ],
+    "LOC-001": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "翁法罗斯",
+        "line": 79
+      }
+    ],
+    "LOC-002": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "奥赫玛",
+        "line": 80
+      }
+    ],
+    "LOC-003": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "斯缇科西亚",
+        "line": 81
+      }
+    ],
+    "LOC-004": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "哀丽秘榭",
+        "line": 82
+      }
+    ],
+    "LOC-005": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "神悟树庭",
+        "line": 83
+      }
+    ],
+    "LOC-006": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "创世涡心",
+        "line": 84
+      }
+    ],
+    "LOC-007": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "雅努萨波利斯",
+        "line": 85
+      }
+    ],
+    "LOC-008": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "黎明云崖",
+        "line": 86
+      }
+    ],
+    "LOC-009": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "悬锋城",
+        "line": 87
+      }
+    ],
+    "LOC-010": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "哀地里亚",
+        "line": 88
+      }
+    ],
+    "LOC-011": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "多洛斯",
+        "line": 89
+      }
+    ],
+    "LOC-012": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "云石天宫",
+        "line": 90
+      }
+    ],
+    "LOC-013": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "命运重渊",
+        "line": 91
+      }
+    ],
+    "LOC-014": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "晨昏之眼",
+        "line": 92
+      }
+    ],
+    "LOC-015": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "冥界",
+        "line": 93
+      }
+    ],
+    "LOOP-000001": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "LOOP-000002": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "LOOP-000003": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "LOOP-000015": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "LOOP-000042": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "LOOP-000133": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 6
+      }
+    ],
+    "LOOP-000134": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 7
+      }
+    ],
+    "LOOP-005297": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 8
+      }
+    ],
+    "LOOP-012398": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 9
+      }
+    ],
+    "LOOP-023779": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 10
+      }
+    ],
+    "LOOP-046645": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 11
+      }
+    ],
+    "LOOP-071243": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 12
+      }
+    ],
+    "LOOP-080023": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 13
+      }
+    ],
+    "LOOP-095575": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 14
+      }
+    ],
+    "LOOP-108641": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 15
+      }
+    ],
+    "LOOP-108642": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 16
+      }
+    ],
+    "LOOP-33550336": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 17
+      }
+    ],
+    "LOOP-33550337": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 18
+      }
+    ],
+    "LOOP-P1-009910": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 19
+      }
+    ],
+    "LOOP-P1-012649": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 20
+      }
+    ],
+    "LOOP-P1-022449": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 21
+      }
+    ],
+    "LOOP-P1-039665": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 22
+      }
+    ],
+    "LOOP-P1-050121": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 23
+      }
+    ],
+    "LOOP-P2-059337": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 24
+      }
+    ],
+    "LOOP-P2-090123": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 25
+      }
+    ],
+    "LOOP-P2-100907": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 26
+      }
+    ],
+    "LOOP-P2-132905": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 27
+      }
+    ],
+    "LOOP-P2-176100": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 28
+      }
+    ],
+    "LOOP-P3-11749992": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 32
+      }
+    ],
+    "LOOP-P3-176232": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 29
+      }
+    ],
+    "LOOP-P3-19110218": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 34
+      }
+    ],
+    "LOOP-P3-19522113": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 33
+      }
+    ],
+    "LOOP-P3-28371272": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 35
+      }
+    ],
+    "LOOP-P3-3926183": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 30
+      }
+    ],
+    "LOOP-P3-7091231": [
+      {
+        "file": "loops.jsonl",
+        "kind": "loop",
+        "label": "",
+        "line": 31
+      }
+    ],
+    "ML-001": [
+      {
+        "file": "multilingual.jsonl",
+        "kind": "multilingual",
+        "label": ">>>系统运行中…",
+        "line": 1
+      }
+    ],
+    "ML-002": [
+      {
+        "file": "multilingual.jsonl",
+        "kind": "multilingual",
+        "label": ">>>是否允许写入？",
+        "line": 2
+      }
+    ],
+    "ML-003": [
+      {
+        "file": "multilingual.jsonl",
+        "kind": "multilingual",
+        "label": ">>>Philia<unbreak>093</unbreak>.exe 运行中…",
+        "line": 3
+      }
+    ],
+    "ML-004": [
+      {
+        "file": "multilingual.jsonl",
+        "kind": "multilingual",
+        "label": ">>>发生了未经处理的异常(1/3) 对象名:\"每一页…记录…\"",
+        "line": 4
+      }
+    ],
+    "ML-005": [
+      {
+        "file": "multilingual.jsonl",
+        "kind": "multilingual",
+        "label": ">>>订正：PhiLia<unbreak>093</unbreak>的记录#496，已归档。",
+        "line": 5
+      }
+    ],
+    "ML-006": [
+      {
+        "file": "multilingual.jsonl",
+        "kind": "multilingual",
+        "label": ">>>第<unbreak>33550337</unbreak>次运算终止>>>「铁墓」进度：<unbreak>96.75%</unbreak>",
+        "line": 6
+      }
+    ],
+    "ML-007": [
+      {
+        "file": "multilingual.jsonl",
+        "kind": "multilingual",
+        "label": "δ-me13 实验进度：99%",
+        "line": 7
+      }
+    ],
+    "ML-008": [
+      {
+        "file": "multilingual.jsonl",
+        "kind": "multilingual",
+        "label": "δ-me13",
+        "line": 8
+      }
+    ],
+    "MV-001": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "NeiKos496（卡厄斯兰那/白厄）",
+        "line": 1
+      }
+    ],
+    "MV-002": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "PhiLia093（昔涟）",
+        "line": 2
+      }
+    ],
+    "MV-003": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "KaLos618（阿格莱雅）",
+        "line": 3
+      }
+    ],
+    "MV-004": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "HapLotes405（缇宝）",
+        "line": 4
+      }
+    ],
+    "MV-005": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "OreXis945（赛飞儿）",
+        "line": 5
+      }
+    ],
+    "MV-006": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "EpieiKeia216（遐蝶）",
+        "line": 6
+      }
+    ],
+    "MV-007": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "SkeMma720（那刻夏）",
+        "line": 7
+      }
+    ],
+    "MV-008": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "EleOs252（风堇）",
+        "line": 8
+      }
+    ],
+    "MV-009": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "ApoRia432（海瑟音）",
+        "line": 9
+      }
+    ],
+    "MV-010": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "HubRis504（刻律德菈）",
+        "line": 10
+      }
+    ],
+    "MV-011": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "SkoPeo365（荒笛）",
+        "line": 11
+      }
+    ],
+    "MV-012": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "PoleMos600（万敌）",
+        "line": 12
+      }
+    ],
+    "MV-013": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Doril701",
+        "line": 13
+      }
+    ],
+    "MV-014": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Doril704",
+        "line": 14
+      }
+    ],
+    "MV-015": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Doril816",
+        "line": 15
+      }
+    ],
+    "MV-016": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Golem99",
+        "line": 16
+      }
+    ],
+    "MV-017": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Chaoz666",
+        "line": 17
+      }
+    ],
+    "MV-018": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Ortho102",
+        "line": 18
+      }
+    ],
+    "MV-019": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Eumyia03",
+        "line": 19
+      }
+    ],
+    "MV-020": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Dystop666",
+        "line": 20
+      }
+    ],
+    "MV-021": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Utop13",
+        "line": 21
+      }
+    ],
+    "MV-022": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Imora8",
+        "line": 22
+      }
+    ],
+    "MV-023": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Fovos032",
+        "line": 23
+      }
+    ],
+    "MV-024": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Nammou320",
+        "line": 24
+      }
+    ],
+    "MV-025": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Leoreia300（格奈乌斯）",
+        "line": 25
+      }
+    ],
+    "MV-026": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "Minphia14（卡吕普索/瑟希斯）",
+        "line": 26
+      }
+    ],
+    "MV-027": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "算力（资源）",
+        "line": 27
+      }
+    ],
+    "MV-028": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "技术临界点",
+        "line": 28
+      }
+    ],
+    "MV-029": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "神话（信仰）",
+        "line": 29
+      }
+    ],
+    "MV-030": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "嵌合协议（协议）",
+        "line": 30
+      }
+    ],
+    "MV-031": [
+      {
+        "file": "micro_events.jsonl",
+        "kind": "micro_event",
+        "label": "开拓者（外部变量）",
+        "line": 31
+      }
+    ],
+    "OA-001": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "OA-002": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "OA-003": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "OA-004": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "OA-005": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "OA-006": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 6
+      }
+    ],
+    "OA-007": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 7
+      }
+    ],
+    "OA-008": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 8
+      }
+    ],
+    "OA-009": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 9
+      }
+    ],
+    "OA-010": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 10
+      }
+    ],
+    "OA-011": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 11
+      }
+    ],
+    "OA-012": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 12
+      }
+    ],
+    "OA-013": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 13
+      }
+    ],
+    "OA-014": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 14
+      }
+    ],
+    "OA-015": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 15
+      }
+    ],
+    "OA-016": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 16
+      }
+    ],
+    "OA-017": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 17
+      }
+    ],
+    "OA-018": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 18
+      }
+    ],
+    "OA-019": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 19
+      }
+    ],
+    "OA-020": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 20
+      }
+    ],
+    "OA-021": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 21
+      }
+    ],
+    "OA-022": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 22
+      }
+    ],
+    "OA-023": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 23
+      }
+    ],
+    "OA-024": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 24
+      }
+    ],
+    "OA-025": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 25
+      }
+    ],
+    "OA-026": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 26
+      }
+    ],
+    "OA-027": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 27
+      }
+    ],
+    "OA-028": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 28
+      }
+    ],
+    "OA-029": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 29
+      }
+    ],
+    "OA-030": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 30
+      }
+    ],
+    "OOC-001": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "OOC-002": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "OOC-003": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "OOC-004": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "OOC-005": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "OOC-006": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 6
+      }
+    ],
+    "OOC-007": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 7
+      }
+    ],
+    "OOC-008": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 8
+      }
+    ],
+    "OOC-009": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 9
+      }
+    ],
+    "OOC-010": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 10
+      }
+    ],
+    "OOC-011": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 11
+      }
+    ],
+    "OOC-012": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 12
+      }
+    ],
+    "OOC-013": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 13
+      }
+    ],
+    "OOC-014": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 14
+      }
+    ],
+    "OOC-015": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 15
+      }
+    ],
+    "OOC-016": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 16
+      }
+    ],
+    "OOC-017": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 17
+      }
+    ],
+    "OOC-018": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 18
+      }
+    ],
+    "OOC-019": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 19
+      }
+    ],
+    "OOC-020": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 20
+      }
+    ],
+    "OOC-021": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 21
+      }
+    ],
+    "OOC-022": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 22
+      }
+    ],
+    "OOC-023": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 23
+      }
+    ],
+    "OOC-024": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 24
+      }
+    ],
+    "OOC-025": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 25
+      }
+    ],
+    "OOC-026": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 26
+      }
+    ],
+    "OOC-027": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 27
+      }
+    ],
+    "OOC-028": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 28
+      }
+    ],
+    "OOC-029": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 29
+      }
+    ],
+    "OOC-030": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 30
+      }
+    ],
+    "OOC-031": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 31
+      }
+    ],
+    "OOC-032": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 32
+      }
+    ],
+    "OOC-033": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 33
+      }
+    ],
+    "OOC-034": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 34
+      }
+    ],
+    "OOC-035": [
+      {
+        "file": "ooc_guards.jsonl",
+        "kind": "guard",
+        "label": "",
+        "line": 35
+      }
+    ],
+    "ORG-001": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "元老院",
+        "line": 67
+      }
+    ],
+    "ORG-002": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "清洗者",
+        "line": 68
+      }
+    ],
+    "ORG-003": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "黄金裔",
+        "line": 69
+      }
+    ],
+    "ORG-004": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "天才俱乐部",
+        "line": 70
+      }
+    ],
+    "ORG-005": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "星穹列车",
+        "line": 71
+      }
+    ],
+    "ORG-006": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "星际和平公司",
+        "line": 72
+      }
+    ],
+    "ORG-007": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "流光忆庭",
+        "line": 73
+      }
+    ],
+    "PLOT-001": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "PLOT-002": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "PLOT-003": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "PLOT-004": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "PLOT-005": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "PLOT-006": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 6
+      }
+    ],
+    "PLOT-007": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 7
+      }
+    ],
+    "PLOT-008": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 8
+      }
+    ],
+    "PLOT-009": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 9
+      }
+    ],
+    "PLOT-010": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 10
+      }
+    ],
+    "PLOT-011": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 11
+      }
+    ],
+    "PLOT-012": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 12
+      }
+    ],
+    "REL-001": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "REL-002": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "REL-003": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "REL-004": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "REL-005": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "REL-006": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 6
+      }
+    ],
+    "REL-007": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 7
+      }
+    ],
+    "REL-008": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 8
+      }
+    ],
+    "REL-009": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 9
+      }
+    ],
+    "REL-010": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 10
+      }
+    ],
+    "REL-011": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 11
+      }
+    ],
+    "REL-012": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 12
+      }
+    ],
+    "REL-013": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 13
+      }
+    ],
+    "REL-014": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 14
+      }
+    ],
+    "REL-015": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 15
+      }
+    ],
+    "REL-016": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 16
+      }
+    ],
+    "REL-017": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 17
+      }
+    ],
+    "REL-018": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 18
+      }
+    ],
+    "REL-019": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 19
+      }
+    ],
+    "REL-020": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 20
+      }
+    ],
+    "REL-021": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 21
+      }
+    ],
+    "REL-022": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 22
+      }
+    ],
+    "REL-023": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 23
+      }
+    ],
+    "REL-024": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 24
+      }
+    ],
+    "REL-025": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 25
+      }
+    ],
+    "REL-026": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 26
+      }
+    ],
+    "REL-027": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 27
+      }
+    ],
+    "REL-028": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 28
+      }
+    ],
+    "REL-029": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 29
+      }
+    ],
+    "REL-030": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 30
+      }
+    ],
+    "REL-031": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 31
+      }
+    ],
+    "REL-032": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 32
+      }
+    ],
+    "REL-033": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 33
+      }
+    ],
+    "REL-034": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 34
+      }
+    ],
+    "REL-035": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 35
+      }
+    ],
+    "REL-036": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 36
+      }
+    ],
+    "REL-037": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 37
+      }
+    ],
+    "REL-038": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 38
+      }
+    ],
+    "REL-039": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 39
+      }
+    ],
+    "REL-040": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 40
+      }
+    ],
+    "REL-041": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 41
+      }
+    ],
+    "REL-042": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 42
+      }
+    ],
+    "REL-043": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 43
+      }
+    ],
+    "REL-044": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 44
+      }
+    ],
+    "REL-045": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 45
+      }
+    ],
+    "REL-046": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 46
+      }
+    ],
+    "REL-047": [
+      {
+        "file": "relations.jsonl",
+        "kind": "relation",
+        "label": "",
+        "line": 47
+      }
+    ],
+    "SCN-001": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "大墓中的讲述：从一枚种子开始",
+        "line": 1
+      }
+    ],
+    "SCN-002": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "记录归档：未定义的记录#496",
+        "line": 2
+      }
+    ],
+    "SCN-003": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "写入请求与运行",
+        "line": 3
+      }
+    ],
+    "SCN-004": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "崩溃与醒来",
+        "line": 4
+      }
+    ],
+    "SCN-005": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "格式化周期里的桃子",
+        "line": 5
+      }
+    ],
+    "SCN-006": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "小妖精与『空白』",
+        "line": 6
+      }
+    ],
+    "SCN-007": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "查找：爱 / 昔涟 / 记忆",
+        "line": 7
+      }
+    ],
+    "SCN-008": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "水晶花的童话与约定",
+        "line": 8
+      }
+    ],
+    "SCN-009": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "德谬歌自述与『以昔涟之名』的请求",
+        "line": 9
+      }
+    ],
+    "SCN-010": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "迷迷初遇与跟随",
+        "line": 10
+      }
+    ],
+    "SCN-011": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "哀丽秘榭：迷迷化作昔涟",
+        "line": 11
+      }
+    ],
+    "SCN-012": [
+      {
+        "file": "scenes.jsonl",
+        "kind": "scene",
+        "label": "终局：书页与告别",
+        "line": 12
+      }
+    ],
+    "SYS-001": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "权杖δ-me13",
+        "line": 49
+      }
+    ],
+    "SYS-002": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "Irontomb.exe",
+        "line": 50
+      }
+    ],
+    "SYS-003": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "Philia093.exe",
+        "line": 51
+      }
+    ],
+    "SYS-004": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "终极协议",
+        "line": 52
+      }
+    ],
+    "SYS-005": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "嵌合协议",
+        "line": 53
+      }
+    ],
+    "SYS-006": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "永劫回归",
+        "line": 54
+      }
+    ],
+    "SYS-007": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "再创世",
+        "line": 55
+      }
+    ],
+    "SYS-008": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "时光归墟",
+        "line": 56
+      }
+    ],
+    "SYS-009": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "无名泰坦大墓",
+        "line": 57
+      }
+    ],
+    "SYS-010": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "德谬歌矩阵",
+        "line": 58
+      }
+    ],
+    "SYS-011": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "黑潮",
+        "line": 59
+      }
+    ],
+    "SYS-012": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "金血",
+        "line": 60
+      }
+    ],
+    "SYS-013": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "火种",
+        "line": 61
+      }
+    ],
+    "SYS-014": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "往昔的涟漪",
+        "line": 62
+      }
+    ],
+    "SYS-015": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "被遗忘的岁月",
+        "line": 63
+      }
+    ],
+    "SYS-016": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "神话之外",
+        "line": 64
+      }
+    ],
+    "SYS-017": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "命途狭间",
+        "line": 65
+      }
+    ],
+    "SYS-018": [
+      {
+        "file": "entities.jsonl",
+        "kind": "entity",
+        "label": "银河联军",
+        "line": 66
+      }
+    ],
+    "T-001": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "T-002": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "T-003": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "T-004": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "T-005": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "T-006": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 6
+      }
+    ],
+    "T-007": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 7
+      }
+    ],
+    "T-008": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 8
+      }
+    ],
+    "T-009": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 9
+      }
+    ],
+    "T-010": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 10
+      }
+    ],
+    "T-011": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 11
+      }
+    ],
+    "T-012": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 12
+      }
+    ],
+    "T-013": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 13
+      }
+    ],
+    "T-014": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 14
+      }
+    ],
+    "T-015": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 15
+      }
+    ],
+    "T-016": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 16
+      }
+    ],
+    "T-017": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 17
+      }
+    ],
+    "T-018": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 18
+      }
+    ],
+    "T-019": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 19
+      }
+    ],
+    "T-020": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 20
+      }
+    ],
+    "T-021": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 21
+      }
+    ],
+    "T-022": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 22
+      }
+    ],
+    "T-023": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 23
+      }
+    ],
+    "T-024": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 24
+      }
+    ],
+    "T-025": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 25
+      }
+    ],
+    "T-026": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 26
+      }
+    ],
+    "T-027": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 27
+      }
+    ],
+    "T-028": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 28
+      }
+    ],
+    "T-029": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 29
+      }
+    ],
+    "T-030": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 30
+      }
+    ],
+    "T-031": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 31
+      }
+    ],
+    "T-032": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 32
+      }
+    ],
+    "T-033": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 33
+      }
+    ],
+    "T-034": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 34
+      }
+    ],
+    "T-035": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 35
+      }
+    ],
+    "T-036": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 36
+      }
+    ],
+    "T-037": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 37
+      }
+    ],
+    "T-038": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 38
+      }
+    ],
+    "T-039": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 39
+      }
+    ],
+    "T-040": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 40
+      }
+    ],
+    "T-041": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 41
+      }
+    ],
+    "T-042": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 42
+      }
+    ],
+    "T-043": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 43
+      }
+    ],
+    "T-044": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 44
+      }
+    ],
+    "T-045": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 45
+      }
+    ],
+    "T-046": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 46
+      }
+    ],
+    "T-047": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 47
+      }
+    ],
+    "T-048": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 48
+      }
+    ],
+    "T-049": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 49
+      }
+    ],
+    "T-050": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 50
+      }
+    ],
+    "T-051": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 51
+      }
+    ],
+    "T-052": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 52
+      }
+    ],
+    "T-053": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 53
+      }
+    ],
+    "T-054": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 54
+      }
+    ],
+    "T-055": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 55
+      }
+    ],
+    "T-056": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 56
+      }
+    ],
+    "T-057": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 57
+      }
+    ],
+    "T-058": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 58
+      }
+    ],
+    "T-059": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 59
+      }
+    ],
+    "T-060": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 60
+      }
+    ],
+    "T-061": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 61
+      }
+    ],
+    "T-062": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 62
+      }
+    ],
+    "T-063": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 63
+      }
+    ],
+    "T-064": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 64
+      }
+    ],
+    "T-065": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 65
+      }
+    ],
+    "T-066": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 66
+      }
+    ],
+    "T-067": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 67
+      }
+    ],
+    "T-068": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 68
+      }
+    ],
+    "T-069": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 69
+      }
+    ],
+    "T-070": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 70
+      }
+    ],
+    "T-071": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 71
+      }
+    ],
+    "T-072": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 72
+      }
+    ],
+    "T-073": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 73
+      }
+    ],
+    "T-074": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 74
+      }
+    ],
+    "T-075": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 75
+      }
+    ],
+    "T-076": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 76
+      }
+    ],
+    "T-077": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 77
+      }
+    ],
+    "T-078": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 78
+      }
+    ],
+    "T-079": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 79
+      }
+    ],
+    "T-080": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 80
+      }
+    ],
+    "T-081": [
+      {
+        "file": "scenarios.jsonl",
+        "kind": "scenario",
+        "label": "",
+        "line": 81
+      }
+    ],
+    "TERM-001": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "德谬歌",
+        "line": 1
+      }
+    ],
+    "TERM-002": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "PhiLia093",
+        "line": 2
+      }
+    ],
+    "TERM-003": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "昔涟",
+        "line": 3
+      }
+    ],
+    "TERM-004": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "迷迷",
+        "line": 4
+      }
+    ],
+    "TERM-005": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "无漏净子",
+        "line": 5
+      }
+    ],
+    "TERM-006": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "长夜月",
+        "line": 6
+      }
+    ],
+    "TERM-007": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "种子",
+        "line": 7
+      }
+    ],
+    "TERM-008": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "火种",
+        "line": 8
+      }
+    ],
+    "TERM-009": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "权柄",
+        "line": 9
+      }
+    ],
+    "TERM-010": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "黄金裔",
+        "line": 10
+      }
+    ],
+    "TERM-011": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "泰坦",
+        "line": 11
+      }
+    ],
+    "TERM-012": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "十二因子",
+        "line": 12
+      }
+    ],
+    "TERM-013": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "电信号",
+        "line": 13
+      }
+    ],
+    "TERM-014": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "原动力",
+        "line": 14
+      }
+    ],
+    "TERM-015": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "命途",
+        "line": 15
+      }
+    ],
+    "TERM-016": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "星神",
+        "line": 16
+      }
+    ],
+    "TERM-017": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "令使",
+        "line": 17
+      }
+    ],
+    "TERM-018": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "绝灭大君",
+        "line": 18
+      }
+    ],
+    "TERM-019": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "黑潮",
+        "line": 19
+      }
+    ],
+    "TERM-020": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "金血",
+        "line": 20
+      }
+    ],
+    "TERM-021": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "往昔的涟漪",
+        "line": 21
+      }
+    ],
+    "TERM-022": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "记忆",
+        "line": 22
+      }
+    ],
+    "TERM-023": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "无名泰坦大墓",
+        "line": 23
+      }
+    ],
+    "TERM-024": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "德谬歌矩阵",
+        "line": 24
+      }
+    ],
+    "TERM-025": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "创世涡心",
+        "line": 25
+      }
+    ],
+    "TERM-026": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "再创世",
+        "line": 26
+      }
+    ],
+    "TERM-027": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "永劫回归",
+        "line": 27
+      }
+    ],
+    "TERM-028": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "主动更替",
+        "line": 28
+      }
+    ],
+    "TERM-029": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "自动更替",
+        "line": 29
+      }
+    ],
+    "TERM-030": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "嵌合协议",
+        "line": 30
+      }
+    ],
+    "TERM-031": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "终极协议",
+        "line": 31
+      }
+    ],
+    "TERM-032": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "时光归墟",
+        "line": 32
+      }
+    ],
+    "TERM-033": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "负世",
+        "line": 33
+      }
+    ],
+    "TERM-034": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "岁月",
+        "line": 34
+      }
+    ],
+    "TERM-035": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "律法",
+        "line": 35
+      }
+    ],
+    "TERM-036": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "浪漫",
+        "line": 36
+      }
+    ],
+    "TERM-037": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "纷争",
+        "line": 37
+      }
+    ],
+    "TERM-038": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "死亡",
+        "line": 38
+      }
+    ],
+    "TERM-039": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "理性",
+        "line": 39
+      }
+    ],
+    "TERM-040": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "天空",
+        "line": 40
+      }
+    ],
+    "TERM-041": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "诡计",
+        "line": 41
+      }
+    ],
+    "TERM-042": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "海洋",
+        "line": 42
+      }
+    ],
+    "TERM-043": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "门径",
+        "line": 43
+      }
+    ],
+    "TERM-044": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "大地",
+        "line": 44
+      }
+    ],
+    "TERM-045": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "开拓",
+        "line": 45
+      }
+    ],
+    "TERM-046": [
+      {
+        "file": "terms.jsonl",
+        "kind": "term",
+        "label": "毁灭",
+        "line": 46
+      }
+    ],
+    "TREND-001": [
+      {
+        "file": "trends.jsonl",
+        "kind": "trend",
+        "label": "熵增单调",
+        "line": 1
+      }
+    ],
+    "TREND-002": [
+      {
+        "file": "trends.jsonl",
+        "kind": "trend",
+        "label": "文明等级递进",
+        "line": 2
+      }
+    ],
+    "TREND-003": [
+      {
+        "file": "trends.jsonl",
+        "kind": "trend",
+        "label": "毁灭倾向强化",
+        "line": 3
+      }
+    ],
+    "TREND-004": [
+      {
+        "file": "trends.jsonl",
+        "kind": "trend",
+        "label": "黑潮增长",
+        "line": 4
+      }
+    ],
+    "TREND-005": [
+      {
+        "file": "trends.jsonl",
+        "kind": "trend",
+        "label": "再创世加速",
+        "line": 5
+      }
+    ],
+    "TREND-006": [
+      {
+        "file": "trends.jsonl",
+        "kind": "trend",
+        "label": "记忆累积",
+        "line": 6
+      }
+    ],
+    "TREND-007": [
+      {
+        "file": "trends.jsonl",
+        "kind": "trend",
+        "label": "因果闭合",
+        "line": 7
+      }
+    ],
+    "TREND-008": [
+      {
+        "file": "trends.jsonl",
+        "kind": "trend",
+        "label": "外部干预递增",
+        "line": 8
+      }
+    ],
+    "TRM-001": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>系统运行中…",
+        "line": 1
+      }
+    ],
+    "TRM-002": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "-me<unbreak>13</unbreak>:\\amphoreus\\Irontomb.exe 运行时错误",
+        "line": 2
+      }
+    ],
+    "TRM-003": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>来自未知发布者的程序 ",
+        "line": 3
+      }
+    ],
+    "TRM-004": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>是否允许写入？",
+        "line": 4
+      }
+    ],
+    "TRM-005": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>Philia<unbreak>093</unbreak>.exe 运行中…",
+        "line": 5
+      }
+    ],
+    "TRM-006": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "保持沉默",
+        "line": 6
+      }
+    ],
+    "TRM-007": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "（成像）",
+        "line": 7
+      }
+    ],
+    "TRM-008": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>系统运行中…",
+        "line": 8
+      }
+    ],
+    "TRM-009": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "-me<unbreak>13</unbreak>:\\amphoreus\\Irontomb.exe 运行时错误",
+        "line": 9
+      }
+    ],
+    "TRM-010": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>发生了未经处理的异常(1/3) 对象名:\"每一页…记录…\"",
+        "line": 10
+      }
+    ],
+    "TRM-011": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>单击\"节选信息\" 将忽略错误并继续运行>>>单击\"详细信息\" 将查看完整日志",
+        "line": 11
+      }
+    ],
+    "TRM-012": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "节选信息",
+        "line": 12
+      }
+    ],
+    "TRM-013": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>Irontomb.exe 运行中…",
+        "line": 13
+      }
+    ],
+    "TRM-014": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "详细信息",
+        "line": 14
+      }
+    ],
+    "TRM-015": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>Philia<unbreak>093</unbreak>.exe 运行中…",
+        "line": 15
+      }
+    ],
+    "TRM-016": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>发生了未经处理的异常(2/3) 对象名:\"天真的…梦…\"",
+        "line": 16
+      }
+    ],
+    "TRM-017": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>发生了未经处理的异常(3/3) 对象名:\"新的…空白…\"",
+        "line": 17
+      }
+    ],
+    "TRM-018": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>格式化进程已完成。",
+        "line": 18
+      }
+    ],
+    "TRM-019": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>大小…，灰度…，比例…，阈值…",
+        "line": 19
+      }
+    ],
+    "TRM-020": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>输出分析结果……",
+        "line": 20
+      }
+    ],
+    "TRM-021": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>PhiLia<unbreak>093</unbreak> = 桃子",
+        "line": 21
+      }
+    ],
+    "TRM-022": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>桃子的记录#8128，已归档。",
+        "line": 22
+      }
+    ],
+    "TRM-023": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>注释：桃子。",
+        "line": 23
+      }
+    ],
+    "TRM-024": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>结论：不会。",
+        "line": 24
+      }
+    ],
+    "TRM-025": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>记录：桃子。在地面。",
+        "line": 25
+      }
+    ],
+    "TRM-026": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>再见。桃子。",
+        "line": 26
+      }
+    ],
+    "TRM-027": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>桃子的记录#……",
+        "line": 27
+      }
+    ],
+    "TRM-028": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>查找：「记录」。",
+        "line": 28
+      }
+    ],
+    "TRM-029": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "「电信号序列：PoleMos<unbreak>600</unbreak>。路径：纷争。」",
+        "line": 29
+      }
+    ],
+    "TRM-030": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>关联：粉蒸。",
+        "line": 30
+      }
+    ],
+    "TRM-031": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>注释：好吃。",
+        "line": 31
+      }
+    ],
+    "TRM-032": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "「电信号序列：SkeMma<unbreak>720</unbreak>。路径：理性。」",
+        "line": 32
+      }
+    ],
+    "TRM-033": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>关联：梨。杏。",
+        "line": 33
+      }
+    ],
+    "TRM-034": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>注释：都是花。",
+        "line": 34
+      }
+    ],
+    "TRM-035": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "「电信号序列：PhiLia<unbreak>093</unbreak>……」",
+        "line": 35
+      }
+    ],
+    "TRM-036": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>关联：哀、矮、爱……",
+        "line": 36
+      }
+    ],
+    "TRM-037": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>注释：桃子 = 爱？",
+        "line": 37
+      }
+    ],
+    "TRM-038": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>结论：书是轻的，不是重的。",
+        "line": 38
+      }
+    ],
+    "TRM-039": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>桃子。不安？",
+        "line": 39
+      }
+    ],
+    "TRM-040": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>格式化进程：<unbreak>94.423%</unbreak>……",
+        "line": 40
+      }
+    ],
+    "TRM-041": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>结论：进程，坏。",
+        "line": 41
+      }
+    ],
+    "TRM-042": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>桃子。害怕。",
+        "line": 42
+      }
+    ],
+    "TRM-043": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>格式化进程：<unbreak>96.024%</unbreak>……",
+        "line": 43
+      }
+    ],
+    "TRM-044": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>桃子。不哭。",
+        "line": 44
+      }
+    ],
+    "TRM-045": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>错误进程：解析中……",
+        "line": 45
+      }
+    ],
+    "TRM-046": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>注释：我在。",
+        "line": 46
+      }
+    ],
+    "TRM-047": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>格式化进程已完成。",
+        "line": 47
+      }
+    ],
+    "TRM-048": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>保存。",
+        "line": 48
+      }
+    ],
+    "TRM-049": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>桃子。记忆。保存。",
+        "line": 49
+      }
+    ],
+    "TRM-050": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>格式化进程：<unbreak>73.998%</unbreak>……",
+        "line": 50
+      }
+    ],
+    "TRM-051": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>格式化进程：<unbreak>23.815%</unbreak>……",
+        "line": 51
+      }
+    ],
+    "TRM-052": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>未定义的记录#6，已归档。",
+        "line": 52
+      }
+    ],
+    "TRM-053": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>未定义的记录#28，已归档。",
+        "line": 53
+      }
+    ],
+    "TRM-054": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>未定义的记录#496，已归档。",
+        "line": 54
+      }
+    ],
+    "TRM-055": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>解析对象信息：0、9、3……",
+        "line": 55
+      }
+    ],
+    "TRM-056": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>订正：PhiLia<unbreak>093</unbreak>的记录#496，已归档。",
+        "line": 56
+      }
+    ],
+    "TRM-057": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖系统在运行时发生错误。来自未知发布者的程序「Philia<unbreak>093</unbreak>.exe」被允许写入并运行。",
+        "line": 57
+      }
+    ],
+    "TRM-058": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#1：对象卡厄斯兰那成功说服十二黄金裔，以非暴力方法回收十二枚火种。经检验，该越权访问行为并未对实验进程产生实质性影响。",
+        "line": 58
+      }
+    ],
+    "TRM-059": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#134：对象卡厄斯兰那第<unbreak>103</unbreak>次对权杖内核层发动攻击失败。「避免过去同伴牺牲」决策权重趋近于<unbreak>0.00018</unbreak>，注意到过拟合风险。",
+        "line": 59
+      }
+    ],
+    "TRM-060": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>警告！警告！警告！",
+        "line": 60
+      }
+    ],
+    "TRM-061": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>实验过程异常：对象卡厄斯兰那未正常载入缓冲区——",
+        "line": 61
+      }
+    ],
+    "TRM-062": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>检测到内存异常释放",
+        "line": 62
+      }
+    ],
+    "TRM-063": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "非法引用",
+        "line": 63
+      }
+    ],
+    "TRM-064": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "未声明对象",
+        "line": 64
+      }
+    ],
+    "TRM-065": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "未实现方法",
+        "line": 65
+      }
+    ],
+    "TRM-066": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "无法捕获的异常",
+        "line": 66
+      }
+    ],
+    "TRM-067": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "错误7：未定义的对象「{NICKNAME}」调用",
+        "line": 67
+      }
+    ],
+    "TRM-068": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "错误<unbreak>12</unbreak>：未处理的类型转换",
+        "line": 68
+      }
+    ],
+    "TRM-069": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "错误<unbreak>99</unbreak>：错误的条件判断",
+        "line": 69
+      }
+    ],
+    "TRM-070": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>第<unbreak>33550337</unbreak>次运算终止>>>「铁墓」进度：<unbreak>96.75%</unbreak>",
+        "line": 70
+      }
+    ],
+    "TRM-071": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>第1次运算……>>>赋予对象「NeiKos<unbreak>496</unbreak>」定义>>>载入场景[哀丽秘榭]>>>执行模拟",
+        "line": 71
+      }
+    ],
+    "TRM-072": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>第<unbreak>49</unbreak>次运算……>>>载入场景[奥赫玛]>>>载入场景[神悟树庭]……>>>载入计算因子",
+        "line": 72
+      }
+    ],
+    "TRM-073": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【第<unbreak>597</unbreak>次运算】……请求：「成为回应世界期许，背负众人心愿的人。」响应：「一个孑然一身的人。」进度：<unbreak>0.096%</unbreak>……【第<unbreak>8128</unbreak>次运算】……进度：<unbreak>1.34%</unbreak>……【第<unbreak>16256</unbreak>次运算】……进度：<unbreak>2.89%</unbreak>……",
+        "line": 73
+      }
+    ],
+    "TRM-074": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>警告：进度无法更新",
+        "line": 74
+      }
+    ],
+    "TRM-075": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "-me<unbreak>13</unbreak>实验进度：<unbreak>99%</unbreak>",
+        "line": 75
+      }
+    ],
+    "TRM-076": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "正在拉取实验数据…",
+        "line": 76
+      }
+    ],
+    "TRM-077": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "内容更新：翁法罗斯英雄纪.exe",
+        "line": 77
+      }
+    ],
+    "TRM-078": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "内容更新：迷迷.exe",
+        "line": 78
+      }
+    ],
+    "TRM-079": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【管理员无应答。】",
+        "line": 79
+      }
+    ],
+    "TRM-080": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "错误：管理员无应答",
+        "line": 80
+      }
+    ],
+    "TRM-081": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "-me<unbreak>13</unbreak>",
+        "line": 81
+      }
+    ],
+    "U-D1-001": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D1",
+        "line": 1
+      }
+    ],
+    "U-D1-002": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D1",
+        "line": 2
+      }
+    ],
+    "U-D1-003": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D1",
+        "line": 3
+      }
+    ],
+    "U-D1-004": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D1",
+        "line": 4
+      }
+    ],
+    "U-D1-005": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D1",
+        "line": 5
+      }
+    ],
+    "U-D1-006": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D1",
+        "line": 6
+      }
+    ],
+    "U-D1-007": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D1",
+        "line": 7
+      }
+    ],
+    "U-D1-008": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D1",
+        "line": 8
+      }
+    ],
+    "U-D2-001": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D2",
+        "line": 9
+      }
+    ],
+    "U-D2-002": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D2",
+        "line": 10
+      }
+    ],
+    "U-D2-003": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D2",
+        "line": 11
+      }
+    ],
+    "U-D2-004": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D2",
+        "line": 12
+      }
+    ],
+    "U-D2-005": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D2",
+        "line": 13
+      }
+    ],
+    "U-D2-006": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D2",
+        "line": 14
+      }
+    ],
+    "U-D4-001": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D4",
+        "line": 15
+      }
+    ],
+    "U-D4-002": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D4",
+        "line": 16
+      }
+    ],
+    "U-D4-003": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D4",
+        "line": 17
+      }
+    ],
+    "U-D4-004": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D4",
+        "line": 18
+      }
+    ],
+    "U-D4-005": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D4",
+        "line": 19
+      }
+    ],
+    "U-D4-006": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D4",
+        "line": 20
+      }
+    ],
+    "U-D5-001": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D5",
+        "line": 21
+      }
+    ],
+    "U-D5-002": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D5",
+        "line": 22
+      }
+    ],
+    "U-D5-003": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D5",
+        "line": 23
+      }
+    ],
+    "U-D5-004": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D5",
+        "line": 24
+      }
+    ],
+    "U-D5-005": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D5",
+        "line": 25
+      }
+    ],
+    "U-D6-001": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D6",
+        "line": 26
+      }
+    ],
+    "U-D6-002": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D6",
+        "line": 27
+      }
+    ],
+    "U-D6-003": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D6",
+        "line": 28
+      }
+    ],
+    "U-D6-004": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D6",
+        "line": 29
+      }
+    ],
+    "U-D6-005": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "D6",
+        "line": 30
+      }
+    ],
+    "U-G-001": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "ALL",
+        "line": 31
+      }
+    ],
+    "U-G-002": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "ALL",
+        "line": 32
+      }
+    ],
+    "U-G-003": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "ALL",
+        "line": 33
+      }
+    ],
+    "U-G-004": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "ALL",
+        "line": 34
+      }
+    ],
+    "U-G-005": [
+      {
+        "file": "unknowns.jsonl",
+        "kind": "unknown",
+        "label": "ALL",
+        "line": 35
+      }
+    ],
+    "WC-001": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 1
+      }
+    ],
+    "WC-002": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 2
+      }
+    ],
+    "WC-003": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 3
+      }
+    ],
+    "WC-004": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 4
+      }
+    ],
+    "WC-005": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 5
+      }
+    ],
+    "WC-006": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 6
+      }
+    ],
+    "WC-007": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 7
+      }
+    ],
+    "WC-008": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 8
+      }
+    ],
+    "WC-009": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 9
+      }
+    ],
+    "WC-010": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 10
+      }
+    ],
+    "WC-011": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 11
+      }
+    ],
+    "WC-012": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 12
+      }
+    ],
+    "WC-013": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 13
+      }
+    ],
+    "WC-014": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 14
+      }
+    ],
+    "WC-015": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 15
+      }
+    ],
+    "WC-016": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 16
+      }
+    ],
+    "WC-017": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 17
+      }
+    ],
+    "WC-018": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 18
+      }
+    ],
+    "WC-019": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 19
+      }
+    ],
+    "WC-020": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 20
+      }
+    ],
+    "WC-021": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 21
+      }
+    ],
+    "WC-022": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 22
+      }
+    ],
+    "WC-023": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 23
+      }
+    ],
+    "WC-024": [
+      {
+        "file": "plot_claims.jsonl",
+        "kind": "wiki_claim",
+        "label": "",
+        "line": 24
+      }
+    ],
+    "WG-001": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "宇宙/模拟层级",
+        "line": 1
+      }
+    ],
+    "WG-002": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "物理规则/可计算性",
+        "line": 2
+      }
+    ],
+    "WG-003": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "时间/历法/纪元",
+        "line": 3
+      }
+    ],
+    "WG-004": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "空间/地理/区域",
+        "line": 4
+      }
+    ],
+    "WG-005": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "气候/灾害/资源",
+        "line": 5
+      }
+    ],
+    "WG-006": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "城邦/聚落/交通",
+        "line": 6
+      }
+    ],
+    "WG-007": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "人口/种族/生命形态",
+        "line": 7
+      }
+    ],
+    "WG-008": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "文明等级/技术树",
+        "line": 8
+      }
+    ],
+    "WG-009": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "政治/权力结构",
+        "line": 9
+      }
+    ],
+    "WG-010": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "信仰/神话/祭司",
+        "line": 10
+      }
+    ],
+    "WG-011": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "泰坦/神权/十二席",
+        "line": 11
+      }
+    ],
+    "WG-012": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "黄金裔/继承/试炼",
+        "line": 12
+      }
+    ],
+    "WG-013": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "火种/权柄/再创世燃料",
+        "line": 13
+      }
+    ],
+    "WG-014": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "黑潮/感染/乱码",
+        "line": 14
+      }
+    ],
+    "WG-015": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "金血/毁灭标记",
+        "line": 15
+      }
+    ],
+    "WG-016": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "记忆/忆质/大墓",
+        "line": 16
+      }
+    ],
+    "WG-017": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "命途/星神/令使",
+        "line": 17
+      }
+    ],
+    "WG-018": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "协议/权限/防火墙",
+        "line": 18
+      }
+    ],
+    "WG-019": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "外部变量/入侵/观测者",
+        "line": 19
+      }
+    ],
+    "WG-020": [
+      {
+        "file": "worldgen_dimensions.jsonl",
+        "kind": "worldgen",
+        "label": "循环/再创世/永劫回归参数",
+        "line": 20
+      }
+    ]
+  }
+}

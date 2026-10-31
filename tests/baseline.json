@@ -1,0 +1,194 @@
+{
+  "api_version": {
+    "method": "kernel/api.py API_VERSION",
+    "value": "1"
+  },
+  "counts": {
+    "apps_files": {
+      "method": "count *.py in apps/ including __init__.py",
+      "value": 21
+    },
+    "apps_modules": {
+      "method": "count *.py in apps/ minus __init__.py",
+      "value": 20
+    },
+    "config_json": {
+      "method": "count *.json in config/",
+      "value": 11
+    },
+    "golden_entries": {
+      "method": "len(tests/golden_fingerprints.json entries)",
+      "value": 8
+    },
+    "kernel_files": {
+      "method": "count *.py in kernel/ including __init__.py",
+      "value": 11
+    },
+    "kernel_modules": {
+      "method": "count *.py in kernel/ minus __init__.py",
+      "value": 10
+    },
+    "presets": {
+      "method": "count directories in presets/",
+      "value": 9
+    },
+    "test_files": {
+      "method": "count *.py in tests/",
+      "value": 38
+    },
+    "tool_scripts": {
+      "method": "count *.py directly under tools/",
+      "value": 30
+    }
+  },
+  "golden_fingerprints": {
+    "entries": [
+      {
+        "digest": "46b663fe3c1aa81bf523141716f54185",
+        "frames": 8000,
+        "preset": "destruction",
+        "reached_frame": 2000,
+        "seed": 0,
+        "verdict": "destruction"
+      },
+      {
+        "digest": "91be53cf94652adb7b50e999c5505b94",
+        "frames": 1500,
+        "preset": "emergent",
+        "reached_frame": 1499,
+        "seed": 0,
+        "verdict": "undecided"
+      },
+      {
+        "digest": "28ef29f0a5e077d00ce8287a3b6f2bd8",
+        "frames": null,
+        "preset": "nullify",
+        "reached_frame": 33594547,
+        "seed": 0,
+        "verdict": "destruction"
+      },
+      {
+        "digest": "590f947ae1c366f85b716775f6941c47",
+        "frames": 3000,
+        "preset": "nullify",
+        "reached_frame": 2999,
+        "seed": 0,
+        "verdict": "destruction"
+      },
+      {
+        "digest": "e9b84d2cc1365a4b88dabcdf1f22c266",
+        "frames": null,
+        "preset": "plot",
+        "reached_frame": 33594547,
+        "seed": 0,
+        "verdict": "overwritten"
+      },
+      {
+        "digest": "590f947ae1c366f85b716775f6941c47",
+        "frames": 3000,
+        "preset": "plot",
+        "reached_frame": 2999,
+        "seed": 0,
+        "verdict": "destruction"
+      },
+      {
+        "digest": "6c952466e8dff1d65d7e7785534d844e",
+        "frames": 3000,
+        "preset": "plot",
+        "reached_frame": 2999,
+        "seed": 7,
+        "verdict": "destruction"
+      },
+      {
+        "digest": "ba0de0a681930c7a50b1704878968bea",
+        "frames": 6000,
+        "preset": "tide",
+        "reached_frame": 5999,
+        "seed": 0,
+        "verdict": "annihilation"
+      }
+    ],
+    "path": "tests/golden_fingerprints.json",
+    "reference_platform": {
+      "machine": "AMD64",
+      "note": "digest 是量化 float32 向量的哈希，只在四项（system/machine/python/numpy）全同的环境上逐位可比；否则以结构层（STRUCTURAL_FIELDS）为准，数值层走容差。",
+      "numpy": "2.5.1",
+      "python": "3.14.0",
+      "system": "Windows"
+    },
+    "sha256": {
+      "method": "sha256 of the file",
+      "value": "2adb878e308c59cfc2823b89b6024e267e733f3f91f5136ed4f250a73b1c7d13"
+    }
+  },
+  "lore": {
+    "canon_digest": {
+      "method": "lore/canon/manifest.json source_digest",
+      "value": "b2d17fcf558e11d99d515cdd2b18b9ae362e0d4dd2400d39587beb04fadf9f6b"
+    },
+    "canon_entries": {
+      "method": "lore/canon/manifest.json entry_count",
+      "value": 1074
+    },
+    "files": {
+      "method": "walk lore/",
+      "value": 171
+    }
+  },
+  "presets": [
+    {
+      "name": "_default",
+      "observed_note": false,
+      "seed": null
+    },
+    {
+      "name": "_demo",
+      "observed_note": false,
+      "seed": 0
+    },
+    {
+      "name": "destruction",
+      "observed_note": false,
+      "seed": 0
+    },
+    {
+      "name": "nullify",
+      "observed_note": true,
+      "seed": 0
+    },
+    {
+      "name": "plot",
+      "observed_note": true,
+      "seed": 0
+    },
+    {
+      "name": "plot-full",
+      "observed_note": true,
+      "seed": 0
+    },
+    {
+      "name": "plot-mech",
+      "observed_note": true,
+      "seed": 0
+    },
+    {
+      "name": "refuted",
+      "observed_note": true,
+      "seed": 0
+    },
+    {
+      "name": "tide",
+      "observed_note": true,
+      "seed": 0
+    }
+  ],
+  "requires_python": {
+    "method": "pyproject.toml requires-python",
+    "value": ">=3.10"
+  },
+  "schema": 1,
+  "version": {
+    "method": "pyproject.toml [project] version",
+    "value": "0.1.1"
+  }
+}

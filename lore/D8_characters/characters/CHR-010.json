@@ -1,0 +1,128 @@
+{
+ "id": "CHR-010",
+ "names": {
+  "zh": "黑塔",
+  "en": "Herta",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "HertA"
+  ]
+ },
+ "identity": {
+  "kind": "外部变量",
+  "continuity": "跨轮",
+  "memory": "完整",
+  "permissions": [
+   "天才俱乐部",
+   "权杖访问（被标记恶意后仍强行接入）"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "解明翁法罗斯、颠覆来古士的论证",
+   "priority": 1,
+   "source": "S-001:424966"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "答案不唯一",
+   "confidence": "A",
+   "source": "S-001:424967"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "被拒绝访问",
+   "response": "更想进去",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:425115"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-001",
+   "when": "当实验被判定必然毁灭",
+   "then": "寻找反例",
+   "priority": 1,
+   "conflict": "—",
+   "source": "S-001:424966"
+  },
+  {
+   "id": "R-002",
+   "when": "当铁墓将加冕",
+   "then": "抢先自我加冕",
+   "priority": 2,
+   "conflict": "—",
+   "source": "S-001:30429"
+  },
+  {
+   "id": "R-003",
+   "when": "当被列为恶意访客",
+   "then": "留言威胁后继续",
+   "priority": 3,
+   "conflict": "—",
+   "source": "S-001:425115"
+  }
+ ],
+ "speech": {
+  "tone": "傲慢、直接、爱自称天才",
+  "address": {
+   "to_peer": "你",
+   "to_enemy": "铁脑袋",
+   "to_self": "我"
+  },
+  "catchphrases": [],
+  "taboo_topics": [],
+  "sentence_style": "短句+反问"
+ },
+ "relations": [
+  {
+   "target": "CHR-011",
+   "type": "trust",
+   "intensity": 0.8,
+   "source": "S-001:424966"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "被拒",
+   "action": "强行接入",
+   "reason": "不接受『不行』",
+   "source": "S-001:425115"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "对翁法罗斯产生兴趣",
+   "source": "S-001:30395"
+  },
+  {
+   "phase": "turn",
+   "state": "闯入大墓",
+   "source": "S-001:30429"
+  },
+  {
+   "phase": "end",
+   "state": "抢先加冕",
+   "source": "S-001:30431"
+  }
+ ],
+ "failure_modes": [
+  "过度自信",
+  "不计代价"
+ ],
+ "ooc_guards": [
+  "不得写成纯搞笑角色"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:424966",
+  "S-001:425115",
+  "S-001:30429"
+ ],
+ "confidence": "A"
+}

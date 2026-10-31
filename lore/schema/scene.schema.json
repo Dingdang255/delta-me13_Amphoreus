@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scene.schema.json",
+  "title": "scene record",
+  "type": "object",
+  "required": ["id", "name", "participants", "trigger", "coverage", "evidence"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^SCN-[0-9]{3}$" },
+    "name": { "type": "string", "minLength": 1 },
+    "location": { "type": "string" },
+    "participants": { "type": "array", "items": { "type": "string" } },
+    "trigger": { "type": "string", "minLength": 1 },
+    "coverage": { "enum": ["covered", "partial", "unknown", "out_of_scope"] },
+    "dialogue_range": { "type": "array", "items": { "type": "string" } },
+    "evidence": { "type": "string", "minLength": 1 },
+    "confidence": { "enum": ["A", "B", "C", "D", "E", "UNKNOWN"] },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": true
+}

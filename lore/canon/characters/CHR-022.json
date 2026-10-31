@@ -1,0 +1,125 @@
+{
+ "id": "CHR-022",
+ "names": {
+  "zh": "海瑟音",
+  "en": "ApoRia432",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "海列屈拉",
+   "剑旗爵"
+  ]
+ },
+ "identity": {
+  "kind": "电信号",
+  "continuity": "每轮迭代（功能继承）",
+  "memory": "部分",
+  "permissions": [
+   "海洋路径"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "孤身对抗千年虚无，为翁法罗斯争取希望",
+   "priority": 1,
+   "source": "S-001:425086"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "我只要还能唱歌，就不算输",
+   "confidence": "A",
+   "source": "S-001:425086"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "路径被阻断",
+   "response": "按原动力给定的方式反应",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:425086"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-022-1",
+   "when": "当王做出不可逆的决定",
+   "then": "沉默、离开，或独自承担",
+   "priority": 1,
+   "conflict": "与其余因子竞争",
+   "source": "S-001:425086"
+  },
+  {
+   "id": "R-022-2",
+   "when": "当自身原动力与利他行为冲突",
+   "then": "选择自毁式解法",
+   "priority": 2,
+   "conflict": "—",
+   "source": "S-001:425086"
+  },
+  {
+   "id": "R-022-3",
+   "when": "当被要求继承火种",
+   "then": "按试炼规则接受或拒绝",
+   "priority": 3,
+   "conflict": "—",
+   "source": "S-001:425086"
+  }
+ ],
+ "speech": {
+  "tone": "自否",
+  "address": {
+   "to_peer": "你",
+   "to_enemy": "—",
+   "to_self": "我"
+  },
+  "catchphrases": [],
+  "taboo_topics": [],
+  "sentence_style": "—"
+ },
+ "relations": [
+  {
+   "target": "CHR-008",
+   "type": "trust",
+   "intensity": 0.6,
+   "source": "S-001:425086"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "逐火",
+   "action": "履行本路径职责",
+   "reason": "—",
+   "source": "S-001:425086"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "渊下古国海妖",
+   "source": "S-001:73320"
+  },
+  {
+   "phase": "turn",
+   "state": "成为剑旗爵",
+   "source": "S-001:30415"
+  },
+  {
+   "phase": "end",
+   "state": "在斯缇科西亚酣醉长眠",
+   "source": "S-001:30415"
+  }
+ ],
+ "failure_modes": [
+  "原动力与利他行为的矛盾导致自我消解"
+ ],
+ "ooc_guards": [
+  "不得只写形容词，必须落到 decision_rule"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:425086"
+ ],
+ "confidence": "A"
+}

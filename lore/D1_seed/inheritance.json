@@ -1,0 +1,24 @@
+{
+  "version": "1.0",
+  "principle": "只登记官方明示可继承/会重置的量。没有原文的量一律 UNKNOWN，不得默认继承。",
+  "carry": [
+    {"key":"memory_archive","what":"无名泰坦大墓中的记忆档案","rule":"carry","verbatim":"PhiLia093借由「记忆」的触媒，回归无名泰坦大墓，为沉睡的德谬歌载入十二因子数据。","source":"S-001:424957","confidence":"A"},
+    {"key":"flame_data","what":"火种/电信号数据","rule":"carry","verbatim":"将记忆和火种传递给新的自我","source":"S-001:424954","confidence":"A"},
+    {"key":"myth","what":"历史以神话形式继承","rule":"carry_with_distortion","verbatim":"其余各电信号的记录，也以类似的形式同步出现在下一循环的神话中。","source":"S-001:425077","confidence":"A"},
+    {"key":"ritual_data","what":"仪式数据（如裂魂仪式）","rule":"carry_partial","verbatim":"该仪式的部分数据继承至下一循环，并以箴言、习俗等方式呈现。","source":"S-001:425076","confidence":"A"},
+    {"key":"factor_self_naming","what":"以『卡厄斯』或其变体自我命名的规律","rule":"carry","verbatim":"从某次循环开始，一组因子均表现出以「卡厄斯」或其变体进行自我命名的规律，推测为某条代码在迭代中稳定继承了下来。","source":"S-001:425073","confidence":"B"},
+    {"key":"protocol_default","what":"嵌合协议的默认行为（剔除其余因子）","rule":"carry","verbatim":"这一行为符合「毁灭」倾向，应被标记为嵌合行为的默认值，在后续循环中应用。","source":"S-001:425074","confidence":"A"},
+    {"key":"ultimate_protocol_patch","what":"刻律德菈对终极协议的改写","rule":"carry","verbatim":"以自我静默为代价，改写终极协议：若「再创世」进程异常，则忽视所有变量，终止迭代演算，等待「铁墓」成型。","source":"S-001:424941","confidence":"A"}
+  ],
+  "reset": [
+    {"key":"heir_memory","what":"黄金裔个体记忆","rule":"reset","verbatim":"在德谬歌监牢，在格式化进程完成前，每个轮回的昔涟都会向权杖讲述逐火之旅的故事。","source":"S-001:122494","confidence":"A","note":"格式化进程即重置动作"},
+    {"key":"world_state","what":"世界状态（文明/城邦/人口）","rule":"reset","verbatim":"新一代电信号继承十二因子，重新开始逐火之旅","source":"S-001:424932","confidence":"A"},
+    {"key":"loop_counter","what":"轮次计数","rule":"increment","verbatim":"永劫回归#1 … #33550336","source":"S-001:218704","confidence":"A"}
+  ],
+  "unknown": [
+    {"key":"randomness_of_inheritance","what":"继承的随机性具体作用于哪些键","why":"官方只说『具有一定的随机性』，未给作用域","source":"S-001:425076"},
+    {"key":"memory_capacity","what":"大墓容量上限","why":"无文本","source":null},
+    {"key":"carry_latency","what":"继承延迟（是否延迟一轮生效）","why":"『部分数据继承至下一循环』未说明是否即时","source":"S-001:425076"}
+  ],
+  "conflict_note": "项目旧实现中把『种子』跨轮继承，但官方文本中不存在『种子』这一可继承键；见 10_conflicts.jsonl CF-004。"
+}

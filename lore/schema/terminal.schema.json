@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "terminal.schema.json",
+  "title": "terminal output record",
+  "type": "object",
+  "required": ["id", "text", "verbatim", "kind", "trigger", "source", "locator", "confidence"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^TRM-[0-9]{3}$" },
+    "text": { "type": "string", "minLength": 1 },
+    "verbatim": { "type": "boolean" },
+    "kind": { "type": "string", "minLength": 1 },
+    "medium": { "type": "string" },
+    "trigger": { "type": "object" },
+    "context": { "type": "string" },
+    "ask": { "type": "string" },
+    "options": { "type": "array", "items": { "type": "string" } },
+    "default": { "type": "string" },
+    "timeout": { "type": "string" },
+    "source": { "type": "string" },
+    "locator": { "type": "string" },
+    "confidence": { "enum": ["A", "B", "C", "D", "E", "UNKNOWN"] },
+    "extraction_note": { "type": "string" }
+  },
+  "additionalProperties": true
+}

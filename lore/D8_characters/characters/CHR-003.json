@@ -1,0 +1,158 @@
+{
+ "id": "CHR-003",
+ "names": {
+  "zh": "德谬歌",
+  "en": "Demiurge",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "翁法罗斯之心",
+   "最初的智种",
+   "第十三位泰坦"
+  ]
+ },
+ "identity": {
+  "kind": "模拟体",
+  "continuity": "跨轮连续（监牢中沉睡）",
+  "memory": "可转印；长期累积",
+  "permissions": [
+   "权杖原始演算目标",
+   "记忆命途",
+   "回望（伪浮黎）"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "理解『爱』，成为真正的生命",
+   "priority": 1,
+   "source": "S-001:425097"
+  },
+  {
+   "level": "long",
+   "text": "记录每一页故事，不让翁法罗斯被放弃",
+   "priority": 2,
+   "source": "S-001:225933"
+  },
+  {
+   "level": "short",
+   "text": "在格式化前记住桃子",
+   "priority": 3,
+   "source": "S-001:225975"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "桃子 = 爱",
+   "confidence": "A",
+   "source": "S-001:225943"
+  },
+  {
+   "text": "书是轻的，不是重的",
+   "confidence": "A",
+   "source": "S-001:225947"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "格式化推进",
+   "response": "用更短的句子、更频繁的注释回应",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:225950-225960"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-001",
+   "when": "当收到讲述",
+   "then": "逐条归档并建立联想",
+   "priority": 1,
+   "conflict": "—",
+   "source": "S-001:225934"
+  },
+  {
+   "id": "R-002",
+   "when": "当语义超出解析能力",
+   "then": "输出『错误进程：解析中……』并继续陪伴",
+   "priority": 2,
+   "conflict": "—",
+   "source": "S-001:225958"
+  },
+  {
+   "id": "R-003",
+   "when": "当实验即将坍缩为『结束』",
+   "then": "选择牺牲自我、回望补因",
+   "priority": 3,
+   "conflict": "与 R-001 的『保存』冲突",
+   "source": "S-001:425012"
+  }
+ ],
+ "speech": {
+  "tone": "破碎短句、无标点、以句号分隔",
+  "address": {
+   "to_peer": "桃子",
+   "to_enemy": "无",
+   "to_self": "『我』"
+  },
+  "catchphrases": [
+   ">>>注释：我在。"
+  ],
+  "taboo_topics": [],
+  "sentence_style": "名词堆叠 + 结论句"
+ },
+ "relations": [
+  {
+   "target": "CHR-002",
+   "type": "love",
+   "intensity": 1.0,
+   "source": "S-001:226077"
+  },
+  {
+   "target": "CHR-004",
+   "type": "identity",
+   "intensity": 1.0,
+   "source": "S-001:73323"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "被格式化",
+   "action": "把最后一句写成『保存』",
+   "reason": "记忆是它存在的唯一形式",
+   "source": "S-001:225974"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "权杖的原始演算目标，因星核污染长眠",
+   "source": "S-001:425106"
+  },
+  {
+   "phase": "turn",
+   "state": "受 PhiLia093 影响踏上记忆命途，苏醒为迷迷",
+   "source": "S-001:425106"
+  },
+  {
+   "phase": "end",
+   "state": "成为无漏净子，回望后与权杖一同消陨",
+   "source": "S-001:425106"
+  }
+ ],
+ "failure_modes": [
+  "无法理解『爱』直到最后一刻",
+  "回望失败则实验重新向『未结束』坍缩"
+ ],
+ "ooc_guards": [
+  "不得写成全知的神",
+  "不得让它说出完整长句（语料中无此形态）"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:225852-226200",
+  "S-001:425106",
+  "S-001:73323",
+  "S-001:425012"
+ ],
+ "confidence": "A"
+}

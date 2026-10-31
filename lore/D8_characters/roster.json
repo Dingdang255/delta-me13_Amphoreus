@@ -1,0 +1,202 @@
+{
+ "version": "1.0",
+ "game_version": "4.6.0",
+ "count": 27,
+ "categories": {
+  "电信号/黄金裔": [
+   "CHR-001",
+   "CHR-002",
+   "CHR-003",
+   "CHR-004",
+   "CHR-005",
+   "CHR-006",
+   "CHR-007",
+   "CHR-008",
+   "CHR-009",
+   "CHR-010",
+   "CHR-011",
+   "CHR-012",
+   "CHR-013",
+   "CHR-014",
+   "CHR-015",
+   "CHR-016",
+   "CHR-017",
+   "CHR-018",
+   "CHR-019",
+   "CHR-020",
+   "CHR-021",
+   "CHR-022",
+   "CHR-023",
+   "CHR-024"
+  ],
+  "泰坦/星神": [
+   "CHR-025",
+   "CHR-037",
+   "CHR-038"
+  ]
+ },
+ "all": [
+  {
+   "id": "CHR-001",
+   "zh": "卡厄斯兰那",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-002",
+   "zh": "昔涟",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-003",
+   "zh": "德谬歌",
+   "kind": "模拟体",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-004",
+   "zh": "迷迷",
+   "kind": "派生体",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-005",
+   "zh": "无漏净子（昔涟）",
+   "kind": "令使",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-006",
+   "zh": "长夜月",
+   "kind": "外部变量",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-007",
+   "zh": "三月七",
+   "kind": "外部变量",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-008",
+   "zh": "开拓者",
+   "kind": "外部变量",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-009",
+   "zh": "丹恒",
+   "kind": "外部变量",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-010",
+   "zh": "黑塔",
+   "kind": "外部变量",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-011",
+   "zh": "螺丝咕姆",
+   "kind": "外部变量",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-012",
+   "zh": "黑天鹅",
+   "kind": "外部变量",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-013",
+   "zh": "来古士",
+   "kind": "管理员",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-014",
+   "zh": "铁墓",
+   "kind": "令使",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-015",
+   "zh": "阿格莱雅",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-016",
+   "zh": "缇宝",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-017",
+   "zh": "万敌",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-018",
+   "zh": "遐蝶",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-019",
+   "zh": "那刻夏",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-020",
+   "zh": "风堇",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-021",
+   "zh": "赛飞儿",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-022",
+   "zh": "海瑟音",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-023",
+   "zh": "刻律德菈",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-024",
+   "zh": "荒笛",
+   "kind": "电信号",
+   "coverage": "covered"
+  },
+  {
+   "id": "CHR-025",
+   "zh": "刻法勒",
+   "kind": "泰坦",
+   "coverage": "partial"
+  },
+  {
+   "id": "CHR-037",
+   "zh": "纳努克",
+   "kind": "星神",
+   "coverage": "partial"
+  },
+  {
+   "id": "CHR-038",
+   "zh": "浮黎",
+   "kind": "星神",
+   "coverage": "partial"
+  }
+ ]
+}

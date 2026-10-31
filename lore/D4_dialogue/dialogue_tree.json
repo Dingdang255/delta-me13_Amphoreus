@@ -1,0 +1,3612 @@
+{
+ "version": "1.0",
+ "note": "对话树只表达『顺序 + 条件』；branch 未在数据源中标注，故全部为 linear。player 选项节点见 D6/triggers.json。",
+ "scenes": [
+  {
+   "scene_id": "SCN-001",
+   "entry": "DLG-001",
+   "nodes": [
+    {
+     "id": "DLG-001",
+     "order": 1,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-002"
+     ],
+     "locator": "S-001:225852",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-002",
+     "order": 2,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-003"
+     ],
+     "locator": "S-001:225853",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-003",
+     "order": 3,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-004"
+     ],
+     "locator": "S-001:225854",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-004",
+     "order": 4,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-005"
+     ],
+     "locator": "S-001:225855",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-005",
+     "order": 5,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-006"
+     ],
+     "locator": "S-001:225856",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-006",
+     "order": 6,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-007"
+     ],
+     "locator": "S-001:225857",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-007",
+     "order": 7,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-008"
+     ],
+     "locator": "S-001:225858",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-008",
+     "order": 8,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-009"
+     ],
+     "locator": "S-001:225859",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-009",
+     "order": 9,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-010"
+     ],
+     "locator": "S-001:225860",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-010",
+     "order": 10,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-011"
+     ],
+     "locator": "S-001:225861",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-011",
+     "order": 11,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-012"
+     ],
+     "locator": "S-001:225862",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-012",
+     "order": 12,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-013"
+     ],
+     "locator": "S-001:225863",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-013",
+     "order": 13,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-014"
+     ],
+     "locator": "S-001:225864",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-014",
+     "order": 14,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-015"
+     ],
+     "locator": "S-001:225865",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-015",
+     "order": 15,
+     "speaker_inferred": "CHR-002",
+     "next": [],
+     "locator": "S-001:225866",
+     "condition": "linear"
+    }
+   ]
+  },
+  {
+   "scene_id": "SCN-002",
+   "entry": "DLG-016",
+   "nodes": [
+    {
+     "id": "DLG-016",
+     "order": 1,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-017"
+     ],
+     "locator": "S-001:225867",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-017",
+     "order": 2,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-018"
+     ],
+     "locator": "S-001:225868",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-018",
+     "order": 3,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-019"
+     ],
+     "locator": "S-001:225869",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-019",
+     "order": 4,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-020"
+     ],
+     "locator": "S-001:225870",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-020",
+     "order": 5,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-021"
+     ],
+     "locator": "S-001:225871",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-021",
+     "order": 6,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-022"
+     ],
+     "locator": "S-001:225872",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-022",
+     "order": 7,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-023"
+     ],
+     "locator": "S-001:225873",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-023",
+     "order": 8,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-024"
+     ],
+     "locator": "S-001:225874",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-024",
+     "order": 9,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-025"
+     ],
+     "locator": "S-001:225875",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-025",
+     "order": 10,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-026"
+     ],
+     "locator": "S-001:225876",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-026",
+     "order": 11,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-027"
+     ],
+     "locator": "S-001:225877",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-027",
+     "order": 12,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-028"
+     ],
+     "locator": "S-001:225878",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-028",
+     "order": 13,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-029"
+     ],
+     "locator": "S-001:225879",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-029",
+     "order": 14,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-030"
+     ],
+     "locator": "S-001:225880",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-030",
+     "order": 15,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-031"
+     ],
+     "locator": "S-001:225881",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-031",
+     "order": 16,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-032"
+     ],
+     "locator": "S-001:225882",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-032",
+     "order": 17,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-033"
+     ],
+     "locator": "S-001:225883",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-033",
+     "order": 18,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-034"
+     ],
+     "locator": "S-001:225884",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-034",
+     "order": 19,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-035"
+     ],
+     "locator": "S-001:225885",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-035",
+     "order": 20,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-036"
+     ],
+     "locator": "S-001:225886",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-036",
+     "order": 21,
+     "speaker_inferred": "CHR-003",
+     "next": [],
+     "locator": "S-001:225887",
+     "condition": "linear"
+    }
+   ]
+  },
+  {
+   "scene_id": "SCN-003",
+   "entry": "DLG-037",
+   "nodes": [
+    {
+     "id": "DLG-037",
+     "order": 1,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-038"
+     ],
+     "locator": "S-001:225888",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-038",
+     "order": 2,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-039"
+     ],
+     "locator": "S-001:225889",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-039",
+     "order": 3,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-040"
+     ],
+     "locator": "S-001:225890",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-040",
+     "order": 4,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-041"
+     ],
+     "locator": "S-001:225891",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-041",
+     "order": 5,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-042"
+     ],
+     "locator": "S-001:225892",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-042",
+     "order": 6,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-043"
+     ],
+     "locator": "S-001:225895",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-043",
+     "order": 7,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-044"
+     ],
+     "locator": "S-001:225896",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-044",
+     "order": 8,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-045"
+     ],
+     "locator": "S-001:225897",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-045",
+     "order": 9,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-046"
+     ],
+     "locator": "S-001:225898",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-046",
+     "order": 10,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-047"
+     ],
+     "locator": "S-001:225900",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-047",
+     "order": 11,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-048"
+     ],
+     "locator": "S-001:225902",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-048",
+     "order": 12,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-049"
+     ],
+     "locator": "S-001:225903",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-049",
+     "order": 13,
+     "speaker_inferred": "CHR-003",
+     "next": [],
+     "locator": "S-001:225904",
+     "condition": "linear"
+    }
+   ]
+  },
+  {
+   "scene_id": "SCN-004",
+   "entry": "DLG-050",
+   "nodes": [
+    {
+     "id": "DLG-050",
+     "order": 1,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-051"
+     ],
+     "locator": "S-001:218713",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-051",
+     "order": 2,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-052"
+     ],
+     "locator": "S-001:218714",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-052",
+     "order": 3,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-053"
+     ],
+     "locator": "S-001:218715",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-053",
+     "order": 4,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-054"
+     ],
+     "locator": "S-001:218716",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-054",
+     "order": 5,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-055"
+     ],
+     "locator": "S-001:218717",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-055",
+     "order": 6,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-056"
+     ],
+     "locator": "S-001:218718",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-056",
+     "order": 7,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-057"
+     ],
+     "locator": "S-001:218719",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-057",
+     "order": 8,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-058"
+     ],
+     "locator": "S-001:218720",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-058",
+     "order": 9,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-059"
+     ],
+     "locator": "S-001:218721",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-059",
+     "order": 10,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-060"
+     ],
+     "locator": "S-001:218722",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-060",
+     "order": 11,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-061"
+     ],
+     "locator": "S-001:218723",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-061",
+     "order": 12,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-062"
+     ],
+     "locator": "S-001:218724",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-062",
+     "order": 13,
+     "speaker_inferred": "CHR-002",
+     "next": [],
+     "locator": "S-001:218725",
+     "condition": "linear"
+    }
+   ]
+  },
+  {
+   "scene_id": "SCN-005",
+   "entry": "DLG-063",
+   "nodes": [
+    {
+     "id": "DLG-063",
+     "order": 1,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-064"
+     ],
+     "locator": "S-001:225906",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-064",
+     "order": 2,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-065"
+     ],
+     "locator": "S-001:225907",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-065",
+     "order": 3,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-066"
+     ],
+     "locator": "S-001:225908",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-066",
+     "order": 4,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-067"
+     ],
+     "locator": "S-001:225909",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-067",
+     "order": 5,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-068"
+     ],
+     "locator": "S-001:225910",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-068",
+     "order": 6,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-069"
+     ],
+     "locator": "S-001:225911",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-069",
+     "order": 7,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-070"
+     ],
+     "locator": "S-001:225912",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-070",
+     "order": 8,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-071"
+     ],
+     "locator": "S-001:225913",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-071",
+     "order": 9,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-072"
+     ],
+     "locator": "S-001:225914",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-072",
+     "order": 10,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-073"
+     ],
+     "locator": "S-001:225915",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-073",
+     "order": 11,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-074"
+     ],
+     "locator": "S-001:225916",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-074",
+     "order": 12,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-075"
+     ],
+     "locator": "S-001:225917",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-075",
+     "order": 13,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-076"
+     ],
+     "locator": "S-001:225918",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-076",
+     "order": 14,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-077"
+     ],
+     "locator": "S-001:225919",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-077",
+     "order": 15,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-078"
+     ],
+     "locator": "S-001:225920",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-078",
+     "order": 16,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-079"
+     ],
+     "locator": "S-001:225921",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-079",
+     "order": 17,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-080"
+     ],
+     "locator": "S-001:225922",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-080",
+     "order": 18,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-081"
+     ],
+     "locator": "S-001:225923",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-081",
+     "order": 19,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-082"
+     ],
+     "locator": "S-001:225924",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-082",
+     "order": 20,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-083"
+     ],
+     "locator": "S-001:225925",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-083",
+     "order": 21,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-084"
+     ],
+     "locator": "S-001:225926",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-084",
+     "order": 22,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-085"
+     ],
+     "locator": "S-001:225927",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-085",
+     "order": 23,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-086"
+     ],
+     "locator": "S-001:225928",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-086",
+     "order": 24,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-087"
+     ],
+     "locator": "S-001:225929",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-087",
+     "order": 25,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-088"
+     ],
+     "locator": "S-001:225930",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-088",
+     "order": 26,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-089"
+     ],
+     "locator": "S-001:225931",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-089",
+     "order": 27,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-090"
+     ],
+     "locator": "S-001:225932",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-090",
+     "order": 28,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-091"
+     ],
+     "locator": "S-001:225933",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-091",
+     "order": 29,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-092"
+     ],
+     "locator": "S-001:225934",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-092",
+     "order": 30,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-093"
+     ],
+     "locator": "S-001:225935",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-093",
+     "order": 31,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-094"
+     ],
+     "locator": "S-001:225936",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-094",
+     "order": 32,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-095"
+     ],
+     "locator": "S-001:225937",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-095",
+     "order": 33,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-096"
+     ],
+     "locator": "S-001:225938",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-096",
+     "order": 34,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-097"
+     ],
+     "locator": "S-001:225939",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-097",
+     "order": 35,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-098"
+     ],
+     "locator": "S-001:225940",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-098",
+     "order": 36,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-099"
+     ],
+     "locator": "S-001:225941",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-099",
+     "order": 37,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-100"
+     ],
+     "locator": "S-001:225942",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-100",
+     "order": 38,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-101"
+     ],
+     "locator": "S-001:225943",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-101",
+     "order": 39,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-102"
+     ],
+     "locator": "S-001:225944",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-102",
+     "order": 40,
+     "speaker_inferred": "CHR-003",
+     "next": [],
+     "locator": "S-001:225945",
+     "condition": "linear"
+    }
+   ]
+  },
+  {
+   "scene_id": "SCN-006",
+   "entry": "DLG-103",
+   "nodes": [
+    {
+     "id": "DLG-103",
+     "order": 1,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-104"
+     ],
+     "locator": "S-001:225946",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-104",
+     "order": 2,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-105"
+     ],
+     "locator": "S-001:225947",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-105",
+     "order": 3,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-106"
+     ],
+     "locator": "S-001:225948",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-106",
+     "order": 4,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-107"
+     ],
+     "locator": "S-001:225949",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-107",
+     "order": 5,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-108"
+     ],
+     "locator": "S-001:225950",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-108",
+     "order": 6,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-109"
+     ],
+     "locator": "S-001:225951",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-109",
+     "order": 7,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-110"
+     ],
+     "locator": "S-001:225952",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-110",
+     "order": 8,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-111"
+     ],
+     "locator": "S-001:225953",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-111",
+     "order": 9,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-112"
+     ],
+     "locator": "S-001:225954",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-112",
+     "order": 10,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-113"
+     ],
+     "locator": "S-001:225955",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-113",
+     "order": 11,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-114"
+     ],
+     "locator": "S-001:225956",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-114",
+     "order": 12,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-115"
+     ],
+     "locator": "S-001:225957",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-115",
+     "order": 13,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-116"
+     ],
+     "locator": "S-001:225958",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-116",
+     "order": 14,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-117"
+     ],
+     "locator": "S-001:225959",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-117",
+     "order": 15,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-118"
+     ],
+     "locator": "S-001:225960",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-118",
+     "order": 16,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-119"
+     ],
+     "locator": "S-001:225961",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-119",
+     "order": 17,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-120"
+     ],
+     "locator": "S-001:225962",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-120",
+     "order": 18,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-121"
+     ],
+     "locator": "S-001:225963",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-121",
+     "order": 19,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-122"
+     ],
+     "locator": "S-001:225964",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-122",
+     "order": 20,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-123"
+     ],
+     "locator": "S-001:225965",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-123",
+     "order": 21,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-124"
+     ],
+     "locator": "S-001:225966",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-124",
+     "order": 22,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-125"
+     ],
+     "locator": "S-001:225967",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-125",
+     "order": 23,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-126"
+     ],
+     "locator": "S-001:225968",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-126",
+     "order": 24,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-127"
+     ],
+     "locator": "S-001:225969",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-127",
+     "order": 25,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-128"
+     ],
+     "locator": "S-001:225970",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-128",
+     "order": 26,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-129"
+     ],
+     "locator": "S-001:225971",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-129",
+     "order": 27,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-130"
+     ],
+     "locator": "S-001:225972",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-130",
+     "order": 28,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-131"
+     ],
+     "locator": "S-001:225973",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-131",
+     "order": 29,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-132"
+     ],
+     "locator": "S-001:225974",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-132",
+     "order": 30,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-133"
+     ],
+     "locator": "S-001:225975",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-133",
+     "order": 31,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-134"
+     ],
+     "locator": "S-001:225976",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-134",
+     "order": 32,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-135"
+     ],
+     "locator": "S-001:225977",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-135",
+     "order": 33,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-136"
+     ],
+     "locator": "S-001:225978",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-136",
+     "order": 34,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-137"
+     ],
+     "locator": "S-001:225979",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-137",
+     "order": 35,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-138"
+     ],
+     "locator": "S-001:225980",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-138",
+     "order": 36,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-139"
+     ],
+     "locator": "S-001:225981",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-139",
+     "order": 37,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-140"
+     ],
+     "locator": "S-001:225982",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-140",
+     "order": 38,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-141"
+     ],
+     "locator": "S-001:225983",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-141",
+     "order": 39,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-142"
+     ],
+     "locator": "S-001:225984",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-142",
+     "order": 40,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-143"
+     ],
+     "locator": "S-001:225985",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-143",
+     "order": 41,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-144"
+     ],
+     "locator": "S-001:225986",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-144",
+     "order": 42,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-145"
+     ],
+     "locator": "S-001:225987",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-145",
+     "order": 43,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-146"
+     ],
+     "locator": "S-001:225988",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-146",
+     "order": 44,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-147"
+     ],
+     "locator": "S-001:225989",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-147",
+     "order": 45,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-148"
+     ],
+     "locator": "S-001:225990",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-148",
+     "order": 46,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-149"
+     ],
+     "locator": "S-001:225991",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-149",
+     "order": 47,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-150"
+     ],
+     "locator": "S-001:225992",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-150",
+     "order": 48,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-151"
+     ],
+     "locator": "S-001:225993",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-151",
+     "order": 49,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-152"
+     ],
+     "locator": "S-001:225994",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-152",
+     "order": 50,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-153"
+     ],
+     "locator": "S-001:225995",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-153",
+     "order": 51,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-154"
+     ],
+     "locator": "S-001:225996",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-154",
+     "order": 52,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-155"
+     ],
+     "locator": "S-001:225997",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-155",
+     "order": 53,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-156"
+     ],
+     "locator": "S-001:225998",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-156",
+     "order": 54,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-157"
+     ],
+     "locator": "S-001:225999",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-157",
+     "order": 55,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-158"
+     ],
+     "locator": "S-001:226000",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-158",
+     "order": 56,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-159"
+     ],
+     "locator": "S-001:226001",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-159",
+     "order": 57,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-160"
+     ],
+     "locator": "S-001:226002",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-160",
+     "order": 58,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-161"
+     ],
+     "locator": "S-001:226003",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-161",
+     "order": 59,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-162"
+     ],
+     "locator": "S-001:226004",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-162",
+     "order": 60,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-163"
+     ],
+     "locator": "S-001:226005",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-163",
+     "order": 61,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-164"
+     ],
+     "locator": "S-001:226006",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-164",
+     "order": 62,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-165"
+     ],
+     "locator": "S-001:226007",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-165",
+     "order": 63,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-166"
+     ],
+     "locator": "S-001:226008",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-166",
+     "order": 64,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-167"
+     ],
+     "locator": "S-001:226009",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-167",
+     "order": 65,
+     "speaker_inferred": "CHR-002",
+     "next": [],
+     "locator": "S-001:226010",
+     "condition": "linear"
+    }
+   ]
+  },
+  {
+   "scene_id": "SCN-007",
+   "entry": "DLG-168",
+   "nodes": [
+    {
+     "id": "DLG-168",
+     "order": 1,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-169"
+     ],
+     "locator": "S-001:226011",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-169",
+     "order": 2,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-170"
+     ],
+     "locator": "S-001:226012",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-170",
+     "order": 3,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-171"
+     ],
+     "locator": "S-001:226013",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-171",
+     "order": 4,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-172"
+     ],
+     "locator": "S-001:226014",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-172",
+     "order": 5,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-173"
+     ],
+     "locator": "S-001:226015",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-173",
+     "order": 6,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-174"
+     ],
+     "locator": "S-001:226016",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-174",
+     "order": 7,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-175"
+     ],
+     "locator": "S-001:226017",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-175",
+     "order": 8,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-176"
+     ],
+     "locator": "S-001:226018",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-176",
+     "order": 9,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-177"
+     ],
+     "locator": "S-001:226019",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-177",
+     "order": 10,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-178"
+     ],
+     "locator": "S-001:226020",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-178",
+     "order": 11,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-179"
+     ],
+     "locator": "S-001:226021",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-179",
+     "order": 12,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-180"
+     ],
+     "locator": "S-001:226022",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-180",
+     "order": 13,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-181"
+     ],
+     "locator": "S-001:226023",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-181",
+     "order": 14,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-182"
+     ],
+     "locator": "S-001:226024",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-182",
+     "order": 15,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-183"
+     ],
+     "locator": "S-001:226025",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-183",
+     "order": 16,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-184"
+     ],
+     "locator": "S-001:226026",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-184",
+     "order": 17,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-185"
+     ],
+     "locator": "S-001:226027",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-185",
+     "order": 18,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-186"
+     ],
+     "locator": "S-001:226028",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-186",
+     "order": 19,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-187"
+     ],
+     "locator": "S-001:226029",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-187",
+     "order": 20,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-188"
+     ],
+     "locator": "S-001:226030",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-188",
+     "order": 21,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-189"
+     ],
+     "locator": "S-001:226031",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-189",
+     "order": 22,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-190"
+     ],
+     "locator": "S-001:226032",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-190",
+     "order": 23,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-191"
+     ],
+     "locator": "S-001:226033",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-191",
+     "order": 24,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-192"
+     ],
+     "locator": "S-001:226034",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-192",
+     "order": 25,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-193"
+     ],
+     "locator": "S-001:226035",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-193",
+     "order": 26,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-194"
+     ],
+     "locator": "S-001:226036",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-194",
+     "order": 27,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-195"
+     ],
+     "locator": "S-001:226037",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-195",
+     "order": 28,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-196"
+     ],
+     "locator": "S-001:226038",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-196",
+     "order": 29,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-197"
+     ],
+     "locator": "S-001:226039",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-197",
+     "order": 30,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-198"
+     ],
+     "locator": "S-001:226040",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-198",
+     "order": 31,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-199"
+     ],
+     "locator": "S-001:226041",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-199",
+     "order": 32,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-200"
+     ],
+     "locator": "S-001:226042",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-200",
+     "order": 33,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-201"
+     ],
+     "locator": "S-001:226043",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-201",
+     "order": 34,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-202"
+     ],
+     "locator": "S-001:226044",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-202",
+     "order": 35,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-203"
+     ],
+     "locator": "S-001:226045",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-203",
+     "order": 36,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-204"
+     ],
+     "locator": "S-001:226046",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-204",
+     "order": 37,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-205"
+     ],
+     "locator": "S-001:226047",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-205",
+     "order": 38,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-206"
+     ],
+     "locator": "S-001:226048",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-206",
+     "order": 39,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-207"
+     ],
+     "locator": "S-001:226049",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-207",
+     "order": 40,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-208"
+     ],
+     "locator": "S-001:226050",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-208",
+     "order": 41,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-209"
+     ],
+     "locator": "S-001:226051",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-209",
+     "order": 42,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-210"
+     ],
+     "locator": "S-001:226052",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-210",
+     "order": 43,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-211"
+     ],
+     "locator": "S-001:226053",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-211",
+     "order": 44,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-212"
+     ],
+     "locator": "S-001:226054",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-212",
+     "order": 45,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-213"
+     ],
+     "locator": "S-001:226055",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-213",
+     "order": 46,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-214"
+     ],
+     "locator": "S-001:226056",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-214",
+     "order": 47,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-215"
+     ],
+     "locator": "S-001:226057",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-215",
+     "order": 48,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-216"
+     ],
+     "locator": "S-001:226058",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-216",
+     "order": 49,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-217"
+     ],
+     "locator": "S-001:226059",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-217",
+     "order": 50,
+     "speaker_inferred": "CHR-002",
+     "next": [],
+     "locator": "S-001:226060",
+     "condition": "linear"
+    }
+   ]
+  },
+  {
+   "scene_id": "SCN-008",
+   "entry": "DLG-218",
+   "nodes": [
+    {
+     "id": "DLG-218",
+     "order": 1,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-219"
+     ],
+     "locator": "S-001:226061",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-219",
+     "order": 2,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-220"
+     ],
+     "locator": "S-001:226062",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-220",
+     "order": 3,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-221"
+     ],
+     "locator": "S-001:226063",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-221",
+     "order": 4,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-222"
+     ],
+     "locator": "S-001:226064",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-222",
+     "order": 5,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-223"
+     ],
+     "locator": "S-001:226065",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-223",
+     "order": 6,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-224"
+     ],
+     "locator": "S-001:226066",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-224",
+     "order": 7,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-225"
+     ],
+     "locator": "S-001:226067",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-225",
+     "order": 8,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-226"
+     ],
+     "locator": "S-001:226068",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-226",
+     "order": 9,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-227"
+     ],
+     "locator": "S-001:226069",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-227",
+     "order": 10,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-228"
+     ],
+     "locator": "S-001:226070",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-228",
+     "order": 11,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-229"
+     ],
+     "locator": "S-001:226071",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-229",
+     "order": 12,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-230"
+     ],
+     "locator": "S-001:226072",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-230",
+     "order": 13,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-231"
+     ],
+     "locator": "S-001:226073",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-231",
+     "order": 14,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-232"
+     ],
+     "locator": "S-001:226074",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-232",
+     "order": 15,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-233"
+     ],
+     "locator": "S-001:226075",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-233",
+     "order": 16,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-234"
+     ],
+     "locator": "S-001:226076",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-234",
+     "order": 17,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-235"
+     ],
+     "locator": "S-001:226077",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-235",
+     "order": 18,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-236"
+     ],
+     "locator": "S-001:226078",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-236",
+     "order": 19,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-237"
+     ],
+     "locator": "S-001:226079",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-237",
+     "order": 20,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-238"
+     ],
+     "locator": "S-001:226080",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-238",
+     "order": 21,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-239"
+     ],
+     "locator": "S-001:226081",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-239",
+     "order": 22,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-240"
+     ],
+     "locator": "S-001:226082",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-240",
+     "order": 23,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-241"
+     ],
+     "locator": "S-001:226083",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-241",
+     "order": 24,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-242"
+     ],
+     "locator": "S-001:226084",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-242",
+     "order": 25,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-243"
+     ],
+     "locator": "S-001:226085",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-243",
+     "order": 26,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-244"
+     ],
+     "locator": "S-001:226086",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-244",
+     "order": 27,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-245"
+     ],
+     "locator": "S-001:226087",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-245",
+     "order": 28,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-246"
+     ],
+     "locator": "S-001:226088",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-246",
+     "order": 29,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-247"
+     ],
+     "locator": "S-001:226089",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-247",
+     "order": 30,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-248"
+     ],
+     "locator": "S-001:226090",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-248",
+     "order": 31,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-249"
+     ],
+     "locator": "S-001:226091",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-249",
+     "order": 32,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-250"
+     ],
+     "locator": "S-001:226092",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-250",
+     "order": 33,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-251"
+     ],
+     "locator": "S-001:226093",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-251",
+     "order": 34,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-252"
+     ],
+     "locator": "S-001:226094",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-252",
+     "order": 35,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-253"
+     ],
+     "locator": "S-001:226095",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-253",
+     "order": 36,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-254"
+     ],
+     "locator": "S-001:226096",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-254",
+     "order": 37,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-255"
+     ],
+     "locator": "S-001:226097",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-255",
+     "order": 38,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-256"
+     ],
+     "locator": "S-001:226098",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-256",
+     "order": 39,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-257"
+     ],
+     "locator": "S-001:226099",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-257",
+     "order": 40,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-258"
+     ],
+     "locator": "S-001:226100",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-258",
+     "order": 41,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-259"
+     ],
+     "locator": "S-001:226101",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-259",
+     "order": 42,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-260"
+     ],
+     "locator": "S-001:226102",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-260",
+     "order": 43,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-261"
+     ],
+     "locator": "S-001:226103",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-261",
+     "order": 44,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-262"
+     ],
+     "locator": "S-001:226104",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-262",
+     "order": 45,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-263"
+     ],
+     "locator": "S-001:226105",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-263",
+     "order": 46,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-264"
+     ],
+     "locator": "S-001:226106",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-264",
+     "order": 47,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-265"
+     ],
+     "locator": "S-001:226107",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-265",
+     "order": 48,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-266"
+     ],
+     "locator": "S-001:226108",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-266",
+     "order": 49,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-267"
+     ],
+     "locator": "S-001:226109",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-267",
+     "order": 50,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-268"
+     ],
+     "locator": "S-001:226110",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-268",
+     "order": 51,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-269"
+     ],
+     "locator": "S-001:226111",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-269",
+     "order": 52,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-270"
+     ],
+     "locator": "S-001:226112",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-270",
+     "order": 53,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-271"
+     ],
+     "locator": "S-001:226113",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-271",
+     "order": 54,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-272"
+     ],
+     "locator": "S-001:226114",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-272",
+     "order": 55,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-273"
+     ],
+     "locator": "S-001:226115",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-273",
+     "order": 56,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-274"
+     ],
+     "locator": "S-001:226116",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-274",
+     "order": 57,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-275"
+     ],
+     "locator": "S-001:226117",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-275",
+     "order": 58,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-276"
+     ],
+     "locator": "S-001:226118",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-276",
+     "order": 59,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-277"
+     ],
+     "locator": "S-001:226119",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-277",
+     "order": 60,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-278"
+     ],
+     "locator": "S-001:226120",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-278",
+     "order": 61,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-279"
+     ],
+     "locator": "S-001:226121",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-279",
+     "order": 62,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-280"
+     ],
+     "locator": "S-001:226122",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-280",
+     "order": 63,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-281"
+     ],
+     "locator": "S-001:226123",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-281",
+     "order": 64,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-282"
+     ],
+     "locator": "S-001:226124",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-282",
+     "order": 65,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-283"
+     ],
+     "locator": "S-001:226125",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-283",
+     "order": 66,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-284"
+     ],
+     "locator": "S-001:226126",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-284",
+     "order": 67,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-285"
+     ],
+     "locator": "S-001:226127",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-285",
+     "order": 68,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-286"
+     ],
+     "locator": "S-001:226128",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-286",
+     "order": 69,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-287"
+     ],
+     "locator": "S-001:226129",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-287",
+     "order": 70,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-288"
+     ],
+     "locator": "S-001:226130",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-288",
+     "order": 71,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-289"
+     ],
+     "locator": "S-001:226131",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-289",
+     "order": 72,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-290"
+     ],
+     "locator": "S-001:226132",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-290",
+     "order": 73,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-291"
+     ],
+     "locator": "S-001:226133",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-291",
+     "order": 74,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-292"
+     ],
+     "locator": "S-001:226134",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-292",
+     "order": 75,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-293"
+     ],
+     "locator": "S-001:226135",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-293",
+     "order": 76,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-294"
+     ],
+     "locator": "S-001:226136",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-294",
+     "order": 77,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-295"
+     ],
+     "locator": "S-001:226137",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-295",
+     "order": 78,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-296"
+     ],
+     "locator": "S-001:226138",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-296",
+     "order": 79,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-297"
+     ],
+     "locator": "S-001:226139",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-297",
+     "order": 80,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-298"
+     ],
+     "locator": "S-001:226140",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-298",
+     "order": 81,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-299"
+     ],
+     "locator": "S-001:226141",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-299",
+     "order": 82,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-300"
+     ],
+     "locator": "S-001:226142",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-300",
+     "order": 83,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-301"
+     ],
+     "locator": "S-001:226143",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-301",
+     "order": 84,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-302"
+     ],
+     "locator": "S-001:226144",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-302",
+     "order": 85,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-303"
+     ],
+     "locator": "S-001:226145",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-303",
+     "order": 86,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-304"
+     ],
+     "locator": "S-001:226146",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-304",
+     "order": 87,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-305"
+     ],
+     "locator": "S-001:226147",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-305",
+     "order": 88,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-306"
+     ],
+     "locator": "S-001:226148",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-306",
+     "order": 89,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-307"
+     ],
+     "locator": "S-001:226149",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-307",
+     "order": 90,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-308"
+     ],
+     "locator": "S-001:226150",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-308",
+     "order": 91,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-309"
+     ],
+     "locator": "S-001:226151",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-309",
+     "order": 92,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-310"
+     ],
+     "locator": "S-001:226152",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-310",
+     "order": 93,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-311"
+     ],
+     "locator": "S-001:226153",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-311",
+     "order": 94,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-312"
+     ],
+     "locator": "S-001:226154",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-312",
+     "order": 95,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-313"
+     ],
+     "locator": "S-001:226155",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-313",
+     "order": 96,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-314"
+     ],
+     "locator": "S-001:226156",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-314",
+     "order": 97,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-315"
+     ],
+     "locator": "S-001:226157",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-315",
+     "order": 98,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-316"
+     ],
+     "locator": "S-001:226158",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-316",
+     "order": 99,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-317"
+     ],
+     "locator": "S-001:226159",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-317",
+     "order": 100,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-318"
+     ],
+     "locator": "S-001:226160",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-318",
+     "order": 101,
+     "speaker_inferred": "CHR-002",
+     "next": [],
+     "locator": "S-001:226161",
+     "condition": "linear"
+    }
+   ]
+  },
+  {
+   "scene_id": "SCN-009",
+   "entry": "DLG-319",
+   "nodes": [
+    {
+     "id": "DLG-319",
+     "order": 1,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-320"
+     ],
+     "locator": "S-001:226162",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-320",
+     "order": 2,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-321"
+     ],
+     "locator": "S-001:226163",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-321",
+     "order": 3,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-322"
+     ],
+     "locator": "S-001:226164",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-322",
+     "order": 4,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-323"
+     ],
+     "locator": "S-001:226165",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-323",
+     "order": 5,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-324"
+     ],
+     "locator": "S-001:226166",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-324",
+     "order": 6,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-325"
+     ],
+     "locator": "S-001:226167",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-325",
+     "order": 7,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-326"
+     ],
+     "locator": "S-001:226168",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-326",
+     "order": 8,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-327"
+     ],
+     "locator": "S-001:226169",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-327",
+     "order": 9,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-328"
+     ],
+     "locator": "S-001:226170",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-328",
+     "order": 10,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-329"
+     ],
+     "locator": "S-001:226171",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-329",
+     "order": 11,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-330"
+     ],
+     "locator": "S-001:226172",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-330",
+     "order": 12,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-331"
+     ],
+     "locator": "S-001:226173",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-331",
+     "order": 13,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-332"
+     ],
+     "locator": "S-001:226174",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-332",
+     "order": 14,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-333"
+     ],
+     "locator": "S-001:226175",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-333",
+     "order": 15,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-334"
+     ],
+     "locator": "S-001:226176",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-334",
+     "order": 16,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-335"
+     ],
+     "locator": "S-001:226177",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-335",
+     "order": 17,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-336"
+     ],
+     "locator": "S-001:226178",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-336",
+     "order": 18,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-337"
+     ],
+     "locator": "S-001:226179",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-337",
+     "order": 19,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-338"
+     ],
+     "locator": "S-001:226180",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-338",
+     "order": 20,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-339"
+     ],
+     "locator": "S-001:226181",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-339",
+     "order": 21,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-340"
+     ],
+     "locator": "S-001:226182",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-340",
+     "order": 22,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-341"
+     ],
+     "locator": "S-001:226183",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-341",
+     "order": 23,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-342"
+     ],
+     "locator": "S-001:226184",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-342",
+     "order": 24,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-343"
+     ],
+     "locator": "S-001:226185",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-343",
+     "order": 25,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-344"
+     ],
+     "locator": "S-001:226186",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-344",
+     "order": 26,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-345"
+     ],
+     "locator": "S-001:226187",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-345",
+     "order": 27,
+     "speaker_inferred": "CHR-003",
+     "next": [
+      "DLG-346"
+     ],
+     "locator": "S-001:226188",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-346",
+     "order": 28,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-347"
+     ],
+     "locator": "S-001:226189",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-347",
+     "order": 29,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-348"
+     ],
+     "locator": "S-001:226190",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-348",
+     "order": 30,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-349"
+     ],
+     "locator": "S-001:226191",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-349",
+     "order": 31,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-350"
+     ],
+     "locator": "S-001:226192",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-350",
+     "order": 32,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-351"
+     ],
+     "locator": "S-001:226193",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-351",
+     "order": 33,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-352"
+     ],
+     "locator": "S-001:226194",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-352",
+     "order": 34,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-353"
+     ],
+     "locator": "S-001:226195",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-353",
+     "order": 35,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-354"
+     ],
+     "locator": "S-001:226196",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-354",
+     "order": 36,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-355"
+     ],
+     "locator": "S-001:226197",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-355",
+     "order": 37,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-356"
+     ],
+     "locator": "S-001:226198",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-356",
+     "order": 38,
+     "speaker_inferred": "CHR-002",
+     "next": [
+      "DLG-357"
+     ],
+     "locator": "S-001:226199",
+     "condition": "linear"
+    },
+    {
+     "id": "DLG-357",
+     "order": 39,
+     "speaker_inferred": "CHR-002",
+     "next": [],
+     "locator": "S-001:226200",
+     "condition": "linear"
+    }
+   ]
+  }
+ ]
+}

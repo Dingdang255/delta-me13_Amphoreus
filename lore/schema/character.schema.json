@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "character.schema.json",
+  "title": "agent card record",
+  "type": "object",
+  "required": ["id", "names", "identity", "goals", "decision_rules", "speech", "relations", "arc", "confidence"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^CHR-[0-9]{3}$" },
+    "names": {
+      "type": "object",
+      "required": ["zh"],
+      "properties": {
+        "zh": { "type": "string" },
+        "en": { "type": "string" },
+        "jp": { "type": "string" },
+        "aliases": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "identity": { "type": "object" },
+    "goals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["level", "text"],
+        "properties": {
+          "level": { "type": "string" },
+          "text": { "type": "string" },
+          "priority": { "type": "integer" },
+          "source": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "beliefs": { "type": "array" },
+    "emotions": { "type": "array" },
+    "decision_rules": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "when", "then", "priority", "source"],
+        "properties": {
+          "id": { "type": "string" },
+          "when": { "type": "string" },
+          "then": { "type": "string" },
+          "priority": { "type": "integer" },
+          "conflict": { "type": "string" },
+          "source": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "speech": { "type": "object" },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["target", "type"],
+        "properties": {
+          "target": { "type": "string" },
+          "type": { "type": "string" },
+          "intensity": { "type": "number" },
+          "source": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "behavior_patterns": { "type": "array" },
+    "arc": { "type": "array" },
+    "failure_modes": { "type": "array" },
+    "ooc_guards": { "type": "array", "items": { "type": "string" } },
+    "inference": { "type": "array", "items": { "type": "string" } },
+    "evidence": { "type": "array", "items": { "type": "string" } },
+    "confidence": { "enum": ["A", "B", "C", "D", "E", "UNKNOWN"] }
+  },
+  "additionalProperties": true
+}

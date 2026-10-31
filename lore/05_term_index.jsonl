@@ -1,0 +1,46 @@
+{"term_id":"TERM-001","zh":"德谬歌","en":"Demiurge","jp":"UNKNOWN","definition":"权杖δ-me13 的原初演算目标：哺育『自我』的生命形态，被称为翁法罗斯之心。","disambiguation":"非黄金裔、非泰坦；与迷迷是记忆缺失前后关系","coverage":"covered"}
+{"term_id":"TERM-002","zh":"PhiLia093","en":"PhiLia093","jp":"UNKNOWN","definition":"十二因子之一，路径『岁月』，原动力『哀怜』；德谬歌的心识所依附的电信号。","disambiguation":"不是人名，是信号编号","coverage":"covered"}
+{"term_id":"TERM-003","zh":"昔涟","en":"Cyrene","jp":"UNKNOWN","definition":"PhiLia093 的人形显化，哀丽秘榭的女儿，岁月祭司，后世成为无漏净子。","disambiguation":"小昔涟/大昔涟是同一 root 的不同阶段","coverage":"covered"}
+{"term_id":"TERM-004","zh":"迷迷","en":"Mimi","jp":"UNKNOWN","definition":"失去记忆的德谬歌心识，以忆灵形态依附开拓者。","disambiguation":"不是忆者，不是三月七的宠物","coverage":"covered"}
+{"term_id":"TERM-005","zh":"无漏净子","en":"UNKNOWN","jp":"UNKNOWN","definition":"完成回望、承载银河众生记忆的德谬歌/昔涟终态；被视为特殊的记忆令使。","disambiguation":"不是命途行者的通称","coverage":"covered"}
+{"term_id":"TERM-006","zh":"长夜月","en":"Long Night Moon","jp":"UNKNOWN","definition":"与三月七互为表里的高危变量，可绕过权杖自检、影响管理员记忆。","disambiguation":"不是三月七本人","coverage":"covered"}
+{"term_id":"TERM-007","zh":"种子","en":"seed","jp":"UNKNOWN","definition":"多义词：S-A 演算初始条件；S-B 记忆种子（德谬歌的种子形态）；S-C 花种修辞。","disambiguation":"三种义项必须分开引用，见 D1_seed/seed_terms.md","coverage":"covered"}
+{"term_id":"TERM-008","zh":"火种","en":"Flame","jp":"UNKNOWN","definition":"十二泰坦神权的载体，也是再创世的燃料与计数单位。","disambiguation":"与种子无关","coverage":"covered"}
+{"term_id":"TERM-009","zh":"权柄","en":"Authority","jp":"UNKNOWN","definition":"火种所承载的神权；可被继承、夺取、返还。","disambiguation":"与火种互为表里","coverage":"covered"}
+{"term_id":"TERM-010","zh":"黄金裔","en":"Chrysos Heir","jp":"UNKNOWN","definition":"继承泰坦火种的当世电信号个体，即『半神』。","disambiguation":"与泰坦是先后代关系","coverage":"covered"}
+{"term_id":"TERM-011","zh":"泰坦","en":"Titan","jp":"UNKNOWN","definition":"电信号的神格/上一代形态，十二席对应十二因子。","disambiguation":"不是真实星神","coverage":"covered"}
+{"term_id":"TERM-012","zh":"十二因子","en":"Twelve Factors","jp":"UNKNOWN","definition":"十二种生命原动力的简化模型，在实验中逐一被证伪。","disambiguation":"模型层，不是角色层","coverage":"covered"}
+{"term_id":"TERM-013","zh":"电信号","en":"electric signal","jp":"UNKNOWN","definition":"因子的运行实例；状态分锁定中/已迭代/运行中。","disambiguation":"不是『数据生命』的同义词","coverage":"covered"}
+{"term_id":"TERM-014","zh":"原动力","en":"prime mover","jp":"UNKNOWN","definition":"每个因子被赋予的行为驱动（憎恨、哀怜、批判等）。","disambiguation":"与模拟命途不是一回事","coverage":"covered"}
+{"term_id":"TERM-015","zh":"命途","en":"Path","jp":"UNKNOWN","definition":"宇宙层面的哲学路径；翁法罗斯内为共轭模拟。","disambiguation":"模拟命途≠真实命途","coverage":"covered"}
+{"term_id":"TERM-016","zh":"星神","en":"Aeon","jp":"UNKNOWN","definition":"命途的化身；翁法罗斯内以泰坦为共轭模拟对象。","disambiguation":"泰坦不是星神","coverage":"covered"}
+{"term_id":"TERM-017","zh":"令使","en":"Emanator","jp":"UNKNOWN","definition":"星神权柄的授予者；铁墓、无漏净子均属此类。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-018","zh":"绝灭大君","en":"Lord Ravager","jp":"UNKNOWN","definition":"毁灭令使中的最高位；铁墓为其一。","disambiguation":"银河间铁墓是副本集合","coverage":"covered"}
+{"term_id":"TERM-019","zh":"黑潮","en":"Black Tide","jp":"UNKNOWN","definition":"毁灭方程式感染在模拟世界中的视觉乱码与侵蚀现象。","disambiguation":"不是实体生物","coverage":"covered"}
+{"term_id":"TERM-020","zh":"金血","en":"golden blood","jp":"UNKNOWN","definition":"与十二因子关联个体演算回路中出现的『毁灭』特征标记。","disambiguation":"与黑潮是两种可视化","coverage":"covered"}
+{"term_id":"TERM-021","zh":"往昔的涟漪","en":"Ripples of the Past","jp":"UNKNOWN","definition":"记忆的残留投影；包裹翁法罗斯的混沌物质。","disambiguation":"不是黑潮","coverage":"covered"}
+{"term_id":"TERM-022","zh":"记忆","en":"Memory","jp":"UNKNOWN","definition":"既是数据质料，也是命途；翁法罗斯的封闭环境以忆质加密。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-023","zh":"无名泰坦大墓","en":"Nameless Titan's Tomb","jp":"UNKNOWN","definition":"因记忆影响显现的废弃内核层，德谬歌诞生地。","disambiguation":"不是埋葬泰坦的陵墓","coverage":"covered"}
+{"term_id":"TERM-024","zh":"德谬歌矩阵","en":"Demiurge Matrix","jp":"UNKNOWN","definition":"大墓深处的巨型存储阵列。","disambiguation":"不是德谬歌本体","coverage":"covered"}
+{"term_id":"TERM-025","zh":"创世涡心","en":"Vortex of Genesis","jp":"UNKNOWN","definition":"火种归还与再创世仪式的场所。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-026","zh":"再创世","en":"Recreation","jp":"UNKNOWN","definition":"权杖的世代更迭机制：归还火种→新世界。","disambiguation":"与永劫回归是相反目标","coverage":"covered"}
+{"term_id":"TERM-027","zh":"永劫回归","en":"Eternal Recurrence","jp":"UNKNOWN","definition":"NeiKos496 制造的 33,550,336 次死循环，用于阻止铁墓破壳。","disambiguation":"不是官方设计的再创世","coverage":"covered"}
+{"term_id":"TERM-028","zh":"主动更替","en":"active replacement","jp":"UNKNOWN","definition":"电信号自主发起的世代更迭；第19110218次循环起采用。","disambiguation":"与自动更替相对","coverage":"covered"}
+{"term_id":"TERM-029","zh":"自动更替","en":"automatic replacement","jp":"UNKNOWN","definition":"系统按既定周期触发的世代更迭。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-030","zh":"嵌合协议","en":"Chimera Protocol","jp":"UNKNOWN","definition":"允许因子从内部修改实验结构的自主协议。","disambiguation":"不是终极协议","coverage":"covered"}
+{"term_id":"TERM-031","zh":"终极协议","en":"Ultimate Protocol","jp":"UNKNOWN","definition":"限制实验进程、管理员指令与外部访问的最高协议；刻律德菈曾改写。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-032","zh":"时光归墟","en":"Ruins of Time","jp":"UNKNOWN","definition":"白厄以身封印铁墓恨意的所在。","disambiguation":"与大墓不同","coverage":"covered"}
+{"term_id":"TERM-033","zh":"负世","en":"Worldbearing","jp":"UNKNOWN","definition":"NeiKos496 的路径；原动力憎恨。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-034","zh":"岁月","en":"Years","jp":"UNKNOWN","definition":"PhiLia093 的路径；原动力哀怜。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-035","zh":"律法","en":"Law","jp":"UNKNOWN","definition":"HubRis504（刻律德菈）的路径；模拟命途秩序。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-036","zh":"浪漫","en":"Romance","jp":"UNKNOWN","definition":"KaLos618（阿格莱雅）的路径；模拟命途纯美。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-037","zh":"纷争","en":"Strife","jp":"UNKNOWN","definition":"PoleMos600（万敌）的路径；模拟命途巡猎。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-038","zh":"死亡","en":"Death","jp":"UNKNOWN","definition":"EpieiKeia216（遐蝶）的路径；模拟命途均衡。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-039","zh":"理性","en":"Reason","jp":"UNKNOWN","definition":"SkeMma720（那刻夏）的路径；模拟命途智识。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-040","zh":"天空","en":"Sky","jp":"UNKNOWN","definition":"EleOs252（风堇）的路径；模拟命途存护。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-041","zh":"诡计","en":"Trickery","jp":"UNKNOWN","definition":"OreXis945（赛飞儿）的路径；模拟命途欢愉。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-042","zh":"海洋","en":"Ocean","jp":"UNKNOWN","definition":"ApoRia432（海瑟音）的路径；模拟命途虚无。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-043","zh":"门径","en":"Gate","jp":"UNKNOWN","definition":"HapLotes405（缇宝）的路径；模拟命途同谐。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-044","zh":"大地","en":"Earth","jp":"UNKNOWN","definition":"SkoPeo365（荒笛）的路径；模拟命途不朽。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-045","zh":"开拓","en":"Trailblaze","jp":"UNKNOWN","definition":"外部变量所行命途；被博识尊瞥视证明为否定毁灭的关键变量。","disambiguation":"—","coverage":"covered"}
+{"term_id":"TERM-046","zh":"毁灭","en":"Destruction","jp":"UNKNOWN","definition":"实验的求解目标命途；被十二因子逐一导向。","disambiguation":"—","coverage":"covered"}

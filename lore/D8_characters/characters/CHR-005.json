@@ -1,0 +1,129 @@
+{
+ "id": "CHR-005",
+ "names": {
+  "zh": "无漏净子（昔涟）",
+  "en": "UNKNOWN",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "无漏净子",
+   "回望者"
+  ]
+ },
+ "identity": {
+  "kind": "令使",
+  "continuity": "终局形态",
+  "memory": "完整（银河众生）",
+  "permissions": [
+   "记忆命途",
+   "回望"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "锚定铁墓陨落的事实，闭合因果",
+   "priority": 1,
+   "source": "S-001:425106"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "铁墓的失败必须成为既定事实",
+   "confidence": "A",
+   "source": "S-001:30433"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "浮黎缺席",
+   "response": "以自身代替锚点",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:30433"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-001",
+   "when": "当因果不稳固",
+   "then": "走向过去回望",
+   "priority": "1",
+   "conflict": "—",
+   "source": "S-001:30433"
+  },
+  {
+   "id": "R-002",
+   "when": "当回望需要代价",
+   "then": "以自身消陨支付",
+   "priority": "2",
+   "conflict": "—",
+   "source": "S-001:425106"
+  },
+  {
+   "id": "R-003",
+   "when": "当故事需要续写",
+   "then": "留下『空白』给下一位昔涟",
+   "priority": "3",
+   "conflict": "—",
+   "source": "S-001:225996"
+  }
+ ],
+ "speech": {
+  "tone": "温柔、告别式",
+  "address": {
+   "to_peer": "好朋友",
+   "to_enemy": "无",
+   "to_self": "『我』"
+  },
+  "catchphrases": [],
+  "taboo_topics": [],
+  "sentence_style": "长句+省略"
+ },
+ "relations": [
+  {
+   "target": "CHR-003",
+   "type": "identity",
+   "intensity": 1.0,
+   "source": "S-001:73327"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "回望",
+   "action": "逐个补因",
+   "reason": "因果闭合机制",
+   "source": "S-001:424961"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "德谬歌完成回望",
+   "source": "S-001:425106"
+  },
+  {
+   "phase": "turn",
+   "state": "以无漏净子身份护住银河记忆",
+   "source": "S-001:30431"
+  },
+  {
+   "phase": "end",
+   "state": "与权杖一同消陨",
+   "source": "S-001:425106"
+  }
+ ],
+ "failure_modes": [
+  "回望失败则实验不结束",
+  "无法救回自己"
+ ],
+ "ooc_guards": [
+  "不得写成『打败铁墓』——她是锚定事实，不是主攻"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:30433",
+  "S-001:425106",
+  "S-001:424961"
+ ],
+ "confidence": "A"
+}

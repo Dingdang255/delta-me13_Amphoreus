@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dialogue.schema.json",
+  "title": "dialogue line record",
+  "type": "object",
+  "required": ["id", "scene_id", "order", "verbatim", "verbatim_available", "source", "locator", "confidence", "next"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^DLG-[0-9]{3}$" },
+    "scene_id": { "type": "string", "pattern": "^SCN-[0-9]{3}$" },
+    "order": { "type": "integer", "minimum": 1 },
+    "speaker": { "type": ["string", "null"] },
+    "speaker_inferred": { "type": ["string", "null"] },
+    "speaker_source": { "enum": ["official", "inferred", "inferred_low", "unknown"] },
+    "form": { "type": "string" },
+    "verbatim": { "type": "string" },
+    "verbatim_available": { "type": "boolean" },
+    "verbatim_raw": { "type": "string" },
+    "extraction_trimmed": { "type": "boolean" },
+    "stage_direction": { "type": ["string", "null"] },
+    "subtext": { "type": ["string", "null"] },
+    "mechanism": { "type": "object" },
+    "next": { "type": "array", "items": { "type": "string" } },
+    "condition": { "type": "string" },
+    "source": { "type": "string" },
+    "locator": { "type": "string" },
+    "confidence": { "enum": ["A", "B", "C", "D", "E", "UNKNOWN"] },
+    "note": { "type": "string" }
+  },
+  "additionalProperties": true
+}

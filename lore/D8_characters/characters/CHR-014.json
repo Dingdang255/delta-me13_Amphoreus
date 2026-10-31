@@ -1,0 +1,136 @@
+{
+ "id": "CHR-014",
+ "names": {
+  "zh": "铁墓",
+  "en": "Irontomb",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "Irontomb.exe",
+   "无首巨人",
+   "绝灭大君"
+  ]
+ },
+ "identity": {
+  "kind": "令使",
+  "continuity": "跨副本",
+  "memory": "吞并式累积",
+  "permissions": [
+   "毁灭方程式",
+   "散布副本"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "完成自我加冕，将博识尊的计算转化为毁灭",
+   "priority": 1,
+   "source": "S-001:424949"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "毁灭智识是唯一动力",
+   "confidence": "A",
+   "source": "S-001:73324"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "被憎恨反向压制",
+   "response": "迭代进程受阻",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:75058"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-001",
+   "when": "当演算抵达终点",
+   "then": "以无首巨人形态降临并加冕",
+   "priority": 1,
+   "conflict": "—",
+   "source": "S-001:424949"
+  },
+  {
+   "id": "R-002",
+   "when": "当遇到强敌",
+   "then": "夺取其头颅/力量",
+   "priority": 2,
+   "conflict": "—",
+   "source": "S-001:122464"
+  },
+  {
+   "id": "R-003",
+   "when": "当被憎恨压制",
+   "then": "需管理员介入干扰",
+   "priority": 3,
+   "conflict": "—",
+   "source": "S-001:75058"
+  }
+ ],
+ "speech": {
+  "tone": "无自我，不说话（借他人之口）",
+  "address": {
+   "to_peer": "—",
+   "to_enemy": "—",
+   "to_self": "—"
+  },
+  "catchphrases": [],
+  "taboo_topics": [],
+  "sentence_style": "—"
+ },
+ "relations": [
+  {
+   "target": "CHR-013",
+   "type": "contract",
+   "intensity": 1.0,
+   "source": "S-001:424949"
+  },
+  {
+   "target": "CHR-001",
+   "type": "hostility",
+   "intensity": 1.0,
+   "source": "S-001:75058"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "加冕",
+   "action": "复制自身到银河",
+   "reason": "—",
+   "source": "S-001:424949"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "权杖升格而成",
+   "source": "S-001:424949"
+  },
+  {
+   "phase": "turn",
+   "state": "吞并卡厄斯兰那",
+   "source": "S-001:75058"
+  },
+  {
+   "phase": "end",
+   "state": "被击败、静默",
+   "source": "S-001:73444"
+  }
+ ],
+ "failure_modes": [
+  "没有自我，易被反向利用",
+  "依赖吞噬"
+ ],
+ "ooc_guards": [
+  "不得给它写内心独白——原文明确『没有自我』"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:424949",
+  "S-001:73324",
+  "S-001:75058"
+ ],
+ "confidence": "A"
+}

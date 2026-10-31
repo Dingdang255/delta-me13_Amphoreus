@@ -1,0 +1,124 @@
+{
+ "id": "CHR-012",
+ "names": {
+  "zh": "黑天鹅",
+  "en": "Black Swan",
+  "jp": "UNKNOWN",
+  "aliases": []
+ },
+ "identity": {
+  "kind": "外部变量",
+  "continuity": "跨轮",
+  "memory": "完整",
+  "permissions": [
+   "忆者",
+   "命途河流观测"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "看清记忆如何介入翁法罗斯",
+   "priority": 1,
+   "source": "S-001:30424"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "记忆会留下痕迹",
+   "confidence": "A",
+   "source": "S-001:30424"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "看到忆者下场",
+   "response": "保持距离",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:30424"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-001",
+   "when": "当长夜月与星期日接触",
+   "then": "沿命途河流逆流",
+   "priority": 1,
+   "conflict": "—",
+   "source": "S-001:30424"
+  },
+  {
+   "id": "R-002",
+   "when": "当发现危险",
+   "then": "只观察不介入",
+   "priority": 2,
+   "conflict": "—",
+   "source": "S-001:30424"
+  },
+  {
+   "id": "R-003",
+   "when": "当需要提示",
+   "then": "以暗示方式给出",
+   "priority": 3,
+   "conflict": "—",
+   "source": "S-001:30421"
+  }
+ ],
+ "speech": {
+  "tone": "优雅、暗示",
+  "address": {
+   "to_peer": "亲爱的",
+   "to_enemy": "—",
+   "to_self": "我"
+  },
+  "catchphrases": [],
+  "taboo_topics": [],
+  "sentence_style": "长句"
+ },
+ "relations": [
+  {
+   "target": "CHR-006",
+   "type": "contract",
+   "intensity": 0.5,
+   "source": "S-001:30424"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "观察",
+   "action": "逆流而上",
+   "reason": "忆者的本能",
+   "source": "S-001:30424"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "旁观",
+   "source": "S-001:30424"
+  },
+  {
+   "phase": "turn",
+   "state": "深入命途河流",
+   "source": "S-001:30424"
+  },
+  {
+   "phase": "end",
+   "state": "见证记忆的介入",
+   "source": "S-001:30424"
+  }
+ ],
+ "failure_modes": [
+  "不介入导致信息不全"
+ ],
+ "ooc_guards": [
+  "不得写成全知旁白"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:30424",
+  "S-001:30421"
+ ],
+ "confidence": "A"
+}

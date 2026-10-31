@@ -1,0 +1,28 @@
+{"event_id":"EVT-001","name":"落木逐火英雄纪（主线 3.0）","version":"3.0","participants":["CHR-001","CHR-002","CHR-008","CHR-009","CHR-015","CHR-016","CHR-017","CHR-017","CHR-018","CHR-035"],"coverage":"covered","source":"S-001:107169","version_confidence":"B"}
+{"event_id":"EVT-002","name":"门扉之启，王座之终（主线 3.1）","version":"3.1","participants":["CHR-002","CHR-008","CHR-009","CHR-016","CHR-019","CHR-035","ORG-001"],"coverage":"covered","source":"S-001:107170","version_confidence":"B"}
+{"event_id":"EVT-003","name":"走过安眠地的花丛（主线 3.2）","version":"3.2","participants":["CHR-002","CHR-008","CHR-015","CHR-018","CHR-021","CHR-036"],"coverage":"covered","source":"S-001:107171","version_confidence":"B"}
+{"event_id":"EVT-004","name":"在黎明升起时坠落（主线 3.3）","version":"3.3","participants":["CHR-001","CHR-002","CHR-008","CHR-015","CHR-020","CHR-021","CHR-022"],"coverage":"covered","source":"S-001:107172","version_confidence":"B"}
+{"event_id":"EVT-005","name":"因为太阳将要毁伤","version":"3.4","participants":["CHR-001","CHR-002","CHR-008","CHR-013","CHR-014"],"coverage":"partial","source":"S-001:107173","version_confidence":"C"}
+{"event_id":"EVT-006","name":"英雄未死之前","version":"3.5","participants":["CHR-002","CHR-008","CHR-009","CHR-022","CHR-023"],"coverage":"partial","source":"S-001:107175","version_confidence":"C"}
+{"event_id":"EVT-007","name":"于长夜重返大地","version":"3.6","participants":["CHR-005","CHR-006","CHR-007","CHR-008","CHR-009","CHR-012","CHR-024"],"coverage":"partial","source":"S-001:107176","version_confidence":"C"}
+{"event_id":"EVT-008","name":"记忆是梦的开场白","version":"3.7","participants":["CHR-001","CHR-003","CHR-004","CHR-005","CHR-008","CHR-009","CHR-010","CHR-014"],"coverage":"partial","source":"S-001:107177","version_confidence":"C"}
+{"event_id":"EVT-009","name":"讨伐尼卡多利","version":"3.0","participants":["CHR-001","CHR-008","CHR-009","CHR-017","CHR-035"],"coverage":"covered","source":"S-001:30370","version_confidence":"B"}
+{"event_id":"EVT-010","name":"白厄的纷争试炼失败","version":"3.0","participants":["CHR-001"],"coverage":"covered","source":"S-001:30377","version_confidence":"B"}
+{"event_id":"EVT-011","name":"万敌登神并独自返乡","version":"3.0","participants":["CHR-017","CHR-041"],"coverage":"covered","source":"S-001:30384","version_confidence":"B"}
+{"event_id":"EVT-012","name":"树庭覆灭与瑟希斯托付","version":"3.0","participants":["CHR-019","CHR-032","CHR-008"],"coverage":"covered","source":"S-001:30379","version_confidence":"B"}
+{"event_id":"EVT-013","name":"公民大会表决继续逐火","version":"3.1","participants":["CHR-001","CHR-015","CHR-019","CHR-018","ORG-001"],"coverage":"covered","source":"S-001:30393","version_confidence":"B"}
+{"event_id":"EVT-014","name":"遐蝶完成死亡试炼","version":"3.1","participants":["CHR-018","CHR-036","CHR-008"],"coverage":"covered","source":"S-001:30392","version_confidence":"B"}
+{"event_id":"EVT-015","name":"那刻夏与火种熔合","version":"3.1","participants":["CHR-019"],"coverage":"covered","source":"S-001:159351","version_confidence":"B"}
+{"event_id":"EVT-016","name":"阿格莱雅之死","version":"3.2","participants":["CHR-015"],"coverage":"covered","source":"S-001:30399","version_confidence":"B"}
+{"event_id":"EVT-017","name":"讨伐艾格勒（晨昏之眼）","version":"3.2","participants":["CHR-008","CHR-020","CHR-040","CHR-029"],"coverage":"covered","source":"S-001:30401","version_confidence":"B"}
+{"event_id":"EVT-018","name":"赛飞儿之死与黎明机器停摆","version":"3.2","participants":["CHR-021","CHR-001","CHR-034"],"coverage":"covered","source":"S-001:30403","version_confidence":"B"}
+{"event_id":"EVT-019","name":"白厄完成再创世（第一次）","version":"3.2","participants":["CHR-001","CHR-002","CHR-015"],"coverage":"covered","source":"S-001:30404","version_confidence":"B"}
+{"event_id":"EVT-020","name":"来古士揭示逐火本质与铁墓","version":"3.2","participants":["CHR-013","CHR-001","CHR-008"],"coverage":"covered","source":"S-001:30405","version_confidence":"B"}
+{"event_id":"EVT-021","name":"回到第一次逐火之旅的时代","version":"3.5","participants":["CHR-002","CHR-008","CHR-022","CHR-023"],"coverage":"covered","source":"S-001:30412","version_confidence":"B"}
+{"event_id":"EVT-022","name":"赞达尔身份揭露与再创世延缓","version":"3.5","participants":["CHR-013","CHR-022","CHR-002","CHR-010","CHR-011"],"coverage":"covered","source":"S-001:30417","version_confidence":"B"}
+{"event_id":"EVT-023","name":"长夜月事件与三月七沉睡","version":"3.6","participants":["CHR-006","CHR-007","CHR-008","CHR-009"],"coverage":"covered","source":"S-001:30418","version_confidence":"B"}
+{"event_id":"EVT-024","name":"大墓探索与德谬歌矩阵","version":"3.6","participants":["CHR-008","CHR-009","CHR-003","CHR-006"],"coverage":"covered","source":"S-001:30423","version_confidence":"B"}
+{"event_id":"EVT-025","name":"千年负世试炼与最终循环","version":"3.7","participants":["CHR-008","CHR-016","CHR-017","CHR-018","CHR-019","CHR-020","CHR-021","CHR-022","CHR-023","CHR-024"],"coverage":"covered","source":"S-001:30427","version_confidence":"B"}
+{"event_id":"EVT-026","name":"铁墓决战与银河再创世","version":"3.7","participants":["CHR-014","CHR-008","CHR-010","CHR-005","SYS-018"],"coverage":"covered","source":"S-001:30431","version_confidence":"B"}
+{"event_id":"EVT-027","name":"德谬歌回望与因果闭合","version":"3.7","participants":["CHR-003","CHR-005","CHR-038"],"coverage":"covered","source":"S-001:424961","version_confidence":"B"}
+{"event_id":"EVT-028","name":"第33550337次循环","version":"3.7","participants":["CHR-008","CHR-007","CHR-009","CHR-003"],"coverage":"covered","source":"S-001:425005","version_confidence":"A"}

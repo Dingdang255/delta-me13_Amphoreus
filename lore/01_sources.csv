@@ -1,0 +1,21 @@
+id,url,title,author,platform,published_at,captured_at,type,language,game_version,archive_url,notes
+S-001,file:///E:/Star%20Rail/Game/StarRail_Data/Persistent/DesignData/Windows/cn/f96da886871b002d752da7a11bf96a14.bytes,HSR 4.6.0 中文文本表（明文串池）,miHoYo,本地客户端,2026-09-17,2026-10-31,official_text,zh,4.6.0,,457301 条 / 1474 万字符；抽取脚本 p64_cn_extract.py；本条目的 locator 为串池序号（如 S-001:75013）
+S-002,file:///d:/文档/Amphoreus/lore/export/data/story_full.jsonl,HSR 4.6.0 剧情编排表导出（段→台词序列）,miHoYo / 本地导出,2026-09-17,2026-10-31,official_text,zh,4.6.0,,712 任务 / 18218 句；locator 形如 Mission:1040502 / path:Story/Discussion/.../DS*.playable / line:<i>
+S-003,file:///d:/文档/Amphoreus/lore/story/story_all.md,HSR 4.6.0 可读剧本（S-002 的 Markdown 派生）,本地导出,2026-09-17,2026-10-31,official_text_derived,zh,4.6.0,,由 S-002 渲染，仅供人读；引用一律回指 S-002
+S-004,file:///d:/文档/Amphoreus/lore/export/data/name_by_role.json,角色资源名→中文名映射,本地导出,2026-09-17,2026-10-31,official_text,zh,4.6.0,,63 个主要角色；names.json 为 5360 条 key→中文
+S-005,file:///d:/文档/Amphoreus/lore/_probe/PROBE_REPORT.md,HSR 4.6 中文 TextMap 探针报告,本项目,2026-10-31,2026-10-31,method_report,zh,4.6.0,,记录抽取链路、锚点校验 5/5、已知局限
+S-006,file:///d:/文档/Amphoreus/tools/hsr_probe/README.md,客户端文本探针工具链（只读）,本项目,2026-10-31,2026-10-31,method_report,zh,4.6.0,,脚本清单与包结构
+S-010,https://www.miyoushe.com/sr/wiki/content/5851/detail,昔涟 - 崩坏:星穹铁道WIKI,米游社（开拓者笔记）,UNKNOWN,2026-10-31,official_wiki,zh,4.6,,"人物简介：最初智种德谬歌=权杖因子Philia093=迷迷"
+S-011,https://bbs.mihoyo.com/sr/wiki/content/5950/detail,大墓啊，深藏轮回的秘密 - WIKI,米游社（开拓者笔记）,UNKNOWN,2026-10-31,official_wiki,zh,4.6,,"含额外对话：丹恒对壁画与《如我所书》的推断"
+S-012,https://www.miyoushe.com/sr/article/66060243,「如我所书」截至3.4内容存档·δ-me13·0%-55%,米游社玩家,UNKNOWN,2026-10-31,community_raw,zh,3.4,,玩家逐字整理的归档结构（归档01-04 / 进度 0%/19%/55%）
+S-013,https://www.miyoushe.com/sr/article/71421071,【崩铁3.7如我所书解析04】以δ-me13的视角解析3.7,米游社玩家,UNKNOWN,2026-10-31,secondary,zh,3.7,,"二手解析；仅作线索，复述了 39665/50121 等循环"
+S-014,https://m.bilibili.com/opus/1098894239139364868,【构史】关于白厄与万敌的个人向考据&解读,哔哩哔哩 UP,UNKNOWN,2026-10-31,secondary,zh,3.4,,二手解析；四/五阶段划分的社区表述
+S-015,https://wikiwiki.jp/star-rail/本棚/オンパロス/δ-me13,本棚/オンパロス/δ-me13 - 崩壊スターレイル Wiki,wikiwiki.jp,UNKNOWN,2026-10-31,official_wiki,ja,4.6,,日文 wiki 对实验报告的概述
+S-016,https://m.baike.com/wiki/昔涟/7554987705509036067,昔涟 - 百科,百科用户,UNKNOWN,2026-10-31,tertiary,zh,UNKNOWN,,百科；置信度 E，仅作线索
+S-017,https://games.sina.cn/esports/2025-11-10/edetail-infwxsyv5120516.d.html,因“爱”诞生的昔涟，是如何让未来拯救过去的?,新浪游戏,2025-11-10,2026-10-31,secondary,zh,3.7,,"媒体解析；D 级"
+S-018,https://www.taptap.cn/moment/743172922083903588,最喜欢的角色被米哈游刀了,TapTap 用户,UNKNOWN,2026-10-31,fanwork,zh,UNKNOWN,,"E 级，同人情绪贴，不进事实栏"
+S-019,https://bbs.nga.cn/read.php?tid=44520272,[剧情氵] 可能是我溜号了吧，我从始至终没整明白轮回到底是什么机制啊,NGA 用户,UNKNOWN,2026-10-31,community_raw,zh,UNKNOWN,,"讨论帖；热评用『模拟宇宙』类比"
+S-020,https://bbs.nga.cn/read.php?tid=45540908,[剧透预警] 翁法罗斯，一个充满史诗，浪漫的故事——《崩铁3.0~3.7，剧情整理》,NGA 用户,UNKNOWN,2026-10-31,secondary,zh,3.0-3.7,,"长帖整理；D 级"
+S-021,https://www.miyoushe.com/sr/article/70607925,我搞清楚昔涟的轮回线了!!!,米游社玩家,UNKNOWN,2026-10-31,secondary,zh,UNKNOWN,,"『两个灵魂』推论，未获 A 级支持"
+S-022,https://beebom.com/the-significance-of-33550336-for-phainon-in-honkai-star-rail-explained/amp/,The Significance of '33550336' for Phainon in Honkai Star Rail Explained,Beebom,UNKNOWN,2026-10-31,secondary,en,UNKNOWN,,"英文媒体；只取标题"
+S-023,https://www.miyoushe.com/ys/article/65968661,关于白厄pv中的33550336解析,米游社玩家,UNKNOWN,2026-10-31,community_raw,zh,UNKNOWN,,"玩家对 PV 中数字的推演，结论后被官方数值证实"

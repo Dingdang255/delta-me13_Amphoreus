@@ -1,0 +1,111 @@
+{
+ "id": "CHR-038",
+ "names": {
+  "zh": "浮黎",
+  "en": "Fuli",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "记忆星神"
+  ]
+ },
+ "identity": {
+  "kind": "星神",
+  "continuity": "不适用",
+  "memory": "全部记忆",
+  "permissions": [
+   "记忆"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "在因果尽头诞生",
+   "priority": "1",
+   "source": "S-001:73326"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "浮黎只是一簇记忆",
+   "confidence": "A",
+   "source": "S-001:73326"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "UNKNOWN",
+   "response": "UNKNOWN",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "UNKNOWN"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-038-1",
+   "when": "当记忆需要锚定",
+   "then": "由令使代为锚定",
+   "priority": 1,
+   "conflict": "—",
+   "source": "S-001:30433"
+  },
+  {
+   "id": "R-038-2",
+   "when": "UNKNOWN",
+   "then": "UNKNOWN",
+   "priority": 2,
+   "conflict": "—",
+   "source": "UNKNOWN"
+  },
+  {
+   "id": "R-038-3",
+   "when": "UNKNOWN",
+   "then": "UNKNOWN",
+   "priority": 3,
+   "conflict": "—",
+   "source": "UNKNOWN"
+  }
+ ],
+ "speech": {
+  "tone": "UNKNOWN",
+  "address": {
+   "to_peer": "—",
+   "to_enemy": "—",
+   "to_self": "—"
+  },
+  "catchphrases": [],
+  "taboo_topics": [],
+  "sentence_style": "—"
+ },
+ "relations": [],
+ "behavior_patterns": [],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "尚未诞生",
+   "source": "S-001:73326"
+  },
+  {
+   "phase": "turn",
+   "state": "缺席",
+   "source": "S-001:30433"
+  },
+  {
+   "phase": "end",
+   "state": "UNKNOWN",
+   "source": "UNKNOWN"
+  }
+ ],
+ "failure_modes": [
+  "缺席导致因果不稳固"
+ ],
+ "ooc_guards": [
+  "不得把浮黎写成人格神"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:73326",
+  "S-001:30433"
+ ],
+ "confidence": "B"
+}

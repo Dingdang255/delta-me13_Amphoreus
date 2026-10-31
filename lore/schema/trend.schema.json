@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "trend.schema.json",
+  "title": "world trend law record",
+  "type": "object",
+  "required": ["id", "name", "direction", "evidence", "observables", "confidence"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^TREND-[0-9]{3}$" },
+    "name": { "type": "string", "minLength": 1 },
+    "direction": { "type": "string", "minLength": 1 },
+    "strength": {},
+    "evidence": { "type": "string", "minLength": 1 },
+    "boundary": { "type": "string" },
+    "exception": { "type": "string" },
+    "observables": { "type": "array", "items": { "type": "string" } },
+    "confidence": { "enum": ["A", "B", "C", "D", "E", "UNKNOWN"] },
+    "pseudo_ref": { "type": "string" }
+  },
+  "additionalProperties": true
+}

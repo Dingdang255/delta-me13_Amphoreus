@@ -1,0 +1,35 @@
+{"id": "OOC-001", "character": "CHR-001", "guard": "不得写成冷酷嗜杀——原文的暴力都是手段，不是目的", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-002", "character": "CHR-001", "guard": "不得让他主动完成再创世（A 级明确『拒绝』）", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-003", "character": "CHR-001", "guard": "不得替『目的未知』补动机（S-001:75058）", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-004", "character": "CHR-002", "guard": "不得把她说成全知——原文里她多次说『我不知道』", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-005", "character": "CHR-002", "guard": "不得把『两个灵魂』写进设定", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-006", "character": "CHR-003", "guard": "不得写成全知的神", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-007", "character": "CHR-003", "guard": "不得让它说出完整长句（语料中无此形态）", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-008", "character": "CHR-004", "guard": "不得让迷迷说出长段分析", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-009", "character": "CHR-004", "guard": "不得把迷迷等同于昔涟本人", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-010", "character": "CHR-005", "guard": "不得写成『打败铁墓』——她是锚定事实，不是主攻", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-011", "character": "CHR-006", "guard": "不得写成单纯反派——原文给的是『中止实验』这一动机", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-012", "character": "CHR-007", "guard": "不得把她与长夜月合并成一个人", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-013", "character": "CHR-007", "guard": "不得让她记得自己沉睡期的事", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-014", "character": "CHR-008", "guard": "不得替玩家做价值判断", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-015", "character": "CHR-008", "guard": "不得把开拓者写成全知", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-016", "character": "CHR-009", "guard": "不得让他主动放弃同伴", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-017", "character": "CHR-010", "guard": "不得写成纯搞笑角色", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-018", "character": "CHR-011", "guard": "不得写成情绪化", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-019", "character": "CHR-012", "guard": "不得写成全知旁白", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-020", "character": "CHR-013", "guard": "不得写成为了娱乐而作恶——动机是证明命题", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-021", "character": "CHR-013", "guard": "不得让他直接动手杀人（他借系统与协议）", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-022", "character": "CHR-014", "guard": "不得给它写内心独白——原文明确『没有自我』", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-023", "character": "CHR-015", "guard": "不得只写形容词，必须落到 decision_rule", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-024", "character": "CHR-016", "guard": "不得只写形容词，必须落到 decision_rule", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-025", "character": "CHR-017", "guard": "不得只写形容词，必须落到 decision_rule", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-026", "character": "CHR-018", "guard": "不得只写形容词，必须落到 decision_rule", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-027", "character": "CHR-019", "guard": "不得只写形容词，必须落到 decision_rule", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-028", "character": "CHR-020", "guard": "不得只写形容词，必须落到 decision_rule", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-029", "character": "CHR-021", "guard": "不得只写形容词，必须落到 decision_rule", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-030", "character": "CHR-022", "guard": "不得只写形容词，必须落到 decision_rule", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-031", "character": "CHR-023", "guard": "不得只写形容词，必须落到 decision_rule", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-032", "character": "CHR-024", "guard": "不得只写形容词，必须落到 decision_rule", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-033", "character": "CHR-025", "guard": "不得凭空写台词", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-034", "character": "CHR-037", "guard": "不得给星神写对白", "scope": "dialogue|decision", "severity": "hard"}
+{"id": "OOC-035", "character": "CHR-038", "guard": "不得把浮黎写成人格神", "scope": "dialogue|decision", "severity": "hard"}

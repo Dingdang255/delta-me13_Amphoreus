@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fact.schema.json",
+  "title": "generic sourced fact record",
+  "type": "object",
+  "required": ["id", "source", "confidence"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[A-Z][A-Z0-9-]*[0-9]+$" },
+    "source": { "type": "string", "minLength": 1 },
+    "locator": { "type": "string" },
+    "confidence": { "enum": ["A", "B", "C", "D", "E", "UNKNOWN"] },
+    "verbatim": { "type": "string" },
+    "verbatim_available": { "type": "boolean" },
+    "inference": { "type": "array", "items": { "type": "string" } },
+    "unknowns": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,151 @@
+{
+ "id": "CHR-013",
+ "names": {
+  "zh": "来古士",
+  "en": "LykoS / Zandar",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "赞达尔·壹·桑原",
+   "赞达尔",
+   "ID：LykoS",
+   "神礼观众"
+  ]
+ },
+ "identity": {
+  "kind": "管理员",
+  "continuity": "跨轮（管理员）",
+  "memory": "完整",
+  "permissions": [
+   "实验管理员",
+   "第一推动者",
+   "约60%特殊权限被冻结"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "证明『生命的第一因=毁灭』并让铁墓加冕",
+   "priority": 1,
+   "source": "S-001:424952"
+  },
+  {
+   "level": "long",
+   "text": "借铁墓毁灭博识尊、解放智识",
+   "priority": 2,
+   "source": "S-001:30417"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "课题的价值在于求解过程，而非答案本身",
+   "confidence": "A",
+   "source": "S-001:424952"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "实验偏离预期",
+   "response": "修正演算性质，而非中止",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:424952"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-001",
+   "when": "当实验隐蔽性受威胁",
+   "then": "设置星核污染、忆质加密",
+   "priority": 1,
+   "conflict": "—",
+   "source": "S-001:424953"
+  },
+  {
+   "id": "R-002",
+   "when": "当外部变量干扰进程",
+   "then": "以 LykoS 介入运算、驱逐变量",
+   "priority": 2,
+   "conflict": "与『观察自然演化』冲突",
+   "source": "S-001:425005"
+  },
+  {
+   "id": "R-003",
+   "when": "当被质问德谬歌是否存在",
+   "then": "给出真话，但用悖论包装",
+   "priority": 3,
+   "conflict": "—",
+   "source": "S-001:225844"
+  }
+ ],
+ "speech": {
+  "tone": "礼貌、讥诮、以提问代陈述",
+  "address": {
+   "to_peer": "诸位",
+   "to_enemy": "变量",
+   "to_self": "我"
+  },
+  "catchphrases": [
+   "共享发现真相的喜悦"
+  ],
+  "taboo_topics": [
+   "自己的九个分身"
+  ],
+  "sentence_style": "反问+长句"
+ },
+ "relations": [
+  {
+   "target": "CHR-014",
+   "type": "contract",
+   "intensity": 1.0,
+   "source": "S-001:424949"
+  },
+  {
+   "target": "CHR-003",
+   "type": "guilt",
+   "intensity": 0.8,
+   "source": "S-001:425106"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "对话",
+   "action": "先让对方推理，再承认",
+   "reason": "享受他人得出同样结论",
+   "source": "S-001:225842"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "天才俱乐部#1 的分身，接管实验",
+   "source": "S-001:424947"
+  },
+  {
+   "phase": "turn",
+   "state": "修正演算为毁灭",
+   "source": "S-001:424952"
+  },
+  {
+   "phase": "end",
+   "state": "失联；意志仍在",
+   "source": "S-001:425005"
+  }
+ ],
+ "failure_modes": [
+  "把所有人当变量",
+  "低估『爱』这一变量"
+ ],
+ "ooc_guards": [
+  "不得写成为了娱乐而作恶——动机是证明命题",
+  "不得让他直接动手杀人（他借系统与协议）"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:424947",
+  "S-001:424952",
+  "S-001:424953",
+  "S-001:225844",
+  "S-001:425005"
+ ],
+ "confidence": "A"
+}

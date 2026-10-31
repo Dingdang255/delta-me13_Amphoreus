@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "worldgen.schema.json",
+  "title": "world generation dimension record",
+  "type": "object",
+  "required": ["id", "dimension", "name", "inputs", "state_vars", "rules", "constraints", "observables", "unknowns", "confidence"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^WG-[0-9]{3}$" },
+    "dimension": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "inputs": { "type": "array", "items": { "type": "string" } },
+    "state_vars": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "range": {},
+          "source": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "when", "then", "source"],
+        "properties": {
+          "rule_id": { "type": "string" },
+          "when": { "type": "string" },
+          "then": { "type": "string" },
+          "source": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "random_stream": {
+      "type": "object",
+      "required": ["name", "consumption_order"],
+      "properties": {
+        "name": { "type": "string" },
+        "consumption_order": { "type": "integer" }
+      },
+      "additionalProperties": true
+    },
+    "constraints": { "type": "array", "items": { "type": "string" } },
+    "observables": { "type": "array", "items": { "type": "string" } },
+    "unknowns": { "type": "array", "items": { "type": "string" } },
+    "confidence": { "enum": ["A", "B", "C", "D", "E", "UNKNOWN"] },
+    "evidence": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

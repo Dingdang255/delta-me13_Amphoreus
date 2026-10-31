@@ -1,0 +1,126 @@
+{
+ "id": "CHR-016",
+ "names": {
+  "zh": "缇宝",
+  "en": "HapLotes405",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "缇里西庇俄丝",
+   "缇安",
+   "缇宁"
+  ]
+ },
+ "identity": {
+  "kind": "电信号",
+  "continuity": "每轮迭代（功能继承）",
+  "memory": "部分",
+  "permissions": [
+   "门径路径"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "以神谕引领黄金裔前行",
+   "priority": 1,
+   "source": "S-001:425090"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "先知的天真也是力量",
+   "confidence": "A",
+   "source": "S-001:425090"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "路径被阻断",
+   "response": "按原动力给定的方式反应",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:425090"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-016-1",
+   "when": "当需要同时处理多件事",
+   "then": "分裂出缇安/缇宁多轨并行",
+   "priority": 1,
+   "conflict": "与其余因子竞争",
+   "source": "S-001:425090"
+  },
+  {
+   "id": "R-016-2",
+   "when": "当自身原动力与利他行为冲突",
+   "then": "选择自毁式解法",
+   "priority": 2,
+   "conflict": "—",
+   "source": "S-001:425090"
+  },
+  {
+   "id": "R-016-3",
+   "when": "当被要求继承火种",
+   "then": "按试炼规则接受或拒绝",
+   "priority": 3,
+   "conflict": "—",
+   "source": "S-001:425090"
+  }
+ ],
+ "speech": {
+  "tone": "同理",
+  "address": {
+   "to_peer": "你",
+   "to_enemy": "—",
+   "to_self": "我"
+  },
+  "catchphrases": [],
+  "taboo_topics": [],
+  "sentence_style": "—"
+ },
+ "relations": [
+  {
+   "target": "CHR-008",
+   "type": "trust",
+   "intensity": 0.6,
+   "source": "S-001:425090"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "逐火",
+   "action": "履行本路径职责",
+   "reason": "—",
+   "source": "S-001:425090"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "雅努萨波利斯圣女",
+   "source": "S-001:73314"
+  },
+  {
+   "phase": "turn",
+   "state": "缇安耗尽神力而死",
+   "source": "S-001:30382"
+  },
+  {
+   "phase": "end",
+   "state": "磨损殆尽",
+   "source": "S-001:159367"
+  }
+ ],
+ "failure_modes": [
+  "原动力与利他行为的矛盾导致自我消解"
+ ],
+ "ooc_guards": [
+  "不得只写形容词，必须落到 decision_rule"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:425090"
+ ],
+ "confidence": "A"
+}

@@ -55,3 +55,16 @@ __pycache__/
 /.idea/
 /.vscode/
 /temp_chat.md
+
+# ── 原著考据语料（lore/）────────────────────────────────────────────────
+# 只收派生语料：清单 / 来源台账 / 术语表 / 三张索引 / 冲突 / 未知 / D1–D8 / 方法报告。
+# 原始 dump（整份客户端文本表、剧情编排表、全游戏剧本）一律不入库，理由见 lore/00_manifest.md §4.1。
+!/lore/
+/lore/_probe/*
+!/lore/_probe/PROBE_REPORT.md
+/lore/export/data/story_full.jsonl
+/lore/export/data/names.json
+/lore/story/
+
+# 游戏客户端逆向探针：只读工具链，不属于分发包，也不随仓库分发
+/tools/hsr_probe/

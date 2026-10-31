@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "principle": "官方只逐字记录了少量轮次（见 official_anchors.jsonl，共 30 条）。本文件定义：未记录轮次如何在不编造细节的前提下生成『可读日志』。任何由本规则产出的条目，evidence 必须为 reconstructed，且 variation 不得填具体数值。",
+  "reference_track": {
+    "name": "标准轮（standard loop）",
+    "steps": [
+      {"order":1,"step":"newborn","description":"PhiLia093 以『小昔涟』形态新生，memory=none","source":"S-001:424957"},
+      {"order":2,"step":"flame_chase","description":"十二黄金裔按实验原定设计顺序逐火、继承火种","source":"S-001:218705"},
+      {"order":3,"step":"lifecycle_end","description":"十二黄金裔生命周期依次正常结束，载入缓冲区","source":"S-001:218705"},
+      {"order":4,"step":"upload","description":"昔涟死亡，记忆经仪式剑上传至无名泰坦大墓，filter=哀怜","source":"S-001:424957"},
+      {"order":5,"step":"format","description":"格式化进程执行，为下一次 fork 清空记忆","source":"S-001:225913"},
+      {"order":6,"step":"rollback","description":"卡厄斯兰那回退演算进程，进入下一轮","source":"S-001:218705"}
+    ],
+    "note": "『标准轮』不是某一具体轮次，而是官方多次复述的默认流程；不得据此声称某一轮真实发生。"
+  },
+  "variation_table": {
+    "1":   {"diff":"以非暴力回收十二火种","evidence":"official","source":"S-001:218704"},
+    "2":   {"diff":"沿用#1策略","evidence":"official","source":"S-001:75013"},
+    "3":   {"diff":"提高『避免过去同伴牺牲』权重","evidence":"official","source":"S-001:75013"},
+    "15":  {"diff":"首次反编译黑潮、越权授权","evidence":"official","source":"S-001:75013"},
+    "42":  {"diff":"第11次攻击内核层失败，权重下滑","evidence":"official","source":"S-001:75013"},
+    "133": {"diff":"策略趋同#42，过拟合风险","evidence":"official","source":"S-001:75013"},
+    "134": {"diff":"第103次攻击，权重 0.00018","evidence":"official","source":"S-001:218708"},
+    "5297":{"diff":"第5266次攻击，心智函数不可逆风险","evidence":"official","source":"S-001:218710"},
+    "108642":{"diff":"未正常载入缓冲区，崩溃堆栈","evidence":"official","source":"S-001:218713"},
+    "33550336":{"diff":"自毁、被铁墓吞并、外部变量介入","evidence":"official","source":"S-001:75058"},
+    "33550337":{"diff":"负世路径由开拓者接替","evidence":"official","source":"S-001:425005"}
+  },
+  "reconstruction_rules": [
+    {"id":"R-LOOP-001","rule":"loop 不在 variation_table 且不在 official_anchors 中 → variation = UNKNOWN","rationale":"R2 禁止虚构"},
+    {"id":"R-LOOP-002","rule":"fire.taken/returned/burden 无官方记录 → UNKNOWN，不用四亿/402604020 回填","rationale":"CF-001"},
+    {"id":"R-LOOP-003","rule":"kill.by/weapon/location 无官方记录 → UNKNOWN；不得默认『仪式剑/涡心』","rationale":"仪式剑证据只覆盖部分场景"},
+    {"id":"R-LOOP-004","rule":"任意 reconstructed 条目的 evidence 字段必须为 reconstructed，禁止升级为 official","rationale":"§D5.6"},
+    {"id":"R-LOOP-005","rule":"若 loop 属于官方区间（1–50121 / 50122–176199 / 176200–28371273 / 28371274–33550336），可用区间常数补 phase 字段","rationale":"区间本身是官方逐字（S-001:424993–425001）"}
+  ],
+  "known_arithmetic": {
+    "attack_offset": {"value": 31, "evidence": "12398-12367=31；23779-23748=31；46645-46614=31；71243-71212=31；80023-79992=31；95575-95544=31；108641-108610=31", "confidence":"C", "note":"七个样本一致，但官方未说明偏移含义"},
+    "recurrence_total": {"value": 33550336, "evidence":"S-001:424957 / S-001:75058 / S-001:425068", "confidence":"A"},
+    "final_loop": {"value": 33550337, "evidence":"S-001:425005 / S-001:159372", "confidence":"A"}
+  }
+}

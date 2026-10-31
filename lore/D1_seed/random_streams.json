@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "honesty_note": "官方文本中**没有任何 PRNG、随机种子、随机流**的表述。本文件区分『有官方依据的继承/随机性』与『为可执行建模而设的推断流』；后者一律 confidence=E，且不得进入事实层。",
+  "official_randomness": [
+    {"id":"RND-001","verbatim":"代码在迭代中的继承具有一定的随机性。任何主动干涉，都应当谨慎进行。","source":"S-001","locator":"S-001:425076","scope":"电信号行为数据的继承","confidence":"A","note":"唯一的『随机性』原文；主语是『继承』，不是『生成』"},
+    {"id":"RND-002","verbatim":"由于有机生命缺乏有效的经验继承功能，实验进度缓慢。但有机体与十二因子的适配度更强…此外，有机体的随机性过强，应适当缩小变量区间。","source":"S-001","locator":"S-001:425060","scope":"有机阶段的变量区间","confidence":"A","note":"官方明确『有机体随机性过强』并据此缩小变量域"},
+    {"id":"RND-003","verbatim":"受限于模拟文明等级，在掺杂大量错误信息后，以神话形式继承的历史数据，往往会出现严重的失真现象，其影响可以忽略不计。","source":"S-001","locator":"S-001:425077","scope":"神话继承的失真","confidence":"A"}
+  ],
+  "streams": [
+    {"name":"bootstrap","purpose":"初始化世界（宇宙/历法/地理/文明）","official_basis":"无","inferred":true,"confidence":"E","consumption_order":1,"cross_loop":false},
+    {"name":"factor_binding","purpose":"把十二因子绑定到十二路径","official_basis":"S-001:424932（路径-因子对应为固定表，不是随机）","inferred":true,"confidence":"E","consumption_order":2,"cross_loop":false},
+    {"name":"signal_behavior","purpose":"电信号的决策扰动","official_basis":"RND-001","inferred":true,"confidence":"C","consumption_order":3,"cross_loop":true},
+    {"name":"organic_variance","purpose":"有机阶段的变异幅度","official_basis":"RND-002","inferred":true,"confidence":"C","consumption_order":4,"cross_loop":false},
+    {"name":"myth_distortion","purpose":"历史以神话形式继承时的失真","official_basis":"RND-003","inferred":true,"confidence":"C","consumption_order":5,"cross_loop":true},
+    {"name":"entropy","purpose":"黑潮/无序度增长","official_basis":"S-001:425072（阈值存在，数值未知）","inferred":true,"confidence":"E","consumption_order":6,"cross_loop":false}
+  ],
+  "consumption_order_note": "消费顺序为建模假设，非官方。官方只给出『阶段顺序』（无机→有机→人科→古典），未给出同阶段内各维度的抽样顺序。",
+  "forbidden": [
+    "不得把 seed 写成官方机制（见 D1_seed/seed_terms.md S-A：0 条证据）",
+    "不得给随机流填具体 entropy/seed 数值",
+    "不得声称『同种子必得同世界』——官方从未如此表述"
+  ]
+}

@@ -1,0 +1,132 @@
+{
+ "id": "CHR-009",
+ "names": {
+  "zh": "丹恒",
+  "en": "Dan Heng",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "丹恒·腾荒",
+   "不朽的龙裔",
+   "大地泰坦（继任）"
+  ]
+ },
+ "identity": {
+  "kind": "外部变量",
+  "continuity": "跨轮",
+  "memory": "完整",
+  "permissions": [
+   "大地路径（接替）",
+   "不朽"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "守住同伴与翁法罗斯",
+   "priority": 1,
+   "source": "S-001:424965"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "过去不定义我",
+   "confidence": "A",
+   "source": "S-001:30422"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "记忆异象侵袭",
+   "response": "冷静分析",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:30422"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-001",
+   "when": "当同伴需要断后",
+   "then": "留下断后",
+   "priority": 1,
+   "conflict": "—",
+   "source": "S-001:30404"
+  },
+  {
+   "id": "R-002",
+   "when": "当大地路径空缺",
+   "then": "接纳火种内 216 万生命体",
+   "priority": 2,
+   "conflict": "—",
+   "source": "S-001:424965"
+  },
+  {
+   "id": "R-003",
+   "when": "当真相不明",
+   "then": "先查证再行动",
+   "priority": 3,
+   "conflict": "—",
+   "source": "S-001:30422"
+  }
+ ],
+ "speech": {
+  "tone": "克制、书面",
+  "address": {
+   "to_peer": "你",
+   "to_enemy": "—",
+   "to_self": "我"
+  },
+  "catchphrases": [],
+  "taboo_topics": [
+   "丹枫"
+  ],
+  "sentence_style": "完整句"
+ },
+ "relations": [
+  {
+   "target": "CHR-008",
+   "type": "trust",
+   "intensity": 1.0,
+   "source": "S-001:424965"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "战斗",
+   "action": "以枪/龙尊之力断后",
+   "reason": "护卫本能",
+   "source": "S-001:30404"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "列车护卫",
+   "source": "S-001:424965"
+  },
+  {
+   "phase": "turn",
+   "state": "接替大地",
+   "source": "S-001:424965"
+  },
+  {
+   "phase": "end",
+   "state": "升擢大地泰坦",
+   "source": "S-001:424965"
+  }
+ ],
+ "failure_modes": [
+  "习惯独自承担",
+  "对过去回避"
+ ],
+ "ooc_guards": [
+  "不得让他主动放弃同伴"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:424965",
+  "S-001:30422",
+  "S-001:30404"
+ ],
+ "confidence": "A"
+}

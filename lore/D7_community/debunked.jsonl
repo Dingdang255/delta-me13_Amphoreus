@@ -1,0 +1,5 @@
+{"id":"DB-001","fragment_id":"CM-006","claim":"昔涟每世主动献祭，把记忆上传至德谬歌矩阵形成统一人格","status":"debunked","reason":"A 级文本只写『每个轮回的昔涟都会向权杖讲述逐火之旅』与『将自己奉献给记忆』，没有『献祭』的动作，也没有『统一人格』的设定","a_level_counter":"S-001:122494 / S-001:73327","captured_at":"2026-10-31"}
+{"id":"DB-002","fragment_id":"CM-012","claim":"昔涟是两个灵魂，一半讲述故事、一半交给迷迷","status":"debunked","reason":"A 级只写把『笔、书、名字』送出；『灵魂分裂』无任何文本支持","a_level_counter":"S-001:226150-226161","captured_at":"2026-10-31"}
+{"id":"DB-003","fragment_id":"CM-009","claim":"丹恒关于壁画的推断","status":"unverified","reason":"未在 S-001/S-002 定位到同句；可能是任务内条件对话，未被剧情表收录","a_level_counter":null,"captured_at":"2026-10-31"}
+{"id":"DB-004","fragment_id":"CM-002","claim":"如我所书进度为 0%/19%/55%/70%/99%","status":"unverified","reason":"A 级命中 99%/32.47%/96.75%/99.81%，但 0%/19%/55%/70% 未命中；不排除是玩家按归档分段自行标注","a_level_counter":"S-001:432719","captured_at":"2026-10-31"}
+{"id":"DB-005","fragment_id":null,"claim":"火种精确总数 402,604,020","status":"unverified","reason":"本项目旧值；A 级只给『四亿枚』『数亿枚』的概数。12×33,550,336=402,604,032，与旧值差 12，说明旧值来自推算","a_level_counter":"S-001:425102 / S-001:75058","captured_at":"2026-10-31"}

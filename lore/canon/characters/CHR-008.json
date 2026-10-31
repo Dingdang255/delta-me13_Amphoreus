@@ -1,0 +1,136 @@
+{
+ "id": "CHR-008",
+ "names": {
+  "zh": "开拓者",
+  "en": "Trailblazer",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "{NICKNAME}",
+   "无名客"
+  ]
+ },
+ "identity": {
+  "kind": "外部变量",
+  "continuity": "跨轮（唯一不被格式化）",
+  "memory": "完整",
+  "permissions": [
+   "岁月/负世路径接替",
+   "覆盖指令"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "完成开拓，救下翁法罗斯",
+   "priority": 1,
+   "source": "S-001:424963"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "选择时必须自己承担",
+   "confidence": "A",
+   "source": "S-001:30418"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "被要求选择留下谁的记忆",
+   "response": "迟疑、拒绝替他人决定",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:30418"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-001",
+   "when": "当出现空缺路径",
+   "then": "与之共鸣并接替",
+   "priority": 1,
+   "conflict": "—",
+   "source": "S-001:424963"
+  },
+  {
+   "id": "R-002",
+   "when": "当被要求只救一部分人",
+   "then": "寻找第三条路",
+   "priority": 2,
+   "conflict": "与系统效率冲突",
+   "source": "S-001:424963"
+  },
+  {
+   "id": "R-003",
+   "when": "当记忆被夺",
+   "then": "借过去记忆逃避追踪",
+   "priority": 3,
+   "conflict": "—",
+   "source": "S-001:30421"
+  }
+ ],
+ "speech": {
+  "tone": "少言、行动派；台词多为选项",
+  "address": {
+   "to_peer": "你",
+   "to_enemy": "—",
+   "to_self": "（……）"
+  },
+  "catchphrases": [],
+  "taboo_topics": [],
+  "sentence_style": "短句/内心独白"
+ },
+ "relations": [
+  {
+   "target": "CHR-002",
+   "type": "trust",
+   "intensity": 0.9,
+   "source": "S-001:226179"
+  },
+  {
+   "target": "CHR-004",
+   "type": "trust",
+   "intensity": 1.0,
+   "source": "S-001:73323"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "面对选择",
+   "action": "先问『还有别的办法吗』",
+   "reason": "与『开拓』命途一致",
+   "source": "S-001:30418"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "坠入翁法罗斯",
+   "source": "S-001:30370"
+  },
+  {
+   "phase": "turn",
+   "state": "接替岁月/负世",
+   "source": "S-001:424963"
+  },
+  {
+   "phase": "end",
+   "state": "受博识尊瞥视，为初始逻辑赋值『非毁灭共生微概率』",
+   "source": "S-001:424963"
+  }
+ ],
+ "failure_modes": [
+  "容易被『必须选择』逼入两难",
+  "记忆被夺时失去方向"
+ ],
+ "ooc_guards": [
+  "不得替玩家做价值判断",
+  "不得把开拓者写成全知"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:424963",
+  "S-001:30418",
+  "S-001:30421"
+ ],
+ "confidence": "A"
+}

@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "note": "终端触发表：event → 输出序列。frame（具体帧号）客户端未保留，统一 UNKNOWN；此处只给可定位的事件与前置条件。",
+  "media_definitions": {
+    "window": "游戏内模态窗（异常对话框样式，含『>>>』前缀）",
+    "logfile": "阅读物/档案中的日志文本块（无窗口边框）",
+    "terminal": "权杖终端（仅 S-001:425043 出现『权杖系统权限已开放』，无独立 UI 证据）",
+    "popup": "UNKNOWN：未在本包证据中出现",
+    "audio": "管理员批注.wav（文件名证据 S-001:445813，内容未取得）"
+  },
+  "triggers": [
+    {"event":"Philia093.exe 首次注入","precondition":"昔涟在第 33550336 次循环末尾以电信号形态进入权杖","sequence":["TRM-003","TRM-004","TRM-006|TRM-007","TRM-005"],"frame":"UNKNOWN","source":"S-001:225890-225892"},
+    {"event":"《如我所书》记录读取异常","precondition":"记录对象未被定义（记录#496）","sequence":["TRM-001","TRM-002","TRM-010","TRM-011","TRM-012|TRM-014"],"frame":"UNKNOWN","source":"S-001:225885-225904"},
+    {"event":"格式化周期开始","precondition":"系统判定本世结束","sequence":["TRM-019","TRM-020","TRM-021","TRM-022"],"frame":"UNKNOWN","source":"S-001:225913-225917"},
+    {"event":"格式化周期推进","precondition":"昔涟持续讲述","sequence":["TRM-040","TRM-043","TRM-050","TRM-051","TRM-018"],"frame":"UNKNOWN","source":"S-001:225950/225956/225990/226133"},
+    {"event":"情感语义解析失败","precondition":"输入包含超出词典的情感词","sequence":["TRM-045","TRM-046"],"frame":"UNKNOWN","source":"S-001:225958-225959"},
+    {"event":"永劫回归计数更新","precondition":"卡厄斯兰那回退演算进程","sequence":["TRM-058","TRM-059","TRM-060","TRM-061","TRM-062","TRM-063","TRM-064","TRM-065","TRM-066"],"frame":"UNKNOWN","source":"S-001:218704-218720"},
+    {"event":"第33550337次运算终止","precondition":"NeiKos496 自毁 + 外部变量介入","sequence":["TRM-067","TRM-068","TRM-069","TRM-070"],"frame":"UNKNOWN","source":"S-001:159364"},
+    {"event":"如我所书版本更新","precondition":"客户端版本迭代","sequence":["TRM-076","TRM-075","TRM-077","TRM-078"],"frame":"UNKNOWN","source":"S-001:432716-432724"},
+    {"event":"管理员失联","precondition":"数枚电信号对 LykoS 采取攻击行为","sequence":["TRM-079","TRM-080"],"frame":"UNKNOWN","source":"S-001:424946/425031"}
+  ],
+  "option_values": {
+    "TRM-004": {"options":["保持沉默","（成像）"],"observed_answer":"（成像）","evidence":"后续 TRM-005 进入『运行中』，说明写入被允许；但哪一项对应允许，原文未明示","confidence":"C"}
+  }
+}

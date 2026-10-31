@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "loop.schema.json",
+  "title": "cycle ledger record",
+  "type": "object",
+  "required": ["id", "loop", "phase", "evidence", "source"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^LOOP-[0-9]{6}$" },
+    "loop": { "type": "integer", "minimum": 1 },
+    "phase": { "type": "string", "minLength": 1 },
+    "start": { "type": "object" },
+    "end": { "type": "object" },
+    "newborn": { "type": "object" },
+    "kill": { "type": "object" },
+    "upload": { "type": "object" },
+    "format": { "type": "object" },
+    "fire": { "type": "object" },
+    "seats": { "type": "object" },
+    "overflow": { "type": "object" },
+    "external": { "type": "array" },
+    "evidence": { "enum": ["official", "reconstructed", "inferred"] },
+    "verbatim": { "type": "string" },
+    "source": { "type": "string" },
+    "locator": { "type": "string" },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": true
+}

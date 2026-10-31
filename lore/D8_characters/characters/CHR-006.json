@@ -1,0 +1,138 @@
+{
+ "id": "CHR-006",
+ "names": {
+  "zh": "长夜月",
+  "en": "Long Night Moon",
+  "jp": "UNKNOWN",
+  "aliases": [
+   "高危变量"
+  ]
+ },
+ "identity": {
+  "kind": "外部变量",
+  "continuity": "跨轮（不受格式化）",
+  "memory": "完整",
+  "permissions": [
+   "绕过权杖自检",
+   "影响管理员记忆",
+   "违规数据清除"
+  ]
+ },
+ "goals": [
+  {
+   "level": "ultimate",
+   "text": "中止实验、清除权杖数据",
+   "priority": 1,
+   "source": "S-001:424964"
+  }
+ ],
+ "beliefs": [
+  {
+   "text": "忘却不意味着背叛，它是最后的保护",
+   "confidence": "A",
+   "source": "S-001:424938"
+  }
+ ],
+ "emotions": [
+  {
+   "trigger": "与三月七接触",
+   "response": "短暂退让",
+   "intensity": "UNKNOWN",
+   "decay": "UNKNOWN",
+   "source": "S-001:30420"
+  }
+ ],
+ "decision_rules": [
+  {
+   "id": "R-001",
+   "when": "当需要隐藏",
+   "then": "以忘却浪潮遮蔽自己",
+   "priority": 1,
+   "conflict": "—",
+   "source": "S-001:73305"
+  },
+  {
+   "id": "R-002",
+   "when": "当实验将完成",
+   "then": "操纵泰坦、引导再创世",
+   "priority": 2,
+   "conflict": "与 R-001 冲突",
+   "source": "S-001:424964"
+  },
+  {
+   "id": "R-003",
+   "when": "当三月七要取回未来",
+   "then": "主动沉睡、让出身体",
+   "priority": 3,
+   "conflict": "—",
+   "source": "S-001:424964"
+  }
+ ],
+ "speech": {
+  "tone": "冷淡、简短、带威胁",
+  "address": {
+   "to_peer": "你",
+   "to_enemy": "变量",
+   "to_self": "我"
+  },
+  "catchphrases": [],
+  "taboo_topics": [
+   "三月七"
+  ],
+  "sentence_style": "陈述句"
+ },
+ "relations": [
+  {
+   "target": "CHR-007",
+   "type": "identity",
+   "intensity": 1.0,
+   "source": "S-001:73305"
+  },
+  {
+   "target": "CHR-024",
+   "type": "contract",
+   "intensity": 0.6,
+   "source": "S-001:73306"
+  }
+ ],
+ "behavior_patterns": [
+  {
+   "scene": "隐匿",
+   "action": "清除记录、藏起荒笛",
+   "reason": "避免被检索",
+   "source": "S-001:424964"
+  }
+ ],
+ "arc": [
+  {
+   "phase": "start",
+   "state": "与三月七互为表里的变量",
+   "source": "S-001:73305"
+  },
+  {
+   "phase": "turn",
+   "state": "囚禁开拓者、操纵泰坦",
+   "source": "S-001:30418"
+  },
+  {
+   "phase": "end",
+   "state": "沉睡，促成三月七完成岁月试炼",
+   "source": "S-001:424964"
+  }
+ ],
+ "failure_modes": [
+  "目的被误读为纯恶意",
+  "无法脱离三月七独立存在"
+ ],
+ "ooc_guards": [
+  "不得写成单纯反派——原文给的是『中止实验』这一动机"
+ ],
+ "inference": [],
+ "evidence": [
+  "S-001:73305",
+  "S-001:424964",
+  "S-001:30418",
+  "S-001:30420"
+ ],
+ "confidence": "A"
+}

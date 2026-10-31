@@ -1,0 +1,18 @@
+{"id":"CL-001","from":"MV-016","to":"MV-015","type":"enables","description":"Golem99 拆分出的双思维模式，使集群协议得以订立","evidence":"S-001:425052-425053","confidence":"A"}
+{"id":"CL-002","from":"MV-017","to":"TREND-003","type":"causes","description":"Chaoz666 首次杀死同类，毁灭行为首次形成，δ-me13 受瞥视","evidence":"S-001:425053","confidence":"A"}
+{"id":"CL-003","from":"MV-020","to":"MV-021","type":"causes","description":"纯粹利他社会的规律性自毁，演化出『出于爱杀害同类』的利他定义","evidence":"S-001:425059","confidence":"A"}
+{"id":"CL-004","from":"MV-021","to":"TREND-004","type":"causes","description":"系统无序度突破阈值，方程感染强度急升，黑潮可视化出现","evidence":"S-001:425059 / 425072","confidence":"A"}
+{"id":"CL-005","from":"TREND-004","to":"TREND-003","type":"feedback","description":"黑潮作为推力加速毁灭方程进化","evidence":"S-001:425064『生成黑潮作为推力』","confidence":"A"}
+{"id":"CL-006","from":"MV-022","to":"MV-026","type":"causes","description":"记忆继承机制上线→纯美帝国；同机制使历史以神话形式失真继承","evidence":"S-001:425062 / 425077","confidence":"A"}
+{"id":"CL-007","from":"MV-023","to":"TREND-005","type":"causes","description":"Fovos032 保存旧循环失败，其决策数据促成主动更替","evidence":"S-001:425064-425065","confidence":"A"}
+{"id":"CL-008","from":"MV-024","to":"MV-030","type":"feedback","description":"Nammou320 利用嵌合协议剔除因子，被写为协议默认值","evidence":"S-001:425074","confidence":"A"}
+{"id":"CL-009","from":"MV-001","to":"SYS-006","type":"causes","description":"NeiKos496 拒绝完成再创世，重置实验并传递记忆/火种，制造永劫回归","evidence":"S-001:424954","confidence":"A"}
+{"id":"CL-010","from":"SYS-006","to":"TREND-003","type":"inhibits","description":"永劫回归压制铁墓破壳；但管理员判定其反而强化铁墓毁灭倾向","evidence":"S-001:75013 管理员批注","confidence":"A","conflict_note":"方向存在矛盾，见 CF-003"}
+{"id":"CL-011","from":"MV-002","to":"MV-003","type":"causes","description":"PhiLia093 讲述逐火之旅，记忆种子成长","evidence":"S-001:122512","confidence":"A"}
+{"id":"CL-012","from":"MV-002","to":"SYS-006","type":"enables","description":"NeiKos496 抹除 PhiLia093 的存在，令岁月路径出现逻辑漏洞","evidence":"S-001:424957","confidence":"A"}
+{"id":"CL-013","from":"MV-031","to":"SYS-006","type":"breaks","description":"外部变量干涉使德谬歌苏醒，永劫回归被突破","evidence":"S-001:424957","confidence":"A"}
+{"id":"CL-014","from":"MV-010","to":"TREND-008","type":"inhibits","description":"刻律德菈冻结 LykoS 约60%权限，改写终极协议","evidence":"S-001:424941","confidence":"A"}
+{"id":"CL-015","from":"MV-011","to":"MV-012","type":"enables","description":"荒笛自毁制造大地路径漏洞，丹恒接替","evidence":"S-001:424942","confidence":"A"}
+{"id":"CL-016","from":"MV-028","to":"TREND-002","type":"inhibits","description":"科技临界点导致讨神战争，循环中断，文明等级被压回","evidence":"S-001:425063","confidence":"A"}
+{"id":"CL-017","from":"TREND-006","to":"TREND-007","type":"enables","description":"记忆累积到足以支撑回望，空缺的因才能被结果补全","evidence":"S-001:424961","confidence":"B"}
+{"id":"CL-018","from":"TREND-007","to":"TREND-003","type":"inhibits","description":"德谬歌成功回望后，实验坍缩为『结束』，毁灭路径被证伪","evidence":"S-001:425011-425012","confidence":"A"}

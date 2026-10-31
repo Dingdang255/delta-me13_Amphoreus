@@ -1,0 +1,93 @@
+{"id":"CHR-001","entity_id":"CHR-001","name":"卡厄斯兰那","aliases":["白厄","NeiKos496","NeiKos<unbreak>496</unbreak>","盗火行者","负世半神","完美的容器","无名的英雄"],"type":"角色/电信号","first_seen":"S-001:73322","coverage":"covered","notes":"同一实体的当世名（白厄）、循环末形态（卡厄斯兰那）、因子名（NeiKos496）、伪装（盗火行者）必须用同一 id"}
+{"id":"CHR-002","entity_id":"CHR-002","name":"PhiLia093","aliases":["PhiLia<unbreak>093</unbreak>","昔涟","小昔涟","哀怜","爱"],"type":"角色/电信号","first_seen":"S-001:424955","coverage":"covered","notes":"root_identity=CHR-002；其形态另见 CHR-003/004/005"}
+{"id":"CHR-003","entity_id":"CHR-003","name":"德谬歌","aliases":["Demiurge","翁法罗斯之心","最初的智种","第十三位泰坦"],"type":"模拟体/演算目标","first_seen":"S-001:73323","coverage":"covered","notes":"权杖原始演算目标；不是黄金裔"}
+{"id":"CHR-004","entity_id":"CHR-004","name":"迷迷","aliases":["粉色妖精","忆灵迷迷"],"type":"派生体/忆灵","first_seen":"S-001:73323","coverage":"covered","notes":"失忆的德谬歌心识；依附开拓者"}
+{"id":"CHR-005","entity_id":"CHR-005","name":"无漏净子（昔涟）","aliases":["无漏净子","回望者"],"type":"派生体/令使","first_seen":"S-001:73327","coverage":"covered","notes":"终章形态；与 CHR-002/003 同源，不可合并"}
+{"id":"CHR-006","entity_id":"CHR-006","name":"长夜月","aliases":["Long Night Moon","高危变量"],"type":"外部变量","first_seen":"S-001:73305","coverage":"covered","notes":"与三月七互为表里"}
+{"id":"CHR-007","entity_id":"CHR-007","name":"三月七","aliases":["Mar 7th"],"type":"外部变量","first_seen":"S-001:424964","coverage":"covered","notes":"记忆行者；曾交出记忆"}
+{"id":"CHR-008","entity_id":"CHR-008","name":"开拓者","aliases":["{NICKNAME}","无名客"],"type":"外部变量","first_seen":"S-001:424963","coverage":"covered","notes":"玩家角色；受博识尊瞥视"}
+{"id":"CHR-009","entity_id":"CHR-009","name":"丹恒","aliases":["丹恒·腾荒","荒笛（继任后）","不朽的龙裔"],"type":"外部变量","first_seen":"S-001:424965","coverage":"covered","notes":"接替大地路径；注意与 CHR-023 荒笛（前任）区分"}
+{"id":"CHR-010","entity_id":"CHR-010","name":"黑塔","aliases":["HertA"],"type":"外部变量","first_seen":"S-001:424966","coverage":"covered","notes":"天才俱乐部；曾完成加冕"}
+{"id":"CHR-011","entity_id":"CHR-011","name":"螺丝咕姆","aliases":["ScreW"],"type":"外部变量","first_seen":"S-001:424966","coverage":"covered","notes":"天才俱乐部"}
+{"id":"CHR-012","entity_id":"CHR-012","name":"黑天鹅","aliases":["Black Swan"],"type":"外部变量","first_seen":"S-001:30424","coverage":"covered","notes":"忆者；命途河流旁观者"}
+{"id":"CHR-013","entity_id":"CHR-013","name":"来古士","aliases":["赞达尔·壹·桑原","赞达尔","LykoS","ID：LykoS","神礼观众"],"type":"管理员/外部变量","first_seen":"S-001:424947","coverage":"covered","notes":"天才俱乐部#1 的九分之一；实验管理员；与『赞达尔』自称同一"}
+{"id":"CHR-014","entity_id":"CHR-014","name":"铁墓","aliases":["Irontomb","Irontomb.exe","无首巨人"],"type":"令使/绝灭大君","first_seen":"S-001:424949","coverage":"covered","notes":"权杖升格而成；银河间为方程式副本集合"}
+{"id":"CHR-015","entity_id":"CHR-015","name":"阿格莱雅","aliases":["KaLos<unbreak>618</unbreak>","织者","金织","浪漫的半神"],"type":"黄金裔","first_seen":"S-001:73313","coverage":"covered","notes":"奥赫玛领袖；死于黑潮"}
+{"id":"CHR-016","entity_id":"CHR-016","name":"缇宝","aliases":["缇里西庇俄丝","HapLotes<unbreak>405</unbreak>","缇安","缇宁"],"type":"黄金裔","first_seen":"S-001:73314","coverage":"covered","notes":"门径半神；分裂为三；缇安死亡"}
+{"id":"CHR-017","entity_id":"CHR-017","name":"万敌","aliases":["PoleMos<unbreak>600</unbreak>","悬锋王储","纷争半神"],"type":"黄金裔","first_seen":"S-001:73315","coverage":"covered","notes":"登神后独自返乡抗黑潮"}
+{"id":"CHR-018","entity_id":"CHR-018","name":"遐蝶","aliases":["EpieiKeia<unbreak>216</unbreak>","死亡半神","冥河的女儿"],"type":"黄金裔","first_seen":"S-001:73316","coverage":"covered","notes":"哀地里亚督战圣女；完成死亡试炼"}
+{"id":"CHR-019","entity_id":"CHR-019","name":"那刻夏","aliases":["阿那克萨戈拉斯","SkeMma<unbreak>720</unbreak>","理性半神"],"type":"黄金裔","first_seen":"S-001:73317","coverage":"covered","notes":"将自身与火种熔合"}
+{"id":"CHR-020","entity_id":"CHR-020","name":"风堇","aliases":["EleOs<unbreak>252</unbreak>","天空半神"],"type":"黄金裔","first_seen":"S-001:73318","coverage":"covered","notes":"昏光庭院医师"}
+{"id":"CHR-021","entity_id":"CHR-021","name":"赛飞儿","aliases":["赛法利娅","OreXis<unbreak>945</unbreak>","诡计半神","捷足的贼星"],"type":"黄金裔","first_seen":"S-001:73319","coverage":"covered","notes":"以谎言维系黎明机器；被盗火行者刺穿"}
+{"id":"CHR-022","entity_id":"CHR-022","name":"海瑟音","aliases":["海列屈拉","ApoRia<unbreak>432</unbreak>","海洋半神","剑旗爵"],"type":"黄金裔","first_seen":"S-001:73320","coverage":"covered","notes":"海妖出身；第一次逐火之旅的剑旗"}
+{"id":"CHR-023","entity_id":"CHR-023","name":"刻律德菈","aliases":["HubRis<unbreak>504</unbreak>","凯撒","律法半神"],"type":"黄金裔","first_seen":"S-001:73321","coverage":"covered","notes":"许珀耳君主；改写终极协议"}
+{"id":"CHR-024","entity_id":"CHR-024","name":"荒笛","aliases":["SkoPeo<unbreak>365</unbreak>","大地半神","大地兽之王"],"type":"黄金裔/前任","first_seen":"S-001:73306","coverage":"covered","notes":"被长夜月隐藏；自毁制造路径漏洞"}
+{"id":"CHR-025","entity_id":"CHR-025","name":"刻法勒","aliases":["Kephale"],"type":"泰坦","first_seen":"S-001:73322","coverage":"partial","notes":"负世/创世相关；档案提及『刻法勒永志不忘』"}
+{"id":"CHR-026","entity_id":"CHR-026","name":"欧洛尼斯","aliases":["Oronyx"],"type":"泰坦","first_seen":"S-002:1040103","coverage":"covered","notes":"岁月泰坦；被夺取火种"}
+{"id":"CHR-027","entity_id":"CHR-027","name":"雅努斯","aliases":["Janus"],"type":"泰坦","first_seen":"S-001:73314","coverage":"partial","notes":"门径泰坦；雅努萨波利斯"}
+{"id":"CHR-028","entity_id":"CHR-028","name":"塔兰顿","aliases":["Talanton"],"type":"泰坦","first_seen":"S-001:75000","coverage":"partial","notes":"公正裁决相关（界石埋铜币习俗）"}
+{"id":"CHR-029","entity_id":"CHR-029","name":"艾格勒","aliases":["Aquila","晨昏之眼"],"type":"泰坦","first_seen":"S-001:73318","coverage":"covered","notes":"天空泰坦；3.2 讨伐对象"}
+{"id":"CHR-030","entity_id":"CHR-030","name":"吉奥里亚","aliases":["Georios"],"type":"泰坦","first_seen":"S-001:75000","coverage":"partial","notes":"大地泰坦"}
+{"id":"CHR-031","entity_id":"CHR-031","name":"法吉娜","aliases":["Phagina"],"type":"泰坦","first_seen":"S-001:75010","coverage":"covered","notes":"海洋泰坦；斯缇科西亚"}
+{"id":"CHR-032","entity_id":"CHR-032","name":"瑟希斯","aliases":["Cerces","卡吕普索"],"type":"泰坦","first_seen":"S-001:30379","coverage":"covered","notes":"理性泰坦；化名卡吕普索"}
+{"id":"CHR-033","entity_id":"CHR-033","name":"墨涅塔","aliases":["Mneta"],"type":"泰坦","first_seen":"S-001:75000","coverage":"unknown","notes":"仅见于泰坦名录，无独立剧情文本"}
+{"id":"CHR-034","entity_id":"CHR-034","name":"扎格列斯","aliases":["Zagreus","贼灵"],"type":"泰坦","first_seen":"S-001:73319","coverage":"covered","notes":"诡计泰坦；以贼灵巴特鲁斯面目活动"}
+{"id":"CHR-035","entity_id":"CHR-035","name":"尼卡多利","aliases":["Nikador"],"type":"泰坦","first_seen":"S-001:30370","coverage":"covered","notes":"纷争泰坦；3.0 讨伐对象"}
+{"id":"CHR-036","entity_id":"CHR-036","name":"塞纳托斯","aliases":["Thanatos"],"type":"泰坦","first_seen":"S-001:30392","coverage":"covered","notes":"死亡泰坦；殁于冥河"}
+{"id":"CHR-037","entity_id":"CHR-037","name":"纳努克","aliases":["Nanook"],"type":"星神","first_seen":"S-001:425071","coverage":"covered","notes":"毁灭星神；瞥视 NeiKos496"}
+{"id":"CHR-038","entity_id":"CHR-038","name":"浮黎","aliases":["Fuli"],"type":"星神","first_seen":"S-001:424951","coverage":"covered","notes":"记忆星神；缺席导致因果不稳固"}
+{"id":"CHR-039","entity_id":"CHR-039","name":"博识尊","aliases":["Nous"],"type":"星神","first_seen":"S-001:425050","coverage":"covered","notes":"智识星神；权杖原型机的原主"}
+{"id":"CHR-040","entity_id":"CHR-040","name":"塞涅俄丝","aliases":["阳雷骑士"],"type":"历史人物/黄金裔","first_seen":"S-001:30386","coverage":"covered","notes":"弑杀艾格勒；天空之民先祖"}
+{"id":"CHR-041","entity_id":"CHR-041","name":"克拉特鲁斯","aliases":[],"type":"悬锋人","first_seen":"S-001:30378","coverage":"covered","notes":"劫持缇宁；夺回缇安"}
+{"id":"CHR-042","entity_id":"CHR-042","name":"巴特鲁斯","aliases":["贼灵"],"type":"派生体","first_seen":"S-001:30398","coverage":"covered","notes":"扎格列斯的化身之一"}
+{"id":"CHR-043","entity_id":"CHR-043","name":"玻吕茜亚","aliases":[],"type":"历史人物","first_seen":"S-001:73427","coverage":"partial","notes":"与遐蝶命运终点相关"}
+{"id":"CHR-044","entity_id":"CHR-044","name":"格奈乌斯","aliases":["Leoreia<unbreak>300</unbreak>（被称名者）"],"type":"历史人物/电信号","first_seen":"S-001:425076","coverage":"partial","notes":"五瓣神魂；裂魂仪式"}
+{"id":"CHR-045","entity_id":"CHR-045","name":"星期日","aliases":["Sunday"],"type":"外部变量","first_seen":"S-001:30421","coverage":"partial","notes":"协助开拓者脱离忆潮"}
+{"id":"CHR-046","entity_id":"CHR-046","name":"姬子","aliases":["Himeko"],"type":"外部变量","first_seen":"S-001:30428","coverage":"partial","notes":"列车组；联军牵头"}
+{"id":"CHR-047","entity_id":"CHR-047","name":"瓦尔特","aliases":["Welt"],"type":"外部变量","first_seen":"S-001:30395","coverage":"partial","notes":"打断博识尊谒见"}
+{"id":"CHR-048","entity_id":"CHR-048","name":"帕姆","aliases":["Pom-Pom"],"type":"外部变量","first_seen":"S-001:424876","coverage":"partial","notes":"列车长"}
+{"id":"SYS-001","entity_id":"SYS-001","name":"权杖δ-me13","aliases":["δ-me13","星体计算机","权杖系统","最初的原型机"],"type":"系统","first_seen":"S-001:424912","coverage":"covered","notes":"模拟世界翁法罗斯的载体"}
+{"id":"SYS-002","entity_id":"SYS-002","name":"Irontomb.exe","aliases":["铁墓.exe"],"type":"系统进程","first_seen":"S-001:225900","coverage":"covered","notes":"终端进程名；与 CHR-014 铁墓区分"}
+{"id":"SYS-003","entity_id":"SYS-003","name":"Philia093.exe","aliases":["Philia<unbreak>093</unbreak>.exe"],"type":"系统进程","first_seen":"S-001:122514","coverage":"covered","notes":"被允许写入并运行的未知发布者程序"}
+{"id":"SYS-004","entity_id":"SYS-004","name":"终极协议","aliases":[],"type":"协议","first_seen":"S-001:424941","coverage":"covered","notes":"刻律德菈嵌合并改写：再创世异常则终止迭代"}
+{"id":"SYS-005","entity_id":"SYS-005","name":"嵌合协议","aliases":[],"type":"协议","first_seen":"S-001:425074","coverage":"covered","notes":"因子可自内部修改实验结构"}
+{"id":"SYS-006","entity_id":"SYS-006","name":"永劫回归","aliases":["死循环"],"type":"机制","first_seen":"S-001:424957","coverage":"covered","notes":"NeiKos496 以重置实验阻止铁墓破壳"}
+{"id":"SYS-007","entity_id":"SYS-007","name":"再创世","aliases":["世代更迭"],"type":"机制","first_seen":"S-001:425068","coverage":"covered","notes":"权杖演算机制 + 世界换代形式"}
+{"id":"SYS-008","entity_id":"SYS-008","name":"时光归墟","aliases":["归墟"],"type":"地点/机制","first_seen":"S-001:30430","coverage":"covered","notes":"白厄以身封印铁墓恨意之处"}
+{"id":"SYS-009","entity_id":"SYS-009","name":"无名泰坦大墓","aliases":["大墓","权杖内核层"],"type":"地点/系统","first_seen":"S-001:424962","coverage":"covered","notes":"废弃内核层；德谬歌诞生地"}
+{"id":"SYS-010","entity_id":"SYS-010","name":"德谬歌矩阵","aliases":[],"type":"系统","first_seen":"S-001:80754","coverage":"covered","notes":"大墓深处存储阵列"}
+{"id":"SYS-011","entity_id":"SYS-011","name":"黑潮","aliases":["混沌"],"type":"系统/现象","first_seen":"S-001:425072","coverage":"covered","notes":"感染可视化"}
+{"id":"SYS-012","entity_id":"SYS-012","name":"金血","aliases":[],"type":"系统/标记","first_seen":"S-001:425071","coverage":"covered","notes":"毁灭特征"}
+{"id":"SYS-013","entity_id":"SYS-013","name":"火种","aliases":["泰坦火种"],"type":"道具/权柄","first_seen":"S-001:424932","coverage":"covered","notes":"十二枚；归还即再创世"}
+{"id":"SYS-014","entity_id":"SYS-014","name":"往昔的涟漪","aliases":[],"type":"系统/现象","first_seen":"S-001:424961","coverage":"covered","notes":"记忆残留；包裹翁法罗斯的混沌物质"}
+{"id":"SYS-015","entity_id":"SYS-015","name":"被遗忘的岁月","aliases":[],"type":"系统/异常","first_seen":"S-001:424959","coverage":"covered","notes":"记录空白现象"}
+{"id":"SYS-016","entity_id":"SYS-016","name":"神话之外","aliases":[],"type":"地点/领域","first_seen":"S-001:30411","coverage":"covered","notes":"来古士的智识领域"}
+{"id":"SYS-017","entity_id":"SYS-017","name":"命途狭间","aliases":[],"type":"地点","first_seen":"S-001:425102","coverage":"covered","notes":"卡厄斯兰那与纳努克接触处"}
+{"id":"SYS-018","entity_id":"SYS-018","name":"银河联军","aliases":[],"type":"组织","first_seen":"S-001:425007","coverage":"covered","notes":"列车牵头；战后未解散"}
+{"id":"ORG-001","entity_id":"ORG-001","name":"元老院","aliases":["奥赫玛元老院"],"type":"组织","first_seen":"S-001:30374","coverage":"covered","notes":"与黄金裔对立；清洗者来源"}
+{"id":"ORG-002","entity_id":"ORG-002","name":"清洗者","aliases":[],"type":"组织","first_seen":"S-001:30397","coverage":"covered","notes":"元老院所属刺客"}
+{"id":"ORG-003","entity_id":"ORG-003","name":"黄金裔","aliases":["十二黄金裔"],"type":"组织","first_seen":"S-001:30376","coverage":"covered","notes":"逐火主体"}
+{"id":"ORG-004","entity_id":"ORG-004","name":"天才俱乐部","aliases":["Genius Society"],"type":"组织","first_seen":"S-001:424966","coverage":"covered","notes":"#1 赞达尔；黑塔、螺丝咕姆"}
+{"id":"ORG-005","entity_id":"ORG-005","name":"星穹列车","aliases":["列车组"],"type":"组织","first_seen":"S-001:424963","coverage":"covered","notes":"外部变量来源"}
+{"id":"ORG-006","entity_id":"ORG-006","name":"星际和平公司","aliases":["公司"],"type":"组织","first_seen":"S-001:424949","coverage":"covered","notes":"提出『铁墓』代号"}
+{"id":"ORG-007","entity_id":"ORG-007","name":"流光忆庭","aliases":["忆者","忆庭"],"type":"组织","first_seen":"S-001:424946","coverage":"partial","notes":"窃忆者入侵"}
+{"id":"ITEM-001","entity_id":"ITEM-001","name":"《如我所书》","aliases":["如我所书","翁法罗斯英雄纪"],"type":"物品/阅读物","first_seen":"S-001:122399","coverage":"covered","notes":"被记忆修饰的信息终端"}
+{"id":"ITEM-002","entity_id":"ITEM-002","name":"仪式剑","aliases":[],"type":"物品","first_seen":"S-001:30414","coverage":"covered","notes":"昔涟留下；记忆入剑"}
+{"id":"ITEM-003","entity_id":"ITEM-003","name":"泰坦符文","aliases":["符文"],"type":"物品","first_seen":"S-001:30423","coverage":"covered","notes":"大墓密钥封装"}
+{"id":"ITEM-004","entity_id":"ITEM-004","name":"贤者之石","aliases":[],"type":"物品","first_seen":"S-001:122540","coverage":"partial","notes":"那刻夏交予昔涟"}
+{"id":"ITEM-005","entity_id":"ITEM-005","name":"神谕牌册","aliases":[],"type":"物品","first_seen":"S-002:1043659","coverage":"partial","notes":"昔涟记忆中的牌册"}
+{"id":"LOC-001","entity_id":"LOC-001","name":"翁法罗斯","aliases":["永恒之地","Amphoreus"],"type":"地点/模拟世界","first_seen":"S-001:221","coverage":"covered","notes":"权杖内的模拟世界"}
+{"id":"LOC-002","entity_id":"LOC-002","name":"奥赫玛","aliases":["永恒圣城"],"type":"城邦","first_seen":"S-001:30374","coverage":"covered","notes":"黎明机器；云石天宫"}
+{"id":"LOC-003","entity_id":"LOC-003","name":"斯缇科西亚","aliases":["冥岸","蜜酿海"],"type":"城邦","first_seen":"S-001:75010","coverage":"covered","notes":"海瑟音幻梦；冥河"}
+{"id":"LOC-004","entity_id":"LOC-004","name":"哀丽秘榭","aliases":[],"type":"村落","first_seen":"S-001:225860","coverage":"covered","notes":"昔涟与白厄故乡"}
+{"id":"LOC-005","entity_id":"LOC-005","name":"神悟树庭","aliases":["树庭"],"type":"地点","first_seen":"S-001:30379","coverage":"covered","notes":"理性泰坦；贤人会"}
+{"id":"LOC-006","entity_id":"LOC-006","name":"创世涡心","aliases":["涡心"],"type":"地点","first_seen":"S-001:30376","coverage":"covered","notes":"火种归还处"}
+{"id":"LOC-007","entity_id":"LOC-007","name":"雅努萨波利斯","aliases":["三相圣地"],"type":"城邦","first_seen":"S-001:73314","coverage":"covered","notes":"门径泰坦圣地"}
+{"id":"LOC-008","entity_id":"LOC-008","name":"黎明云崖","aliases":[],"type":"地点","first_seen":"S-001:30389","coverage":"covered","notes":"元老院议厅；丹恒召唤白厄处"}
+{"id":"LOC-009","entity_id":"LOC-009","name":"悬锋城","aliases":["移动堡垒悬锋城"],"type":"城邦","first_seen":"S-001:30370","coverage":"covered","notes":"万敌故乡；移动要塞"}
+{"id":"LOC-010","entity_id":"LOC-010","name":"哀地里亚","aliases":["敬爱死亡的国度"],"type":"城邦","first_seen":"S-001:159357","coverage":"covered","notes":"遐蝶故乡"}
+{"id":"LOC-011","entity_id":"LOC-011","name":"多洛斯","aliases":["盗寇之都"],"type":"城邦","first_seen":"S-001:74847","coverage":"covered","notes":"赛飞儿出身"}
+{"id":"LOC-012","entity_id":"LOC-012","name":"云石天宫","aliases":[],"type":"建筑","first_seen":"S-001:30378","coverage":"covered","notes":"凯撒王庭"}
+{"id":"LOC-013","entity_id":"LOC-013","name":"命运重渊","aliases":["重渊"],"type":"地点","first_seen":"S-001:30371","coverage":"covered","notes":"欧洛尼斯所在"}
+{"id":"LOC-014","entity_id":"LOC-014","name":"晨昏之眼","aliases":[],"type":"地点","first_seen":"S-001:30401","coverage":"covered","notes":"艾格勒所在"}
+{"id":"LOC-015","entity_id":"LOC-015","name":"冥界","aliases":["冥河"],"type":"地点","first_seen":"S-001:30394","coverage":"covered","notes":"塞纳托斯神权坐标"}
