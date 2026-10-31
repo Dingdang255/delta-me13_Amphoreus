@@ -1,6 +1,5 @@
 {"id": "BD-001", "frame": 0, "kind": "boot", "text": ">>>系统自检完成"}
-{"id": "BD-002", "frame": 1, "kind": "prompt", "text": ">>>来自未知发布者的程序 δ-me13:\\guard.exe", "ask": "是否允许写入？", "options": [{"id": "deny", "label": "保持沉默"}, {"id": "allow", "label": "（成像）"}], "default": "deny", "on_choice": {"deny": {"jump": "BD-004", "rejoin": "BD-006"}, "allow": {"jump": "BD-003", "rejoin": "BD-006"}}}
-{"id": "BD-003", "frame": 1, "kind": "log", "text": "写入已获准，进程继续", "branch": "allow"}
-{"id": "BD-004", "frame": 1, "kind": "log", "text": "写入被拒绝，进程静默", "branch": "deny"}
-{"id": "BD-005", "frame": 1, "kind": "status", "text": "观测继续"}
-{"id": "BD-006", "frame": 2, "kind": "log", "text": "回到主线"}
+{"id": "BD-002", "frame": 1, "kind": "prompt", "text": ">>>来自未知发布者的程序 δ-me13:\\guard.exe", "ask": "是否允许写入？", "options": [{"id": "allow", "label": "（成像）"}, {"id": "deny", "label": "保持沉默"}], "default": "allow", "on_choice": {"allow": {"jump": "BD-003", "rejoin": "BD-005"}, "deny": {"jump": "BD-004", "rejoin": "BD-005"}}}
+{"id": "BD-003", "frame": 1, "kind": "log", "text": "分支 A：已选（成像）——演示用，非原著文本", "branch": "allow"}
+{"id": "BD-004", "frame": 1, "kind": "log", "text": "分支 B：保持沉默——演示用，非原著文本", "branch": "deny"}
+{"id": "BD-005", "frame": 2, "kind": "status", "text": "→ 回到主线"}

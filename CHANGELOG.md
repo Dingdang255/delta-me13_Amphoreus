@@ -92,7 +92,8 @@
   新增 `on_choice{jump, inject, rejoin}`、`branch` 标记与 `ledger()` 作答记录；默认路径仍用
   `default` 自动作答，`--terminal-ask` 才停下询问；跳转只允许向前，超限自动回到顺序播放。
 - `tools/messages_lint.py`：默认值、分支目标存在性、`rejoin` 位置、分支未声明回归点等检查。
-- `presets/_branch-demo/`：可运行的分支演示（默认走「拒绝」，交互可改选「成像」）。
+- `presets/_branch-demo/`：可运行的分支演示；**默认走「（成像）」，与原著的玩家选择一致**，
+  交互可改选「保持沉默」。两条分支文案均标注「演示用，非原著文本」。
 - 测试：`test_dialogue.py`、`test_logs.py`、`test_terminal_branch.py`（共 25 项）。
 
 ### 验证
@@ -105,7 +106,7 @@
   噪声未越阈（0.000）；`--check` 0 错；11 项契约测试通过。
 - 角色：27 张卡 / 81 条规则 / 75 条可执行；81 条场景回放得 **75 pass · 0 mismatch · 6 unknown**，
   可执行部分通过率 100%；`character_audit --check` 0 错；17 项契约测试通过。
-- 叙事：`messages_lint --check` 5 个文件 0 错；`_branch-demo` 默认路径输出「写入被拒绝 → 观测继续 → 回到主线」；
+- 叙事：`messages_lint --check` 5 个文件 0 错；`_branch-demo` 默认路径输出「（成像）→ 分支 A → 回到主线」；
   对话/日志/分支三组测试 25 项通过。
 - `origin`：39 条断言全过 / 5 锚点 / `origin_closed`。
 - `origin-eternal`：53 条断言全过 / 40 条时间线全过 / `origin_closed` / 复用 33,580,277 帧。
