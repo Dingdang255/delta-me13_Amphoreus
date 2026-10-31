@@ -38,11 +38,11 @@ jobs:
       - name: 自检（快档）
         run: python tools/selfcheck.py
 
-  # 参考平台指纹：把【数值层 + digest】也纳入 CI 验证 —— 硬门禁，失败即红。
-  # 参考环境见 tests/golden_fingerprints.json 的 `_reference_platform`
-  # （Windows / AMD64 / Python 3.14.0 / numpy 2.5.1）—— 四项全同，digest 才逐位可比。
-  # 2026-10-05 实测：windows-latest runner 上与参考机逐位一致（严格指纹步骤通过），
-  # 故不再挂 `continue-on-error`。
+  # 参考平台指纹：结构层 + 数值层纳入 CI 验证，digest 留给开发机。
+  # 为什么不在 CI 比 digest：digest 是量化 float32 的哈希，同一 OS/架构/Python/numpy 下
+  # **换一颗 CPU 也会翻转**（BLAS 归约顺序不同）。GitHub runner 的 CPU 型号不固定，
+  # 2026-10-31 起 plot@7 就因此误报过一次。故 CI 走 `--no-digest`：
+  # 结构层（整数/枚举/席位）逐位严格、数值层按容差，仍能抓真回归。
   fingerprint-reference:
     runs-on: windows-latest
     steps:
@@ -54,8 +54,8 @@ jobs:
         run: python -m pip install -r requirements.txt "numpy==2.5.1"
       - name: 打印实际平台（对照 `_reference_platform`）
         run: python -c "import platform, sys, numpy; print(sys.version); print(platform.system(), platform.machine(), numpy.__version__)"
-      - name: 轨迹指纹（严格：含数值层与 digest）
-        run: python tools/snapshot.py --fast
+      - name: 轨迹指纹（结构层 + 数值层；digest 仅在开发机比）
+        run: python tools/snapshot.py --fast --no-digest
 
   # 全量验收：四个世界的满预算演算 + 判据 4/5（帧截断复现 / 复用等价）。
   # 每次推送跑太慢（数分钟），故只在【手动触发】时跑：Actions → ci → Run workflow。

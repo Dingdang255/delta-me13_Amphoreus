@@ -182,12 +182,14 @@ def key_of(entry):
     return f"{root}@{base}" if root else base
 
 
-def compare(old, new, ref=None, structural_only=False):
+def compare(old, new, ref=None, structural_only=False, skip_digest=False):
     """按【字段分层】比对一份旧指纹与一份新指纹。返回 (diffs, notes)。
 
     结构层逐位严格；数值层按容差；digest 只在**参考环境**（见 `digest_comparable`：
-    OS / CPU / Python / numpy 四项全同）上逐位比对。`structural_only` 强制只比结构层
-    （最保守，供异平台 CI 用）。返回的 notes 说明本次【跳过了什么、为什么】。
+    OS / CPU 架构 / Python / numpy 四项全同）上逐位比对。`structural_only` 强制只比结构层
+    （最保守，供异平台 CI 用）；`skip_digest` 比结构层 + 数值层、只跳过逐位哈希
+    （同一 OS/架构但 CPU 型号不同时用 —— BLAS 末位差异会翻转 float32 哈希）。
+    返回的 notes 说明本次【跳过了什么、为什么】。
     """
     diffs, notes = [], []
     for field in STRUCTURAL_FIELDS:
@@ -204,6 +206,10 @@ def compare(old, new, ref=None, structural_only=False):
         if not _close(a, b):
             diffs.append((field, a, b))
 
+    if skip_digest:
+        notes.append("已跳过 digest：仅比结构层与数值层（CPU 型号差异会让 float32 哈希翻转）")
+        return diffs, notes
+
     ok, why = digest_comparable(ref)
     if not ok:
         notes.append(why)
@@ -218,6 +224,8 @@ def main():
     ap.add_argument("--fast", action="store_true", help="只处理快条目")
     ap.add_argument("--structural", action="store_true",
                     help="只比对结构层（跳过数值层与 digest）—— 异平台 CI 用")
+    ap.add_argument("--no-digest", action="store_true",
+                    help="比对结构层与数值层、跳过 digest —— 同平台不同 CPU 型号时用")
     args = ap.parse_args()
 
     golden = load_golden() or {"_comment": "轨迹指纹。重算：python tools/snapshot.py --write",
@@ -245,7 +253,8 @@ def main():
             out.append(new)
             print(f"  [新条目] {key:<26} {dt:>7.1f}s  digest {new['digest'][:16]}")
             continue
-        diffs, notes = compare(old, new, ref, structural_only=args.structural)
+        diffs, notes = compare(old, new, ref, structural_only=args.structural,
+                               skip_digest=args.no_digest)
         if diffs:
             failures += 1
             print(f"  [变了] {key:<28} {dt:>7.1f}s")
@@ -254,6 +263,8 @@ def main():
         else:
             tag = (f"  digest {new['digest'][:16]}" if digest_ok
                    else "（结构层 + 数值层；digest 已跳过）")
+            if args.no_digest:
+                tag = "（结构层 + 数值层；digest 已跳过）"
             print(f"  [一致] {key:<28} {dt:>7.1f}s{tag}")
         for nt in notes:
             print(f"        · {nt}")
