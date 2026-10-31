@@ -55,6 +55,15 @@ class CanonError(RuntimeError):
     """Raised when the bundle is missing, stale or inconsistent."""
 
 
+def _normalise(data: bytes) -> bytes:
+    """Hash line endings away: the repo stores LF, Windows checkouts may hold CRLF."""
+    return data.replace(b"\r\n", b"\n")
+
+
+def _sha256(data: bytes) -> str:
+    return hashlib.sha256(_normalise(data)).hexdigest()
+
+
 @dataclass(frozen=True)
 class Entry:
     id: str
@@ -96,7 +105,7 @@ class CanonBundle:
                 if not os.path.exists(path):
                     raise CanonError(f"missing bundle file {rel}")
                 with open(path, "rb") as f:
-                    got = hashlib.sha256(f.read()).hexdigest()
+                    got = _sha256(f.read())
                 if got != digest:
                     raise CanonError(f"bundle file {rel} does not match manifest")
 

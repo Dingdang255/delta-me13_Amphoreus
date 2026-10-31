@@ -69,7 +69,8 @@ LABEL_KEYS = ("name", "zh", "title", "text", "dimension", "question", "summary")
 
 
 def sha256_bytes(data: bytes) -> str:
-    return hashlib.sha256(data).hexdigest()
+    # line endings are not content: the repo stores LF, Windows checkouts may hold CRLF
+    return hashlib.sha256(data.replace(b"\r\n", b"\n")).hexdigest()
 
 
 def read_jsonl(path):
@@ -258,7 +259,7 @@ def check(files, out_dir):
             drift.append(f"missing  {rel}")
             continue
         with open(path, "rb") as f:
-            if f.read() != data:
+            if f.read().replace(b"\r\n", b"\n") != data.replace(b"\r\n", b"\n"):
                 drift.append(f"differs  {rel}")
     if os.path.isdir(out_dir):
         expected = {rel.replace("/", os.sep) for rel in files}

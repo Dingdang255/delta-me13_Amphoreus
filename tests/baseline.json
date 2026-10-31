@@ -148,7 +148,7 @@
   "lore": {
     "canon_digest": {
       "method": "lore/canon/manifest.json source_digest",
-      "value": "89a68abb6f97bd15ba5572447b4678facb4daa0e14756d89fa3a895689a5454e"
+      "value": "542e4a5cb608be153744a5c4663a99706c2e0857c4667f9ff6eda4f0bf171496"
     },
     "canon_entries": {
       "method": "lore/canon/manifest.json entry_count",
@@ -156,7 +156,7 @@
     },
     "files": {
       "method": "walk lore/ excluding _probe, story, export/data, __pycache__",
-      "value": 166
+      "value": 167
     }
   },
   "presets": [
