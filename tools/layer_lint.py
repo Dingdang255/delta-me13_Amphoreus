@@ -51,9 +51,11 @@ KERNEL = ["api.py", "core.py", "disturbance.py", "emergence.py", "loader.py",
 #         + 世界生成（`worldgen.py`：从冻结模板派生，抽样维度与取值域全在 config/）。
 #         + 趋势求值（`trends.py`：只读，读数 → 建议，不写状态）。
 #         + 角色心智（`agents.py`：只读角色卡与规则匹配，不改世界）。
+#         + 只读叙事（`dialogue.py` 走对话链 / `logs.py` 读轮回账本）。
 APPS = ["ablation.py", "agents.py", "archive.py", "assertions.py", "canon.py",
-        "conditions.py", "features.py",
-        "invariants.py", "live.py", "namer.py", "origin.py", "origin_loop.py",
+        "conditions.py", "dialogue.py", "features.py",
+        "invariants.py", "live.py", "logs.py", "namer.py", "origin.py",
+        "origin_loop.py",
         "render.py", "script.py",
         "services.py", "terminal.py", "terminal_bridge.py", "terminal_window.py",
         "timeline.py", "trends.py", "verdicts.py", "viz.py", "worldgen.py"]

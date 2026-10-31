@@ -1,0 +1,8 @@
+{
+  "_comment": "终端分支演示：只开终端叙事层，不改任何演算规则。默认走『拒绝』分支，加 --terminal-ask 可改选『成像』。",
+  "name": "_branch-demo",
+  "seed": 0,
+  "narrative": {
+    "terminal": true
+  }
+}

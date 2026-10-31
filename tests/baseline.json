@@ -6,11 +6,11 @@
   "counts": {
     "apps_files": {
       "method": "count *.py in apps/ including __init__.py",
-      "value": 24
+      "value": 26
     },
     "apps_modules": {
       "method": "count *.py in apps/ minus __init__.py",
-      "value": 23
+      "value": 25
     },
     "config_json": {
       "method": "count *.json in config/",
@@ -30,15 +30,15 @@
     },
     "presets": {
       "method": "count directories in presets/",
-      "value": 9
+      "value": 10
     },
     "test_files": {
       "method": "count *.py in tests/",
-      "value": 42
+      "value": 45
     },
     "tool_scripts": {
       "method": "count *.py directly under tools/",
-      "value": 33
+      "value": 34
     }
   },
   "golden_fingerprints": {
@@ -160,6 +160,11 @@
     }
   },
   "presets": [
+    {
+      "name": "_branch-demo",
+      "observed_note": false,
+      "seed": 0
+    },
     {
       "name": "_default",
       "observed_note": false,
