@@ -63,12 +63,25 @@
   约束成立、canonical 不被写、抽样项标 inferred）。
 - 生成世界只写入 `worlds/generated/`（已被 `.gitignore` 挡住），不回到 `config/` 与 `presets/`。
 
+### 趋势与通道（P4）
+
+- `config/trends.json`：8 条趋势；**4 条已接线**（`TREND-001` 熵、`TREND-003` 双通道、
+  `TREND-004` 噪声、`TREND-006` 记忆），共 5 条通道；另 4 条显式 `unwired` 并写明缺什么读数。
+- `apps/trends.py`：多通道求值，三种形态（饱和 / 阈值 / 线性截断）；只读、无内部状态，
+  缺读数时返回 `driver_missing` 而不是猜 0。
+- **通道不互相抵消**：`TREND-003` 同时挂「延迟破壳」与「强化倾向」两条通道，并排上报；
+  强化通道读账本里的 `embers_taken`，不写死「每轮十二枚」。
+- `tools/trend_audit.py`：规格审计（驱动量 / 目标 / 形态 / 来源 / 置信度）+ `--demo` 演示。
+- `tests/test_trends.py`：11 项契约（双通道独立性、单调有界、阈值、缺读数、确定性、覆盖率）。
+
 ### 验证
 
 - 全量单测通过（基线 508 项）；`snapshot --structural` canonical 逐项一致。
 - `snapshot`（含 digest）11/11 一致：8 条 canonical + 3 条 `worlds/origin`。
 - 世界生成：`--seeds 0,7,42` 两两分叉 8/8/7 维；`worlds/generated/seed000` 15 文件、`--check` 通过，
   可直接 `run.py --root ... --preset _default` 跑通 600 帧（122 位个体）。
+- 趋势：`trend_audit --demo` 得 delay 0.965 / tendency 0.9997 / entropy 0.767 / memory 0.617，
+  噪声未越阈（0.000）；`--check` 0 错；11 项契约测试通过。
 - `origin`：39 条断言全过 / 5 锚点 / `origin_closed`。
 - `origin-eternal`：53 条断言全过 / 40 条时间线全过 / `origin_closed` / 复用 33,580,277 帧。
 - `grep_forbidden` / `layer_lint` / `stepwise_lint` 全过；`kernel/` 与 `apps/` 零专名。

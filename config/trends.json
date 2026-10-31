@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "_comment": "趋势与通道：每条趋势可以有多条方向不同的通道，各自绑定一个读取量和一个观测量。程序只认 id 与数值，不认任何名字。",
+  "_honesty": "所有 rate / threshold / ceiling 都是建模假设，不是官方数值（官方从未给出权重）。每个接线通道都标 inferred=true；未接线的通道必须写明原因，不允许假装已实现。",
+  "_readonly": "本文件只描述『怎么从读数算出一条建议』；求值器不写状态，也不改变裁决。",
+  "epsilon": 0.05,
+  "drivers": ["cycle_count", "embers_taken", "memory_rows", "entropy", "noise"],
+  "targets": [
+    "TREND-001", "TREND-002", "TREND-003", "TREND-004",
+    "TREND-005", "TREND-006", "TREND-007", "TREND-008",
+    "WG-020"
+  ],
+  "trends": {
+    "TREND-001": {
+      "status": "wired",
+      "channels": [
+        {
+          "id": "entropy_rise",
+          "type": "increases",
+          "target": "TREND-001",
+          "kind": "threshold",
+          "driver": "entropy",
+          "threshold": 0.5,
+          "ceiling": 2.0,
+          "observable": "entropy",
+          "source": "S-001:425072",
+          "confidence": "A",
+          "inferred": true
+        }
+      ]
+    },
+    "TREND-002": {
+      "status": "unwired",
+      "reason": "阶段编号当前不在读数视图里；需要先定义 stage_index 读取量"
+    },
+    "TREND-003": {
+      "status": "wired",
+      "channels": [
+        {
+          "id": "delay",
+          "type": "delays",
+          "target": "WG-020",
+          "kind": "saturating",
+          "driver": "cycle_count",
+          "rate": 1e-07,
+          "cap": 1.0,
+          "observable": "hatch_progress",
+          "source": "S-001:424954",
+          "confidence": "A",
+          "inferred": true
+        },
+        {
+          "id": "tendency",
+          "type": "reinforces",
+          "target": "TREND-003",
+          "kind": "saturating",
+          "driver": "embers_taken",
+          "rate": 2e-08,
+          "cap": 1.0,
+          "observable": "tendency",
+          "source": "S-001:75013",
+          "confidence": "A",
+          "inferred": true
+        }
+      ]
+    },
+    "TREND-004": {
+      "status": "wired",
+      "channels": [
+        {
+          "id": "noise_spike",
+          "type": "increases",
+          "target": "TREND-004",
+          "kind": "threshold",
+          "driver": "noise",
+          "threshold": 1.0,
+          "ceiling": 3.0,
+          "observable": "noise",
+          "source": "S-001:425072",
+          "confidence": "B",
+          "inferred": true
+        }
+      ]
+    },
+    "TREND-005": {
+      "status": "unwired",
+      "reason": "『世代更迭间隔』需要跨换代历史；当前视图只给单帧读数"
+    },
+    "TREND-006": {
+      "status": "wired",
+      "channels": [
+        {
+          "id": "memory_accumulate",
+          "type": "accumulates",
+          "target": "TREND-006",
+          "kind": "saturating",
+          "driver": "memory_rows",
+          "rate": 0.08,
+          "cap": 1.0,
+          "observable": "memory_rows",
+          "source": "S-001:122494",
+          "confidence": "A",
+          "inferred": true
+        }
+      ]
+    },
+    "TREND-007": {
+      "status": "unwired",
+      "reason": "『回望锚点完成度』只在十三席世界有定义；等 origin 侧暴露 anchor 读数后再接"
+    },
+    "TREND-008": {
+      "status": "unwired",
+      "reason": "『外部干预计数』需要外部投递台账；当前视图未提供 external_events"
+    }
+  }
+}
