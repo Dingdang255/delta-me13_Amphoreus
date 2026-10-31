@@ -733,10 +733,10 @@ class ReplayTest(unittest.TestCase):
         ctx, data = _ctx()
         planner = Planner(ctx, data, 0, frames=2600)
         anchors = planner.plan()
-        # 外部变量在 150 帧共鸣唤醒原初 ⇒ 早期节点都可达，不再需要 wake_origin 锚点；
-        # 后半段节点（创世破封印 / 记忆守席 / 记忆补回）在后来的重演里自然发生，
-        # 不给它们投多余锚点。最终锚点 = 前五个真正需要「补一手」的节点。
-        self.assertEqual(len(anchors), 5)
+        # 外部变量在 150 帧共鸣唤醒原初 ⇒ 早期节点都可达，不再需要 wake_origin 锚点。
+        # 节点表扩充后（亡者之墓 / 记忆守席 / 记忆补回等），真正需要「补一手」的节点变多；
+        # 这里只钉住「至少覆盖早期关键节点」，具体条数由节点表决定，不在测试里写死。
+        self.assertGreaterEqual(len(anchors), 5)
         self.assertEqual(anchors[0]["payload"]["action"], "seed_memory")
         planner.begin_final()
         sess = load({"config": ctx, "data": data, "seed": 0,

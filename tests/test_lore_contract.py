@@ -65,7 +65,8 @@ class TestLoreCorpus(unittest.TestCase):
             self.assertTrue(os.listdir(folder), f"{dim}/ is empty")
 
     def test_manifest_declares_all_dimensions(self):
-        text = open(os.path.join(LORE, "00_manifest.md"), encoding="utf-8").read()
+        with open(os.path.join(LORE, "00_manifest.md"), encoding="utf-8") as f:
+            text = f.read()
         for dim in DIMENSIONS:
             self.assertIn(dim, text, f"manifest does not mention {dim}")
 

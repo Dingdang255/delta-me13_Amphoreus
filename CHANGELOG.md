@@ -137,7 +137,7 @@
   对话/日志/分支三组测试 25 项通过。
 - 场景：12 条、8 章中 7 章有场景（3.4 按 CF-007 留空）、线性 DAG 11 条边；
   `scene_lint --check` 0 错；7 项契约测试通过。
-- `origin`：39 条断言全过 / 5 锚点 / `origin_closed`。
+- `origin`：`origin_closed`；锚点 9 条（节点表扩充后，测试只钉住「≥5 且首条为 seed_memory」，不再写死条数）。
 - `origin-eternal`：53 条断言全过 / 40 条时间线全过 / `origin_closed` / 复用 33,580,277 帧。
 - `grep_forbidden` / `layer_lint` / `stepwise_lint` 全过；`kernel/` 与 `apps/` 零专名。
 - 保真：八维加权 **0.8969**（阈值 0.85，单维下限 0.50），D7 社区 0.58 为最低项；

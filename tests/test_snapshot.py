@@ -17,7 +17,7 @@ import unittest
 from _support import ROOT
 
 sys.path.insert(0, os.path.join(ROOT, "tools"))
-from snapshot import compare, fingerprint               # noqa: E402
+from snapshot import compare, fingerprint, world_root   # noqa: E402
 
 GOLDEN = os.path.join(ROOT, "tests", "golden_fingerprints.json")
 
@@ -38,9 +38,11 @@ class TrajectoryFingerprint(unittest.TestCase):
 
     def test_fingerprints_match(self):
         for e in self.entries:
-            key = f"{e['preset']}@{e['seed']}@{e['frames']}"
+            root = e.get("root")
+            key = f"{root}@{e['preset']}@{e['seed']}@{e['frames']}" if root else \
+                f"{e['preset']}@{e['seed']}@{e['frames']}"
             with self.subTest(entry=key):
-                got = fingerprint(e["preset"], e["seed"], e["frames"])
+                got = fingerprint(e["preset"], e["seed"], e["frames"], world_root(e))
                 diffs, _notes = compare(e, got, self.ref)
                 self.assertEqual(diffs, [], (
                     f"{key} 的轨迹变了：{diffs}\n"

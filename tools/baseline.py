@@ -103,10 +103,17 @@ def collect():
     lore = {}
     lore_root = os.path.join(ROOT, "lore")
     if os.path.isdir(lore_root):
+        # only count files that ship with the repo: raw client dumps and generated
+        # chapter volumes are gitignored, so counting them would make the baseline
+        # machine-dependent (CI clones do not have them).
+        skip_dirs = {"_probe", "story", "__pycache__"}
         files = 0
-        for base, _dirs, names in os.walk(lore_root):
+        for base, dirs, names in os.walk(lore_root):
+            dirs[:] = [d for d in dirs if d not in skip_dirs]
+            if os.path.basename(base) == "data" and os.path.basename(os.path.dirname(base)) == "export":
+                continue
             files += len(names)
-        lore["files"] = {"value": files, "method": "walk lore/"}
+        lore["files"] = {"value": files, "method": "walk lore/ excluding _probe, story, export/data, __pycache__"}
         canon = os.path.join(lore_root, "canon")
         if os.path.isdir(canon):
             manifest = json.loads(_read(os.path.join(canon, "manifest.json")))
