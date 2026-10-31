@@ -1,5 +1,97 @@
 # 13 Changelog
 
+## v1.17 — 2026-10-31（方案 B：preset 事件带 lore_ref，双向可 join）
+
+### 变更
+
+- `presets/{plot,plot-mech,plot-full,nullify}/events.jsonl`：每条节拍新增 `lore_ref`（字符串数组），
+  值取自 `D3_plot/preset_beats.jsonl` 的 `lore_refs`。共注入 **86 条**：
+  plot 20 / plot-mech 21 / plot-full 32 / nullify 13。
+  唯一没有映射的是 `frame 33594530 wand_explosion`（lore 无对应记录），保持无字段。
+- `apps/script.py`：把 `lore_ref` 纳入脚本双轨的**无损往返**——
+  `from_events` 搬运 `lore_ref`、`_norm_rule` 校验其为非空字符串数组、`_record` 原样写回。
+  这是通用溯源字段，不含任何专名（`grep_forbidden` 仍为 0）。
+- `worlds/origin/story.jsonl`、`worlds/origin/presets/origin-eternal/events.jsonl`（**经授权解冻**）：
+  「理性与岁月两位泰坦先后陨落」→「先后退场」；`N24_ARC_3_3B` 的「万敌缇宝缇宁牺牲」→「万敌与缇宁牺牲」。
+
+### 校验
+
+- 四个 `events.jsonl` 的 `compile_rules(from_events(rows)).scheduled == rows` **全部为 True**（逐字往返不变）。
+- 与 `HEAD` 对比：四个文件的 `(frame, payload)` 序列**完全一致**，只多了 `lore_ref`、只改了 label。
+- `presets/**/*.json*` 全部可解析；`lore_lint` 0/0；`baseline --check` 0 drift；`canon ok`；
+  `grep_forbidden` 0；保真分 0.9092 不变。
+- 未跑测试套件（按你的选择）。
+
+---
+
+## v1.16 — 2026-10-31（修正 preset 的 4 处叙事错误）
+
+### 变更（只改 label / why 文案，payload 与 selector 一字未动）
+
+| 位置 | 原文 | 改为 |
+|---|---|---|
+| 18400 | 理性与岁月两位泰坦先后**陨落** | 先后**退场** |
+| 36000 | 万敌、**缇宝**、缇宁相继牺牲 | 万敌、缇宁相继牺牲 |
+| 42000 | 此后每一世白厄杀死**新生的小昔涟** | 此后每一世**新生的白厄杀死旧的自己** |
+| 33594447 | 丹恒借**纳努克的神血**呼唤白厄英魂，「毁灭」洞开忆域 | 白厄的倾力一击驱散忆潮，丹恒接住「大地」火种，在层岩中找到开拓者 |
+
+落点：`presets/plot/`、`plot-full/`、`plot-mech/`、`nullify/` 的 `events.jsonl`；
+四个 preset 的 `timeline.json` 里同名章节标签；`plot-mech/preset.json` 的两条 `why`。
+
+依据：3.3 黎明（万敌负创、缇宁耗尽力量；缇宝在 3.7 列车仍在，PLOT-024）、
+3.1 门扉（欧洛尼斯「消失不见」）、3.4 粉碎（轮回中是新生白厄杀旧我，PLOT-019）、3.6 大地（荒笛让渡大地火种）。
+
+### 未动
+
+- `worlds/origin/story.jsonl` 与 `worlds/origin/presets/origin-eternal/events.jsonl` 当时仍有「理性与岁月两位泰坦先后陨落」的旧写法——
+  `worlds/origin` 属于冻结边界，**本条当时未改**；后来获授权，已在 **v1.17** 一并修掉。
+- 33594530「权杖爆炸」仍无 lore 出处（`preset_beats` 里 `match:none`），未改文案。
+
+### 校验
+
+- 四个 `events.jsonl` + 全部 `presets/**/*.json*` 解析通过；`grep` 四条错误表述在 `presets/` 已归零。
+- `lore_lint` 0/0 · `baseline --check` 0 drift · 保真分 0.9092 不变。
+- 指纹（`state.digest()`）只吃 payload/状态，label 不入摘要；payload 未改，故 golden 指纹预期不变（待测试套件复核）。
+
+---
+
+## v1.15 — 2026-10-31（P-G 方案 A：preset 节拍 → lore 只读映射）
+
+### 变更
+
+- 新增 `D3_plot/preset_beats.jsonl`（33 条，`PB-001..PB-033`）：
+  把 `presets/plot*` 的每个事件节拍（frame + payload）映射到 `PLOT-*` / `EVT-*` / `TRM-*`，
+  字段为 `frame` / `beat` / `presets` / `label` / `lore_refs` / `match`（exact·partial·none）/ `source` / `note`。
+  **presets 一字未改**，这是单向的只读对照表。
+- 校验：33 条 id 唯一；全部 `lore_refs` 能在 `lore/canon/index.json` 中解析；
+  `frame + payload` 与三个预设的实际节拍逐条一致（`presets` 字段零偏差）。
+
+### 核对结论（写进各条 `note`）
+
+| 节拍 | 问题 |
+|---|---|
+| frame 42000 昔涟入剑 | **错**：轮回中死的是旧的白厄；昔涟只被杀死一次以抹除「岁月」（PLOT-019） |
+| frame 36000 赛飞儿之死 | **「缇宝牺牲」无依据**：3.3 黎明只记万敌负创、缇宁耗尽力量；缇宝在 3.7 列车仍在（PLOT-024） |
+| frame 18400 两泰坦陨落 | 「岁月」欧洛尼斯是「消失不见」，无死亡表述 → 陨落为推断 |
+| frame 33594447 | 「纳努克的神血」在 1,374 条语料中检索不到 |
+| frame 33594530 权杖爆炸 | `match:none`，本包无对应记录，暂无法溯源 |
+
+另有 4 个 lore 场景没有对应节拍：PLOT-014（树庭覆灭）、PLOT-015（那刻夏与元老院）、
+PLOT-020/021（同盟会议、海底五百黄金裔）、PLOT-023（忆潮追逐）。
+
+### 说明
+
+- 该文件**不注册为 canon kind**（不进 compile / fidelity），属于人工维护的对照表；
+  若以后要在 apps 里消费，再单独决定是否注册。
+- 未改 `presets/`、`kernel/`。
+
+### 校验
+
+- `python tools\lore_compile.py --check` → canon ok。
+- `python tools\baseline.py --write` → `lore.files` 181 → **182**，其余不变；`--check` → 0 drift。
+
+---
+
 ## v1.14 — 2026-10-31（P-F：重新基线化）
 
 ### 变更

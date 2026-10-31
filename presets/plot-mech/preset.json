@@ -7,8 +7,8 @@
     "upgraded": [
       {"frame": 12000, "event": "nikador_felled", "capability": "evict_holder", "selector": "order:10", "why": "纷争火种被回收 ⇒ 纷争那一席腾空"},
       {"frame": 16000, "event": "mydei_ascends", "capability": "evict_holder", "selector": "order:10", "why": "新纷争半神接掌 ⇒ 旧在位者让位"},
-      {"frame": 18400, "event": "two_titans_fall", "capability": "evict_holder", "selector": "order:7", "why": "理性泰坦陨落 ⇒ 理性席腾空"},
-      {"frame": 18400, "event": "two_titans_fall", "capability": "evict_holder", "selector": "order:1", "why": "岁月泰坦陨落 ⇒ 岁月席腾空"},
+      {"frame": 18400, "event": "two_titans_fall", "capability": "evict_holder", "selector": "order:7", "why": "理性泰坦退场 ⇒ 理性席腾空"},
+      {"frame": 18400, "event": "two_titans_fall", "capability": "evict_holder", "selector": "order:1", "why": "岁月泰坦退场 ⇒ 岁月席腾空"},
       {"frame": 23000, "event": "anaxa_proves", "capability": "parley", "selector": "order:1", "why": "接管岁月权柄 ⇒ **交涉归还**：那一席的在位者自愿让位、不死人（谈不拢则席位不动）"},
       {"frame": 30000, "event": "aglaea_exits", "capability": "evict_holder", "selector": "order:8", "why": "阿格莱雅退场 ⇒ 浪漫席腾空"},
       {"frame": 36000, "event": "cipher_falls", "capability": "evict_holder", "selector": "order:9", "why": "赛飞儿被杀 ⇒ 诡计席腾空"}

@@ -234,9 +234,15 @@ def _norm_rule(rule, i, actors, where, problems):
     if label is not None and not isinstance(label, str):
         problems.append(f"{at} 的 label 应为字符串")
         return None
+    lore_ref = rule.get("lore_ref")
+    if lore_ref is not None and (
+            not isinstance(lore_ref, list)
+            or not all(isinstance(x, str) and x for x in lore_ref)):
+        problems.append(f"{at} 的 lore_ref 应为非空字符串数组")
+        return None
 
     return {"kind": kind, "timer": timer, "at": frame_v, "if": cond, "acts": acts,
-            "channel": channel, "label": label, "where": at}
+            "channel": channel, "label": label, "lore_ref": lore_ref, "where": at}
 
 
 def _caps(acts):
@@ -258,6 +264,8 @@ def _record(norm, act):
         rec["when"] = norm["if"]
     if norm["label"] is not None:
         rec["label"] = norm["label"]
+    if norm.get("lore_ref"):
+        rec["lore_ref"] = list(norm["lore_ref"])
     return rec
 
 
@@ -328,6 +336,8 @@ def from_events(records):
             rule["if"] = r["when"]
         if r.get("label") is not None:
             rule["label"] = r["label"]
+        if r.get("lore_ref"):
+            rule["lore_ref"] = list(r["lore_ref"])
         if r["capability"] != "emit":
             rule["permit"] = RESERVED_PERMIT
         out.append(rule)

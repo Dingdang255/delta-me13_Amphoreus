@@ -21,8 +21,8 @@
 {"frame": 33594336, "channel": "world", "capability": "release_slot", "selector": {"expr": "order:1"}, "label": "◆ 岁月那道缺口第一次被允许补上", "payload": {}}
 {"frame": 33594337, "channel": "world", "capability": "origin_anchor", "selector": null, "label": "◆ 共鸣把沉睡的原初再次唤醒：它记得那份救世主记忆", "payload": {"action": "wake_origin", "cost": 6.0, "event": "origin_woken_after_recurrence"}}
 {"frame": 33594340, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:10"}, "label": "◆ 3.0 讨伐尼卡多利：纷争那一席的在位者真的被杀", "payload": {"actor": "trailblazer"}}
-{"frame": 33594345, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:2"}, "label": "◆ 3.1 理性与岁月两位泰坦先后陨落（其一）", "payload": {}}
-{"frame": 33594345, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:3"}, "label": "◆ 3.1 理性与岁月两位泰坦先后陨落（其二）", "payload": {}}
+{"frame": 33594345, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:2"}, "label": "◆ 3.1 理性与岁月两位泰坦先后退场（其一）", "payload": {}}
+{"frame": 33594345, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:3"}, "label": "◆ 3.1 理性与岁月两位泰坦先后退场（其二）", "payload": {}}
 {"frame": 33594350, "channel": "observer", "capability": "write_memory", "selector": null, "label": "◆ 3.2 那刻夏证明猜想：这一世的读数被写进记忆", "payload": {}}
 {"frame": 33594355, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:8"}, "label": "◆ 3.3 阿格莱雅退场：那一席真的空出来", "payload": {}}
 {"frame": 33594360, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:9"}, "label": "◆ 3.3 赛飞儿失手被杀：又一位在位者陨落", "payload": {}}

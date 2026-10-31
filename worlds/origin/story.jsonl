@@ -20,10 +20,10 @@
 {"id": "N18_STAGES_WALKED", "preset": "origin-eternal", "frame": 33594383, "label": "记忆片段逐阶段推进（不是一次性）", "how": "world", "proof": "origin_memory_phase", "dynamic": true}
 {"id": "N19_ARC_3_0", "preset": "origin-eternal", "frame": 33594340, "label": "3.0 落木逐火英雄纪：讨伐尼卡多利、回收纷争火种（那一席真的换人）", "how": "evict_holder", "proof": "embers_taken", "dynamic": true}
 {"id": "N20_ARC_3_1", "preset": "origin-eternal", "frame": 33594345, "label": "3.1 门扉之启，王座之终：万敌通过试炼晋升纷争半神", "how": "world", "proof": "promotion_count", "dynamic": true}
-{"id": "N21_ARC_3_1B", "preset": "origin-eternal", "frame": 33594345, "label": "3.1 理性与岁月两位泰坦先后陨落（两席真的被封住）", "how": "suppress_slot", "proof": "vacancy_ever", "dynamic": true}
+{"id": "N21_ARC_3_1B", "preset": "origin-eternal", "frame": 33594345, "label": "3.1 理性与岁月两位泰坦先后退场（两席真的被封住）", "how": "suppress_slot", "proof": "vacancy_ever", "dynamic": true}
 {"id": "N22_ARC_3_2", "preset": "origin-eternal", "frame": 33594350, "label": "3.2 走过安眠地的花丛：那刻夏证明猜想，把这一世的读数写进记忆", "how": "write_memory", "proof": "memory_rows", "dynamic": true}
 {"id": "N23_ARC_3_3", "preset": "origin-eternal", "frame": 33594355, "label": "3.3 在黎明升起时坠落：阿格莱雅退场（那一席真的空出来）", "how": "evict_holder", "proof": "embers_taken", "dynamic": true}
-{"id": "N24_ARC_3_3B", "preset": "origin-eternal", "frame": 33594360, "label": "3.3 赛飞儿失手被杀、万敌缇宝缇宁牺牲（又一位在位者陨落）", "how": "evict_holder", "proof": "embers_taken", "dynamic": true}
+{"id": "N24_ARC_3_3B", "preset": "origin-eternal", "frame": 33594360, "label": "3.3 赛飞儿失手被杀、万敌与缇宁牺牲（又一位在位者陨落）", "how": "evict_holder", "proof": "embers_taken", "dynamic": true}
 {"id": "N25_ACTOR_SWAN", "preset": "origin-eternal", "frame": 33594330, "label": "外部变量·黑天鹅：用记忆力量摸到权杖后面，关掉防火墙，让列车进得来", "how": "entry", "proof": "entry_unlocked", "dynamic": true, "note": "她不是漏洞的制造者；她打开的是「入口」这道真实防火墙。"}
 {"id": "N26_ACTOR_ADMIN", "preset": "origin-eternal", "frame": 8000, "label": "外部变量·来古士：只说了几句话，让两个最优因子更确定自己的推断", "how": "hint", "proof": "factor_certainty", "dynamic": true, "note": "他的话只进因子账本的 certainty；制造漏洞的是因子自己的决定。"}
 {"id": "N27_ACTOR_THIEF", "preset": "origin-eternal", "frame": 33594430, "label": "外部变量·窃忆者：趁虚窃忆，被长夜月当场收回权柄驱赶", "how": "gaze", "proof": "path_revoked", "dynamic": true}
