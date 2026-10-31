@@ -48,12 +48,13 @@ KERNEL = ["api.py", "core.py", "disturbance.py", "emergence.py", "loader.py",
 #         + 只读叙事层（`terminal.py` 按帧回放预设的系统消息 / `archive.py` 渲染档案 /
 #           `terminal_bridge.py` 与 `terminal_window.py` 负责独立 CLI 窗口的 socket 通道）。
 #         + 只读语料层（`canon.py`：读 `lore/canon/` 的编译产物，只认 id 与种类）。
+#         + 世界生成（`worldgen.py`：从冻结模板派生，抽样维度与取值域全在 config/）。
 APPS = ["ablation.py", "archive.py", "assertions.py", "canon.py", "conditions.py",
         "features.py",
         "invariants.py", "live.py", "namer.py", "origin.py", "origin_loop.py",
         "render.py", "script.py",
         "services.py", "terminal.py", "terminal_bridge.py", "terminal_window.py",
-        "timeline.py", "verdicts.py", "viz.py"]
+        "timeline.py", "verdicts.py", "viz.py", "worldgen.py"]
 
 PACKAGES = {"kernel": KERNEL, "apps": APPS}
 

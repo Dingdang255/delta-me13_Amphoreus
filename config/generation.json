@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "_comment": "世界生成约束。只描述『哪些配置可以被抽样、抽多大、夹在什么范围』，不含任何专有名词；专名与文案留在 lore/ 与 presets/。",
+  "_honesty": "官方文本没有『随机种子』这一机制（见 lore/D1_seed/seed_terms.md）。本文件定义的抽样是建模推断，全部标 inferred；命令行 --seed 只是初始变量的抽样键。",
+  "template": {
+    "config_files": "config/*.json",
+    "preset_dirs": ["_default"],
+    "note": "生成世界从冻结模板派生：整份 config/ 与指定预设原样复制，只有 perturbed 列出的文件会被改写。"
+  },
+  "perturbed": [
+    "config/loci.json",
+    "config/mapping.json",
+    "config/seeding.json",
+    "config/params.json"
+  ],
+  "streams": ["loci", "mapping", "seeding", "thresholds"],
+  "dimensions": [
+    { "key": "cosmology", "status": "inherited", "reason": "结构在 config 之外，由世界根与预设决定" },
+    { "key": "physics", "status": "sampled", "knobs": ["params_mutation", "params_entropy_mix"] },
+    { "key": "time", "status": "inherited", "reason": "帧预算与历法是世界级约定，抽样会破坏可比性" },
+    { "key": "geography", "status": "sampled", "knobs": ["loci_coupling"] },
+    { "key": "climate", "status": "inherited", "reason": "无独立配置项" },
+    { "key": "settlement", "status": "sampled", "knobs": ["loci_capacity"] },
+    { "key": "population", "status": "sampled", "knobs": ["seeding_per_locus_min", "seeding_per_locus_max"] },
+    { "key": "civilization", "status": "sampled", "knobs": ["seeding_alpha"] },
+    { "key": "politics", "status": "sampled", "knobs": ["mapping_matrix"] },
+    { "key": "religion", "status": "inherited", "reason": "语义在映射矩阵的列里，已随 politics 抽样，不单独重复抽样" },
+    { "key": "titans", "status": "inherited", "reason": "十三席专属，只在独立世界根里定义" },
+    { "key": "heirs", "status": "inherited", "reason": "由预设绑定，不是 config 层变量" },
+    { "key": "flame", "status": "inherited", "reason": "账本量，由外生行为产生，不预置" },
+    { "key": "black_tide", "status": "sampled", "knobs": ["params_noise_base"] },
+    { "key": "gold_blood", "status": "inherited", "reason": "派生量，无独立配置" },
+    { "key": "memory", "status": "inherited", "reason": "只在十三席世界启用" },
+    { "key": "path", "status": "inherited", "reason": "paths.json 只在十三席世界存在" },
+    { "key": "protocol", "status": "sampled", "knobs": ["params_tau_capability"] },
+    { "key": "external", "status": "inherited", "reason": "外生输入由运行者投递，不由生成器预置" },
+    { "key": "loop", "status": "inherited", "reason": "由阶段装配与判据决定，不抽样" }
+  ],
+  "knobs": {
+    "loci_capacity": {
+      "file": "config/loci.json",
+      "path": ["loci", "*", "capacity"],
+      "mode": "relative",
+      "low": -0.06,
+      "high": 0.06,
+      "clamp": [0.12, 0.32],
+      "round": 4,
+      "stream": "loci"
+    },
+    "loci_coupling": {
+      "file": "config/loci.json",
+      "path": ["loci", "*", "couplings", "*"],
+      "mode": "relative",
+      "low": -0.05,
+      "high": 0.05,
+      "clamp": [-1.0, 1.0],
+      "round": 3,
+      "stream": "loci",
+      "symmetrize": true
+    },
+    "mapping_matrix": {
+      "file": "config/mapping.json",
+      "path": ["matrix", "*", "*"],
+      "mode": "absolute",
+      "low": -0.04,
+      "high": 0.04,
+      "clamp": [-1.0, 1.0],
+      "round": 3,
+      "stream": "mapping"
+    },
+    "seeding_alpha": {
+      "file": "config/seeding.json",
+      "path": ["alpha"],
+      "mode": "absolute",
+      "low": -0.08,
+      "high": 0.08,
+      "clamp": [0.15, 0.6],
+      "round": 3,
+      "stream": "seeding"
+    },
+    "seeding_per_locus_min": {
+      "file": "config/seeding.json",
+      "path": ["per_locus", "min"],
+      "mode": "int_delta",
+      "low": -1,
+      "high": 1,
+      "clamp": [3, 8],
+      "stream": "seeding"
+    },
+    "seeding_per_locus_max": {
+      "file": "config/seeding.json",
+      "path": ["per_locus", "max"],
+      "mode": "int_delta",
+      "low": -1,
+      "high": 1,
+      "clamp": [4, 9],
+      "stream": "seeding"
+    },
+    "params_mutation": {
+      "file": "config/params.json",
+      "path": ["mutation"],
+      "mode": "relative",
+      "low": -0.20,
+      "high": 0.20,
+      "clamp": [0.002, 0.03],
+      "round": 6,
+      "stream": "thresholds"
+    },
+    "params_entropy_mix": {
+      "file": "config/params.json",
+      "path": ["entropy_mix"],
+      "mode": "relative",
+      "low": -0.20,
+      "high": 0.20,
+      "clamp": [0.005, 0.04],
+      "round": 6,
+      "stream": "thresholds"
+    },
+    "params_noise_base": {
+      "file": "config/params.json",
+      "path": ["noise_base"],
+      "mode": "relative",
+      "low": -0.10,
+      "high": 0.10,
+      "clamp": [0.05, 0.12],
+      "round": 6,
+      "stream": "thresholds"
+    },
+    "params_tau_capability": {
+      "file": "config/params.json",
+      "path": ["tau_capability"],
+      "mode": "relative",
+      "low": -0.10,
+      "high": 0.10,
+      "clamp": [0.15, 0.45],
+      "round": 6,
+      "stream": "thresholds"
+    }
+  },
+  "constraints": {
+    "seeding_per_locus_order": "max 必须 >= min（生成后强制修正）",
+    "coupling_symmetry": "耦合矩阵在抽样后按对称平均复原，对角线归零",
+    "canonical_untouched": "生成世界只写入指定输出目录，禁止写回项目根 config/ 与 presets/"
+  }
+}

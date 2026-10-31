@@ -51,10 +51,24 @@
   改 `nodes.json` / `params.json` 不会被自动拦截。
 - 指纹总数 8 → 11；`tests/baseline.json` 随之更新。
 
+### 初始变量与世界生成（P3）
+
+- `config/generation.json`：声明 20 个生成维度，其中 **8 维可采样**（物理 / 地理 / 聚落 / 人口 /
+  文明 / 政治 / 黑潮 / 协议）、12 维继承；10 个旋钮各自带取值域、夹取区间与流标签。
+- `apps/worldgen.py`：`derive_stream`（每旋钮独立流）/ `bootstrap_world`（从冻结模板派生）/
+  `build_files` / `write_world` / `diff_dimensions`。所有抽样一律标 `inferred`：
+  官方文本没有随机种子机制，`--seed` 只是初始变量的抽样键。
+- `tools/worldgen_probe.py`：生成、种子分叉报告、`--check` 重建比对。
+- `tests/test_worldgen.py`：7 项契约（20 维声明、同键确定性、异键分叉、模板哈希稳定、
+  约束成立、canonical 不被写、抽样项标 inferred）。
+- 生成世界只写入 `worlds/generated/`（已被 `.gitignore` 挡住），不回到 `config/` 与 `presets/`。
+
 ### 验证
 
 - 全量单测通过（基线 508 项）；`snapshot --structural` canonical 逐项一致。
 - `snapshot`（含 digest）11/11 一致：8 条 canonical + 3 条 `worlds/origin`。
+- 世界生成：`--seeds 0,7,42` 两两分叉 8/8/7 维；`worlds/generated/seed000` 15 文件、`--check` 通过，
+  可直接 `run.py --root ... --preset _default` 跑通 600 帧（122 位个体）。
 - `origin`：39 条断言全过 / 5 锚点 / `origin_closed`。
 - `origin-eternal`：53 条断言全过 / 40 条时间线全过 / `origin_closed` / 复用 33,580,277 帧。
 - `grep_forbidden` / `layer_lint` / `stepwise_lint` 全过；`kernel/` 与 `apps/` 零专名。

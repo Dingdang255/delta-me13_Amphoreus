@@ -6,15 +6,15 @@
   "counts": {
     "apps_files": {
       "method": "count *.py in apps/ including __init__.py",
-      "value": 21
+      "value": 22
     },
     "apps_modules": {
       "method": "count *.py in apps/ minus __init__.py",
-      "value": 20
+      "value": 21
     },
     "config_json": {
       "method": "count *.json in config/",
-      "value": 11
+      "value": 12
     },
     "golden_entries": {
       "method": "len(tests/golden_fingerprints.json entries)",
@@ -34,11 +34,11 @@
     },
     "test_files": {
       "method": "count *.py in tests/",
-      "value": 38
+      "value": 39
     },
     "tool_scripts": {
       "method": "count *.py directly under tools/",
-      "value": 30
+      "value": 31
     }
   },
   "golden_fingerprints": {
