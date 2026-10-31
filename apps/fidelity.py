@@ -189,6 +189,11 @@ def _score_dimension(bundle, spec, dimension, config) -> dict:
     field = (spec.get("verbatim") or {}).get("field", "confidence")
     grade = (spec.get("verbatim") or {}).get("grade", "A")
     graded = [e for e in records if field in e.data]
+    scope_field = (spec.get("verbatim") or {}).get("scope_field")
+    if scope_field:
+        scope_value = (spec.get("verbatim") or {}).get("scope_value")
+        graded = [e for e in graded
+                  if (scope_field not in e.data) or e.get(scope_field) == scope_value]
     verbatim = (sum(1 for e in graded if str(e.get(field, "")) == grade) / len(graded)
                 if graded else None)
 

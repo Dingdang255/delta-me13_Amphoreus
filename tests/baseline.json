@@ -148,15 +148,15 @@
   "lore": {
     "canon_digest": {
       "method": "lore/canon/manifest.json source_digest",
-      "value": "542e4a5cb608be153744a5c4663a99706c2e0857c4667f9ff6eda4f0bf171496"
+      "value": "b1a795e4012b525b8e6b1baa02d4bc9ea0b94ee047df3b3f9a47102410a7b5cd"
     },
     "canon_entries": {
       "method": "lore/canon/manifest.json entry_count",
-      "value": 1075
+      "value": 1374
     },
     "files": {
       "method": "walk lore/ excluding _probe, story, export/data, __pycache__",
-      "value": 167
+      "value": 181
     }
   },
   "presets": [

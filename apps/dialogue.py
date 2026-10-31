@@ -34,13 +34,20 @@ class Line:
     raw: dict = field(default_factory=dict)
 
 
+def _pick_speaker(obj: dict) -> str | None:
+    """A sourced speaker wins over the syntactic inference."""
+    if obj.get("speaker_source") == "official" and obj.get("speaker"):
+        return obj.get("speaker")
+    return obj.get("speaker_inferred") or obj.get("speaker")
+
+
 def line_from_dict(obj: dict) -> Line:
     return Line(
         id=str(obj.get("id", "")),
         scene=str(obj.get("scene_id", "")),
         order=int(obj.get("order", 0)),
         text=str(obj.get("verbatim", "") or ""),
-        speaker=obj.get("speaker_inferred") or obj.get("speaker"),
+        speaker=_pick_speaker(obj),
         form=str(obj.get("form", "") or ""),
         next=tuple(obj.get("next") or ()),
         condition=str(obj.get("condition", "") or ""),

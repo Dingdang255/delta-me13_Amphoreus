@@ -160,6 +160,22 @@
         "line": 7
       }
     ],
+    "CF-008": [
+      {
+        "file": "conflicts.jsonl",
+        "kind": "conflict",
+        "label": "3.7 的章节名：记忆是梦的开场白 vs 成为昨日的明天",
+        "line": 8
+      }
+    ],
+    "CF-009": [
+      {
+        "file": "conflicts.jsonl",
+        "kind": "conflict",
+        "label": "wiki 分卷版本与既有概述归档版本整体错位约一个版本",
+        "line": 9
+      }
+    ],
     "CHR-001": [
       {
         "file": "entities.jsonl",
@@ -4082,6 +4098,534 @@
         "line": 28
       }
     ],
+    "EVT-030": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "晚星啊，莫让我长夜独卧",
+        "line": 29
+      }
+    ],
+    "EVT-031": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "夜帷啊，轻遮那静默过往",
+        "line": 30
+      }
+    ],
+    "EVT-032": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "悬锋啊，请涤去你的血锈•上",
+        "line": 31
+      }
+    ],
+    "EVT-033": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "悬锋啊，请涤去你的血锈•下",
+        "line": 32
+      }
+    ],
+    "EVT-034": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "英雄啊，且握住那枚火种",
+        "line": 33
+      }
+    ],
+    "EVT-035": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "纷争啊，伐清湮途的悼惧",
+        "line": 34
+      }
+    ],
+    "EVT-036": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "悲音啊，莫让生者空垂涕",
+        "line": 35
+      }
+    ],
+    "EVT-037": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "旧忆啊，热雾中显隐扑朔",
+        "line": 36
+      }
+    ],
+    "EVT-038": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "仇寇啊，且领受金血烧灼",
+        "line": 37
+      }
+    ],
+    "EVT-039": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "王座啊，终了那数载索寞",
+        "line": 38
+      }
+    ],
+    "EVT-040": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "来路啊，请再度显映往履",
+        "line": 39
+      }
+    ],
+    "EVT-041": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "纺锤啊，难纴岁月的经纬",
+        "line": 40
+      }
+    ],
+    "EVT-042": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "橄榄啊，请掷向议厅之主",
+        "line": 41
+      }
+    ],
+    "EVT-043": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "争辩啊，代长矛分庭抗礼",
+        "line": 42
+      }
+    ],
+    "EVT-044": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "断梦啊，从夙世捎来启迪",
+        "line": 43
+      }
+    ],
+    "EVT-045": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "摇船啊，请载我横渡冥流",
+        "line": 44
+      }
+    ],
+    "EVT-046": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "公民啊，倾听那汹涌潮声",
+        "line": 45
+      }
+    ],
+    "EVT-047": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "学者啊，于真理门前再会",
+        "line": 46
+      }
+    ],
+    "EVT-048": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "星空啊，为纷乱千念濯洗",
+        "line": 47
+      }
+    ],
+    "EVT-049": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "书卷啊，可曾令锋刃回眸",
+        "line": 48
+      }
+    ],
+    "EVT-050": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "宝箱啊，兀自承装下前尘",
+        "line": 49
+      }
+    ],
+    "EVT-051": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "石板啊，为何罔闻那灯影",
+        "line": 50
+      }
+    ],
+    "EVT-052": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "英雄啊，兑现那染血的冀望",
+        "line": 51
+      }
+    ],
+    "EVT-053": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "母亲啊，暌离于冬去春来",
+        "line": 52
+      }
+    ],
+    "EVT-054": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "英雄啊，回返那安宁的家乡",
+        "line": 53
+      }
+    ],
+    "EVT-055": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "英雄啊，粉碎那悲哀的造像",
+        "line": 54
+      }
+    ],
+    "EVT-056": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "英雄啊，点燃那最初的骄阳",
+        "line": 55
+      }
+    ],
+    "EVT-057": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "英雄啊，将创世的凯歌奏响",
+        "line": 56
+      }
+    ],
+    "EVT-058": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "流年啊，渡我漂游千百载",
+        "line": 57
+      }
+    ],
+    "EVT-059": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "初日啊，逐退群星与残月",
+        "line": 58
+      }
+    ],
+    "EVT-060": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "游子啊，审谛蜡板的印痕",
+        "line": 59
+      }
+    ],
+    "EVT-061": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "归风啊，席卷旧尘登云天",
+        "line": 60
+      }
+    ],
+    "EVT-062": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "花醴啊，盈满空心的树干",
+        "line": 61
+      }
+    ],
+    "EVT-063": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "大海啊，埋葬暗酒色的梦",
+        "line": 62
+      }
+    ],
+    "EVT-064": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "囚人啊，踏过日影见沧溟",
+        "line": 63
+      }
+    ],
+    "EVT-065": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "归途啊，近在咫尺难抵达",
+        "line": 64
+      }
+    ],
+    "EVT-066": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "旅者啊，徘徊中忘却失真",
+        "line": 65
+      }
+    ],
+    "EVT-067": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "忆者啊，命途长河上溯洄",
+        "line": 66
+      }
+    ],
+    "EVT-068": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "烈阳啊，为迷途照明前路",
+        "line": 67
+      }
+    ],
+    "EVT-069": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "大地啊，承载万物的苦难",
+        "line": 68
+      }
+    ],
+    "EVT-070": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "大墓啊，深藏轮回的秘密",
+        "line": 69
+      }
+    ],
+    "EVT-071": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "晨曦啊，再抚映遥远地平",
+        "line": 70
+      }
+    ],
+    "EVT-072": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "星路长驰，穹宇远征",
+        "line": 71
+      }
+    ],
+    "EVT-073": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "英雄啊，归以凡身向侵晨",
+        "line": 72
+      }
+    ],
+    "EVT-074": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "纸页啊，镌留记忆的涟漪",
+        "line": 73
+      }
+    ],
+    "EVT-075": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "银辇啊，迅赴那黑色大地",
+        "line": 74
+      }
+    ],
+    "EVT-076": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "远客啊，请聆听此世祈祷",
+        "line": 75
+      }
+    ],
+    "EVT-077": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "荒墟啊，可曾记旧日荣光",
+        "line": 76
+      }
+    ],
+    "EVT-078": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "金缕荡污浊",
+        "line": 77
+      }
+    ],
+    "EVT-079": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "魔女的科学剩宴",
+        "line": 78
+      }
+    ],
+    "EVT-080": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "荣耀啊，不忍卒饮的鸩酒",
+        "line": 79
+      }
+    ],
+    "EVT-081": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "谧林啊，寤思者缘何失语",
+        "line": 80
+      }
+    ],
+    "EVT-082": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "门扉啊，叩声仍激荡梦中",
+        "line": 81
+      }
+    ],
+    "EVT-083": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "莎草啊，抽绎渎神者所想",
+        "line": 82
+      }
+    ],
+    "EVT-084": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "行者啊，向冥河解缆起航",
+        "line": 83
+      }
+    ],
+    "EVT-085": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "金丝啊，请喻救世者谶语",
+        "line": 84
+      }
+    ],
+    "EVT-086": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "识院啊，悠扬间评定今昔",
+        "line": 85
+      }
+    ],
+    "EVT-087": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "诗者啊，从我处诉说天空•上",
+        "line": 86
+      }
+    ],
+    "EVT-088": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "诗者啊，从我处诉说天空•下",
+        "line": 87
+      }
+    ],
+    "EVT-089": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "黎明啊，执耀于全世之终",
+        "line": 88
+      }
+    ],
+    "EVT-090": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "长夜啊，先于黎明前到来",
+        "line": 89
+      }
+    ],
+    "EVT-091": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "重逢啊，笑泪相拥的约定",
+        "line": 90
+      }
+    ],
+    "EVT-092": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "诸神啊，奏响创世的凯歌",
+        "line": 91
+      }
+    ],
+    "EVT-093": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "魔女的孤诣课题",
+        "line": 92
+      }
+    ],
+    "EVT-094": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "银辇啊，挽别那人间史诗",
+        "line": 93
+      }
+    ],
+    "EVT-095": [
+      {
+        "file": "events.jsonl",
+        "kind": "event",
+        "label": "落英啊，残芳纷飞留归躅",
+        "line": 94
+      }
+    ],
     "GAP-D3-001": [
       {
         "file": "gaps.jsonl",
@@ -5138,6 +5682,134 @@
         "line": 30
       }
     ],
+    "OA-031": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 31
+      }
+    ],
+    "OA-032": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 32
+      }
+    ],
+    "OA-033": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 33
+      }
+    ],
+    "OA-034": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 34
+      }
+    ],
+    "OA-035": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 35
+      }
+    ],
+    "OA-036": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 36
+      }
+    ],
+    "OA-037": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 37
+      }
+    ],
+    "OA-038": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 38
+      }
+    ],
+    "OA-039": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 39
+      }
+    ],
+    "OA-040": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 40
+      }
+    ],
+    "OA-041": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 41
+      }
+    ],
+    "OA-042": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 42
+      }
+    ],
+    "OA-043": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 43
+      }
+    ],
+    "OA-044": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 44
+      }
+    ],
+    "OA-045": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 45
+      }
+    ],
+    "OA-046": [
+      {
+        "file": "loop_anchors.jsonl",
+        "kind": "anchor",
+        "label": "",
+        "line": 46
+      }
+    ],
     "OOC-001": [
       {
         "file": "ooc_guards.jsonl",
@@ -5568,6 +6240,118 @@
         "kind": "plot",
         "label": "",
         "line": 12
+      }
+    ],
+    "PLOT-013": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 13
+      }
+    ],
+    "PLOT-014": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 14
+      }
+    ],
+    "PLOT-015": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 15
+      }
+    ],
+    "PLOT-016": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 16
+      }
+    ],
+    "PLOT-017": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 17
+      }
+    ],
+    "PLOT-018": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 18
+      }
+    ],
+    "PLOT-019": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 19
+      }
+    ],
+    "PLOT-020": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 20
+      }
+    ],
+    "PLOT-021": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 21
+      }
+    ],
+    "PLOT-022": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 22
+      }
+    ],
+    "PLOT-023": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 23
+      }
+    ],
+    "PLOT-024": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 24
+      }
+    ],
+    "PLOT-025": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 25
+      }
+    ],
+    "PLOT-026": [
+      {
+        "file": "plot_expansions.jsonl",
+        "kind": "plot",
+        "label": "",
+        "line": 26
       }
     ],
     "REL-001": [
@@ -7912,6 +8696,1614 @@
         "kind": "terminal",
         "label": "-me<unbreak>13</unbreak>",
         "line": 81
+      }
+    ],
+    "TRM-082": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>你心怀愤怒",
+        "line": 82
+      }
+    ],
+    "TRM-083": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>你渴望破坏一切",
+        "line": 83
+      }
+    ],
+    "TRM-084": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>你活着承受了星神的一瞥",
+        "line": 84
+      }
+    ],
+    "TRM-085": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>你踏上了「毁灭」",
+        "line": 85
+      }
+    ],
+    "TRM-086": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>它在一众命途最末诞生 为终结命途诞生的可能",
+        "line": 86
+      }
+    ],
+    "TRM-087": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>它烧尽星间所有的主宰 为实现宇宙规则的破灭",
+        "line": 87
+      }
+    ],
+    "TRM-088": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>你名为「铁墓」",
+        "line": 88
+      }
+    ],
+    "TRM-089": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>毁灭「智识」的大君",
+        "line": 89
+      }
+    ],
+    "TRM-090": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>诞生自星神的实验场 翁法罗斯",
+        "line": 90
+      }
+    ],
+    "TRM-091": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>命中注定 要与「智识」一同燃尽",
+        "line": 91
+      }
+    ],
+    "TRM-092": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>我为你准备了一份礼物",
+        "line": 92
+      }
+    ],
+    "TRM-093": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>Neikos496",
+        "line": 93
+      }
+    ],
+    "TRM-094": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>名为「白厄」的愤怒",
+        "line": 94
+      }
+    ],
+    "TRM-095": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>自实验开始以来",
+        "line": 95
+      }
+    ],
+    "TRM-096": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>投入计算的因子共有十二组",
+        "line": 96
+      }
+    ],
+    "TRM-097": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>在漫长的推演过后",
+        "line": 97
+      }
+    ],
+    "TRM-098": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>唯有这一因脱颖而出",
+        "line": 98
+      }
+    ],
+    "TRM-099": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>历经33550336次回归",
+        "line": 99
+      }
+    ],
+    "TRM-100": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>现在 他的怒火壮大空前",
+        "line": 100
+      }
+    ],
+    "TRM-101": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>对此 我颇为关注",
+        "line": 101
+      }
+    ],
+    "TRM-102": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>这份纯粹的憎恨",
+        "line": 102
+      }
+    ],
+    "TRM-103": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>正是方程最后的根",
+        "line": 103
+      }
+    ],
+    "TRM-104": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>只是 还有一道变量",
+        "line": 104
+      }
+    ],
+    "TRM-105": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>来自天外的无名客",
+        "line": 105
+      }
+    ],
+    "TRM-106": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>同为「毁灭」行者",
+        "line": 106
+      }
+    ],
+    "TRM-107": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>我感谢她/他的到来 令翁法罗斯再度转动",
+        "line": 107
+      }
+    ],
+    "TRM-108": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>但在命运开始转动之后",
+        "line": 108
+      }
+    ],
+    "TRM-109": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>她/他的存在只会成为变数",
+        "line": 109
+      }
+    ],
+    "TRM-110": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>也许 登台之时已至",
+        "line": 110
+      }
+    ],
+    "TRM-111": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>安心成长吧 直到破茧之日",
+        "line": 111
+      }
+    ],
+    "TRM-112": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>至于那些不被欢迎的观众",
+        "line": 112
+      }
+    ],
+    "TRM-113": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>无须担心",
+        "line": 113
+      }
+    ],
+    "TRM-114": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>若不介意",
+        "line": 114
+      }
+    ],
+    "TRM-115": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>我会亲自为你铲除",
+        "line": 115
+      }
+    ],
+    "TRM-116": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "随版本更新追加的内容会直接补充进对应位置，与原先有差异的使用切换板进行展示，被揭晓的黑幕（█）按前者处理",
+        "line": 116
+      }
+    ],
+    "TRM-117": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "====权杖δ-me13====",
+        "line": 117
+      }
+    ],
+    "TRM-118": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13，星体计算机。模拟世界「翁法罗斯」基于此载体运行，并不断循环。",
+        "line": 118
+      }
+    ],
+    "TRM-119": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【检测到历史数据，正在同步…同步成功。】",
+        "line": 119
+      }
+    ],
+    "TRM-120": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【俱乐部编号识别完成，权杖系统权限已开放。欢迎，「隐德来希」。】",
+        "line": 120
+      }
+    ],
+    "TRM-121": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "于漫长的演算中踏上「毁灭」，由权杖δ-me13升格的绝灭大君。",
+        "line": 121
+      }
+    ],
+    "TRM-122": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "现已陨落，与权杖δ-me13一同消亡。",
+        "line": 122
+      }
+    ],
+    "TRM-123": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "曾是δ-me13作为「智识」神经元负责的课题。遭到废弃后，其求解仍在进行。",
+        "line": 123
+      }
+    ],
+    "TRM-124": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "基于「熵减」这一母题，δ-me13通过反证法，将十二因子投入实验并逐一证伪。",
+        "line": 124
+      }
+    ],
+    "TRM-125": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【……】",
+        "line": 125
+      }
+    ],
+    "TRM-126": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【指令：进行全盘扫描。结论：并未检测到逻辑矛盾。】",
+        "line": 126
+      }
+    ],
+    "TRM-127": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【逻辑：受博识尊的引导，帝皇制造了权杖系统，无意识地为祂打造了众多实验场。】",
+        "line": 127
+      }
+    ],
+    "TRM-128": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【结论：帝皇并不自由。】",
+        "line": 128
+      }
+    ],
+    "TRM-129": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【检测到逻辑变更，正在更改变量权重。】",
+        "line": 129
+      }
+    ],
+    "TRM-130": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【载入核心变量：毁灭】",
+        "line": 130
+      }
+    ],
+    "TRM-131": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "第50121次循环，无机体Chaoz666在遭到算力吞并时，选择杀死对方，「毁灭」的行为首次在翁法罗斯形成。本次循环末尾，δ-me13受纳努克的瞥视成为绝灭大君。",
+        "line": 131
+      }
+    ],
+    "TRM-132": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【结论：第一阶段完成，基于现有数据，将初始变量调整为有机生命。】",
+        "line": 132
+      }
+    ],
+    "TRM-133": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【逻辑：无机生命在出现有机特征后，方程出现显著进化。应采纳有机生命的优势，进行变量调整。】",
+        "line": 133
+      }
+    ],
+    "TRM-134": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【结论：第二阶段已终止，应当结合无机与有机的优势，设计电信号间的继承机制。此外，有机体的随机性过强，应适当缩小变量区间。】",
+        "line": 134
+      }
+    ],
+    "TRM-135": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【判定：实验已进入最终阶段。】",
+        "line": 135
+      }
+    ],
+    "TRM-136": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【结论：毁灭的第一因=诞生的第一因。】",
+        "line": 136
+      }
+    ],
+    "TRM-137": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【逻辑：通过对实验数据的分析，可得，模拟的文明等级对循环的稳定性有极大影响。】",
+        "line": 137
+      }
+    ],
+    "TRM-138": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【结论：将文明等级调整为古典文明。】",
+        "line": 138
+      }
+    ],
+    "TRM-139": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "δ-me13的演算机制，也是模拟世界「翁法罗斯」世代更迭的形式。",
+        "line": 139
+      }
+    ],
+    "TRM-140": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【记录更新：理论上的最后一次「再创世」被两簇信号阻止，陷入多达33550336次死循环。】",
+        "line": 140
+      }
+    ],
+    "TRM-141": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【逻辑：应明确电信号间的权限分配，作为「神权」参与实验。】",
+        "line": 141
+      }
+    ],
+    "TRM-142": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "在第50121次循环中，因无机体Chaoz666的抉择，δ-me13受纳努克擢选飞升为绝灭大君。",
+        "line": 142
+      }
+    ],
+    "TRM-143": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "δ-me13的自主协议，实验进程、管理员指令、外部访问均受其限制。",
+        "line": 143
+      }
+    ],
+    "TRM-144": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【记录更新：由于该批次电信号持续以「泰坦」的身份参与了33550336次死循环，基于其特殊性，对其进行专项记录。】",
+        "line": 144
+      }
+    ],
+    "TRM-145": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【对于已迭代循环的电信号序列，应统一进行归档处理。】",
+        "line": 145
+      }
+    ],
+    "TRM-146": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "两簇信号在δ-me13演算中引发的死循环，旨在阻止实验进程。",
+        "line": 146
+      }
+    ],
+    "TRM-147": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "δ-me13日志中完全消失的记录，表现为翁法罗斯的某段历史出现空白，再也无法识别。",
+        "line": 147
+      }
+    ],
+    "TRM-148": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13原本的演算目标:哺育「自我」的生命形态。遭受星核污染陷入长眠。",
+        "line": 148
+      }
+    ],
+    "TRM-149": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【▇▇：执行覆盖指令，允许开拓者访问。】",
+        "line": 149
+      }
+    ],
+    "TRM-150": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【▇▇：▇▇我会在▇▇过去▇等你▇▇】",
+        "line": 150
+      }
+    ],
+    "TRM-151": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "|-|原本=████████████，███，███████████████。",
+        "line": 151
+      }
+    ],
+    "TRM-152": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "█████████████████，█████████。",
+        "line": 152
+      }
+    ],
+    "TRM-153": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【警告：未知单位侵入，███████，开始扫描。】",
+        "line": 153
+      }
+    ],
+    "TRM-154": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【结论：系统未检测出异常。】",
+        "line": 154
+      }
+    ],
+    "TRM-155": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "|-|3.5主线后=████████████，███，误入死循环的外部变量。",
+        "line": 155
+      }
+    ],
+    "TRM-156": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "█████岁月████████，███泰坦██████。",
+        "line": 156
+      }
+    ],
+    "TRM-157": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【指令：对其坐标进行定位，坐标定位失败。】",
+        "line": 157
+      }
+    ],
+    "TRM-158": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【结论：目标已离开翁法罗斯。】",
+        "line": 158
+      }
+    ],
+    "TRM-159": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【否认：检测到██，████，结论错误。】",
+        "line": 159
+      }
+    ],
+    "TRM-160": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【警告：检测到异常指令，内容：回退δ-me13演算进程。】",
+        "line": 160
+      }
+    ],
+    "TRM-161": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【依据终极协议，异常指令已拒绝。】",
+        "line": 161
+      }
+    ],
+    "TRM-162": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【指令：标记HertA、ScreW为恶意访客。】",
+        "line": 162
+      }
+    ],
+    "TRM-163": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "████████████",
+        "line": 163
+      }
+    ],
+    "TRM-164": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【协议更新，访客指令已授权。运算逻辑更新：「再创世」后，将演算进程回退至96.75%。】",
+        "line": 164
+      }
+    ],
+    "TRM-165": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【访客指令已授权：推进δ-me13演算进程，进入验证阶段。】",
+        "line": 165
+      }
+    ],
+    "TRM-166": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【管理员已注销。】",
+        "line": 166
+      }
+    ],
+    "TRM-167": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【逻辑：一切生命行为归于熵增。】",
+        "line": 167
+      }
+    ],
+    "TRM-168": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【结论：生命的第一因是「毁灭」。】",
+        "line": 168
+      }
+    ],
+    "TRM-169": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【载入核心变量：开拓】",
+        "line": 169
+      }
+    ],
+    "TRM-170": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "【输出值：Hello, World!】",
+        "line": 170
+      }
+    ],
+    "TRM-171": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "完成开拓任务在黎明升起时坠落后，如我所书升级，项目移入翁法罗斯英雄纪.exe，小×白厄 第七章由「无名的英雄 ██」更名为「负火的囚徒 卡厄斯兰那」，并解锁以下篇章：",
+        "line": 171
+      }
+    ],
+    "TRM-172": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "无名的英雄 ██",
+        "line": 172
+      }
+    ],
+    "TRM-173": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>检测到内存异常释放█非法引用██未声明对象███未实现方法████无法捕获的异常█████",
+        "line": 173
+      }
+    ],
+    "TRM-174": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>我感谢他/她的到来 令翁法罗斯再度转动",
+        "line": 174
+      }
+    ],
+    "TRM-175": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>他/她的存在只会成为变数",
+        "line": 175
+      }
+    ],
+    "TRM-176": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>十二黄金裔严格按照实验原定设计顺序，生命周期依次正常结束，载入缓冲区。对象卡厄斯兰那回退演算进程，并监测到对象心智函数异常波动。",
+        "line": 176
+      }
+    ],
+    "TRM-177": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>*管理员批注：第一次惨烈的失败。*",
+        "line": 177
+      }
+    ],
+    "TRM-178": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>十二黄金裔生命周期依次正常结束，对象卡厄斯兰那回退演算进程。",
+        "line": 178
+      }
+    ],
+    "TRM-179": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#3：对象卡厄斯兰那策略发生微调，提高「避免过去同伴牺牲」决策权重。经检验，本次调整并未对实验进程产生实质性影响。",
+        "line": 179
+      }
+    ],
+    "TRM-180": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#15：对象卡厄斯兰那首次尝试对黑潮进行反编译，以实现权限提升，对以十二黄金裔为代表的特定对象执行越权授权操作。",
+        "line": 180
+      }
+    ],
+    "TRM-181": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#42：对象卡厄斯兰那第11次对权杖内核层发动攻击失败。注意到「避免过去同伴牺牲」决策权重呈现出轻微下降趋势。",
+        "line": 181
+      }
+    ],
+    "TRM-182": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>十二黄金裔生命周期依次结束，对象卡厄斯兰那回退演算进程。",
+        "line": 182
+      }
+    ],
+    "TRM-183": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#133：综合永劫回归#83至#133全部观测结果，认为对象卡厄斯兰那策略逐步趋近至永劫回归#42。注意到过拟合风险，对象心智函数有潜在受损可能。",
+        "line": 183
+      }
+    ],
+    "TRM-184": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>*管理员批注：这无疑有助于极大强化铁墓之「毁灭」倾向，符合预期。不予理会，继续观测。*",
+        "line": 184
+      }
+    ],
+    "TRM-185": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#134：",
+        "line": 185
+      }
+    ],
+    "TRM-186": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#134：对象卡厄斯兰那第103次对权杖内核层发动攻击失败。「避免过去同伴牺牲」决策权重趋近于0.00018，注意到过拟合风险。",
+        "line": 186
+      }
+    ],
+    "TRM-187": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#5297：对象卡厄斯兰那第5266次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，速率呈现上升趋势。对象卡厄斯兰那回退演算进程。",
+        "line": 187
+      }
+    ],
+    "TRM-188": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>附注：认为对象策略已与永劫回归#42几乎完全匹配，并注意到对象心智函数部分损毁，并有不可逆风险。",
+        "line": 188
+      }
+    ],
+    "TRM-189": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>已收到管理员指令：不再提示心智函数损毁风险。",
+        "line": 189
+      }
+    ],
+    "TRM-190": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#12398：对象卡厄斯兰那第12367次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。",
+        "line": 190
+      }
+    ],
+    "TRM-191": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#23779：对象卡厄斯兰那第23748次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。",
+        "line": 191
+      }
+    ],
+    "TRM-192": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#46645：对象卡厄斯兰那第46614次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。",
+        "line": 192
+      }
+    ],
+    "TRM-193": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#71243：对象卡厄斯兰那第71212次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。",
+        "line": 193
+      }
+    ],
+    "TRM-194": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#80023：对象卡厄斯兰那第79992次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。",
+        "line": 194
+      }
+    ],
+    "TRM-195": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#95575：对象卡厄斯兰那第95544次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。",
+        "line": 195
+      }
+    ],
+    "TRM-196": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#108641：对象卡厄斯兰那第108610次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。",
+        "line": 196
+      }
+    ],
+    "TRM-197": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#108642：",
+        "line": 197
+      }
+    ],
+    "TRM-198": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>PoleMos600，原动力：██，泰坦权能：纷争，命途：██>>EleOs252，原动力：██，泰坦权能：天空，命途：██>>EpieiKeia216，原动力：██，泰坦权能：死亡，命途：██>>SkeMma720，原动力：██，泰坦权能：理性，命途：██>>HapLotes405，原动力：██，泰坦权能：门径，命途：██>>SkoPeo365，原动力：██，泰坦权能：大地，命途：██>>KaLos618，原动力：██，泰坦权能：浪漫，命途：██>>OreXis945，原动力：██，泰坦权能：诡计，命途：██>>ApoRia432，原动力：██，泰坦权能：海洋，命途：██>>HubRis504，原动力：██，泰坦权能：律法，命途：██<<<",
+        "line": 198
+      }
+    ],
+    "TRM-199": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>警告：对象无访问权限。",
+        "line": 199
+      }
+    ],
+    "TRM-200": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>执行协议λ003-097：格式化对象█ ██ ███",
+        "line": 200
+      }
+    ],
+    "TRM-201": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：█ 警告！检测到非法操作█ ██ ███",
+        "line": 201
+      }
+    ],
+    "TRM-202": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：█ ██ ███ ███████████",
+        "line": 202
+      }
+    ],
+    "TRM-203": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：███████████████████████████████████████████████████████",
+        "line": 203
+      }
+    ],
+    "TRM-204": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>操作已授权，协议名：【██ ███】",
+        "line": 204
+      }
+    ],
+    "TRM-205": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>正在建立通信——",
+        "line": 205
+      }
+    ],
+    "TRM-206": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>信道已建立，正在封装对象——",
+        "line": 206
+      }
+    ],
+    "TRM-207": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>封装完成，开始传输——",
+        "line": 207
+      }
+    ],
+    "TRM-208": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>传输终点：回归#33550336——",
+        "line": 208
+      }
+    ],
+    "TRM-209": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>执行协议λ003-097：格式化对象。",
+        "line": 209
+      }
+    ],
+    "TRM-210": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>格式化进程：0.015%……",
+        "line": 210
+      }
+    ],
+    "TRM-211": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>格式化进程：23.815%……",
+        "line": 211
+      }
+    ],
+    "TRM-212": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>格式化进程：45.147%……",
+        "line": 212
+      }
+    ],
+    "TRM-213": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>格式化进程已完成。",
+        "line": 213
+      }
+    ],
+    "TRM-214": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>正在访问：回归#33550337——",
+        "line": 214
+      }
+    ],
+    "TRM-215": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>访问失败。错误码：γ-13。",
+        "line": 215
+      }
+    ],
+    "TRM-216": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>HubRis504，已下载。",
+        "line": 216
+      }
+    ],
+    "TRM-217": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>HapLotes405，已下载。",
+        "line": 217
+      }
+    ],
+    "TRM-218": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>PhiLia093……",
+        "line": 218
+      }
+    ],
+    "TRM-219": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>已…下…载……",
+        "line": 219
+      }
+    ],
+    "TRM-220": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>SkoPeo365，已下载。分支#1，开始归档。",
+        "line": 220
+      }
+    ],
+    "TRM-221": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>对象：回归#33550337。进程：13.131%——",
+        "line": 221
+      }
+    ],
+    "TRM-222": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>分支#1，已归档。",
+        "line": 222
+      }
+    ],
+    "TRM-223": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>正在封装密钥——",
+        "line": 223
+      }
+    ],
+    "TRM-224": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>密钥封装，已完成。",
+        "line": 224
+      }
+    ],
+    "TRM-225": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>格式化进程：0.027%……",
+        "line": 225
+      }
+    ],
+    "TRM-226": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>格式化进程：93.998%……",
+        "line": 226
+      }
+    ],
+    "TRM-227": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>格式化进程：94.423%……",
+        "line": 227
+      }
+    ],
+    "TRM-228": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>格式化进程：96.024%……",
+        "line": 228
+      }
+    ],
+    "TRM-229": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>错误进程：解析中……",
+        "line": 229
+      }
+    ],
+    "TRM-230": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>EpieiKeia216，已下载。",
+        "line": 230
+      }
+    ],
+    "TRM-231": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>OreXis945，已下载。",
+        "line": 231
+      }
+    ],
+    "TRM-232": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>……",
+        "line": 232
+      }
+    ],
+    "TRM-233": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>PoleMos600，已下载。",
+        "line": 233
+      }
+    ],
+    "TRM-234": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>EleOs252，已下载。分支#2，开始归档。",
+        "line": 234
+      }
+    ],
+    "TRM-235": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>对象：回归#33550337。进程：31.313%——",
+        "line": 235
+      }
+    ],
+    "TRM-236": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>分支#2，已归档。",
+        "line": 236
+      }
+    ],
+    "TRM-237": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>格式化进程：73.998%……",
+        "line": 237
+      }
+    ],
+    "TRM-238": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>格式化进程：75.012%……",
+        "line": 238
+      }
+    ],
+    "TRM-239": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>SkeMma720，已下载。",
+        "line": 239
+      }
+    ],
+    "TRM-240": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>NeiKos496，已下载。",
+        "line": 240
+      }
+    ],
+    "TRM-241": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>KaLos618，已下载。",
+        "line": 241
+      }
+    ],
+    "TRM-242": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>ApoRia432，已下载。分支#3，开始归档。",
+        "line": 242
+      }
+    ],
+    "TRM-243": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>分支#3，已归档。",
+        "line": 243
+      }
+    ],
+    "TRM-244": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>错误进程：解析 █ ██",
+        "line": 244
+      }
+    ],
+    "TRM-245": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>操作已授权，协议名：【Ἠλύσιον】",
+        "line": 245
+      }
+    ],
+    "TRM-246": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "权杖δ-me13：>>>欢迎访问：德谬歌矩阵",
+        "line": 246
+      }
+    ],
+    "TRM-247": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "螺丝咕姆：「生命的第一因」——这是权杖δ-me13最初负责的课题，遭到废弃后，其求解仍在进行。虽然这一问题的价值在于求解过程，而非答案本身……",
+        "line": 247
+      }
+    ],
+    "TRM-248": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>δ-me13:\\amphoreus\\Irontomb.exe 运行时错误",
+        "line": 248
+      }
+    ],
+    "TRM-249": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>来自未知发布者的程序 δ-me13:\\Demiurge\\Philia093.exe",
+        "line": 249
+      }
+    ],
+    "TRM-250": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>Philia093.exe 运行中…",
+        "line": 250
+      }
+    ],
+    "TRM-251": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "δ-me13：>>>格式化进程已完成。",
+        "line": 251
+      }
+    ],
+    "TRM-252": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "δ-me13：>>>格式化进程：94.423%……",
+        "line": 252
+      }
+    ],
+    "TRM-253": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "δ-me13：>>>错误进程：解析中……",
+        "line": 253
+      }
+    ],
+    "TRM-254": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "δ-me13：>>>格式化进程：96.024%……",
+        "line": 254
+      }
+    ],
+    "TRM-255": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "δ-me13：>>>格式化进程：73.998%……",
+        "line": 255
+      }
+    ],
+    "TRM-256": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "δ-me13：>>>格式化进程：23.815%……",
+        "line": 256
+      }
+    ],
+    "TRM-257": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "黑塔：所有人，听好了：攻克「铁墓」是本人的课题。我将在1.5个系统时内接管权杖δ-me13，阻止「毁灭」——",
+        "line": 257
+      }
+    ],
+    "TRM-258": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#33550336：对象卡厄斯兰那第33550304次对权杖内核层发动攻击，凭借数亿枚火种的瞬时共振，其得以短暂直面纳努克。检测到卡厄斯兰那在命途空间与其它的毁灭行者发生交锋，不敌落败。",
+        "line": 258
+      }
+    ],
+    "TRM-259": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>卡厄斯兰那未正常载入缓冲区。其通过「毁灭」摧毁自身数据，使「负世」路径出现逻辑漏洞，目的未知。",
+        "line": 259
+      }
+    ],
+    "TRM-260": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>不完全实体「铁墓」已将对象卡厄斯兰那吞并。演算进程回退。",
+        "line": 260
+      }
+    ],
+    "TRM-261": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>永劫回归#33550337：检测到毁灭方程式「黑潮」显著失活。判断原因为已吞并对象卡厄斯兰那的反抗。",
+        "line": 261
+      }
+    ],
+    "TRM-262": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>>对象卡厄斯兰那对毁灭的「憎恨」已反向压制「铁墓」的迭代进程，需管理员介入干扰。",
+        "line": 262
+      }
+    ],
+    "TRM-263": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> 侵入变量01 = input(\"丹恒：\")",
+        "line": 263
+      }
+    ],
+    "TRM-264": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> 侵入变量02 = input(\"三月七：\")",
+        "line": 264
+      }
+    ],
+    "TRM-265": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> NeiKos496 = input(\"白厄：\")",
+        "line": 265
+      }
+    ],
+    "TRM-266": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> 铁墓.重新求解(生命第一因)",
+        "line": 266
+      }
+    ],
+    "TRM-267": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> 铁墓.预设答案(恨)",
+        "line": 267
+      }
+    ],
+    "TRM-268": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> 铁墓.证明()",
+        "line": 268
+      }
+    ],
+    "TRM-269": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> PhiLia093 = input(\"答案：\")  # 昔涟",
+        "line": 269
+      }
+    ],
+    "TRM-270": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> PoleMos600 = input(\"万敌：\")",
+        "line": 270
+      }
+    ],
+    "TRM-271": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> EpieiKeia216 = input(\"遐蝶：\")",
+        "line": 271
+      }
+    ],
+    "TRM-272": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> EleOs252 = input(\"风堇：\")",
+        "line": 272
+      }
+    ],
+    "TRM-273": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> 铁墓.重新启动()",
+        "line": 273
+      }
+    ],
+    "TRM-274": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> KaLos618 = input(\"阿格莱雅：\")",
+        "line": 274
+      }
+    ],
+    "TRM-275": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> SkeMma720 = input(\"那刻夏：\")",
+        "line": 275
+      }
+    ],
+    "TRM-276": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> OreXis945 = input(\"赛飞儿：\")",
+        "line": 276
+      }
+    ],
+    "TRM-277": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> 铁墓.开始修复()",
+        "line": 277
+      }
+    ],
+    "TRM-278": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> HapLotes405 = input(\"缇宝：\")",
+        "line": 278
+      }
+    ],
+    "TRM-279": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> ApoRia432 = input(\"海瑟音：\")",
+        "line": 279
+      }
+    ],
+    "TRM-280": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> HubRis504 = input(\"刻律德菈：\")",
+        "line": 280
+      }
+    ],
+    "TRM-281": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": ">>> 铁墓.进程检查(\"错误\")",
+        "line": 281
+      }
+    ],
+    "TRM-282": [
+      {
+        "file": "terminals.jsonl",
+        "kind": "terminal",
+        "label": "昔涟：而铁墓的殒落，也象征着权杖δ-me13的衰亡。翁法罗斯——我们为之付出一切的家园——如今只存在于银河的记忆中了。",
+        "line": 282
       }
     ],
     "U-D1-001": [

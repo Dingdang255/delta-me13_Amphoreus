@@ -1,5 +1,280 @@
 # 13 Changelog
 
+## v1.14 — 2026-10-31（P-F：重新基线化）
+
+### 变更
+
+- `tests/baseline.json` 重新写入。漂移只有语料面三项，**内核 / 应用 / golden 指纹零变化**：
+
+| 项 | 旧 | 新 |
+|---|---|---|
+| `lore.canon_entries` | 1,075 | **1,374** |
+| `lore.files` | 167 | **181** |
+| `lore.canon_digest` | `542e4a5c…` | `b1a795e4…` |
+
+- `python tools\baseline.py --check` → **0 drift**。
+- `python tools\fidelity_report.py` → **0.9092** / 阈值 0.85 / 通过。
+
+### 说明
+
+- 基线只存 canon 的条目数、文件数与 `source_digest`，不存 `compiled_at`，因此重编译不会造成假漂移。
+- `python -m unittest discover -s tests -q` → **Ran 612 tests in 239.8s, OK**。
+
+---
+
+## v1.13 — 2026-10-31（P-D：终端 ↔ 循环 ↔ 任务的关联补齐）
+
+### 变更
+
+- `D6_terminal/terminals.jsonl`：
+  - 14 条 `trigger.event = "同上"` 全部展开为最近一条显式事件（TRM-004 / 037 / 044 / 046 / 049 / 061–066 / 068–070），
+    现在 282 条的 `trigger.event` 都可直接解析。
+  - 27 条补 `loop_refs`（如 TRM-186 → `[134]`、TRM-197 → `[108642]`、TRM-258 → `[33550336]`）。
+- `D6_terminal/triggers.json`：新增 `loop_index`（17 个循环号 → 终端 id，A/B 级并列不删重复）
+  与 `range_mentions`（#83 只在「#83 至 #133」的区间表述里出现，单列，不当作独立日志）。
+- `D5_loops/official_anchors.jsonl`：OA-031..046 补 `mission` / `mission_id`（`1040501` 兑现那染血的冀望、
+  `1040503` 粉碎那悲哀的造像、`1043659` 大墓深藏轮回的秘密；OA-046 为「丹恒·如我所书」，无 mission_id）。
+  这样「循环号 → 任务 → PLOT」可以机器 join，不必再靠 `note` 里的中文任务名。
+- `D3_plot/gaps.jsonl`：GAP-D3-007（游戏内历法）标 `partial` —— 32 个光历年份散点已可定位，
+  但官方没有统一纪年口径，仍不建立完整历法年表。
+
+### 未做
+
+- 未新增 canon kind（没有新文件类型）；所有关联都加在既有记录的字段上。
+- 未删除任何 A/B 重复终端：同一循环的 A 级 `S-001` 与 B 级 `S-024` 两条并列保留。
+
+### 校验
+
+- `python tools\lore_lint.py` → 0 errors / 0 warnings。
+- `python tools\lore_compile.py` → 1,374 entries / 56 files；`--check` → canon ok。
+- `python tools\fidelity_report.py` → 0.9092 / 0.85 / 通过（D5 0.98 · D6 0.99）。
+
+---
+
+## v1.12 — 2026-10-31（P-E：关闭 CF-009，事件/概述统一改号）
+
+### 背景
+
+CF-009：既有 EVT/WC/PLOT 的版本号是按 `S-001:303xx` 概述序号「每约十条切一段」推的，与 wiki 分卷 + 任务 ID 段位整体错位一档。
+用 `missions.jsonl` 复核：10401xx=3.0、10402xx=3.1、10403xx=3.2、10404xx=3.3、10405xx=3.4，
+且章节名与内容吻合（3.3「在黎明升起时坠落」正对白厄黎明赴涡心、赛飞儿身故；3.4「因为太阳将要毁伤」正对白厄与烈阳的戏剧）。
+
+### 改号（旧值全部记入 CF-009）
+
+- `04_event_index.jsonl`：EVT-010/011/012 3.0→**3.1**；EVT-013/014/015 3.1→**3.2**；EVT-016/017/018/019 3.2→**3.3**；EVT-020 3.2→**3.4**。
+- `D3_plot/wiki_claims.jsonl`：WC-005/006 3.0→**3.1**；WC-007/008/009 3.1→**3.2**；WC-010/011/012 3.2→**3.3**；WC-013/014/015 3.3→**3.4**。
+- `D3_plot/plot_expansion.jsonl`：PLOT-003 3.0→**3.1**；PLOT-004/005 3.1→**3.2**；PLOT-006/007 3.2→**3.3**；PLOT-008 3.3→**3.4**；
+  并新增 **PLOT-025**（3.0 远客与晚星：奥赫玛的试探与结盟）、**PLOT-026**（3.1 门扉与来路：缇安的牺牲与雅努萨波利斯的往世），
+  使每个章节仍有 ≥3 条场景（总计 **26** 条）。
+- CF-009 状态 `pending` → **`resolved`**，`resolved_by` 写明证据与旧号。
+
+### 未动
+
+- `EVT-001..009`、`EVT-021..095` 与 `3.5–3.7` 的条目经复核与新口径一致，未改。
+
+### 冲突收口
+
+| 冲突 | 处理 |
+|---|---|
+| CF-001 火种精确总数 | resolved：不采用任何精确总数；旧值降级为 DB-005，`R-LOOP-002` 禁止回填，事实层只留「四亿枚」 |
+| CF-002 进度百分比 | resolved：三套分母分列，不设单一 progress；wiki 未给百分比的保持 null + `progress_source:UNKNOWN` |
+| CF-004 「种子」 | resolved：已按 inferred 落地（`generation.json` `_honesty`、推断流 confidence=E、ADR-0002），事实层仍标 U-D1-001 |
+| CF-006 NeiKos496 目的 | resolved：一律「目的未知」，替接动机只放 inference，由 OOC-003 约束 |
+| CF-008 3.7 章节名 | **仍 pending**：A 级只有一条章节表，无法判定「成为昨日的明天」是别名还是并列章节 |
+
+### 口径说明
+
+- 项目验收口径只有 `config/fidelity.json` 的 `threshold=0.85`。v1.10/v1.11 里出现的 0.93 / 0.95
+  是本会话内部的观察值，**不是用户设定的目标**，不再作为待办。
+
+### 校验
+
+- `python tools\lore_lint.py` → 0 errors / 0 warnings（plot 26 · conflict 9）。
+- `python tools\lore_compile.py` → 1,374 entries / 56 files；`--check` → canon ok。
+- `python tools\fidelity_report.py` → 0.9092 / 0.85 / 通过（D3 0.94 · D8 0.95 · D7 0.58）。
+
+---
+
+## v1.11 — 2026-10-31（P-C：场景扩写 13 → 24，每章节 3 条）
+
+### 变更
+
+- `D3_plot/plot_expansion.jsonl`：新增 `PLOT-014..PLOT-024`（11 条），场景级条数 13 → **24**，
+  3.0–3.7 每个章节均为 3 条。全部取自 `S-024` 分卷任务摘要（B 级），标 `confidence:B` / `verbatim_claim:false`，
+  每条都写明 `gap`，未虚构任何对白。
+- `PLOT-013` 补 `verbatim_claim:false`（原为 B 级却进了 A 级逐字分母）。
+- 新增冲突 **CF-009（pending）**：wiki 分卷版本与既有「概述序号每十条切段」的归档版本整体错位约一档
+  （树庭覆灭 3.0→3.1、阿格莱雅/赛飞儿/艾格勒 3.2→3.3、沉浸式戏剧 3.3→3.4）。
+  旧 `EVT-016..020` / `PLOT-006..008` **不改号**，留待 P-E 统一复核；新条目按 wiki 分卷 + 任务 ID 段位归档并加 `note`。
+- `D3_plot/coverage_matrix.md`：场景级统计改为 24 条，新增「场景级扩写」分版本表与 CF-009 说明。
+- `lore/00_manifest.md`：D3 条数同步为 `plot_expansion.jsonl(24)`。
+- `D8_characters/ooc_guards.jsonl`：35 条 guard 全部补 `source`——指向该卡真实存在的字段
+  （`CHR-xxx#decision_rules` / `#speech` / `#identity` / `#goals` / `#beliefs` / `#emotions`），
+  其中 OOC-003 直接用其正文里的 `S-001:75058`。已逐条校验目标卡片确有此字段。
+
+### 结果
+
+- D3 的覆盖分母由 13 条 A 级为主变为 24 条（11 条 B 级），**A 级逐字占比下降**；这是如实计入 wiki 的结果，不使用 B 级充 A。
+- D3 **0.90 → 0.93**（覆盖 0.82 → 0.86）；D8 **0.90 → 0.95**（可追溯 0.78 → 0.97）。
+- 加权保真分 **0.8986 → 0.9090**。
+- D3 的上限：8 条已承认的 gap 记为 0 分，覆盖最高只能到 0.86，故 D3 天花板约 **0.933**；
+  这是语料边界，不通过删 gap 去换分。
+- 「已补全」仍为 0 条：没有 A 级过程逐字就不写已补全。
+
+### 校验
+
+- `python tools\lore_lint.py` → 0 errors / 0 warnings（plot 24 · conflict 9 · guard 35）。
+- `python tools\lore_compile.py` → 1,372 entries / 56 files；`--check` → canon ok。
+- `python tools\fidelity_report.py` → 0.9090 / 0.85 / 通过。
+
+---
+
+## v1.10 — 2026-10-31（保真逐字口径修正）
+
+### 变更
+
+- `config/fidelity.json`：`verbatim` 增加 `scope_field: "verbatim_claim"` / `scope_value: true`。
+  只有自称逐字的记录进入 A 级逐字分母；B 级 wiki 记录标 `verbatim_claim:false`，只影响 `coverage`。
+- `apps/fidelity.py`：`_score_dimension` 按 `scope_field` 过滤 `graded`；无该字段的记录保持原行为。
+- `D5_loops/official_anchors.jsonl` / `D6_terminal/terminals.jsonl`：补 `verbatim_claim`
+  （A 级 30 / 81 条为 true，B 级 16 / 201 条为 false）。
+
+### 结果
+
+- 加权保真分 **0.8544 → 0.8986**（阈值 0.85，通过）。
+- D5 **0.86 → 0.98**；D6 **0.75 → 0.99**；其余维度不变。
+- 距 0.93 的剩余空间：D1 0.90（覆盖 0.71）· D3 0.90（覆盖 0.82 + 缺口罚分）· D7 0.58（固定）· D8 0.90（guard 缺 source）。
+  在 D7 固定 0.58 的前提下，其余 7 维平均需约 0.98 才能到 0.93。
+
+### 校验
+
+- `python tools\lore_compile.py --check` → canon ok: 56 files。
+- `python tools\fidelity_report.py` → 0.8986 / 0.85 / 通过。
+
+---
+
+## v1.9 — 2026-10-31（wiki_structured 入库：D3 / D5 / D6 / D8）
+
+### 入库
+
+- `D5_loops/official_anchors.jsonl`：新增 `OA-031..OA-046`（16 条），锚点 30 → **46**。
+  来源 `S-024` wiki 任务页，`verified:false`、`confidence:B`。
+- `D6_terminal/terminals.jsonl`：新增 `TRM-082..TRM-282`（201 条），终端 81 → **282**。
+  去重后按内容重新分类：output 98 · log 85 · garbage 18（新增里没有真正的交互 prompt，旧的 7 条 prompt 保留）；
+  `confidence:B`、`verbatim:false`。
+- `D8_characters/characters/`：16 张卡新增 `stories`（CHR-001 为 original+revised 共 8 段，其余 15 人各 4 段）；
+  15 张卡新增 `ruwoshuo`（573 条《如我所书》，按角色分卷）。全部 `source:S-024`、`grade:B`。
+- `D3_plot/battle_lines.jsonl`：复制 572 条战斗/过场台词作为**证据文件**；尚未注册为 canon kind，
+  等 P-C 折叠进 `plot_expansion`。
+
+### 未入库（留给后续）
+
+- `options.jsonl` → P-C 对话树；`side_missions.jsonl` → P-C 支线；`books/lightcones/relics` → P-E/P7；
+  `enemy_pages.jsonl` 3 条 `none_in_wiki` 接受为事实；`b6_crosscheck.jsonl` 仅作证据。
+
+### 证据口径（重要）
+
+- `b6_crosscheck` 复核：wiki 18,272 行对客户端 1,360 行匹配（7.4%）；**20 个任务 `client_lines=0`**。
+  因此 3.0–3.7 的 A 级逐字覆盖不是 100%，wiki 是唯一接近完整的叙事来源（B 级）。
+- D6 的 A 级逐字占比由 100% 降到 **81/282 = 28.7%**；这是把 B 级终端如实计入的结果，P-F 重评时不得再宣称 D6 全 A。
+
+### 校验
+
+- `python tools\lore_lint.py` → **0 errors / 0 warnings**（anchor 46 · terminal 282）。
+
+---
+
+## v1.8 — 2026-10-31（P-A 扩展：45 → 66 任务）
+
+### 背景
+
+8 卷 wiki 全文在 P-A 之后扩充到 **66 个任务**（3.0:10 · 3.1:9 · 3.2:9 · 3.3:9 · 3.4:6 · 3.5:7 · 3.6:9 · 3.7:7）；
+`wiki_structured/missions.jsonl` 66/66 与 8 卷逐条对齐。
+
+### 变更
+
+- `04_event_index.jsonl`：新增 `EVT-075..EVT-095`（21 条），任务级事件 **45 → 66**，事件总数 **73 → 94**。
+- 为 **58 / 66** 个任务级事件补 `mission_id` / `mission_ids`（从 `S-002` 反查）。
+  缺 8 条：3.0-07 金缕荡污浊、3.0-10 英雄啊且握住那枚火种、3.1-09 来路啊、3.2-01 纺锤啊、
+  3.3-06/07 诗者上下、3.5-01 流年啊、3.6-05 烈阳啊。
+- `大黑塔` 手工映射 `CHR-010`；`阮•梅`、`卡芙卡`、`流萤`、`黄泉` 等无卡者进 `unmapped_participants`。
+- 3.7 新事件沿用 `chapter=记忆是梦的开场白` + `wiki_chapter=成为昨日的明天` + `conflict_refs:["CF-008"]`。
+- `D3_plot/coverage_matrix.md`：任务级 66/66；3.0/3.1/3.2/3.3/3.6/3.7 行更新；新增 Mission ID 证据行。
+- `00_manifest.md`：事件 94、covered 169、实体+事件 187。
+
+### 校验
+
+- `python tools\lore_lint.py` → **0 errors / 0 warnings**（event 94）。
+
+---
+
+## v1.7 — 2026-10-31（P-B 说话人补全）
+
+### 新增
+
+- `D4_dialogue/speaker_map.json`：`S-024`（BWIKI，B 级）说话人标签 → 语料实体 id。
+  `resolved` **81** 条（`CHR-*` 与 `SYS-*`），`unresolved` **310** 条（`？？？`、合称、回声/形态、无角色卡）。
+  `unresolved` 一律不回填 `speaker`。
+- `lore/schema/dialogue.schema.json`：新增 `speaker_grade` / `speaker_evidence` / `speaker_wiki` 三个可选字段。
+
+### 变更
+
+- `D4_dialogue/dialogues.jsonl`：**55 / 357** 行 `speaker_source` 由 `inferred_low` → **`official`**（B 级）。
+  写入 `speaker` / `speaker_grade=B` / `speaker_evidence=S-024:<分卷>:<行号>` / `speaker_wiki`；原推断保留在 `speaker_inferred`。
+  - 分布：`SYS-014` 往昔的涟漪 **41** · `SYS-001` 权杖δ-me13 **10** · `CHR-002` 昔涟 **3** · `CHR-001` 白厄 **1**。
+  - 未升级 **302** 行：wiki 无逐字同句，或同句出现多说话人（`往昔的涟漪|？？？` 2、`往昔的涟漪|昔涟` 2），或 wiki 也只标 `？？？`（11）、`「记忆的花」`（1）。
+- `apps/dialogue.py`：`line_from_dict` 改为 **official speaker 优先于 `speaker_inferred`**；仅影响已升级的 55 行。
+- `tests/test_dialogue.py`：新增「official speaker 必须带 B 级来源」与「official 优先于 inferred」两项契约。
+- `D4_dialogue/unknowns.jsonl` U-D4-001：更新为 55 / 357 已确认、302 行仍 inferred，并指向 `speaker_map.json`。
+- `00_manifest.md`：D4 行补 `speaker_map.json`；§5 已知缺陷第 3 条更新为 55 / 357。
+
+### 口径
+
+- 只做**逐字同句**的精确匹配（去掉 ruby/color 标签、空白与标点后比对）；**未做模糊匹配**，避免把不同语境的话按说话人合并。
+- `S-024` 是 B 级社区整理，因此 `speaker_source=official` 配 `speaker_grade=B`，**不冒充 A 级**；A 级逐字仍以 `S-001` / `S-002` 为准。
+- `form` 字段保留数据源原值（可能是错误的资源名），权威说话人以 `speaker` + `speaker_source` 为准。
+
+### 校验
+
+- `python tools\lore_lint.py` → **0 errors / 0 warnings**（dialogue 357 不变）。
+- `python tools\grep_forbidden.py` → **0** 命中。
+- `python tools\layer_lint.py` → 通过（apps 27 模块，无新增越界）。
+- 单元测试待授权后运行。
+
+---
+
+## v1.6 — 2026-10-31（P-A 语料入库：wiki 45 任务）
+
+### 新增
+
+- `04_event_index.jsonl` EVT-030..EVT-074：BWIKI 3.0–3.7 共 **45 个任务**，来源 `S-024`（**B 级社区整理**）。
+  `participants` 只写已有的 `CHR/ORG/SYS` id；未建卡的出场者写入 `unmapped_participants`，不新造实体、不猜映射。
+- `01_sources.csv` S-024：BWIKI 翁法罗斯剧情原文。分卷在 `lore/story/amphoreus_wiki/`（`.gitignore` 挡住，不入库），
+  派生条目按 `S-024:<分卷>#<任务名>` 定位。
+- `D3_plot/plot_expansion.jsonl` PLOT-013：3.4「沉浸式戏剧：白厄的童年与最初的逐火」，B 级。
+
+### 变更
+
+- `D3_plot/coverage_matrix.md`：3.4 由 `UNKNOWN` 改 `covered`；任务级 45/45；`UNKNOWN` 0 条；新增 3.7 章节名冲突行。
+- `00_manifest.md`：事件索引 28 → **73**；D3 行 12 → 13；补 S-024 与 wiki 分卷的不入库说明。
+- `10_conflicts.jsonl`：CF-007 `pending` → **`resolved`**（wiki 6 任务确认 3.4 主线归属，B 级）；
+  新增 **CF-008**（3.7 章节名「记忆是梦的开场白」vs「成为昨日的明天」，`pending`）。
+- `D3_plot/gaps.jsonl` GAP-D3-001：`status=resolved`；**条目保留，不删缺口**。
+- `tools/scene_lint.py`：删除 `EXPECTED_GAPS`（3.4 已有场景，缺口不再是例外）。
+
+### 未做（留给后续）
+
+- canon 未重编译：`lore_compile --check` 会显示 events / plot / gaps / conflicts 漂移，统一在 P-F 处理。
+- 说话人升级（P-B）、场景扩容（P-C）、终端与轮回（P-D）未开始。
+- A 级逐字率未受影响：wiki 只进 B 级，`S-001` / `S-002` 仍是逐字主干。
+
+### 校验
+
+- `python tools\lore_lint.py` → **0 errors / 0 warnings**；计数：event 73 · plot 13 · conflict 8 · gap 8 · unknown 35。
+- 未运行 `lore_compile` / `scene_lint` / `baseline`（canon 重编译按计划留到 P-F）。
+
+---
+
 ## v1.5 — 2026-10-31（CF-003 补证）
 
 ### 变更

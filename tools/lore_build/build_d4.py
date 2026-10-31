@@ -7,6 +7,9 @@
   3. 分配 ID / 场景 / 顺序 / next。
 
 不产生任何原文里没有的句子。
+
+注意：本脚本只生成 inferred 说话人；生成后需按 `D4_dialogue/speaker_map.json`
+重新应用 `S-024` 的说话人升级（见 13_changelog v1.7），否则 55 行 official 溯源会丢失。
 """
 import json, io, os, re
 

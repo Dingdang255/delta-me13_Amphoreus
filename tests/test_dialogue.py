@@ -42,6 +42,16 @@ class TestDialogueCorpus(unittest.TestCase):
         with self.assertRaises(dialogue.DialogueError):
             dialogue.DialogueRunner.from_bundle(self.bundle, "SCN-999")
 
+    def test_official_speakers_are_sourced(self):
+        official = [entry.data for entry in self.bundle.of_kind("dialogue")
+                    if entry.get("speaker_source") == "official"]
+        self.assertGreaterEqual(len(official), 50)
+        for row in official:
+            self.assertTrue(row.get("speaker"), row.get("id"))
+            self.assertEqual(row.get("speaker_grade"), "B", row.get("id"))
+            self.assertTrue(str(row.get("speaker_evidence", "")).startswith("S-024:"),
+                            row.get("id"))
+
 
 class TestDialogueRunner(unittest.TestCase):
     LINES = [
@@ -76,6 +86,14 @@ class TestDialogueRunner(unittest.TestCase):
         runner.reset()
         self.assertEqual(runner.current().id, "D1")
         self.assertEqual(runner.trace, ["D1"])
+
+    def test_official_speaker_wins_over_inference(self):
+        line = dialogue.line_from_dict({
+            "id": "D9", "scene_id": "S", "order": 1, "verbatim": "x",
+            "speaker": "SYS-001", "speaker_inferred": "CHR-002",
+            "speaker_source": "official",
+        })
+        self.assertEqual(line.speaker, "SYS-001")
 
 
 if __name__ == "__main__":

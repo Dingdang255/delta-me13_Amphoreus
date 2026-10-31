@@ -1,0 +1,2050 @@
+{
+  "schema": 1,
+  "source": "S-024",
+  "source_grade": "B",
+  "note": "BWIKI 说话人标签 → 语料实体 id。entity 可为 CHR-* 或 SYS-*；unresolved 一律不回填 speaker，dialogue 记录保持 inferred。",
+  "manual": {
+    "大黑塔": "CHR-010",
+    "天谴之矛，迈德漠斯": "CHR-017"
+  },
+  "resolved": [
+    {
+      "wiki": "白厄",
+      "entity": "CHR-001",
+      "via": "exact",
+      "lines": 1145
+    },
+    {
+      "wiki": "昔涟",
+      "entity": "CHR-002",
+      "via": "exact",
+      "lines": 991
+    },
+    {
+      "wiki": "遐蝶",
+      "entity": "CHR-018",
+      "via": "exact",
+      "lines": 900
+    },
+    {
+      "wiki": "丹恒",
+      "entity": "CHR-009",
+      "via": "exact",
+      "lines": 774
+    },
+    {
+      "wiki": "阿格莱雅",
+      "entity": "CHR-015",
+      "via": "exact",
+      "lines": 499
+    },
+    {
+      "wiki": "那刻夏",
+      "entity": "CHR-019",
+      "via": "exact",
+      "lines": 491
+    },
+    {
+      "wiki": "万敌",
+      "entity": "CHR-017",
+      "via": "exact",
+      "lines": 485
+    },
+    {
+      "wiki": "来古士",
+      "entity": "CHR-013",
+      "via": "exact",
+      "lines": 413
+    },
+    {
+      "wiki": "赛飞儿",
+      "entity": "CHR-021",
+      "via": "exact",
+      "lines": 412
+    },
+    {
+      "wiki": "开拓者",
+      "entity": "CHR-008",
+      "via": "exact",
+      "lines": 368
+    },
+    {
+      "wiki": "迷迷",
+      "entity": "CHR-004",
+      "via": "exact",
+      "lines": 311
+    },
+    {
+      "wiki": "刻律德菈",
+      "entity": "CHR-023",
+      "via": "exact",
+      "lines": 265
+    },
+    {
+      "wiki": "卡厄斯兰那",
+      "entity": "CHR-001",
+      "via": "exact",
+      "lines": 239
+    },
+    {
+      "wiki": "海瑟音",
+      "entity": "CHR-022",
+      "via": "exact",
+      "lines": 223
+    },
+    {
+      "wiki": "缇宝",
+      "entity": "CHR-016",
+      "via": "exact",
+      "lines": 193
+    },
+    {
+      "wiki": "格奈乌斯",
+      "entity": "CHR-044",
+      "via": "exact",
+      "lines": 180
+    },
+    {
+      "wiki": "缇宁",
+      "entity": "CHR-016",
+      "via": "exact",
+      "lines": 172
+    },
+    {
+      "wiki": "黑天鹅",
+      "entity": "CHR-012",
+      "via": "exact",
+      "lines": 156
+    },
+    {
+      "wiki": "黑塔",
+      "entity": "CHR-010",
+      "via": "exact",
+      "lines": 136
+    },
+    {
+      "wiki": "往昔的涟漪",
+      "entity": "SYS-014",
+      "via": "exact",
+      "lines": 126
+    },
+    {
+      "wiki": "瑟希斯",
+      "entity": "CHR-032",
+      "via": "exact",
+      "lines": 124
+    },
+    {
+      "wiki": "螺丝咕姆",
+      "entity": "CHR-011",
+      "via": "exact",
+      "lines": 110
+    },
+    {
+      "wiki": "姬子",
+      "entity": "CHR-046",
+      "via": "exact",
+      "lines": 106
+    },
+    {
+      "wiki": "「长夜月」",
+      "entity": "CHR-006",
+      "via": "exact",
+      "lines": 105
+    },
+    {
+      "wiki": "三月七",
+      "entity": "CHR-007",
+      "via": "exact",
+      "lines": 98
+    },
+    {
+      "wiki": "「赞达尔」",
+      "entity": "CHR-013",
+      "via": "exact",
+      "lines": 92
+    },
+    {
+      "wiki": "缇里西庇俄丝",
+      "entity": "CHR-016",
+      "via": "exact",
+      "lines": 92
+    },
+    {
+      "wiki": "风堇",
+      "entity": "CHR-020",
+      "via": "exact",
+      "lines": 91
+    },
+    {
+      "wiki": "权杖δ-me13",
+      "entity": "SYS-001",
+      "via": "exact",
+      "lines": 69
+    },
+    {
+      "wiki": "克拉特鲁斯",
+      "entity": "CHR-041",
+      "via": "exact",
+      "lines": 68
+    },
+    {
+      "wiki": "玻吕茜亚",
+      "entity": "CHR-043",
+      "via": "exact",
+      "lines": 65
+    },
+    {
+      "wiki": "永夜之帷，三月七",
+      "entity": "CHR-007",
+      "via": "title_prefix",
+      "lines": 64
+    },
+    {
+      "wiki": "欧洛尼斯",
+      "entity": "CHR-026",
+      "via": "exact",
+      "lines": 57
+    },
+    {
+      "wiki": "荒笛",
+      "entity": "CHR-024",
+      "via": "exact",
+      "lines": 57
+    },
+    {
+      "wiki": "「海瑟音」",
+      "entity": "CHR-022",
+      "via": "exact",
+      "lines": 55
+    },
+    {
+      "wiki": "塞纳托斯",
+      "entity": "CHR-036",
+      "via": "exact",
+      "lines": 53
+    },
+    {
+      "wiki": "海列屈拉",
+      "entity": "CHR-022",
+      "via": "exact",
+      "lines": 53
+    },
+    {
+      "wiki": "星期日",
+      "entity": "CHR-045",
+      "via": "exact",
+      "lines": 50
+    },
+    {
+      "wiki": "磐岩之脊，丹恒",
+      "entity": "CHR-009",
+      "via": "title_prefix",
+      "lines": 48
+    },
+    {
+      "wiki": "天谴之矛，迈德漠斯",
+      "entity": "CHR-017",
+      "via": "manual_title",
+      "lines": 44
+    },
+    {
+      "wiki": "瓦尔特",
+      "entity": "CHR-047",
+      "via": "exact",
+      "lines": 37
+    },
+    {
+      "wiki": "缇安",
+      "entity": "CHR-016",
+      "via": "exact",
+      "lines": 37
+    },
+    {
+      "wiki": "盗火行者",
+      "entity": "CHR-001",
+      "via": "exact",
+      "lines": 35
+    },
+    {
+      "wiki": "灰黯之手，遐蝶",
+      "entity": "CHR-018",
+      "via": "title_prefix",
+      "lines": 34
+    },
+    {
+      "wiki": "卡吕普索",
+      "entity": "CHR-032",
+      "via": "exact",
+      "lines": 33
+    },
+    {
+      "wiki": "「遐蝶」",
+      "entity": "CHR-018",
+      "via": "exact",
+      "lines": 30
+    },
+    {
+      "wiki": "帕姆",
+      "entity": "CHR-048",
+      "via": "exact",
+      "lines": 28
+    },
+    {
+      "wiki": "黄金之茧，阿格莱雅",
+      "entity": "CHR-015",
+      "via": "title_prefix",
+      "lines": 24
+    },
+    {
+      "wiki": "裂分之枝，阿那克萨戈拉斯",
+      "entity": "CHR-019",
+      "via": "title_prefix",
+      "lines": 23
+    },
+    {
+      "wiki": "全世之座，开拓者",
+      "entity": "CHR-008",
+      "via": "title_prefix",
+      "lines": 22
+    },
+    {
+      "wiki": "毁灭的容器，卡厄斯兰那",
+      "entity": "CHR-001",
+      "via": "title_prefix",
+      "lines": 19
+    },
+    {
+      "wiki": "翻飞之币，赛法利娅",
+      "entity": "CHR-021",
+      "via": "title_prefix",
+      "lines": 18
+    },
+    {
+      "wiki": "万径之门，缇里西庇俄丝",
+      "entity": "CHR-016",
+      "via": "title_prefix",
+      "lines": 17
+    },
+    {
+      "wiki": "万径之门，缇安",
+      "entity": "CHR-016",
+      "via": "title_prefix",
+      "lines": 12
+    },
+    {
+      "wiki": "万径之门，缇宁",
+      "entity": "CHR-016",
+      "via": "title_prefix",
+      "lines": 11
+    },
+    {
+      "wiki": "公正之秤，刻律德菈",
+      "entity": "CHR-023",
+      "via": "title_prefix",
+      "lines": 11
+    },
+    {
+      "wiki": "长夜月",
+      "entity": "CHR-006",
+      "via": "exact",
+      "lines": 11
+    },
+    {
+      "wiki": "雅努斯",
+      "entity": "CHR-027",
+      "via": "exact",
+      "lines": 11
+    },
+    {
+      "wiki": "「阿格莱雅」",
+      "entity": "CHR-015",
+      "via": "exact",
+      "lines": 10
+    },
+    {
+      "wiki": "巴特鲁斯",
+      "entity": "CHR-042",
+      "via": "exact",
+      "lines": 10
+    },
+    {
+      "wiki": "「盗火行者」",
+      "entity": "CHR-001",
+      "via": "exact",
+      "lines": 9
+    },
+    {
+      "wiki": "丹恒？",
+      "entity": "CHR-009",
+      "via": "exact",
+      "lines": 9
+    },
+    {
+      "wiki": "满溢之杯，海列屈拉",
+      "entity": "CHR-022",
+      "via": "title_prefix",
+      "lines": 9
+    },
+    {
+      "wiki": "三月七！",
+      "entity": "CHR-007",
+      "via": "exact",
+      "lines": 7
+    },
+    {
+      "wiki": "三月七？",
+      "entity": "CHR-007",
+      "via": "exact",
+      "lines": 7
+    },
+    {
+      "wiki": "第一位天才，隐德来希，赞达尔",
+      "entity": "CHR-013",
+      "via": "title_prefix",
+      "lines": 7
+    },
+    {
+      "wiki": "姬子？",
+      "entity": "CHR-046",
+      "via": "exact",
+      "lines": 5
+    },
+    {
+      "wiki": "「三月七」",
+      "entity": "CHR-007",
+      "via": "exact",
+      "lines": 4
+    },
+    {
+      "wiki": "「织者」",
+      "entity": "CHR-015",
+      "via": "exact",
+      "lines": 4
+    },
+    {
+      "wiki": "开拓者？",
+      "entity": "CHR-008",
+      "via": "exact",
+      "lines": 4
+    },
+    {
+      "wiki": "「缇宁」",
+      "entity": "CHR-016",
+      "via": "exact",
+      "lines": 3
+    },
+    {
+      "wiki": "「缇安」",
+      "entity": "CHR-016",
+      "via": "exact",
+      "lines": 3
+    },
+    {
+      "wiki": "「缇宝」",
+      "entity": "CHR-016",
+      "via": "exact",
+      "lines": 3
+    },
+    {
+      "wiki": "三月七…",
+      "entity": "CHR-007",
+      "via": "exact",
+      "lines": 3
+    },
+    {
+      "wiki": "大黑塔",
+      "entity": "CHR-010",
+      "via": "manual_alias",
+      "lines": 2
+    },
+    {
+      "wiki": "赛法利娅",
+      "entity": "CHR-021",
+      "via": "exact",
+      "lines": 2
+    },
+    {
+      "wiki": "「丹恒」",
+      "entity": "CHR-009",
+      "via": "exact",
+      "lines": 1
+    },
+    {
+      "wiki": "「姬子」",
+      "entity": "CHR-046",
+      "via": "exact",
+      "lines": 1
+    },
+    {
+      "wiki": "「帕姆」",
+      "entity": "CHR-048",
+      "via": "exact",
+      "lines": 1
+    },
+    {
+      "wiki": "「瓦尔特」",
+      "entity": "CHR-047",
+      "via": "exact",
+      "lines": 1
+    },
+    {
+      "wiki": "全世之座，卡厄斯兰那",
+      "entity": "CHR-001",
+      "via": "title_prefix",
+      "lines": 1
+    }
+  ],
+  "unresolved": [
+    {
+      "wiki": "？？？",
+      "reason": "unknown_marker",
+      "lines": 276
+    },
+    {
+      "wiki": "来古士之声",
+      "reason": "echo_or_form",
+      "lines": 136
+    },
+    {
+      "wiki": "「贼灵」巴特鲁斯",
+      "reason": "no_entity_card",
+      "lines": 104
+    },
+    {
+      "wiki": "凯妮斯",
+      "reason": "no_entity_card",
+      "lines": 91
+    },
+    {
+      "wiki": "卡芙卡",
+      "reason": "no_entity_card",
+      "lines": 79
+    },
+    {
+      "wiki": "「丹枫」",
+      "reason": "no_entity_card",
+      "lines": 74
+    },
+    {
+      "wiki": "吕枯耳戈斯",
+      "reason": "no_entity_card",
+      "lines": 63
+    },
+    {
+      "wiki": "「断锋爵」拉比努斯",
+      "reason": "no_entity_card",
+      "lines": 54
+    },
+    {
+      "wiki": "心中的英雄",
+      "reason": "no_entity_card",
+      "lines": 49
+    },
+    {
+      "wiki": "空白的愿望",
+      "reason": "no_entity_card",
+      "lines": 41
+    },
+    {
+      "wiki": "「冬霖爵」塞涅卡",
+      "reason": "no_entity_card",
+      "lines": 39
+    },
+    {
+      "wiki": "「吟风爵」维吉妮娅",
+      "reason": "no_entity_card",
+      "lines": 39
+    },
+    {
+      "wiki": "泰坦之声",
+      "reason": "echo_or_form",
+      "lines": 35
+    },
+    {
+      "wiki": "神性的回响",
+      "reason": "echo_or_form",
+      "lines": 34
+    },
+    {
+      "wiki": "「曳石爵」阿波罗尼",
+      "reason": "no_entity_card",
+      "lines": 33
+    },
+    {
+      "wiki": "哈托努斯",
+      "reason": "no_entity_card",
+      "lines": 32
+    },
+    {
+      "wiki": "流萤",
+      "reason": "no_entity_card",
+      "lines": 26
+    },
+    {
+      "wiki": "多哆啦迷",
+      "reason": "no_entity_card",
+      "lines": 24
+    },
+    {
+      "wiki": "记忆中的赛飞儿",
+      "reason": "echo_or_form",
+      "lines": 24
+    },
+    {
+      "wiki": "海瑟音的记忆",
+      "reason": "no_entity_card",
+      "lines": 23
+    },
+    {
+      "wiki": "景元",
+      "reason": "no_entity_card",
+      "lines": 22
+    },
+    {
+      "wiki": "记忆中的缇宝",
+      "reason": "echo_or_form",
+      "lines": 22
+    },
+    {
+      "wiki": "悬锋报名官",
+      "reason": "no_entity_card",
+      "lines": 21
+    },
+    {
+      "wiki": "记忆中的那刻夏",
+      "reason": "echo_or_form",
+      "lines": 21
+    },
+    {
+      "wiki": "晨昏之眼，雅辛忒丝",
+      "reason": "no_entity_card",
+      "lines": 20
+    },
+    {
+      "wiki": "恩贝多克利斯",
+      "reason": "no_entity_card",
+      "lines": 18
+    },
+    {
+      "wiki": "阿蒙内特",
+      "reason": "no_entity_card",
+      "lines": 18
+    },
+    {
+      "wiki": "银狼",
+      "reason": "no_entity_card",
+      "lines": 17
+    },
+    {
+      "wiki": "恐惧的窃忆者",
+      "reason": "no_entity_card",
+      "lines": 16
+    },
+    {
+      "wiki": "温柔的母亲",
+      "reason": "no_entity_card",
+      "lines": 16
+    },
+    {
+      "wiki": "百夫长",
+      "reason": "no_entity_card",
+      "lines": 16
+    },
+    {
+      "wiki": "博识尊[黑塔]",
+      "reason": "compound_label",
+      "lines": 15
+    },
+    {
+      "wiki": "武器商人",
+      "reason": "no_entity_card",
+      "lines": 15
+    },
+    {
+      "wiki": "砂金",
+      "reason": "no_entity_card",
+      "lines": 15
+    },
+    {
+      "wiki": "管理宝库的官员",
+      "reason": "no_entity_card",
+      "lines": 15
+    },
+    {
+      "wiki": "记忆中的阿格莱雅",
+      "reason": "echo_or_form",
+      "lines": 15
+    },
+    {
+      "wiki": "高傲的国王",
+      "reason": "no_entity_card",
+      "lines": 15
+    },
+    {
+      "wiki": "「长夜」",
+      "reason": "no_entity_card",
+      "lines": 14
+    },
+    {
+      "wiki": "刃",
+      "reason": "no_entity_card",
+      "lines": 14
+    },
+    {
+      "wiki": "垂死的大司铎",
+      "reason": "no_entity_card",
+      "lines": 14
+    },
+    {
+      "wiki": "来古士的记忆",
+      "reason": "no_entity_card",
+      "lines": 14
+    },
+    {
+      "wiki": "记忆中的万敌",
+      "reason": "echo_or_form",
+      "lines": 14
+    },
+    {
+      "wiki": "传令士兵",
+      "reason": "no_entity_card",
+      "lines": 13
+    },
+    {
+      "wiki": "公民",
+      "reason": "no_entity_card",
+      "lines": 13
+    },
+    {
+      "wiki": "炼金术士",
+      "reason": "no_entity_card",
+      "lines": 13
+    },
+    {
+      "wiki": "达米亚诺斯",
+      "reason": "no_entity_card",
+      "lines": 13
+    },
+    {
+      "wiki": "金丝若虫",
+      "reason": "no_entity_card",
+      "lines": 13
+    },
+    {
+      "wiki": "「羁客」",
+      "reason": "no_entity_card",
+      "lines": 12
+    },
+    {
+      "wiki": "「阿蒙内特」",
+      "reason": "no_entity_card",
+      "lines": 12
+    },
+    {
+      "wiki": "沉默的斗士",
+      "reason": "no_entity_card",
+      "lines": 12
+    },
+    {
+      "wiki": "浴场精灵",
+      "reason": "no_entity_card",
+      "lines": 12
+    },
+    {
+      "wiki": "祭典之声",
+      "reason": "echo_or_form",
+      "lines": 12
+    },
+    {
+      "wiki": "飞霄",
+      "reason": "no_entity_card",
+      "lines": 12
+    },
+    {
+      "wiki": "吟游诗人利波",
+      "reason": "no_entity_card",
+      "lines": 11
+    },
+    {
+      "wiki": "奥赫玛民众",
+      "reason": "no_entity_card",
+      "lines": 11
+    },
+    {
+      "wiki": "布洛妮娅",
+      "reason": "no_entity_card",
+      "lines": 11
+    },
+    {
+      "wiki": "帕狄卡斯",
+      "reason": "no_entity_card",
+      "lines": 11
+    },
+    {
+      "wiki": "歌耳戈，万敌之母",
+      "reason": "no_entity_card",
+      "lines": 11
+    },
+    {
+      "wiki": "疯狂的奥赫玛士兵",
+      "reason": "no_entity_card",
+      "lines": 11
+    },
+    {
+      "wiki": "符玄",
+      "reason": "no_entity_card",
+      "lines": 11
+    },
+    {
+      "wiki": "记忆中的风堇",
+      "reason": "echo_or_form",
+      "lines": 11
+    },
+    {
+      "wiki": "「开山者」吉奥刻勒斯",
+      "reason": "no_entity_card",
+      "lines": 10
+    },
+    {
+      "wiki": "先王欧利庞",
+      "reason": "no_entity_card",
+      "lines": 10
+    },
+    {
+      "wiki": "卫士泽弗",
+      "reason": "no_entity_card",
+      "lines": 10
+    },
+    {
+      "wiki": "宫廷学者",
+      "reason": "no_entity_card",
+      "lines": 10
+    },
+    {
+      "wiki": "应星",
+      "reason": "no_entity_card",
+      "lines": 10
+    },
+    {
+      "wiki": "濒死的泰坦",
+      "reason": "no_entity_card",
+      "lines": 10
+    },
+    {
+      "wiki": "表情温柔的女人",
+      "reason": "no_entity_card",
+      "lines": 10
+    },
+    {
+      "wiki": "「君王」",
+      "reason": "no_entity_card",
+      "lines": 9
+    },
+    {
+      "wiki": "「清洗者」队长",
+      "reason": "no_entity_card",
+      "lines": 9
+    },
+    {
+      "wiki": "「门匠」",
+      "reason": "no_entity_card",
+      "lines": 9
+    },
+    {
+      "wiki": "严厉的圣城守卫",
+      "reason": "no_entity_card",
+      "lines": 9
+    },
+    {
+      "wiki": "公民大会公民",
+      "reason": "no_entity_card",
+      "lines": 9
+    },
+    {
+      "wiki": "古怪的显示器",
+      "reason": "no_entity_card",
+      "lines": 9
+    },
+    {
+      "wiki": "年幼的白厄",
+      "reason": "echo_or_form",
+      "lines": 9
+    },
+    {
+      "wiki": "徕啦迷",
+      "reason": "no_entity_card",
+      "lines": 9
+    },
+    {
+      "wiki": "皮西厄斯",
+      "reason": "no_entity_card",
+      "lines": 9
+    },
+    {
+      "wiki": "记忆中的昔涟",
+      "reason": "echo_or_form",
+      "lines": 9
+    },
+    {
+      "wiki": "镜流",
+      "reason": "no_entity_card",
+      "lines": 9
+    },
+    {
+      "wiki": "集市商人",
+      "reason": "no_entity_card",
+      "lines": 9
+    },
+    {
+      "wiki": "黄金狮首",
+      "reason": "no_entity_card",
+      "lines": 9
+    },
+    {
+      "wiki": "伶俐的海妖",
+      "reason": "no_entity_card",
+      "lines": 8
+    },
+    {
+      "wiki": "天谴先锋",
+      "reason": "no_entity_card",
+      "lines": 8
+    },
+    {
+      "wiki": "愤怒的祭司",
+      "reason": "no_entity_card",
+      "lines": 8
+    },
+    {
+      "wiki": "提图斯",
+      "reason": "no_entity_card",
+      "lines": 8
+    },
+    {
+      "wiki": "救世的回响",
+      "reason": "echo_or_form",
+      "lines": 8
+    },
+    {
+      "wiki": "欧洛尼斯之声",
+      "reason": "echo_or_form",
+      "lines": 8
+    },
+    {
+      "wiki": "爻光",
+      "reason": "no_entity_card",
+      "lines": 8
+    },
+    {
+      "wiki": "第四面镜",
+      "reason": "no_entity_card",
+      "lines": 8
+    },
+    {
+      "wiki": "美丽的海妖",
+      "reason": "no_entity_card",
+      "lines": 8
+    },
+    {
+      "wiki": "萨姆",
+      "reason": "no_entity_card",
+      "lines": 8
+    },
+    {
+      "wiki": "「信使」",
+      "reason": "no_entity_card",
+      "lines": 7
+    },
+    {
+      "wiki": "「斯缇科西亚女王」",
+      "reason": "no_entity_card",
+      "lines": 7
+    },
+    {
+      "wiki": "「粉色」的声音",
+      "reason": "echo_or_form",
+      "lines": 7
+    },
+    {
+      "wiki": "反造物主，流溢之恨",
+      "reason": "no_entity_card",
+      "lines": 7
+    },
+    {
+      "wiki": "小伊卡",
+      "reason": "no_entity_card",
+      "lines": 7
+    },
+    {
+      "wiki": "年轻的书吏",
+      "reason": "no_entity_card",
+      "lines": 7
+    },
+    {
+      "wiki": "年迈的祭司",
+      "reason": "no_entity_card",
+      "lines": 7
+    },
+    {
+      "wiki": "怪物的嘶吼",
+      "reason": "no_entity_card",
+      "lines": 7
+    },
+    {
+      "wiki": "翡翠",
+      "reason": "no_entity_card",
+      "lines": 7
+    },
+    {
+      "wiki": "老费贝尔",
+      "reason": "no_entity_card",
+      "lines": 7
+    },
+    {
+      "wiki": "记忆中的来古士",
+      "reason": "echo_or_form",
+      "lines": 7
+    },
+    {
+      "wiki": "冷静的窃忆者",
+      "reason": "no_entity_card",
+      "lines": 6
+    },
+    {
+      "wiki": "卫士尼莫西妮",
+      "reason": "no_entity_card",
+      "lines": 6
+    },
+    {
+      "wiki": "开拓者&昔涟",
+      "reason": "compound_label",
+      "lines": 6
+    },
+    {
+      "wiki": "徘徊的游人",
+      "reason": "no_entity_card",
+      "lines": 6
+    },
+    {
+      "wiki": "慈祥的妇人",
+      "reason": "no_entity_card",
+      "lines": 6
+    },
+    {
+      "wiki": "拉冬代表",
+      "reason": "no_entity_card",
+      "lines": 6
+    },
+    {
+      "wiki": "救城的将领",
+      "reason": "no_entity_card",
+      "lines": 6
+    },
+    {
+      "wiki": "真言狮口",
+      "reason": "no_entity_card",
+      "lines": 6
+    },
+    {
+      "wiki": "粗鲁的拉冬人",
+      "reason": "no_entity_card",
+      "lines": 6
+    },
+    {
+      "wiki": "赫菲斯辛",
+      "reason": "no_entity_card",
+      "lines": 6
+    },
+    {
+      "wiki": "遥远的男声",
+      "reason": "no_entity_card",
+      "lines": 6
+    },
+    {
+      "wiki": "「学士」",
+      "reason": "no_entity_card",
+      "lines": 5
+    },
+    {
+      "wiki": "「符玄」",
+      "reason": "no_entity_card",
+      "lines": 5
+    },
+    {
+      "wiki": "丹枫",
+      "reason": "no_entity_card",
+      "lines": 5
+    },
+    {
+      "wiki": "困惑的公民",
+      "reason": "no_entity_card",
+      "lines": 5
+    },
+    {
+      "wiki": "死者的呼唤",
+      "reason": "no_entity_card",
+      "lines": 5
+    },
+    {
+      "wiki": "深海的女王",
+      "reason": "no_entity_card",
+      "lines": 5
+    },
+    {
+      "wiki": "畏惧的圣城守卫",
+      "reason": "no_entity_card",
+      "lines": 5
+    },
+    {
+      "wiki": "知更鸟",
+      "reason": "no_entity_card",
+      "lines": 5
+    },
+    {
+      "wiki": "「侍女」",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "「闭嘴」",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "倨傲的公民",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "冷静的公民",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "命途之声",
+      "reason": "echo_or_form",
+      "lines": 4
+    },
+    {
+      "wiki": "回忆之声",
+      "reason": "echo_or_form",
+      "lines": 4
+    },
+    {
+      "wiki": "圣城守卫",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "士兵的回响",
+      "reason": "echo_or_form",
+      "lines": 4
+    },
+    {
+      "wiki": "希瑞雅",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "希露瓦",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "幼年白厄",
+      "reason": "echo_or_form",
+      "lines": 4
+    },
+    {
+      "wiki": "悬锋族长",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "愤慨的悬锋族人",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "莉维娅",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "议论纷纷的公民",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "记忆中的缇安",
+      "reason": "echo_or_form",
+      "lines": 4
+    },
+    {
+      "wiki": "识刻锚",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "铁匠",
+      "reason": "no_entity_card",
+      "lines": 4
+    },
+    {
+      "wiki": "「医师」",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "「死龙」玻吕刻斯",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "「记忆的花」",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "众人",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "众圣城守卫",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "克莱门汀",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "前台的电话",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "力竭的悬锋人",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "卫兵",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "命运的祭司",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "哀地里亚的亡魂",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "圣城戍卫",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "埃普斯代表",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "奥妲塔？",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "学徒",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "小女孩",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "尼卡多利的残骸",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "希洛尼摩斯？",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "帕福斯代表",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "忆者的化身",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "托帕",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "披索",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "斯缇科西亚的亡魂",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "晕眩的浴场客人",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "浴场侍者达罗",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "缇宁&开拓者&迷迷",
+      "reason": "compound_label",
+      "lines": 3
+    },
+    {
+      "wiki": "缇宁&白厄",
+      "reason": "compound_label",
+      "lines": 3
+    },
+    {
+      "wiki": "英雄的回响",
+      "reason": "echo_or_form",
+      "lines": 3
+    },
+    {
+      "wiki": "记忆中的缇宁",
+      "reason": "echo_or_form",
+      "lines": 3
+    },
+    {
+      "wiki": "记忆中的遐蝶",
+      "reason": "echo_or_form",
+      "lines": 3
+    },
+    {
+      "wiki": "达格拉",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "铁墓，原初罪，灵智堕落因",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "黄金裔们",
+      "reason": "no_entity_card",
+      "lines": 3
+    },
+    {
+      "wiki": "「海妖」",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "「记忆的幼芽」",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "「记忆的花蕾」",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "「金织爵」阿格莱雅",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "严厉的议员",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "乖戾的祭司",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "亲切的臣民",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "冷静的空间站科员",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "夸张的公民",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "女播报员",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "好奇的女眷",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "如痴如醉的战士",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "小男孩",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "山之民的残忆",
+      "reason": "echo_or_form",
+      "lines": 2
+    },
+    {
+      "wiki": "巧舌的公民",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "希儿",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "年幼的女孩",
+      "reason": "echo_or_form",
+      "lines": 2
+    },
+    {
+      "wiki": "年幼的男孩",
+      "reason": "echo_or_form",
+      "lines": 2
+    },
+    {
+      "wiki": "年轻男子",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "忠诚的卫士",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "悬锋士兵",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "戍卫长",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "托勒密",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "探险家的残忆",
+      "reason": "echo_or_form",
+      "lines": 2
+    },
+    {
+      "wiki": "揶揄的学者",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "晨昏之眼，雅辛忒斯",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "暴躁的武士",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "朴塞塔",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "机敏的逐火士兵",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "某位元老院议员",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "母亲的残忆",
+      "reason": "echo_or_form",
+      "lines": 2
+    },
+    {
+      "wiki": "沉着的空间站科员",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "浪漫的诗人",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "温厚的学者",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "热情的臣民",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "犹豫的窃忆者",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "男播报员",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "疯癫的学者",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "白厄&盗火行者",
+      "reason": "compound_label",
+      "lines": 2
+    },
+    {
+      "wiki": "祭司的残忆",
+      "reason": "echo_or_form",
+      "lines": 2
+    },
+    {
+      "wiki": "莱昂",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "贵族的回响",
+      "reason": "echo_or_form",
+      "lines": 2
+    },
+    {
+      "wiki": "辩论的学者们",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "铁墓，反诺斯，灵知的葬仪",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "闲散的公民",
+      "reason": "no_entity_card",
+      "lines": 2
+    },
+    {
+      "wiki": "「万敌」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「侍女」&「医师」",
+      "reason": "compound_label",
+      "lines": 1
+    },
+    {
+      "wiki": "「刃」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「命运爵」缇宝",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「景元」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「涛然」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「白厄」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「白露」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「窃忆者」",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「缇宝」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「记忆的种子」",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「赛飞儿」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「遐蝶」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「那刻夏」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「镜流」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「阿格莱雅」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "「风堇」（？）",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "〔剧透〕白厄",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "不会游泳的逐火士兵",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "不明就里的逐火士兵",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "亡语蝶",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "亡魂的声音",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "伙伴们",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "元老院议员们",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "兴奋的臣民",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "凯撒的军团和人民",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "医疗兵的残忆",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "古怪的弈者",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "古怪的显示器？",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "另一位元老院议员",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "可疑的守卫",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "和蔼的议员",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "喜悦的元老",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "喜悦的臣民",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "坚定的议员",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "女声",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "女孩的残忆",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "好事的议员",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "孩童",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "安德里斯库斯",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "工匠的回响",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "年长的议员",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "德米特里",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "恐慌的祭司",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "恼火的公民",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "感恩的公民",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "慌张的奇美拉",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "战斗技能「命中注定的棺木」",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "战斗效果「愿你化作初生的烈阳」",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "战斗效果「愿你将黑云驱离天边」",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "战斗效果「愿你能终结长夜」",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "抵抗的人群",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "担忧的悬锋族人",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "指挥官的残忆",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "振奋的元老",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "故事",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "智械的残忆",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "沉默的女孩",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "泰坦眷属",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "渴血的奥赫玛人",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "游侠的残忆",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "潮汐的声音",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "激动的公民",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "濒死的奥赫玛人",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "焦虑的公民",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "狂热的悬锋人",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "猎户",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "理智的祭司",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "男孩的残忆",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "白厄&幼年白厄",
+      "reason": "compound_label",
+      "lines": 1
+    },
+    {
+      "wiki": "白厄&缇宁",
+      "reason": "compound_label",
+      "lines": 1
+    },
+    {
+      "wiki": "矫健的逐火士兵",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "祭司的回响",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "绝望的战士",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "老人",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "职员的残忆",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "英气的军需官",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "虔诚的学者",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "虔诚的臣民",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "虔诚的议员",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "被腐蚀的海妖",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "谋臣的回响",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "谨慎的议员",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "身材瘦小的老人",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "远处传来的女声",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "迷惑的祭司",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "那刻夏&瑟希斯",
+      "reason": "compound_label",
+      "lines": 1
+    },
+    {
+      "wiki": "那刻夏&白厄",
+      "reason": "compound_label",
+      "lines": 1
+    },
+    {
+      "wiki": "金血忆灵",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "闲逛的议员",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "飞行员的残忆",
+      "reason": "echo_or_form",
+      "lines": 1
+    },
+    {
+      "wiki": "马耳叙阿斯",
+      "reason": "no_entity_card",
+      "lines": 1
+    },
+    {
+      "wiki": "骇客的残忆",
+      "reason": "echo_or_form",
+      "lines": 1
+    }
+  ]
+}

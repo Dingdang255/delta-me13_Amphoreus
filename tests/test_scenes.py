@@ -17,14 +17,10 @@ class TestSceneCatalogue(unittest.TestCase):
         cls.bundle = canon.CanonBundle.load()
         cls.rows = scenes.load(cls.bundle)
 
-    def test_all_chapters_covered_except_known_gap(self):
+    def test_all_chapters_covered(self):
         cov = scenes.coverage(self.rows)
         for version in CHAPTERS:
-            if version == "3.4":
-                continue
             self.assertGreaterEqual(cov.get(version, 0), 1, version)
-        # 3.4 ownership is UNKNOWN (CF-007); it must stay absent, not be invented
-        self.assertEqual(cov.get("3.4", 0), 0)
 
     def test_every_scene_has_provenance(self):
         for scene in self.rows:

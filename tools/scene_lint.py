@@ -24,8 +24,6 @@ sys.path.insert(0, ROOT)
 from apps import canon, scenes  # noqa: E402
 
 REQUIRED_CHAPTERS = ("3.0", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7")
-#: known corpus gaps: a chapter whose ownership is still UNKNOWN is a warning, not an error
-EXPECTED_GAPS = {"3.4": "章节归属 UNKNOWN（CF-007）"}
 
 
 def audit(bundle):
@@ -54,10 +52,7 @@ def audit(bundle):
     for version in REQUIRED_CHAPTERS:
         if cov.get(version, 0) >= 1:
             continue
-        if version in EXPECTED_GAPS:
-            warnings.append(f"chapter {version} has no scene: {EXPECTED_GAPS[version]}")
-        else:
-            errors.append(f"chapter {version} has no scene")
+        errors.append(f"chapter {version} has no scene")
 
     graph = scenes.dag(rows)
     nodes = set(graph["nodes"])

@@ -33,7 +33,10 @@
   ],
   "verbatim": {
     "field": "confidence",
-    "grade": "A"
+    "grade": "A",
+    "scope_field": "verbatim_claim",
+    "scope_value": true,
+    "_comment": "只统计自称逐字的记录；B 级 wiki 记录标 verbatim_claim:false，不计入 A 级逐字分母，只影响 coverage。"
   },
   "unknown": {
     "kind": "unknown",
