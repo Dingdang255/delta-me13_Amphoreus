@@ -74,6 +74,14 @@
 - `tools/trend_audit.py`：规格审计（驱动量 / 目标 / 形态 / 来源 / 置信度）+ `--demo` 演示。
 - `tests/test_trends.py`：11 项契约（双通道独立性、单调有界、阈值、缺读数、确定性、覆盖率）。
 
+### 角色心智（P5）
+
+- `apps/agents.py`：从编译语料载入 27 张角色卡；`decide(card, percept)` 按 `when` **精确匹配**
+  （不做语义猜测），同一条触发命中多条规则时回报 `ambiguous` 与全部候选；`when` 为 `UNKNOWN`
+  的规则**不可执行**，不会被当成通配符。另提供关系增减（纯函数、带夹取）、情绪查表、说话画像。
+- `tools/character_audit.py`：卡片体检（≥3 规则、规则必须有来源）+ 81 条场景全量回放。
+- `tests/test_agents_contract.py`、`tests/test_character_consistency.py`：17 项契约。
+
 ### 验证
 
 - 全量单测通过（基线 508 项）；`snapshot --structural` canonical 逐项一致。
@@ -82,6 +90,8 @@
   可直接 `run.py --root ... --preset _default` 跑通 600 帧（122 位个体）。
 - 趋势：`trend_audit --demo` 得 delay 0.965 / tendency 0.9997 / entropy 0.767 / memory 0.617，
   噪声未越阈（0.000）；`--check` 0 错；11 项契约测试通过。
+- 角色：27 张卡 / 81 条规则 / 75 条可执行；81 条场景回放得 **75 pass · 0 mismatch · 6 unknown**，
+  可执行部分通过率 100%；`character_audit --check` 0 错；17 项契约测试通过。
 - `origin`：39 条断言全过 / 5 锚点 / `origin_closed`。
 - `origin-eternal`：53 条断言全过 / 40 条时间线全过 / `origin_closed` / 复用 33,580,277 帧。
 - `grep_forbidden` / `layer_lint` / `stepwise_lint` 全过；`kernel/` 与 `apps/` 零专名。

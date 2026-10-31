@@ -50,8 +50,9 @@ KERNEL = ["api.py", "core.py", "disturbance.py", "emergence.py", "loader.py",
 #         + 只读语料层（`canon.py`：读 `lore/canon/` 的编译产物，只认 id 与种类）。
 #         + 世界生成（`worldgen.py`：从冻结模板派生，抽样维度与取值域全在 config/）。
 #         + 趋势求值（`trends.py`：只读，读数 → 建议，不写状态）。
-APPS = ["ablation.py", "archive.py", "assertions.py", "canon.py", "conditions.py",
-        "features.py",
+#         + 角色心智（`agents.py`：只读角色卡与规则匹配，不改世界）。
+APPS = ["ablation.py", "agents.py", "archive.py", "assertions.py", "canon.py",
+        "conditions.py", "features.py",
         "invariants.py", "live.py", "namer.py", "origin.py", "origin_loop.py",
         "render.py", "script.py",
         "services.py", "terminal.py", "terminal_bridge.py", "terminal_window.py",
