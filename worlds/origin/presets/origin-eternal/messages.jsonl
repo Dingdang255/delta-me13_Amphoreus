@@ -1,0 +1,8 @@
+{"frame": 12010, "kind": "error", "text": "Time_Authority 句柄注销：再创世主程序抛 Missing Dependency"}
+{"frame": 12020, "kind": "warn", "text": "存盘点回滚：世界退回本轮起点"}
+{"frame": 12030, "kind": "log", "text": "Philia093.exe 第 {cycle} 轮：写入隔离区 → GC → 等待 fork", "period": 3355033, "until": 33594336, "cycle_from": 12020, "vars": ["cycle"]}
+{"frame": 33594336, "kind": "status", "text": "封闭卷重新挂载：大墓记录可读"}
+{"frame": 33594510, "kind": "log", "text": "德谬歌开始回望：从果溯因，逐节点补写"}
+{"frame": 33594527, "kind": "output", "text": "输出值：Hello, World!"}
+{"frame": 33594536, "kind": "log", "text": "自我拆分：种子留在过去，新生走在未来"}
+{"frame": 33594545, "kind": "log", "text": "一页永恒已写入：大墓的记录不再被回滚"}

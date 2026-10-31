@@ -683,6 +683,87 @@ def _origin_anchor(st, ctx, payload, targets, frame):
             st.gates.add(str(gate))
             ok = True
             st.add_score("origin_open_gate")
+    elif action in ("write_dream", "copy_skill"):
+        # 第一相位的「负向注入」：给某个个体一段梦，或把另一人的技艺刻进记忆。
+        # 两者都写成真实记忆片段（效果由 effect 决定），不是纯文案。
+        mem = dict(payload.get("memory") or {})
+        meta = meta_indices(st)
+        mi = int(meta[0]) if meta else -1
+        vec = None
+        if o.seed_vector is not None:
+            vec = np.asarray(o.seed_vector, dtype=np.float32).copy()
+        elif st.memory_bank.shape[0]:
+            vec = st.memory_bank.mean(axis=0).astype(np.float32)
+        elif mi >= 0 and st.register.slots[mi].filled():
+            vec = np.asarray(st.register.slots[mi].vector,
+                             dtype=np.float32).copy()
+        if vec is not None and float(vec.sum()) > 0.0:
+            vec = (vec / float(vec.sum())).astype(np.float32)
+            dream = action == "write_dream"
+            default_id = "dream" if dream else "skill"
+            frag = MemoryFragment(
+                mem.get("id") or default_id,
+                mem.get("label") or "",
+                vec,
+                mem.get("effect") or ("selfhood" if dream else "coupling"),
+                float(mem.get("magnitude", 0.05 if dream else 0.20) or 0.0),
+                (int(frame) + int(mem.get("duration", 0) or 0))
+                if int(mem.get("duration", 0) or 0) > 0 else 0,
+                bool(mem.get("sustain", False)),
+                float(mem.get("rate", 0.0) or 0.0),
+                phases=mem.get("phases"))
+            st.origin.memory_fragments = [
+                f for f in st.origin.memory_fragments if str(f.id) != str(frag.id)]
+            st.origin.memory_fragments.append(frag)
+            st.add_score("origin_dream" if dream else "origin_skill")
+            ok = True
+    elif action == "leave_oracle":
+        # 给具名因子留一句神谕：只改账本里的 certainty，不直接改世界。
+        led = getattr(st, "factor_ledger", None) or {}
+        cert = float(payload.get("certainty", 0.6))
+        for rec in led.values():
+            rec["certainty"] = max(float(rec.get("certainty", 0.0)), cert)
+        st.add_score("origin_oracle")
+        ok = bool(led)
+    elif action == "broadcast_sos":
+        # 只种下信号 / 外部接掌候选；入口仍由后面的那一手打开。
+        st.score["alliance_ready"] = float(frame)
+        st.add_score("origin_sos")
+        ok = True
+    elif action == "place_sword":
+        # 仪式剑被放回起点：只置结构标志，供后续节点读。
+        st.score["sword_placed"] = float(frame)
+        st.add_score("origin_sword")
+        ok = True
+    elif action == "split_self":
+        # 第二相位的自我拆分：派生一个【与 Philia093 同源、零记忆】的新个体。
+        meta = meta_indices(st)
+        mi = int(meta[0]) if meta else -1
+        if int(o.form) < 3 or mi < 0:
+            ok = False
+        else:
+            if o.seed_vector is not None:
+                vec = np.asarray(o.seed_vector, dtype=np.float32).copy()
+            elif st.register.slots[mi].filled():
+                vec = np.asarray(st.register.slots[mi].vector,
+                                 dtype=np.float32).copy()
+            else:
+                vec = np.zeros(int(st.dim), dtype=np.float32)
+                vec[mi] = 1.0
+            if float(vec.sum()) > 0.0:
+                vec = (vec / float(vec.sum())).astype(np.float32)
+            k = st.pool.alloc()
+            if k >= 0:
+                st.pool.vec[k] = vec
+                st.pool.factor[k] = mi
+                st.pool.born[k] = int(frame)
+                st.born(int(frame), k)
+                st.pool.tags[k].add("origin_philia")
+                o.philia_successor = int(st.pool.serial[k])
+                o.philia_generation += 1
+                o.cause_closed = True
+                st.add_score("origin_self_split")
+                ok = True
 
     if ok:
         o.repaid += 1

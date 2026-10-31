@@ -296,6 +296,9 @@ class OriginState:
     __slots__ = ("filled", "energy", "age", "selfhood", "closure", "borrowed",
                  "repaid", "seed_vector", "ever", "unstable", "final",
                  "awake", "form", "factor_rows", "coverage",
+                 "tomb_cycles", "tomb_rows", "tomb_volume", "tomb_last",
+                 "memory_reserve", "cause_closed",
+                 "philia_successor", "philia_generation",
                  "companion_serial", "companion_host", "companion_until",
                  "companion_stage", "companion_age", "companion_carry",
                  "companion_bond", "companion_rebond_until",
@@ -324,6 +327,17 @@ class OriginState:
         self.form = 0
         self.factor_rows = 0
         self.coverage = 0.0
+        # 大墓（隔离存储区）：每轮上传的记忆账本。只在这里记账，不逐帧累加。
+        self.tomb_cycles = 0
+        self.tomb_rows = 0
+        self.tomb_volume = 0.0
+        self.tomb_last = 0
+        # 出循环后由大墓容量折算出的记忆储备（连续量，只进 digest）。
+        self.memory_reserve = 0.0
+        # 两次回望的第二相位：自我拆分是否完成（结构标志）与派生出的新个体。
+        self.cause_closed = False
+        self.philia_successor = -1
+        self.philia_generation = 0
         # 忆灵（伴生体）：一个真实的派生个体，载体是池中编号；死后可再凝。
         self.companion_serial = -1
         self.companion_host = -1
@@ -376,6 +390,14 @@ class OriginState:
         n.form = self.form
         n.factor_rows = self.factor_rows
         n.coverage = self.coverage
+        n.tomb_cycles = self.tomb_cycles
+        n.tomb_rows = self.tomb_rows
+        n.tomb_volume = self.tomb_volume
+        n.tomb_last = self.tomb_last
+        n.memory_reserve = self.memory_reserve
+        n.cause_closed = self.cause_closed
+        n.philia_successor = self.philia_successor
+        n.philia_generation = self.philia_generation
         n.companion_serial = self.companion_serial
         n.companion_host = self.companion_host
         n.companion_until = self.companion_until
@@ -619,7 +641,12 @@ class State:
                                 int(o.repaid), int(o.age), round(float(o.energy), 6),
                                 round(float(o.selfhood), 6), int(o.love_until),
                                 int(o.dissolve_run), int(o.stagnant_run),
-                                int(o.trailblaze_until), str(o.last_sig))), "utf-8"))
+                                int(o.trailblaze_until), str(o.last_sig),
+                                int(o.tomb_cycles), int(o.tomb_rows),
+                                round(float(o.tomb_volume), 6), int(o.tomb_last),
+                                round(float(o.memory_reserve), 6),
+                                int(o.cause_closed), int(o.philia_successor),
+                                int(o.philia_generation))), "utf-8"))
             if o.seed_vector is not None:
                 q = np.rint(np.asarray(o.seed_vector, dtype=np.float32)
                             * 4096).astype(np.int32)

@@ -35,30 +35,30 @@ python run.py --help                           # 查看全部参数
 
 常用开关：
 
-| 开关 | 作用 |
-|---|---|
-| `--root <目录>` | 世界根目录（其下有 `config/` 与 `presets/`）；默认项目根。`--root worlds/origin --preset origin` 跑 13 席的原初世界。日志 / 看板 / 锚定语料跟随它，`TerminalBridge` 的 `PYTHONPATH` / `cwd` 仍用项目根 |
-| `--preset <名>` | 选预设：`emergent` 涌现版（默认）/ `plot` 剧情锚定版 / `plot-full` 剧情内容版 / `plot-mech` 剧情机制版 / `nullify` 否定版 / `destruction` 毁灭版 / `tide` 淹没版 / `refuted` 证伪版 / `_demo` `script.jsonl` 样例（`FRAME` 定时投递 + 事件响应）。其中 `plot-full` 是 `plot` 的内容版孪生副本：新增桥段一律是 `emit` 镜头，只进账本、不改世界，也不动 `plot` 的招牌轨道与指纹 |
-| `--list-presets` | 列出 `presets/` 下可用的预设（含预设目录里自带 `preset.json` 的世界） |
-| `--seed <n>` | 换一个世界种子（只影响角色涌现，不改裁决结果与时刻） |
-| `--frames <n>` | 只跑到第 n 帧（调试用） |
-| `--live` | 实时刷屏编年史 |
-| `--log [路径]` | 编年史落盘（不配 `--live` 时只落盘、不刷屏）；不给路径就写 `logs/翁法罗斯编年史_演算N.txt`（N 递增，不覆盖旧的）；落盘后会在终端提示文件路径 |
-| `--terminal` / `--no-terminal` | 按帧输出 δ-me13 系统消息（`>>>`）；只读，不改轨迹（默认取 `preset.json` 的 `narrative.terminal`） |
-| `--terminal-ask` | 在 `prompt` 处等待输入；非 TTY 自动用默认答案 |
-| `--terminal-window` | 另开一个独立 CLI 窗口显示 `>>>` 并处理 `prompt`；Windows 用新控制台，其它平台尝试常见终端模拟器，失败时回退同控制台。隐含 `--terminal`；与 `--no-terminal` 冲突 |
-| `--terminal-window-timeout <秒>` | 独立 CLI 窗口等待 `prompt` 回答的秒数（默认 60；超时用默认答案继续） |
-| `--archive` / `--no-archive` | 报告追加实验档案 / 异常记录 / 实验进度；只读（默认取 `narrative.archive`） |
-| `--origin` / `--no-origin` | 报告追加【八】原初目标：canonical 世界走只读探针（自我度 / 记忆闭合 / 反事实），`worlds/origin` 读真实的 `traj.final.origin`（成形 / 能量 / 借还 / 锚点 / 四态）；默认取 `narrative.origin` |
-| `--export [路径]` | 导出单文件 HTML dashboard；不给路径就写 `dashboard/翁法罗斯-可视化.html` |
-| `--serve [端口]` | 起只读看板服务并自动开浏览器：页面随演算实时更新，演完转为回放台（默认端口 8765，Ctrl+C 结束） |
-| `--no-open` | 配 `--serve`：不自动开浏览器，自己访问打印出的地址 |
-| `--serve-reload` / `--no-serve-reload` | 配 `--serve`：演算跑完后自动把页面重载成完整静态页（默认开）；关掉则改为弹提示，由你点「立即查看」再切 |
-| `--verbosity <档>` | 逐类别控制编年史字数：`2,deadlock=3,emergence=0` |
-| `--json` | 额外输出机器可读结果 |
-| `--dump-anchors` | 导出命名标定语料 |
-| `--explore [K]` | 探路档：把时间刻度按 K 压缩，跳过帧号类断言（只验机制连通） |
-| `--fast [K]` | `--explore` 的旧名，等价 |
+| 开关                                     | 作用                                                                                                                                                                                                                                                                              |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--root <目录>`                          | 世界根目录（其下有 `config/` 与 `presets/`）；默认项目根。`--root worlds/origin --preset origin` 跑 13 席的原初世界。日志 / 看板 / 锚定语料跟随它，`TerminalBridge` 的 `PYTHONPATH` / `cwd` 仍用项目根                                                                                                                      |
+| `--preset <名>`                         | 选预设：`emergent` 涌现版（默认）/ `plot` 剧情锚定版 / `plot-full` 剧情内容版 / `plot-mech` 剧情机制版 / `nullify` 否定版 / `destruction` 毁灭版 / `tide` 淹没版 / `refuted` 证伪版 / `_demo` `script.jsonl` 样例（`FRAME` 定时投递 + 事件响应）。其中 `plot-full` 是 `plot` 的内容版孪生副本：新增桥段一律是 `emit` 镜头，只进账本、不改世界，也不动 `plot` 的招牌轨道与指纹 |
+| `--list-presets`                       | 列出 `presets/` 下可用的预设（含预设目录里自带 `preset.json` 的世界）                                                                                                                                                                                                                                |
+| `--seed <n>`                           | 换一个世界种子（只影响角色涌现，不改裁决结果与时刻）                                                                                                                                                                                                                                                      |
+| `--frames <n>`                         | 只跑到第 n 帧（调试用）                                                                                                                                                                                                                                                                   |
+| `--live`                               | 实时刷屏编年史                                                                                                                                                                                                                                                                         |
+| `--log [路径]`                           | 编年史落盘（不配 `--live` 时只落盘、不刷屏）；不给路径就写 `logs/翁法罗斯编年史_演算N.txt`（N 递增，不覆盖旧的）；落盘后会在终端提示文件路径                                                                                                                                                                                             |
+| `--terminal` / `--no-terminal`         | 按帧输出 δ-me13 系统消息（`>>>`）；只读，不改轨迹（默认取 `preset.json` 的 `narrative.terminal`）                                                                                                                                                                                                       |
+| `--terminal-ask`                       | 在 `prompt` 处等待输入；非 TTY 自动用默认答案                                                                                                                                                                                                                                                  |
+| `--terminal-window`                    | 另开一个独立 CLI 窗口显示 `>>>` 并处理 `prompt`；Windows 用新控制台，其它平台尝试常见终端模拟器，失败时回退同控制台。隐含 `--terminal`；与 `--no-terminal` 冲突                                                                                                                                                                   |
+| `--terminal-window-timeout <秒>`        | 独立 CLI 窗口等待 `prompt` 回答的秒数（默认 60；超时用默认答案继续）                                                                                                                                                                                                                                     |
+| `--archive` / `--no-archive`           | 报告追加实验档案 / 异常记录 / 实验进度；只读（默认取 `narrative.archive`）                                                                                                                                                                                                                              |
+| `--origin` / `--no-origin`             | 报告追加【八】原初目标：canonical 世界走只读探针（自我度 / 记忆闭合 / 反事实），`worlds/origin` 读真实的 `traj.final.origin`（成形 / 能量 / 借还 / 锚点 / 四态）；默认取 `narrative.origin`                                                                                                                                         |
+| `--export [路径]`                        | 导出单文件 HTML dashboard；不给路径就写 `dashboard/翁法罗斯-可视化.html`                                                                                                                                                                                                                           |
+| `--serve [端口]`                         | 起只读看板服务并自动开浏览器：页面随演算实时更新，演完转为回放台（默认端口 8765，Ctrl+C 结束）                                                                                                                                                                                                                           |
+| `--no-open`                            | 配 `--serve`：不自动开浏览器，自己访问打印出的地址                                                                                                                                                                                                                                                  |
+| `--serve-reload` / `--no-serve-reload` | 配 `--serve`：演算跑完后自动把页面重载成完整静态页（默认开）；关掉则改为弹提示，由你点「立即查看」再切                                                                                                                                                                                                                        |
+| `--verbosity <档>`                      | 逐类别控制编年史字数：`2,deadlock=3,emergence=0`                                                                                                                                                                                                                                           |
+| `--json`                               | 额外输出机器可读结果                                                                                                                                                                                                                                                                      |
+| `--dump-anchors`                       | 导出命名标定语料                                                                                                                                                                                                                                                                        |
+| `--explore [K]`                        | 探路档：把时间刻度按 K 压缩，跳过帧号类断言（只验机制连通）                                                                                                                                                                                                                                                 |
+| `--fast [K]`                           | `--explore` 的旧名，等价                                                                                                                                                                                                                                                              |
 
 ## 可视化 dashboard
 
@@ -87,36 +87,36 @@ python run.py --help                           # 查看全部参数
 
 ## 剧情与演算（90% 规则）
 
-剧情不靠「写一段字幕」参与演算，也**不再拆成两个世界**。`origin-eternal` 是一条时间线：
+剧情不靠「写一段字幕」参与演算。`origin-eternal` 是一条时间线：
 
-| 段 | 帧 | 内容 |
-|---|---|---|
-| 真相轮 | 0–12000 | 来古士只提示几句；白厄/昔涟**自己推断**出浮黎的漏洞 |
-| 岁月漏洞 | 12010 | 昔涟入仪式剑，岁月路径缺一页（`suppress_slot`） |
-| 浮黎回退 | 12020 | 真实的 `checkpoint → gaze.rollback`：世界退回本轮起点 |
-| 永劫回归 | 12020–33,594,336 | 33,550,336 轮，沿参考轨道复用 |
+| 段    | 帧                     | 内容                                                            |
+| ---- | --------------------- | ------------------------------------------------------------- |
+| 真相轮  | 0–12000               | 来古士多说了几句话；白厄/昔涟**自己推断**出浮黎的漏洞                                 |
+| 岁月漏洞 | 12010                 | 昔涟入仪式剑，岁月路径缺一页（`suppress_slot`）                               |
+| 浮黎回退 | 12020                 | 真实的 `checkpoint → gaze.rollback`：世界退回本轮起点                     |
+| 永劫回归 | 12020–33,594,336      | 33,550,336 轮，沿参考轨道复用                                          |
 | 最后一轮 | 33,594,336–33,600,000 | 3.0–3.3 → 长夜月还负世 → **最后一次再创世补齐十二席** → 丹恒接大地 → 开拓者正式坐负世 → 协议覆写 |
 
 `worlds/origin/story.jsonl` 把 33 个节拍挂到**真实读数**上：`proof` 必须是登记过的断言
 （`origin_rewinds` / `embers_taken` / `memory_rows` / `external_seats` / `promotion_mode` …），
 `how` 必须是真会改状态的能力，或者 `world`（世界自己长出来的读数）。
 
-* 当前 **33/33 = 100%** 是动态节拍。
-* 白厄/昔涟是**池中自诞生的最优因子**（`name_factor` 只登记叙事名，候选必须已经在池里），
+- 当前 **33/33 = 100%** 是动态节拍。
+- 白厄/昔涟是**池中自诞生的最优因子**（`name_factor` 只登记叙事名，候选必须已经在池里），
   不是外部变量。来古士的话走 `hint`：只提高账本里的 `certainty`；真正的决定由
   `OP_DECIDE` 在 `decision_frame` 读 certainty 后**自己**压住岁月席（`years_loophole`）。
   去掉 `hint`，`certainty` 不够，就不会有漏洞 —— 这条因果有单测。
-* 黑天鹅不是字幕：权杖入口有一道**真实防火墙**（`entry` 锁上，`bind_participant` 一律
+- 黑天鹅不是字幕：权杖入口有一道**真实防火墙**（`entry` 锁上，`bind_participant` 一律
   `entry_denied`）；她用记忆力量摸到权杖后面把入口打开，列车才进得来。去掉这一手，
   最后一轮的外部接掌会全部失败。
-* `tests/test_story_coverage.py` 守住这条线：比例 < 90%、拿 `emitted_events` 当证明、
+- `tests/test_story_coverage.py` 守住这条线：比例 < 90%、拿 `emitted_events` 当证明、
   或「声称改了状态但事件表里没有那一帧」都会当场失败。
-* 冻结期（12020–33,594,336）不能塞改状态的事件；最后一轮的所有剧情都在冻结之后真跑。
-* 报告多两行：`因子 昔涟 #N · 白厄 #M`（池中长出来的）与 `人物 开拓者 · 白厄 · 长夜月 …`
+- 冻结期（12020–33,594,336）不能塞改状态的事件；最后一轮的所有剧情都在冻结之后真跑。
+- 报告多两行：`因子 昔涟 #N · 白厄 #M`（池中长出来的）与 `人物 开拓者 · 白厄 · 长夜月 …`
   （本轮登场名单，名字只住数据层）。
-* **最后一次再创世**走 `recreate`：清掉全部封印、只补空席，十二席在 33,594,393 之后必须全满；
+- **最后一次再创世**走 `recreate`：清掉全部封印、只补空席，十二席在 33,594,393 之后必须全满；
   长夜月占岁月走 `interstice hand_locus`（记忆承载），不是外部编号 -4。
-* 看板席位卡按 `anchors.jsonl` 里以实测 serial 钉住的名字念出本轮 12 位角色；底下仍是演算
+- 看板席位卡按 `anchors.jsonl` 里以实测 serial 钉住的名字念出本轮 12 位角色；底下仍是演算
   自己长出来的个体。传奇里不会再出现「三个空席」。
 
 ### 实时看板（`--serve`）
@@ -146,17 +146,17 @@ python run.py --preset plot --serve 9000 --no-open   # 指定端口、不自动�
 除了演算本身，预设还可以挂四层叙事 + 一个独立 CLI 窗口。**它们全部只读**：不写状态、不进指纹，
 删掉或关掉，演算逐帧不变。
 
-| 层 | 载体 | 怎么开 | 你会看到 |
-|---|---|---|---|
-| 终端 | `presets/<名>/messages.jsonl` → `apps/terminal.py` | `--terminal` / `--no-terminal` | 按帧输出的 `>>>` 系统消息；`prompt` 类可交互确认（`--terminal-ask`） |
-| 独立 CLI 窗口 | `apps/terminal_bridge.py` + `apps/terminal_window.py` | `--terminal-window` | 新开控制台显示 `>>>` 并在 `prompt` 处阻塞等待；超时/关窗回落默认答案；失败时回退同控制台 |
-| 实验档案 / 异常记录 | `presets/<名>/archive.json` → `apps/archive.py` | `--archive` / `--no-archive` | 报告【六】实验档案（含进度里程碑）与【七】异常记录（已抵达 / 未抵达、本轨道发生 / 未发生） |
-| 原初目标 | `apps/origin.py`（canonical 只读探针）/ `apps/origin_loop.py`（origin 世界真实状态） | `--origin` / `--no-origin` | 报告【八】原初目标：canonical 读自我度均值 / 峰值 / 采样、记忆闭合、反事实三态；`worlds/origin` 读真实的成形 / 能量 / 借还 / 锚点 / 四态 |
-| 内容版预设 | `presets/plot-full/` | `--preset plot-full` | `plot` 的孪生副本，补后段的镜头、终端消息与档案；默认四层全开 |
+| 层           | 载体                                                                     | 怎么开                            | 你会看到                                                                                       |
+| ----------- | ---------------------------------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------ |
+| 终端          | `presets/<名>/messages.jsonl` → `apps/terminal.py`                      | `--terminal` / `--no-terminal` | 按帧输出的 `>>>` 系统消息；`prompt` 类可交互确认（`--terminal-ask`）                                         |
+| 独立 CLI 窗口   | `apps/terminal_bridge.py` + `apps/terminal_window.py`                  | `--terminal-window`            | 新开控制台显示 `>>>` 并在 `prompt` 处阻塞等待；超时/关窗回落默认答案；失败时回退同控制台                                      |
+| 实验档案 / 异常记录 | `presets/<名>/archive.json` → `apps/archive.py`                         | `--archive` / `--no-archive`   | 报告【六】实验档案（含进度里程碑）与【七】异常记录（已抵达 / 未抵达、本轨道发生 / 未发生）                                           |
+| 原初目标        | `apps/origin.py`（canonical 只读探针）/ `apps/origin_loop.py`（origin 世界真实状态） | `--origin` / `--no-origin`     | 报告【八】原初目标：canonical 读自我度均值 / 峰值 / 采样、记忆闭合、反事实三态；`worlds/origin` 读真实的成形 / 能量 / 借还 / 锚点 / 四态 |
+| 内容版预设       | `presets/plot-full/`                                                   | `--preset plot-full`           | `plot` 的孪生副本，补后段的镜头、终端消息与档案；默认四层全开                                                         |
 
 - **文案在预设层**：`>>>` 消息、档案正文、原初目标措辞都住在 `presets/`，`apps/` 里没有一个专名；
   换一份预设，同一台引擎就讲另一个故事。
-- **默认值由 `preset.json` 的 `narrative` 决定**：`plot` 默认关闭叙事层，`plot-full` 默认全开；
+- **默认值由** **`preset.json`** **的** **`narrative`** **决定**：`plot` 默认关闭叙事层，`plot-full` 默认全开；
   CLI 的 `--terminal` / `--archive` / `--origin` 可临时覆盖。
 - **交互只在 TTY 下发生**：`--terminal-ask` 在 `prompt` 处等待输入；非 TTY（CI / 重定向）直接
   打印默认答案，不阻塞。
@@ -296,7 +296,7 @@ python tools/export.py                      # 打包成可分发的 zip（含解
 > **指纹是分层的**（R1+R2）：**结构层**（裁决 / 结论 / 停因 / 帧号 / 换代 / 人数 / 席位 …，全整数与枚举，**逐位严格、跨平台可比**）、**数值层**（`entropy` / `noise`，走**容差** 1e-6）、**摘要层**（`digest`，量化 float32 向量的哈希，**只在同一参考环境上逐位可比**）。
 > `tests/golden_fingerprints.json` 顶层的 `_reference_platform` 记着指纹是在什么环境里写的（`system` / `machine` / `python` / `numpy` 四项）；**任一项不同**，`selfcheck` 就**自动降级**为 `--structural`（只比结构层）。CI 因此在 `ubuntu-latest` 上跑。
 
-> 下面这些已**收进 `selfcheck` 各档**，不必再手动跑一遍：
+> 下面这些已**收进** **`selfcheck`** **各档**，不必再手动跑一遍：
 > `grep_forbidden`、`stepwise_lint` 与 `writeback_probe`（判据 6：全程零写入 `presets/`）在**快档**；
 > `reuse_equivalence`（判据 5：复用是否伪造世界状态）与 `checkpoint_replay`（判据 4：帧截断复现，存档点落在复用区间内）都在 **`--full`**。
 > `python tools/selfcheck.py --list` 可列出当前的全部步骤。CI 跑的就是快档
@@ -304,28 +304,28 @@ python tools/export.py                      # 打包成可分发的 zip（含解
 
 其余诊断脚本按用途分组：
 
-| 脚本 | 用途 |
-|---|---|
-| `tools/shuffle_loci.py` | **判据 1 重标定不变性**：把席的 **id 随机置换**后重跑，可观测量必须逐项不变（证明引擎没有"认名字 / 认编号"的分支） |
-| `tools/checkpoint_replay.py` | 帧截断复现：从第 k 帧续跑，是否与全程逐帧一致 |
-| `tools/reuse_equivalence.py` | 参考轨道复用是否伪造了世界状态（**已进 `selfcheck --full`**） |
-| `tools/naming_orthogonality.py` | 换命名器 / 音位表，轨迹是否逐帧不变 |
-| `tools/seed_probe.py` | 按要素约束在种子空间里检索（`--preset plot`） |
-| `tools/seat_incumbents.py` | 重新测量各席在位者的编号，用于刷新 `anchors.jsonl` |
-| `tools/emergence_audit.py` | 涌现登记的审计 |
-| `tools/stepwise_lint.py` | 逐帧演化链路的静态检查（**已进 `selfcheck` 快档**） |
-| `tools/writeback_probe.py` | 是否有角色信息写回 `presets/`（判据 6，**已进 `selfcheck` 快档**，应为无） |
-| `tools/excavation.py` | **遗迹勘测**：逐席的诞生 / 消亡 / 在位帧数 / 易主次数 / 承位个体数 / 峰值承载，外加三段式考古报告（`--json` 出机器可读档案） |
-| `tools/roll_call.py` | **逐火点名录**：登场与陨落总账、外生干预下的伤亡（谁被逐出 / 谁自愿让位）、承位链 |
-| `tools/mech_align.py` | **机制对齐**：每个点名角色各自在哪些帧坐在哪个席 —— 用来判断桥段帧号该往哪挪 |
-| `tools/mech_control.py` | **同等噪声对照**：把扰动换成同数量、同能力的无关席位，判断效果是「结构性的」还是「混沌噪声」 |
-| `tools/sensitivity.py` | **参数敏感性热力图**：跨参数 × 种子出热力图 + HTML + JSON。只认运行时真会读的旋钮（`operators.STAGE_TUNABLE`），写死键当场报错 |
-| `tools/parallels.py` | **平行世界对照**：五块面板（对照表 / 熵曲线 / 黑潮强度 / 遗迹分布 / 涌现时序），纯 Python 生成 SVG、零外链 |
-| `tools/blacktide.py` | **黑潮爆发探测**（区域级，把帧级 `OVERFLOW` 粗判细化）。零命中时会报「最接近的一次差在哪」 |
-| `tools/anomaly_check.py` | 死循环相关的诊断 |
-| `tools/alt_world/run_alt.py` | 数据替换判据：换一整套世界，同一台引擎照跑 |
-| `tools/lexicon_table.py` | 生成 `docs/术语对照表.md`（`--write` / `--check`） |
-| `tools/actors_from_spec.py` | 由 `docs/外部变量.json` 派生预设的外部实体表 |
+| 脚本                              | 用途                                                                                     |
+| ------------------------------- | -------------------------------------------------------------------------------------- |
+| `tools/shuffle_loci.py`         | **判据 1 重标定不变性**：把席的 **id 随机置换**后重跑，可观测量必须逐项不变（证明引擎没有"认名字 / 认编号"的分支）                    |
+| `tools/checkpoint_replay.py`    | 帧截断复现：从第 k 帧续跑，是否与全程逐帧一致                                                               |
+| `tools/reuse_equivalence.py`    | 参考轨道复用是否伪造了世界状态（**已进** **`selfcheck --full`**）                                         |
+| `tools/naming_orthogonality.py` | 换命名器 / 音位表，轨迹是否逐帧不变                                                                    |
+| `tools/seed_probe.py`           | 按要素约束在种子空间里检索（`--preset plot`）                                                         |
+| `tools/seat_incumbents.py`      | 重新测量各席在位者的编号，用于刷新 `anchors.jsonl`                                                      |
+| `tools/emergence_audit.py`      | 涌现登记的审计                                                                                |
+| `tools/stepwise_lint.py`        | 逐帧演化链路的静态检查（**已进** **`selfcheck`** **快档**）                                             |
+| `tools/writeback_probe.py`      | 是否有角色信息写回 `presets/`（判据 6，**已进** **`selfcheck`** **快档**，应为无）                           |
+| `tools/excavation.py`           | **遗迹勘测**：逐席的诞生 / 消亡 / 在位帧数 / 易主次数 / 承位个体数 / 峰值承载，外加三段式考古报告（`--json` 出机器可读档案）           |
+| `tools/roll_call.py`            | **逐火点名录**：登场与陨落总账、外生干预下的伤亡（谁被逐出 / 谁自愿让位）、承位链                                           |
+| `tools/mech_align.py`           | **机制对齐**：每个点名角色各自在哪些帧坐在哪个席 —— 用来判断桥段帧号该往哪挪                                             |
+| `tools/mech_control.py`         | **同等噪声对照**：把扰动换成同数量、同能力的无关席位，判断效果是「结构性的」还是「混沌噪声」                                       |
+| `tools/sensitivity.py`          | **参数敏感性热力图**：跨参数 × 种子出热力图 + HTML + JSON。只认运行时真会读的旋钮（`operators.STAGE_TUNABLE`），写死键当场报错 |
+| `tools/parallels.py`            | **平行世界对照**：五块面板（对照表 / 熵曲线 / 黑潮强度 / 遗迹分布 / 涌现时序），纯 Python 生成 SVG、零外链                    |
+| `tools/blacktide.py`            | **黑潮爆发探测**（区域级，把帧级 `OVERFLOW` 粗判细化）。零命中时会报「最接近的一次差在哪」                                  |
+| `tools/anomaly_check.py`        | 死循环相关的诊断                                                                               |
+| `tools/alt_world/run_alt.py`    | 数据替换判据：换一整套世界，同一台引擎照跑                                                                  |
+| `tools/lexicon_table.py`        | 生成 `docs/术语对照表.md`（`--write` / `--check`）                                              |
+| `tools/actors_from_spec.py`     | 由 `docs/外部变量.json` 派生预设的外部实体表                                                          |
 
 ## 许可
 
@@ -333,3 +333,4 @@ python tools/export.py                      # 打包成可分发的 zip（含解
 
 > 程序代码（`kernel/` 与 `apps/`）本身不含任何专有名词；`presets/`、`config/lexicon.json` 与 `docs/` 下的
 > 考据材料含《崩坏：星穹铁道》原作的专有名词与文本，仅作同人性质的机制化演示之用。
+

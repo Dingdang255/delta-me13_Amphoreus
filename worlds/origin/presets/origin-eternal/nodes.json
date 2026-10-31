@@ -215,6 +215,87 @@
       "repair": "open_gate",
       "cost": 0.0,
       "label": "被夺走的席位由同一行记忆补回：回望完成一次闭环"
+    },
+    {
+      "id": "N16_DREAM",
+      "frame": 350,
+      "missing": "not_seen",
+      "event": "dream_written",
+      "repair": "write_dream",
+      "memory": {
+        "id": "dream",
+        "label": "浮黎的梦",
+        "effect": "selfhood",
+        "magnitude": 0.05,
+        "duration": 2000
+      },
+      "cost": 0.5,
+      "force_anchor": true,
+      "keep": true,
+      "label": "第一相位·给 PhiLia093 编入关于浮黎的梦：让她愿意走进永劫"
+    },
+    {
+      "id": "N18_ARROW",
+      "frame": 650,
+      "missing": "not_seen",
+      "event": "skill_copied",
+      "repair": "copy_skill",
+      "memory": {
+        "id": "skill",
+        "label": "三月七的箭术",
+        "effect": "coupling",
+        "magnitude": 0.20,
+        "duration": 800
+      },
+      "cost": 0.5,
+      "force_anchor": true,
+      "keep": true,
+      "label": "第一相位·学会那一箭：为决战预埋技能树"
+    },
+    {
+      "id": "N19_SOS",
+      "frame": 850,
+      "missing": "not_seen",
+      "event": "sos_sent",
+      "repair": "broadcast_sos",
+      "cost": 0.5,
+      "force_anchor": true,
+      "keep": true,
+      "label": "第一相位·向银河发出很弱的信号：只够让该来的人听见"
+    },
+    {
+      "id": "N20_SWORD",
+      "frame": 1100,
+      "missing": "not_seen",
+      "event": "sword_placed",
+      "repair": "place_sword",
+      "cost": 0.5,
+      "force_anchor": true,
+      "keep": true,
+      "label": "第一相位·把仪式剑放回起点：让每一轮的闭环有道具可用"
+    },
+    {
+      "id": "N17_ORACLE",
+      "frame": 8100,
+      "missing": "not_seen",
+      "event": "oracle_left",
+      "repair": "leave_oracle",
+      "certainty": 0.7,
+      "cost": 0.5,
+      "force_anchor": true,
+      "keep": true,
+      "label": "第一相位·给白厄留下英雄幻影与神谕：给他撑过三千万世的动机"
+    },
+    {
+      "id": "N21_SPLIT",
+      "frame": 33594536,
+      "missing": "not_seen",
+      "event": "origin_self_split",
+      "repair": "split_self",
+      "cost": 0.0,
+      "force_anchor": true,
+      "keep": true,
+      "label": "第二相位·自我拆分：种子留在过去，同源的新生走向未来"
     }
   ]
 }

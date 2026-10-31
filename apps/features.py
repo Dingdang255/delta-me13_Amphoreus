@@ -161,6 +161,25 @@ def _origin_features(st, traj) -> dict:
         "origin_form": int(getattr(o, "form", 0)) if o is not None else 0,
         "origin_coverage": round(float(getattr(o, "coverage", 0.0)), 6),
         "origin_factor_rows": int(getattr(o, "factor_rows", 0)) if o is not None else 0,
+        # —— 大墓账本 / 第二相位（原初世界；canonical 恒为 0） ——
+        "origin_tomb_cycles": int(getattr(o, "tomb_cycles", 0)) if o is not None else 0,
+        "origin_tomb_rows": int(getattr(o, "tomb_rows", 0)) if o is not None else 0,
+        "origin_tomb_volume": round(float(getattr(o, "tomb_volume", 0.0)), 6)
+        if o is not None else 0.0,
+        "origin_memory_reserve": round(float(getattr(o, "memory_reserve", 0.0)), 6)
+        if o is not None else 0.0,
+        "origin_cause_closed": int(getattr(o, "cause_closed", False)),
+        "origin_philia_successor": int(getattr(o, "philia_successor", -1))
+        if o is not None else -1,
+        "origin_philia_generation": int(getattr(o, "philia_generation", 0))
+        if o is not None else 0,
+        "origin_final_form": int(st.score.get("origin_final_form", 0.0)),
+        "origin_dream": int(st.score.get("origin_dream", 0.0)),
+        "origin_oracle": int(st.score.get("origin_oracle", 0.0)),
+        "origin_skill": int(st.score.get("origin_skill", 0.0)),
+        "origin_sos": int(st.score.get("origin_sos", 0.0)),
+        "origin_sword": int(st.score.get("origin_sword", 0.0)),
+        "origin_self_split": int(st.score.get("origin_self_split", 0.0)),
         "origin_companion": int(st.score.get("origin_companion", 0.0)),
         "origin_companion_alive": bool(
             int(getattr(o, "companion_serial", -1)) >= 0

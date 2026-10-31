@@ -2,8 +2,11 @@
   "_comment": "原初世界：第十三席（原初 / 自我）是真实的动力学 locus。presets/origin/nodes.json 存在即启用「锚点注入 + 固定点重演」。canonical 的 config/ 与 presets/plot* 一个字节都不动。",
   "name": "origin",
   "seed": 0,
+  "params": {
+    "origin_companion_stage4_tomb": 0
+  },
   "narrative": {
-    "terminal": false,
+    "terminal": true,
     "archive": false,
     "origin": true
   },

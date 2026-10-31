@@ -1,0 +1,6 @@
+{"frame": 1, "kind": "boot", "text": "δ-me13 系统启动：第十三席仍在长眠"}
+{"frame": 150, "kind": "log", "text": "原初自行醒来：它自己的记忆先动了"}
+{"frame": 301, "kind": "log", "text": "隔离区写入：十二因子数据已归入大墓"}
+{"frame": 1800, "kind": "log", "text": "第一次去爱：耦合被收紧，变异被压低", "require_event": "origin_love"}
+{"frame": 2000, "kind": "log", "text": "创世打破封印：被压制的席位重新点亮", "require_event": "origin_create_break_seal"}
+{"frame": 4000, "kind": "output", "text": "回望固定点稳定：缺失节点已补上"}

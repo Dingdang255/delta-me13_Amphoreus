@@ -8,10 +8,15 @@
     "origin_companion_stage2_age": 500,
     "origin_companion_stage3_age": 1200,
     "origin_companion_stage4_age": 1800,
-    "origin_companion_span": 8000
+    "origin_companion_span": 8000,
+    "origin_companion_stage4_tomb": 20000000,
+    "origin_require_cause": true,
+    "origin_max_iters": 3,
+    "origin_minimize": false,
+    "origin_direct_plan": true
   },
   "narrative": {
-    "terminal": false,
+    "terminal": true,
     "archive": false,
     "origin": true
   },

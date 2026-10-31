@@ -7,3 +7,5 @@
 {"frame": 2200, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:1"}, "label": "◆ 黑潮把那一席也封住：本地没人补得动，只有记忆补得回", "payload": {}}
 {"frame": 3000, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:1"}, "label": "◆ 岁月之席再次被封印 —— 但十二因子记忆守着它", "payload": {}}
 {"frame": 4000, "channel": "world", "capability": "evict_holder", "selector": {"expr": "order:1"}, "label": "◆ 岁月之席被强行夺走 —— 记忆用自己那一行把它补回", "payload": {}}
+{"frame": 7900, "channel": "observer", "capability": "name_factor", "selector": {"expr": "order:0"}, "label": "◆ 负世那一席的最优因子：白厄（名字是叙事标签，人是演算自己长出来的）", "payload": {"role": "白厄"}}
+{"frame": 7901, "channel": "observer", "capability": "name_factor", "selector": null, "label": "◆ 岁月因子里适应度最高的那一位：昔涟（同样不是外部变量）", "payload": {"role": "昔涟·因子", "factor": 1}}

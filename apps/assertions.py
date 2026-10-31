@@ -95,6 +95,25 @@ _KINDS = {
     "origin_form":          lambda e: int(getattr(e.st.origin, "form", 0)),
     "origin_coverage":      lambda e: float(getattr(e.st.origin, "coverage", 0.0)),
     "origin_factor_rows":   lambda e: int(getattr(e.st.origin, "factor_rows", 0)),
+    # —— 大墓账本 / 两次回望 ——（canonical 世界恒为 0）
+    "origin_tomb_cycles":   lambda e: int(getattr(e.st.origin, "tomb_cycles", 0)),
+    "origin_tomb_rows":     lambda e: int(getattr(e.st.origin, "tomb_rows", 0)),
+    "origin_tomb_volume":   lambda e: float(getattr(e.st.origin, "tomb_volume", 0.0)),
+    "origin_memory_reserve": lambda e: float(
+        getattr(e.st.origin, "memory_reserve", 0.0)),
+    "origin_cause_closed":  lambda e: int(
+        getattr(e.st.origin, "cause_closed", False)),
+    "origin_philia_successor": lambda e: int(
+        getattr(e.st.origin, "philia_successor", -1)),
+    "origin_philia_generation": lambda e: int(
+        getattr(e.st.origin, "philia_generation", 0)),
+    "origin_final_form":    lambda e: int(e.st.score.get("origin_final_form", 0.0)),
+    "origin_dream":         lambda e: int(e.st.score.get("origin_dream", 0.0)),
+    "origin_oracle":        lambda e: int(e.st.score.get("origin_oracle", 0.0)),
+    "origin_skill":         lambda e: int(e.st.score.get("origin_skill", 0.0)),
+    "origin_sos":           lambda e: int(e.st.score.get("origin_sos", 0.0)),
+    "origin_sword":         lambda e: int(e.st.score.get("origin_sword", 0.0)),
+    "origin_self_split":    lambda e: int(e.st.score.get("origin_self_split", 0.0)),
     "origin_companion":     lambda e: int(e.st.score.get("origin_companion", 0.0)),
     "origin_companion_alive": lambda e: bool(
         int(getattr(e.st.origin, "companion_serial", -1)) >= 0

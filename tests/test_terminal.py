@@ -32,6 +32,16 @@ def _state(score=None):
     return types.SimpleNamespace(score=dict(score or {}))
 
 
+def _rich_state(score=None):
+    """带 origin / memory_bank 的只读状态，用于模板变量测试。"""
+    origin = types.SimpleNamespace(
+        tomb_cycles=7, tomb_rows=3, tomb_volume=0.5,
+        energy=2.5, selfhood=0.25, companion_stage=3)
+    return types.SimpleNamespace(
+        score=dict(score or {}), origin=origin,
+        memory_bank=types.SimpleNamespace(shape=(12, 13)))
+
+
 class LoadMessagesTest(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
@@ -94,6 +104,41 @@ class LoadMessagesTest(unittest.TestCase):
         msgs = load_messages(path)
         self.assertGreaterEqual(len(msgs), 12)
         self.assertEqual({m["kind"] for m in msgs}, set(KINDS))
+
+    def test_period_is_expanded(self):
+        path = _write(self.tmp, [
+            {"frame": 0, "text": "tick", "period": 10, "until": 25},
+        ])
+        msgs = load_messages(path)
+        self.assertEqual([m["frame"] for m in msgs], [0, 10, 20])
+
+    def test_period_requires_until(self):
+        path = _write(self.tmp, [{"frame": 0, "text": "tick", "period": 10}])
+        with self.assertRaises(ValueError) as ctx:
+            load_messages(path)
+        self.assertIn("until", str(ctx.exception))
+
+    def test_unknown_template_variable_is_loud(self):
+        path = _write(self.tmp, [
+            {"frame": 0, "text": "{nope}", "vars": ["nope"]},
+        ])
+        with self.assertRaises(ValueError) as ctx:
+            load_messages(path)
+        self.assertIn("vars", str(ctx.exception))
+
+    def test_template_requires_vars_whitelist(self):
+        path = _write(self.tmp, [{"frame": 0, "text": "{cycle}"}])
+        with self.assertRaises(ValueError) as ctx:
+            load_messages(path)
+        self.assertIn("vars", str(ctx.exception))
+
+    def test_period_expansion_is_bounded(self):
+        path = _write(self.tmp, [
+            {"frame": 0, "text": "tick", "period": 1, "until": 10},
+        ])
+        with self.assertRaises(ValueError) as ctx:
+            load_messages(path, max_messages=5)
+        self.assertIn("上限", str(ctx.exception))
 
 
 class TerminalFeedTest(unittest.TestCase):
@@ -183,6 +228,13 @@ class TerminalFeedTest(unittest.TestCase):
             self._feed(rows, ask=True)(0, _state())
         self.assertEqual(inp.call_count, 2)                     # 重问一次
         self.assertEqual(self.out, [">>> q 继续？ [Y/n] → Y（默认）"])
+
+    def test_template_variables_are_rendered(self):
+        rows = [{"frame": 12030, "text": "第 {cycle} 轮 · 大墓 {tomb_cycles} 世 · {memory_rows} 行",
+                 "vars": ["cycle", "tomb_cycles", "memory_rows"],
+                 "cycle_from": 12020}]
+        self._feed(rows)(12030, _rich_state())
+        self.assertEqual(self.out, [">>> 第 11 轮 · 大墓 7 世 · 12 行"])
 
     def test_does_not_write_state(self):
         score = {"entropy": 0.25, "emitted_x": 7.0}

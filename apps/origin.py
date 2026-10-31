@@ -140,7 +140,7 @@ def render_state(summary, lexicon, namer=None, companion_name=None) -> list[str]
     ever = bool(summary.get("ever"))
     awake = bool(summary.get("awake"))
     form = int(summary.get("form", 0))
-    form_word = {0: "沉睡", 1: "苏醒", 2: "忆灵"}.get(form, str(form))
+    form_word = {0: "沉睡", 1: "苏醒", 2: "忆灵", 3: "无漏净子"}.get(form, str(form))
     coverage = float(summary.get("coverage", 0.0))
     factor_rows = int(summary.get("factor_rows", 0))
     sh = float(summary.get("selfhood", 0.0))
@@ -233,6 +233,20 @@ def render_state(summary, lexicon, namer=None, companion_name=None) -> list[str]
         f" · 十二因子数据 {factor_rows} 行（覆盖 {coverage:.0%}）"
         f" · 记忆席位 {memory_seats}（再补 {rebind} 次）" + res_txt,
     ]
+    tomb_cycles = int(summary.get("tomb_cycles", 0))
+    if tomb_cycles > 0:
+        tomb_rows = int(summary.get("tomb_rows", 0))
+        tomb_vol = float(summary.get("tomb_volume", 0.0))
+        reserve = float(summary.get("memory_reserve", 0.0))
+        tomb_txt = (f"  大墓        {tomb_cycles:,} 世记录 · {tomb_rows} 行"
+                    f" · 容量 {tomb_vol:.0%} · 记忆储备 {reserve:.2f}")
+        if summary.get("cause_closed"):
+            tomb_txt += " · 因果已闭合"
+        succ = int(summary.get("philia_successor", -1))
+        if succ >= 0:
+            tomb_txt += (f" · 新生个体 #{succ}"
+                         f"（第 {int(summary.get('philia_generation', 1))} 代，未携带记忆）")
+        lines.append(tomb_txt)
     face_txt = (f"  三面        创世 {create} 次 · 爱 {love} 次"
                 f" · 开拓 {blaze} 次 · 消散 {dissolved} 次" + comp_txt)
     if summary.get("gazed"):

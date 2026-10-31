@@ -5,6 +5,7 @@
 """
 from __future__ import annotations
 
+import math
 from collections import Counter
 
 import numpy as np
@@ -491,6 +492,39 @@ def _advance(cfg, data, seed: int | None = None, max_frames: int | None = None,
             return
         st.seeds = len(st.register.slots) * max(1, int(frame) - int(deadlock["epoch"]))
 
+    def _apply_tomb(frame):
+        """循环期的【大墓账本】：每轮上传一次记忆（1 帧 = 1 轮）。
+
+        与 `_apply_seeds` 同一套锚定方式：数值从 `epoch` 推导，不逐帧 +=；
+        因此续跑 / 帧截断复现一致。没有 `origin_tomb_upload` 或没有 meta 席的
+        世界（canonical）一帧都不执行。
+
+        它只写账本与连续量（`tomb_*` / `memory_reserve`），**不进 world_signature**，
+        否则死循环永远不会出现结构重复。
+        """
+        if deadlock is None:
+            return
+        p = ctx_run.params
+        if not bool(p.get("origin_tomb_upload", False)):
+            return
+        meta = [i for i, l in enumerate(st.loci) if getattr(l, "meta", False)]
+        if not meta:
+            return
+        span = max(1, int(frame) - int(deadlock["epoch"]))
+        o = st.origin
+        per = max(1, int(p.get("origin_tomb_rows_per_cycle", 100000)))
+        cap = max(1, int(p.get("origin_tomb_row_cap", 4096)))
+        target = max(1, int(p.get("origin_recurrence_target", span)))
+        o.tomb_cycles = span
+        o.tomb_rows = min(cap, int(o.factor_rows) + span // per)
+        o.tomb_volume = min(1.0, float(span) / float(target))
+        o.tomb_last = int(frame)
+        gain = float(p.get("origin_tomb_reserve_gain", 0.0))
+        if gain > 0.0:
+            rcap = float(p.get("origin_tomb_reserve_cap", 0.0))
+            reserve = gain * math.log1p(float(span))
+            o.memory_reserve = min(rcap, reserve) if rcap > 0.0 else reserve
+
     # 续跑时用存档自身的结构签名作为「上一帧」，保证首个续跑帧的周期检测与全程一致
     prev_sig = st.world_signature() if start_frame > 0 else None
     # 异常死循环的运行期状态：None = 常规演化；非 None = 世界结构已冻结。
@@ -524,6 +558,7 @@ def _advance(cfg, data, seed: int | None = None, max_frames: int | None = None,
         """
         nonlocal deadlock, prev_sig, freeze_run, last_stalled
         _apply_seeds(frame)                 # 账本读数：取得量随轮回累积（锚定 epoch）
+        _apply_tomb(frame)                  # 账本读数：大墓上传量随轮回累积（锚定 epoch）
         sig_now = st.world_signature()
         if sig_now != deadlock["ref"]:
             # 外生扰动撬动了结构 —— 内部永远做不到，只有外部可以。
@@ -597,6 +632,7 @@ def _advance(cfg, data, seed: int | None = None, max_frames: int | None = None,
                 if deadlock is not None:
                     _rebase_ages(n - 1, deadlock["start"])
                     _apply_seeds(n - 1)     # 走出循环那一帧的账本读数（锚定 epoch）
+                    _apply_tomb(n - 1)      # 大墓账本同样结算到最后一帧
                     emit(n - 1, "DEADLOCK_END", dict(burden(n - 1),
                                                      length=(n - 1) - deadlock["start"],
                                                      cycle=(n - 1) - deadlock["epoch"] + 1))
@@ -868,6 +904,7 @@ def _advance(cfg, data, seed: int | None = None, max_frames: int | None = None,
     if deadlock is not None:
         traj.spans.append(("deadlock", deadlock["start"], total))
         _apply_seeds(n - 1)   # 兜底路径也把账本读数对齐
+        _apply_tomb(n - 1)    # 大墓账本同样对齐
 
     traj.reached_frame = n - 1
     traj.final = st

@@ -173,10 +173,13 @@ class Planner:
                 "gate": node.get("gate"),
                 "mode": node.get("mode"),
                 "memory": node.get("memory"),
-                # 只有「把这件事真的带来」的动作才记事件：写入记忆 / 打开那道门。
-                # 其余动作（唤醒等）不该顺手把 not_seen 的判据满足掉。
+                # 只有「把这件事真的带来」的动作才记事件：写入记忆 / 打开那道门 /
+                # 第一相位的负向注入 / 第二相位的自我拆分。
                 "emit_event": (node.get("event")
-                               if str(action) in ("seed_memory", "open_gate")
+                               if str(action) in ("seed_memory", "open_gate",
+                                                  "write_dream", "copy_skill",
+                                                  "leave_oracle", "broadcast_sos",
+                                                  "place_sword", "split_self")
                                else None),
                 "cost": float(cost),
                 "node": node.get("id"),
@@ -204,7 +207,7 @@ class Planner:
             out.append(self._anchor_record(first["node"], "wake_origin", 0, cost + 1.0))
         for m in missing:
             node = m["node"]
-            if not allow_event and node.get("event"):
+            if not allow_event and node.get("event") and not node.get("force_anchor"):
                 continue
             repair = str(node.get("repair") or "bind_memory")
             if m.get("unreachable") and repair == "wake_origin":
@@ -230,6 +233,21 @@ class Planner:
     # ---- 固定点 -------------------------------------------------------------
     def plan(self) -> list:
         """跑第一遍并迭代锚点；返回最终锚点脚本（可能为空）。"""
+        # 直接模式：nodes.json 已经把「必须补的每一手」声明成 keep/force_anchor，
+        # 固定点因此可以退化成【一次验证】—— 不再为同一份 3300 万帧脚本反复重演。
+        # 只给 origin-eternal 这类超长世界用；短世界仍走完整迭代。
+        if bool(self.ctx.params.get("origin_direct_plan", False)) and self.nodes:
+            out = []
+            for order, node in enumerate(self.nodes):
+                repair = str(node.get("repair") or "bind_memory")
+                cost = float(node.get("cost", 1.0))
+                out.append(self._anchor_record(node, repair, order, cost))
+            self.anchors = self._sort(out)
+            traj, scanner = self._run_pass(self.anchors)
+            self.missing = self._scan(traj, scanner)
+            self._scanner = scanner
+            return self.anchors
+
         traj, scanner = self._run_pass([])
         if not bool(getattr(traj.final.origin, "ever", False)):
             # 第一遍原初未成形：不跑锚点（origin_absent）。
@@ -258,7 +276,8 @@ class Planner:
 
         self.anchors = self._sort(anchors)
         self.missing = self._scan(traj, scanner)
-        if self.anchors and not self.missing:
+        if (self.anchors and not self.missing
+                and bool(self.ctx.params.get("origin_minimize", True))):
             # 精简：有些节点在后来的重演里会【自然发生】（例如创世打破封印），
             # 早期那一遍给它投的锚点就成了多余的一手。逐个试删，删掉后仍无缺失才生效。
             self.anchors, traj, scanner = self._minimize(self.anchors,
@@ -322,9 +341,11 @@ class Planner:
         ever = bool(o.ever)
         tau_min = float(self.ctx.params.get("tau_origin_min",
                                             self.ctx.params.get("tau_origin", 0.12)))
+        require_cause = bool(self.ctx.params.get("origin_require_cause", False))
         closed = (ever and not missing
                   and int(o.repaid) >= int(o.borrowed)
-                  and float(o.selfhood) >= tau_min)
+                  and float(o.selfhood) >= tau_min
+                  and (not require_cause or bool(o.cause_closed)))
         if not ever:
             state, unstable = "origin_absent", False
         elif closed:
@@ -349,6 +370,14 @@ class Planner:
             "form": int(o.form),
             "coverage": float(o.coverage),
             "factor_rows": int(o.factor_rows),
+            "tomb_cycles": int(o.tomb_cycles),
+            "tomb_rows": int(o.tomb_rows),
+            "tomb_volume": float(o.tomb_volume),
+            "tomb_last": int(o.tomb_last),
+            "memory_reserve": float(o.memory_reserve),
+            "cause_closed": bool(o.cause_closed),
+            "philia_successor": int(o.philia_successor),
+            "philia_generation": int(o.philia_generation),
             "selfhood": float(o.selfhood),
             "energy": float(o.energy),
             "age": int(o.age),
@@ -370,6 +399,13 @@ class Planner:
             "love": int(score.get("origin_love", 0.0)),
             "trailblaze": int(score.get("origin_trailblaze", 0.0)),
             "dissolved": int(score.get("origin_dissolved", 0.0)),
+            "final_form": int(score.get("origin_final_form", 0.0)),
+            "dream": int(score.get("origin_dream", 0.0)),
+            "oracle": int(score.get("origin_oracle", 0.0)),
+            "skill": int(score.get("origin_skill", 0.0)),
+            "sos": int(score.get("origin_sos", 0.0)),
+            "sword": int(score.get("origin_sword", 0.0)),
+            "self_split": int(score.get("origin_self_split", 0.0)),
             "companion": int(score.get("origin_companion", 0.0)),
             "companion_serial": int(o.companion_serial),
             "companion_alive": bool(

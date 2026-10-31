@@ -1202,6 +1202,9 @@ class Origin(Operator):
         o.coverage = min(1.0, float(o.factor_rows) / float(n_non_meta))
         mem_w = float(p.get("origin_memory_gain", 0.5))
         gain_eff = gain * ((1.0 - mem_w) + mem_w * float(o.coverage))
+        # 大墓记忆储备：三千万世喂养出来的容量，按权重抬高能量增益。
+        gain_eff += float(o.memory_reserve) * float(
+            p.get("origin_reserve_gain_weight", 0.0))
 
         # ---- 自我：成形 / 累积 / 消散 -------------------------------------
         if slot.filled() and float(slot.vector.sum()) > 0.0:
@@ -1228,6 +1231,15 @@ class Origin(Operator):
                     o.form = 2
                     st.add_score("origin_companion")
                     st.score["emitted_origin_companion_formed"] = float(frame)
+                # 「无漏净子」：大墓容量满 + 已达收束帧 + 自我度达标 ⇒ 升格。
+                if (int(o.form) == 2
+                        and float(o.tomb_volume) >= float(
+                            p.get("origin_final_form_tomb", 1.0))
+                        and int(frame) >= int(p.get("origin_final_form_frame", -1))
+                        and sh >= tau_low):
+                    o.form = 3
+                    st.add_score("origin_final_form")
+                    st.score["emitted_origin_final_form"] = float(frame)
             else:
                 o.filled = False
                 o.age = 0
@@ -1289,6 +1301,9 @@ class Origin(Operator):
                 dur = int(p.get("origin_love_duration", 64))
                 if int(o.form) >= 2:          # 忆灵形态：爱的作用更持久
                     dur *= 2
+                # 大墓容量把「爱」拉长：三千万世记住的东西越多，越难被抹掉。
+                dur = int(dur * (1.0 + float(p.get("origin_love_reserve_weight", 0.0))
+                                 * float(o.tomb_volume)))
                 o.love_until = int(frame) + dur
                 o.energy -= lc
                 st.score["emitted_origin_love"] = float(frame)
@@ -1432,24 +1447,34 @@ class Origin(Operator):
                             f.ticks += 1
                             st.add_score("origin_memory_tick")
 
-                # 忆灵自己的成长阶段：只看真实读数 —— 活了多久、随身带过几段记忆。
+                # 忆灵自己的成长阶段：只看真实读数 —— 活了多久、随身带过几段记忆，
+                # 以及大墓里收下了多少世（stage4 由三千万世喂养这一条真的卡住）。
                 s2 = int(p.get("origin_companion_stage2_age", 600))
                 s3 = int(p.get("origin_companion_stage3_age", 1500))
+                t2 = int(p.get("origin_companion_stage2_tomb", 0))
+                t3 = int(p.get("origin_companion_stage3_tomb", 0))
+                t4 = int(p.get("origin_companion_stage4_tomb", 0))
                 if (int(o.companion_stage) < 2 and int(o.companion_age) >= s2
-                        and int(o.companion_carry) >= 1):
+                        and int(o.companion_carry) >= 1
+                        and int(o.tomb_cycles) >= t2):
                     o.companion_stage = 2
                     st.score["emitted_origin_companion_grow"] = float(frame)
                     st.add_score("origin_companion_grow")
                 if (int(o.companion_stage) < 3 and int(o.companion_age) >= s3
-                        and int(o.companion_carry) >= 2):
+                        and int(o.companion_carry) >= 2
+                        and int(o.tomb_cycles) >= t3):
                     o.companion_stage = 3
                     st.score["emitted_origin_companion_grow"] = float(frame)
                     # 忆灵长到「承忆」＝ 记忆命途真的走通（不是渲染标签）。
                     st.score["emitted_origin_memory_path"] = float(frame)
                     st.add_score("origin_companion_grow")
                 s4 = int(p.get("origin_companion_stage4_age", 2200))
-                if (int(o.companion_stage) < 4 and int(o.companion_age) >= s4
-                        and int(o.companion_carry) >= 2 and o.savior_transferred):
+                fed = t4 > 0 and int(o.tomb_cycles) >= t4
+                if (int(o.companion_stage) < 4
+                        and ((int(o.companion_age) >= s4
+                              and int(o.companion_carry) >= 2
+                              and o.savior_transferred)
+                             or fed)):
                     # 「忆者」：它不再只是替原初守席，而是自己成为记忆的执行者。
                     o.companion_stage = 4
                     st.score["emitted_origin_companion_grow"] = float(frame)
