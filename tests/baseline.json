@@ -148,11 +148,11 @@
   "lore": {
     "canon_digest": {
       "method": "lore/canon/manifest.json source_digest",
-      "value": "b2d17fcf558e11d99d515cdd2b18b9ae362e0d4dd2400d39587beb04fadf9f6b"
+      "value": "e012a2405cf7480fb977ea66d62a30d37eb400ecf7adf13906feaf8ae591c2bc"
     },
     "canon_entries": {
       "method": "lore/canon/manifest.json entry_count",
-      "value": 1074
+      "value": 1075
     },
     "files": {
       "method": "walk lore/",
