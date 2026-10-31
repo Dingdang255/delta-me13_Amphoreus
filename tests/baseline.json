@@ -148,7 +148,7 @@
   "lore": {
     "canon_digest": {
       "method": "lore/canon/manifest.json source_digest",
-      "value": "e012a2405cf7480fb977ea66d62a30d37eb400ecf7adf13906feaf8ae591c2bc"
+      "value": "89a68abb6f97bd15ba5572447b4678facb4daa0e14756d89fa3a895689a5454e"
     },
     "canon_entries": {
       "method": "lore/canon/manifest.json entry_count",

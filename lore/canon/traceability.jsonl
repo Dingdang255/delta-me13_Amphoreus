@@ -76,7 +76,7 @@
 {"id":"CHR-038","kind":"character","source":"S-001:73326,S-001:30433","locator":"","confidence":"B"}
 {"id":"CF-001","kind":"conflict","source":"S-001:425102,S-001:75058,S-001:424957","locator":"","confidence":""}
 {"id":"CF-002","kind":"conflict","source":"S-001:432719,S-001:159364,S-001:159372,S-001:159374,S-001:159377,S-012","locator":"","confidence":""}
-{"id":"CF-003","kind":"conflict","source":"S-001:424954,S-001:75013,S-001:425005","locator":"","confidence":""}
+{"id":"CF-003","kind":"conflict","source":"S-001:424954,S-001:75013,S-001:30406,S-001:159428,S-001:425005","locator":"","confidence":""}
 {"id":"CF-004","kind":"conflict","source":"S-001:122494,S-001:225855,S-001:425076","locator":"","confidence":""}
 {"id":"CF-005","kind":"conflict","source":"S-001:18270,S-001:30431,S-020","locator":"","confidence":""}
 {"id":"CF-006","kind":"conflict","source":"S-001:75058,S-001:425005","locator":"","confidence":""}
