@@ -18,7 +18,7 @@
     },
     "golden_entries": {
       "method": "len(tests/golden_fingerprints.json entries)",
-      "value": 8
+      "value": 10
     },
     "kernel_files": {
       "method": "count *.py in kernel/ including __init__.py",
@@ -76,6 +76,22 @@
         "verdict": "destruction"
       },
       {
+        "digest": "8e3d8785460f582414112fabc665c986",
+        "frames": 6000,
+        "preset": "origin",
+        "reached_frame": 5999,
+        "seed": 0,
+        "verdict": "undecided"
+      },
+      {
+        "digest": "3ef300d74d1684d8cec70b2e046ec673",
+        "frames": null,
+        "preset": "origin-eternal",
+        "reached_frame": 33594544,
+        "seed": 0,
+        "verdict": "undecided"
+      },
+      {
         "digest": "e9b84d2cc1365a4b88dabcdf1f22c266",
         "frames": null,
         "preset": "plot",
@@ -118,7 +134,7 @@
     },
     "sha256": {
       "method": "sha256 of the file",
-      "value": "2adb878e308c59cfc2823b89b6024e267e733f3f91f5136ed4f250a73b1c7d13"
+      "value": "15d22874b4db331a52df75e3ee6e37ac43583fb2a59c5ff7bcc130c130b84765"
     }
   },
   "lore": {

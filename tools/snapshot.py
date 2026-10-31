@@ -108,7 +108,8 @@ def digest_comparable(ref) -> tuple[bool, str]:
                            f"⇒ 跳过 digest 逐位比对")
     return True, ""
 
-# 默认条目：快条目几十秒内跑完，慢条目是三个既有世界的完整验收。
+# 默认条目：快条目几十秒内跑完，慢条目是既有世界的完整验收。
+# `root` 缺省 = 项目根；带值时指到独立世界根（如 worlds/origin）。
 ENTRIES = [
     {"preset": "emergent", "seed": 0, "frames": 1500, "slow": False},
     {"preset": "plot", "seed": 0, "frames": 3000, "slow": False},
@@ -118,18 +119,30 @@ ENTRIES = [
     {"preset": "destruction", "seed": 0, "frames": 8000, "slow": False},  # R3 后接管「毁灭」演示位
     {"preset": "plot", "seed": 0, "frames": None, "slow": True},     # 全量
     {"preset": "nullify", "seed": 0, "frames": None, "slow": True},  # 全量
+    # 独立世界根：十三席的原初世界，不参与 canonical 的 12 席判据。
+    {"preset": "origin", "seed": 0, "frames": 6000, "slow": False,
+     "root": "worlds/origin"},
+    {"preset": "origin-eternal", "seed": 0, "frames": None, "slow": True,
+     "root": "worlds/origin"},
 ]
 
 
-def fingerprint(preset, seed, frames):
+def world_root(spec):
+    """条目对应的世界根（绝对路径）。缺省 = 项目根。"""
+    rel = spec.get("root")
+    return os.path.join(ROOT, rel) if rel else ROOT
+
+
+def fingerprint(preset, seed, frames, root=None):
     """跑一次并压成指纹。只读 —— 不写回任何 presets/ 文件。"""
-    data = DataSet(ROOT, preset=preset)
-    ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))
+    base = root or ROOT
+    data = DataSet(base, preset=preset)
+    ctx = Config(base, lex_overlay=data.preset.get("lexicon"))
     traj = run(ctx, data, seed=int(seed), rules=evaluate,
                runtime=default_services(),
                max_frames=None if frames is None else int(frames))
     st = traj.final
-    return {
+    out = {
         "preset": preset,
         "seed": int(seed),
         "frames": frames,
@@ -149,6 +162,9 @@ def fingerprint(preset, seed, frames):
         "seats": [s.owner for s in st.register.slots],
         "digest": st.digest(),
     }
+    if os.path.abspath(base) != os.path.abspath(ROOT):
+        out["root"] = os.path.relpath(base, ROOT).replace(os.sep, "/")
+    return out
 
 
 def load_golden():
@@ -159,7 +175,9 @@ def load_golden():
 
 
 def key_of(entry):
-    return f"{entry['preset']}@{entry['seed']}@{entry['frames']}"
+    base = f"{entry['preset']}@{entry['seed']}@{entry['frames']}"
+    root = entry.get("root")
+    return f"{root}@{base}" if root else base
 
 
 def compare(old, new, ref=None, structural_only=False):
@@ -211,7 +229,8 @@ def main():
     for spec in wanted:
         key = key_of(spec)
         t0 = time.time()
-        new = fingerprint(spec["preset"], spec["seed"], spec["frames"])
+        new = fingerprint(spec["preset"], spec["seed"], spec["frames"],
+                          world_root(spec))
         dt = time.time() - t0
         old = recorded.get(key)
         if args.write:
