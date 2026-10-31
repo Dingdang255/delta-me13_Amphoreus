@@ -111,3 +111,40 @@ class DialogueRunner:
     def reset(self) -> None:
         self._current = self._lines[0] if self._lines else None
         self.trace = [self._current.id] if self._current else []
+
+
+def _as_row(line: Line) -> dict:
+    return {
+        "id": line.id,
+        "speaker": line.speaker or "",
+        "text": line.text,
+        "form": line.form,
+        "condition": line.condition,
+        "confidence": line.confidence,
+        "source": line.source,
+        "locator": line.locator,
+    }
+
+
+def read_scene(bundle, scene_id: str, start: str | None = None,
+               max_steps: int = 200) -> dict:
+    """Walk one scene for a reader.
+
+    Returns the lines read so far plus, when the chain forks, the choices that
+    still need an answer. It never picks a branch on its own and never mutates
+    the bundle; ``max_steps`` only guards against a cyclic ``next`` chain.
+    """
+    runner = DialogueRunner.from_bundle(bundle, scene_id, start)
+    rows: list[dict] = []
+    while len(rows) < int(max_steps):
+        line = runner.current()
+        if line is None:
+            return {"scene": scene_id, "lines": rows, "pending": None, "finished": True}
+        rows.append(_as_row(line))
+        if len(line.next) > 1:
+            return {"scene": scene_id, "lines": rows,
+                    "pending": {"from": line.id, "choices": list(line.next)},
+                    "finished": False}
+        runner.advance()
+    return {"scene": scene_id, "lines": rows, "pending": None,
+            "finished": False, "truncated": True}

@@ -1,0 +1,114 @@
+{
+  "_comment": "保真评分口径：权重 / 阈值 / 缺口规则全部在这里，代码里不写任何分数。维度与语料种类一一对应；metric_weights 在缺指标时按可用项重新归一化。",
+  "schema": 1,
+  "threshold": 0.85,
+  "dimension_floor": 0.5,
+  "metric_weights": {
+    "coverage": 0.25,
+    "traceability": 0.25,
+    "verbatim": 0.25,
+    "consistency": 0.25
+  },
+  "coverage_fields": ["coverage", "canon_status", "status", "result", "judged"],
+  "gap_kinds": ["gap", "unknown"],
+  "coverage_marks": {
+    "covered": 1.0,
+    "confirmed": 1.0,
+    "supported": 1.0,
+    "pass": 1.0,
+    "partial": 0.5,
+    "supported_with_diff": 0.5,
+    "supported_partial": 0.5,
+    "zh_only": 0.5,
+    "debunked": 0.5,
+    "unverified": 0.25,
+    "unknown": 0.0,
+    "unsupported": 0.0,
+    "fanwork": 0.0
+  },
+  "provenance_fields": [
+    "source", "sources", "evidence", "claim_source", "locator",
+    "url", "cross_refs", "a_level_match", "a_level_counter",
+    "sites", "fallback"
+  ],
+  "verbatim": {
+    "field": "confidence",
+    "grade": "A"
+  },
+  "unknown": {
+    "kind": "unknown",
+    "field": "dimension"
+  },
+  "dimensions": {
+    "D1_seed": {
+      "weight": 0.125,
+      "kinds": ["worldgen"],
+      "unknown_prefix": "D1"
+    },
+    "D2_trends": {
+      "weight": 0.125,
+      "kinds": ["trend", "micro_event", "causal"],
+      "unknown_prefix": "D2"
+    },
+    "D3_plot": {
+      "weight": 0.125,
+      "kinds": ["plot", "wiki_claim", "gap"],
+      "unknown_prefix": "D3"
+    },
+    "D4_dialogue": {
+      "weight": 0.125,
+      "kinds": ["dialogue", "scene"],
+      "unknown_prefix": "D4"
+    },
+    "D5_loops": {
+      "weight": 0.125,
+      "kinds": ["loop", "anchor"],
+      "unknown_prefix": "D5"
+    },
+    "D6_terminal": {
+      "weight": 0.125,
+      "kinds": ["terminal", "multilingual"],
+      "unknown_prefix": "D6"
+    },
+    "D7_community": {
+      "weight": 0.125,
+      "kinds": ["fragment", "crosscheck", "debunked"],
+      "unknown_prefix": "D7"
+    },
+    "D8_characters": {
+      "weight": 0.125,
+      "kinds": ["character", "scenario", "guard", "relation"],
+      "unknown_prefix": "D8"
+    }
+  },
+  "gap_rules": [
+    {
+      "id": "chapter_unknown",
+      "dimension": "D3_plot",
+      "kind": "gap",
+      "field": "version",
+      "equals": "3.4",
+      "denominator": 8,
+      "cap": 0.15,
+      "_comment": "其中一档章节归属仍是 UNKNOWN：缺口 = cap × 命中数 / 章节总数。"
+    },
+    {
+      "id": "scenario_unknown",
+      "dimension": "D8_characters",
+      "kind": "scenario",
+      "field": "judged",
+      "equals": "UNKNOWN",
+      "denominator": 81,
+      "cap": 0.15,
+      "_comment": "触发条件未知的场景不算通过，只从一致性分母里剔除；这里单独扣缺口分。"
+    },
+    {
+      "id": "channel_missing",
+      "dimension": "D7_community",
+      "observed": 5,
+      "total": 14,
+      "cap": 0.3,
+      "_comment": "社区渠道有结果的 5 / 总数 14；未检索与无结果都计入缺口，条目一条不删。"
+    }
+  ]
+}

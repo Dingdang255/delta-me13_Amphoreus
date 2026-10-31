@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
-"""Skeleton of the fidelity report (P0), scores land in P7.
-
-Right now it only proves two things:
-  * `lore/canon/` loads through `apps.canon.CanonBundle` (hash-verified);
-  * each of the eight collection dimensions has at least one record and can be
-    counted without touching the engine.
+"""Fidelity gate: score the compiled corpus against ``config/fidelity.json``.
 
     python tools/fidelity_report.py            # table
     python tools/fidelity_report.py --json     # machine readable
-    python tools/fidelity_report.py --check    # exits 2: scoring not implemented
+    python tools/fidelity_report.py --md       # markdown table
+    python tools/fidelity_report.py --check    # exit 1 when below threshold
 
-The `--check` exit code is deliberately non-zero so this cannot be mistaken for
-the real gate before P7 defines the weights in `config/fidelity.json`.
+The gate is read-only: it loads ``lore/canon/`` through ``apps.canon``, scores
+the eight dimensions in ``apps.fidelity`` and prints the result. Weights,
+thresholds, coverage marks and gap rules all live in the config file; this
+script never adds a score of its own.
+
+``--check`` exits non-zero when the weighted score is below the threshold, when
+a single dimension falls under the floor, or when the bundle cannot be loaded.
+Gap records are never removed to raise a score -- they are reported, and their
+penalty is part of the number.
 """
 from __future__ import annotations
 
@@ -29,83 +32,67 @@ for _s in (sys.stdout, sys.stderr):
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-DIMENSIONS = {
-    "D1_seed": ("worldgen",),
-    "D2_trends": ("trend", "micro_event", "causal"),
-    "D3_plot": ("plot", "wiki_claim", "gap"),
-    "D4_dialogue": ("dialogue", "scene"),
-    "D5_loops": ("loop", "anchor"),
-    "D6_terminal": ("terminal", "multilingual"),
-    "D7_community": ("fragment", "crosscheck", "debunked"),
-    "D8_characters": ("character", "scenario", "guard", "relation"),
-}
-
-#: the P0 skeleton only asserts "non-empty"; P7 replaces this with weights
-MIN_ENTRIES = {dim: 1 for dim in DIMENSIONS}
+from apps import fidelity  # noqa: E402
 
 
-def collect():
-    from apps import canon  # imported here so --help works without a bundle
+def _fmt(value, digits=2):
+    return "—" if value is None else f"{value:.{digits}f}"
 
-    try:
-        bundle = canon.CanonBundle.load()
-    except canon.CanonError as exc:
-        return {"ok": False, "error": str(exc), "dimensions": {}}
 
-    rows = {}
-    for dim, kinds in DIMENSIONS.items():
-        counts = {kind: len(bundle.ids_of_kind(kind)) for kind in kinds}
-        total = sum(counts.values())
-        coverage = 1.0 if total >= MIN_ENTRIES[dim] else 0.0
-        rows[dim] = {
-            "counts": counts,
-            "entries": total,
-            "coverage": coverage,
-            "score": None,
-        }
-    return {
-        "ok": True,
-        "manifest": {
-            "schema_version": bundle.manifest.get("schema_version"),
-            "entry_count": bundle.manifest.get("entry_count"),
-            "source_digest": bundle.manifest.get("source_digest"),
-        },
-        "dimensions": rows,
-        "weighted_score": None,
-        "note": "weights and scoring are defined in P7 (config/fidelity.json)",
-    }
+def markdown(report: dict) -> str:
+    if not report.get("ok"):
+        return f"**语料不可用**：{report.get('error')}"
+    out = [
+        f"加权保真分 **{report['weighted_score']:.4f}**"
+        f" · 阈值 {report['threshold']:.2f}"
+        f" · {'通过' if report['pass'] else '未通过'}",
+        "",
+        "| 维度 | 条数 | 覆盖 | 可追溯 | 逐字 | 一致性 | 缺口 | 得分 |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for name, row in report["dimensions"].items():
+        m = row["metrics"]
+        out.append(f"| {name} | {row['entries']} | {_fmt(m['coverage'])} | "
+                   f"{_fmt(m['traceability'])} | {_fmt(m['verbatim'])} | "
+                   f"{_fmt(m['consistency'])} | {row['penalty']:.2f} | "
+                   f"{row['score']:.2f} |")
+    gaps = [(name, p) for name, row in report["dimensions"].items()
+            for p in row["penalties"]]
+    if gaps:
+        out.extend(["", "缺口（计入扣分，条目未删除）：", ""])
+        for name, p in gaps:
+            out.append(f"- `{p['id']}`（{name}）：{p['count']}/{p['denominator']}"
+                       f" × {p['cap']:.2f} = −{p['amount']:.4f}")
+    if report.get("unassigned_unknowns"):
+        out.extend(["", "跨维未知（不计入维度分）：" +
+                    "、".join(report["unassigned_unknowns"])])
+    if report.get("failures"):
+        out.extend(["", "未通过项："])
+        out.extend(f"- {line}" for line in report["failures"])
+    return "\n".join(out)
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="fidelity report (skeleton)")
-    ap.add_argument("--json", action="store_true")
-    ap.add_argument("--check", action="store_true")
+    ap = argparse.ArgumentParser(description="fidelity gate")
+    ap.add_argument("--json", action="store_true", help="print the full report as JSON")
+    ap.add_argument("--md", action="store_true", help="print a markdown table")
+    ap.add_argument("--check", action="store_true", help="exit 1 when below threshold")
     args = ap.parse_args(argv)
 
-    report = collect()
+    report = fidelity.evaluate()
 
     if args.json:
         print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
+    elif args.md:
+        print(markdown(report))
     else:
-        if not report["ok"]:
-            print(f"no usable bundle: {report['error']}")
-        else:
-            manifest = report["manifest"]
-            print(f"bundle {manifest['schema_version']} · {manifest['entry_count']} entries"
-                  f" · {manifest['source_digest'][:12]}")
-            print()
-            print(f"  {'dimension':<14}{'entries':>8}{'coverage':>10}  kinds")
-            for dim, row in report["dimensions"].items():
-                kinds = ", ".join(f"{k}={v}" for k, v in row["counts"].items())
-                print(f"  {dim:<14}{row['entries']:>8}{row['coverage']:>10.2f}  {kinds}")
-            print()
-            print(f"  weighted score: {report['weighted_score']}  ({report['note']})")
+        print("\n".join(fidelity.render(report)))
 
-    if args.check:
-        print()
-        print("fidelity --check is not implemented yet: scoring lands in P7.")
-        return 2
-    return 0 if report["ok"] else 1
+    if not report.get("ok"):
+        return 1
+    if args.check and not report["pass"]:
+        return 1
+    return 0
 
 
 if __name__ == "__main__":

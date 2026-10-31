@@ -875,6 +875,36 @@ def _narrative_flag(cli_value, narrative, key):
     return bool(cli_value) if cli_value is not None else bool((narrative or {}).get(key, False))
 
 
+def _panels_html(ctx, traj):
+    """叙事面板（只读）：趋势压力 / 场景目录 / 对话阅读，交给可视化层拼接。
+
+    趋势读数来自已有的特征快照与 `config/trends.json`；场景与对话只从
+    `lore/canon/` 读。任何一项读不到就跳过该项 —— 渲染层不猜、不补。
+    """
+    from apps import canon, dialogue, scenes, trends
+    from apps.features import extract
+    from apps.viz import narrative_panels_html
+
+    spec = trends.load_spec()
+    view = trends.view_from_features(extract(traj, ctx))
+    rows = trends.evaluate_all(spec, view)
+    coverage = trends.coverage(spec)
+
+    bundle = None
+    try:
+        bundle = canon.CanonBundle.load()
+    except canon.CanonError:
+        pass
+    scene_items = []
+    reader = None
+    if bundle is not None:
+        scene_items = [scenes.narrate(item) for item in scenes.load(bundle)]
+        scene_id = next(iter(sorted(bundle.ids_of_kind("scene"))), None)
+        reader = dialogue.read_scene(bundle, scene_id) if scene_id else None
+    return narrative_panels_html(rows, coverage, scene_items=scene_items, dialogue=reader)
+
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--frames", type=int, default=None)
@@ -931,6 +961,12 @@ def main():
     ap.add_argument("--origin", action=argparse.BooleanOptionalAction, default=None,
                     help="输出原初目标只读探针（自我度 / 记忆闭合 / 第十三因子反事实）；"
                          "不改轨迹（默认取 preset.json 的 narrative.origin）")
+    ap.add_argument("--fidelity", action=argparse.BooleanOptionalAction, default=None,
+                    help="在报告里追加语料保真自检（八维评分 + 缺口扣分）；只读，"
+                         "不改轨迹（默认取 preset.json 的 narrative.fidelity）")
+    ap.add_argument("--panels", action=argparse.BooleanOptionalAction, default=None,
+                    help="在可视化页里追加叙事面板（趋势压力 / 场景 / 对话阅读）；"
+                         "只读（默认取 preset.json 的 narrative.panels）")
     ap.add_argument("--list-presets", action="store_true", help="列出可用预设")
     ap.add_argument("--verbosity", default=None, metavar="LVL 或 类别=LVL[,…]",
                     help="输出文本的详细程度：0 静默 / 1 摘要 / 2 常规 / 3 详细。"
@@ -987,6 +1023,8 @@ def main():
     use_terminal = _narrative_flag(args.terminal, nar, "terminal")
     use_archive = _narrative_flag(args.archive, nar, "archive")
     use_origin = _narrative_flag(args.origin, nar, "origin")
+    use_fidelity = _narrative_flag(args.fidelity, nar, "fidelity")
+    use_panels = _narrative_flag(args.panels, nar, "panels")
     # 独立 CLI 窗口：CLI-only 的运行时选择（不写进预设）；它隐含终端层。
     use_window = bool(args.terminal_window)
     if use_window and args.terminal is False:
@@ -1093,6 +1131,16 @@ def main():
                                 ask=args.terminal_ask, source=path, sink=bridge)
         else:
             print("（本预设没有终端消息）", flush=True)
+
+    # 叙事终端里的对话阅读器：预设写了 `narrative.dialogue_scene` 才播放该场景。
+    # 只读、只走终端的输出通道；分叉处只列选项，不替读者选。
+    if term is not None and nar.get("dialogue_scene"):
+        from apps import canon as canon_mod, dialogue as dialogue_mod
+        try:
+            term.play_dialogue(dialogue_mod.read_scene(
+                canon_mod.CanonBundle.load(), str(nar["dialogue_scene"])))
+        except (canon_mod.CanonError, dialogue_mod.DialogueError) as exc:
+            print(f"（对话阅读器跳过：{exc}）", flush=True)
 
     # 原初目标只读探针：按访问帧采样席位向量（死循环复用区不重复计算），报告前补采末帧。恒返回 True。
     # origin 世界不挂它 —— 那个世界有【真实】的 `State.origin`，报告【八】读真状态。
@@ -1202,6 +1250,10 @@ def main():
         origin_lex = ctx.lexicon.get("origin") or {}
         narrative.append(("【八】" + origin_lex.get("title", "原初目标"),
                           render_origin(origin_probe.summary(traj), ctx.lexicon)))
+    if use_fidelity:
+        # 只读：读编译语料评分，权重 / 阈值 / 缺口规则全在 config/fidelity.json。
+        from apps import fidelity
+        narrative.append(("【九】保真自检", fidelity.render(fidelity.evaluate())))
     narrative = narrative or None
 
     print(report(ctx, data, traj, results, explore=bool(explore), narrative=narrative))
@@ -1210,12 +1262,14 @@ def main():
     # 于是 --serve 的世界跑完后，页面重载出来就是与 --export 逐字一致的那张
     # （不依赖导出文件是否落盘）。
     if args.export is not None or board is not None:
+        panels_html = _panels_html(ctx, traj) if use_panels else ""
         html_text = build_html(ctx, traj, sampler.points if sampler else None,
                                lines=chronicle_rows(ctx, traj),
                                title=f"δ-me13「翁法罗斯」演算 · {data.preset['name']}",
                                data=data,
                                texture=sampler.texture if sampler else None,
-                               origin_series=sampler.origin if sampler else None)
+                               origin_series=sampler.origin if sampler else None,
+                               narrative_html=panels_html)
         if board is not None:
             board.set_final_page(html_text)     # 实时页据此自动重载成完整静态页
         if args.export is not None:

@@ -391,6 +391,59 @@ def stage_rows(ctx, data, *, starts, born, prom, fell, reached_frame,
     return rows
 
 
+def _bar(value: float, width: int = 24) -> str:
+    """A plain pressure bar; the value is clamped, never rescaled against peers."""
+    ratio = max(0.0, min(1.0, float(value)))
+    filled = int(round(ratio * width))
+    return "█" * filled + "·" * (width - filled)
+
+
+def trend_pressure_lines(rows, width: int = 24) -> list:
+    """Read-only pressure bars for trend rows.
+
+    One line per channel -- two channels of the same trend are shown side by
+    side and never merged into a net value. Missing readings are reported as
+    ``—`` instead of being filled in.
+    """
+    out = []
+    for row in rows:
+        value = row.get("value")
+        driver = row.get("driver_value")
+        bar = _bar(value if value is not None else 0.0, width)
+        driver_text = "—" if driver is None else f"{float(driver):.3f}"
+        note = row.get("note") or ""
+        flag = "✓" if row.get("active") else " "
+        out.append(f"  {flag} {row.get('trend', ''):<10} {row.get('channel', ''):<14} "
+                   f"{bar} {float(value or 0.0):.2f}"
+                   f"  驱动 {row.get('driver', '')}={driver_text}"
+                   + (f"  ({note})" if note else ""))
+    return out
+
+
+def scene_panel_lines(item) -> list:
+    """Flatten one ``scenes.narrate`` result into readable lines.
+
+    The text comes from the corpus record; this function only adds structural
+    labels (before / during / after) and lists unresolved gaps verbatim.
+    """
+    head = f"  [{item.get('version')}] {item.get('title') or item.get('id')}"
+    out = [head]
+    labels = {"before": "前情", "during": "过程", "after": "后续"}
+    for act in item.get("acts") or ():
+        out.append(f"    {labels.get(act.get('phase'), act.get('phase'))}：{act.get('text')}")
+    if item.get("dialogue_refs"):
+        out.append("    台词：" + "、".join(item["dialogue_refs"]))
+    if item.get("scene_refs"):
+        out.append("    关联场景：" + "、".join(item["scene_refs"]))
+    if item.get("mechanism_refs"):
+        out.append("    机制：" + "、".join(item["mechanism_refs"]))
+    if not item.get("verbatim_available"):
+        out.append("    逐字：无（本条只有概述级文本）")
+    if item.get("gap"):
+        out.append(f"    缺口：{item['gap']}")
+    return out
+
+
 def stage_table(ctx, data, traj) -> list:
     """四个阶段的目录：帧区间 · 本档新装的机制 / 参数覆盖 · 期间读数 · 该档的「结论」。
 

@@ -283,6 +283,23 @@ class TerminalFeed:
             self._drain(self._last_frame, self._last_st)
         self._closed = True
 
+    def play_dialogue(self, reader_result) -> list:
+        """Read-only dialogue reader: print a ``dialogue.read_scene`` result.
+
+        Lines go through the same ``write`` channel as system messages. A fork is
+        reported with its choices and is **not** answered here -- the caller (or
+        the reader) decides. Returns the choices that are still pending.
+        """
+        for row in reader_result.get("lines") or ():
+            speaker = row.get("speaker") or ""
+            text = row.get("text") or ""
+            self.write(f">>> [{speaker}] {text}" if speaker else f">>> {text}")
+        pending = reader_result.get("pending")
+        if pending:
+            self.write(">>> 需要选择：" + " / ".join(pending.get("choices") or ()))
+            return list(pending.get("choices") or ())
+        return []
+
     # ---- 内部 ---------------------------------------------------------------
     def _drain(self, frame, st):
         while self._cursor < len(self.messages):

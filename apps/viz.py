@@ -2056,8 +2056,82 @@ def origin_panel(summary, series, total) -> str:
     return "\n".join(out)
 
 
+def narrative_panels_html(trend_rows=None, trend_coverage=None, scene_items=None,
+                          dialogue=None, title="叙事面板") -> str:
+    """Read-only HTML for the three narrative panels.
+
+    Trend channels are rendered one row each and grouped by trend: two channels
+    of the same trend sit side by side and are never merged into a net value.
+    Unwired trends are listed with the reason they are not wired, not hidden.
+    Scene text and dialogue lines come from the corpus; this function only
+    rearranges them. Returns an empty string when nothing was passed.
+    """
+    parts = []
+    rows = list(trend_rows or ())
+    cov = trend_coverage or {}
+    if rows or cov.get("unwired"):
+        parts.append(f"<h2>{html.escape(title)} · 趋势压力</h2>")
+        parts.append('<div class="panel"><table class="seats" style="width:100%">')
+        parts.append("<tr><th>趋势</th><th>通道</th><th>压力</th><th>数值</th>"
+                     "<th>驱动</th><th>状态</th></tr>")
+        by_trend: dict[str, list] = {}
+        for row in rows:
+            by_trend.setdefault(str(row.get("trend", "")), []).append(row)
+        for trend, group in by_trend.items():
+            for i, row in enumerate(group):
+                value = float(row.get("value") or 0.0)
+                pct = max(0.0, min(1.0, value)) * 100.0
+                trend_cell = (f'<td rowspan="{len(group)}">{html.escape(trend)}</td>'
+                              if i == 0 else "")
+                parts.append(
+                    f"<tr>{trend_cell}<td>{html.escape(str(row.get('channel', '')))}</td>"
+                    f'<td><span style="display:inline-block;height:8px;width:120px;'
+                    f'background:#2a3140;border-radius:4px;vertical-align:middle">'
+                    f'<span style="display:inline-block;height:8px;width:{pct:.1f}%;'
+                    f'background:#7fd0ff;border-radius:4px"></span></span></td>'
+                    f"<td>{value:.2f}</td>"
+                    f"<td>{html.escape(str(row.get('driver', '')))}</td>"
+                    f"<td>{html.escape(str(row.get('note') or '已接线'))}</td></tr>")
+        for trend, reason in (cov.get("unwired") or {}).items():
+            parts.append(f"<tr><td>{html.escape(trend)}</td><td>—</td><td>—</td>"
+                         f"<td>—</td><td>—</td>"
+                         f"<td>未接线：{html.escape(str(reason))}</td></tr>")
+        parts.append("</table></div>")
+
+    scenes = list(scene_items or ())
+    if scenes:
+        parts.append(f"<h2>{html.escape(title)} · 场景面板</h2>")
+        parts.append('<div class="panel">')
+        for item in scenes:
+            parts.append(
+                f"<div style=\"margin:8px 0\"><b>[{html.escape(str(item.get('version')))}]"
+                f" {html.escape(str(item.get('title') or item.get('id')))}</b>")
+            for act in item.get("acts") or ():
+                parts.append(f"<div class=\"sub\">{html.escape(str(act.get('phase')))}"
+                             f"：{html.escape(str(act.get('text')))}</div>")
+            if item.get("gap"):
+                parts.append(f"<div class=\"sub\">缺口：{html.escape(str(item['gap']))}</div>")
+            parts.append("</div>")
+        parts.append("</div>")
+
+    if dialogue and dialogue.get("lines"):
+        parts.append(f"<h2>{html.escape(title)} · 对话阅读</h2>")
+        parts.append('<div class="panel">')
+        for row in dialogue["lines"]:
+            speaker = html.escape(str(row.get("speaker") or ""))
+            text = html.escape(str(row.get("text") or ""))
+            parts.append(f"<div class=\"sub\">{('[' + speaker + '] ') if speaker else ''}"
+                         f"{text}</div>")
+        pending = dialogue.get("pending")
+        if pending:
+            parts.append('<div class="sub">需要选择：'
+                         + html.escape(" / ".join(pending.get("choices") or ())) + "</div>")
+        parts.append("</div>")
+    return "\n".join(parts)
+
+
 def _page(R, title, live, cards_html, seats_html, blob, stages_html="", rules_html="",
-          origin_html=""):
+          origin_html="", narrative_html=""):
     """把各部分拼成一张完整的页面（静态导出与实时看板共用）。"""
     js = _JS.replace("__ROWS__", "120")
     note = ('<div class="sub" id="sub">实时看板 —— 演算每前进一步，本页自动跟着更新'
@@ -2095,6 +2169,7 @@ def _page(R, title, live, cards_html, seats_html, blob, stages_html="", rules_ht
   <span id="cursor" class="dim"></span>
 </div></div>
 {origin_html}
+{narrative_html}
 <h2>十二席状态（A2）</h2>
 {seats_html}
 {stages_html}
@@ -2250,7 +2325,7 @@ def _origin_series(traj, series):
 
 
 def build_html(ctx, traj, points, lines=None, title=None, data=None, texture=None,
-               origin_series=None):
+               origin_series=None, narrative_html=""):
     """把一次演算装配成单文件 HTML（静态导出）。
 
     points 来自 Sampler（可为 None）；lines 是编年史行 [(frame, text, badge, rid), ...]
@@ -2288,7 +2363,7 @@ def build_html(ctx, traj, points, lines=None, title=None, data=None, texture=Non
                  _seats_html(_seat_cards(ctx, traj, names, machines), tau,
                              show_places=myth_phase_frame(traj) is not None),
                  blob, _stages_html(stages), _rules_html(ctx, traj),
-                 origin_html=origin_html)
+                 origin_html=origin_html, narrative_html=narrative_html)
 
 
 def build_live_shell(ctx, total, title=None, autoreload=True):

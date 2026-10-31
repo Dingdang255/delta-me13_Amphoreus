@@ -143,7 +143,7 @@ python run.py --preset plot --serve 9000 --no-open   # 指定端口、不自动�
 
 ## δ-me13 叙事层（只读）
 
-除了演算本身，预设还可以挂四层叙事 + 一个独立 CLI 窗口。**它们全部只读**：不写状态、不进指纹，
+除了演算本身，预设还可以挂六项只读叙事（终端 / 独立 CLI 窗口 / 档案 / 原初目标 / 保真自检 / 叙事面板）。**它们全部只读**：不写状态、不进指纹，
 删掉或关掉，演算逐帧不变。
 
 | 层           | 载体                                                                     | 怎么开                            | 你会看到                                                                                       |
@@ -152,12 +152,16 @@ python run.py --preset plot --serve 9000 --no-open   # 指定端口、不自动�
 | 独立 CLI 窗口   | `apps/terminal_bridge.py` + `apps/terminal_window.py`                  | `--terminal-window`            | 新开控制台显示 `>>>` 并在 `prompt` 处阻塞等待；超时/关窗回落默认答案；失败时回退同控制台                                      |
 | 实验档案 / 异常记录 | `presets/<名>/archive.json` → `apps/archive.py`                         | `--archive` / `--no-archive`   | 报告【六】实验档案（含进度里程碑）与【七】异常记录（已抵达 / 未抵达、本轨道发生 / 未发生）                                           |
 | 原初目标        | `apps/origin.py`（canonical 只读探针）/ `apps/origin_loop.py`（origin 世界真实状态） | `--origin` / `--no-origin`     | 报告【八】原初目标：canonical 读自我度均值 / 峰值 / 采样、记忆闭合、反事实三态；`worlds/origin` 读真实的成形 / 能量 / 借还 / 锚点 / 四态 |
+| 保真自检        | `lore/canon/` → `apps/fidelity.py`                                      | `--fidelity` / `--no-fidelity` | 报告【九】八维保真分（覆盖 / 可追溯 / 逐字 / 一致性）与缺口扣分；权重、阈值、缺口规则全在 `config/fidelity.json`                        |
+| 叙事面板        | `apps/trends.py` / `scenes.py` / `dialogue.py` → `apps/viz.py`          | `--panels` / `--no-panels`     | 可视化页追加趋势压力条（同一趋势的多通道并排，不合并）、场景面板与对话阅读器                                                    |
 | 内容版预设       | `presets/plot-full/`                                                   | `--preset plot-full`           | `plot` 的孪生副本，补后段的镜头、终端消息与档案；默认四层全开                                                         |
 
 - **文案在预设层**：`>>>` 消息、档案正文、原初目标措辞都住在 `presets/`，`apps/` 里没有一个专名；
   换一份预设，同一台引擎就讲另一个故事。
 - **默认值由** **`preset.json`** **的** **`narrative`** **决定**：`plot` 默认关闭叙事层，`plot-full` 默认全开；
-  CLI 的 `--terminal` / `--archive` / `--origin` 可临时覆盖。
+  CLI 的 `--terminal` / `--archive` / `--origin` / `--fidelity` / `--panels` 可临时覆盖。
+- **保真分不写死在代码里**：`tools/fidelity_report.py --check` 低于阈值即失败；缺口条目（章节 / 未知场景 /
+  社区渠道）一条不删，只按规则扣分。
 - **交互只在 TTY 下发生**：`--terminal-ask` 在 `prompt` 处等待输入；非 TTY（CI / 重定向）直接
   打印默认答案，不阻塞。
 - **镜头不改世界**：`plot-full` 新增的桥段一律用 `emit`（只写 `emitted_*` 记账），不改席位、
@@ -254,7 +258,7 @@ python run.py --root worlds/origin --preset origin-stall --frames 12000
 ```
 run.py              入口：命令行、编年史渲染、报告、可视化导出
 kernel/             纯逻辑内核：主循环 / 算子 / 状态 / 装载 / 调度 / 记账（零专名、不下结论）
-apps/               用户态：系统服务（裁决 / 消融 / 断言 / 不变量 / 特征 / 条件）+ 界面（命名 / 渲染 / 看板）+ 只读叙事层（`terminal.py` / `terminal_bridge.py` / `terminal_window.py` / `archive.py` / `origin.py`）
+apps/               用户态：系统服务（裁决 / 消融 / 断言 / 不变量 / 特征 / 条件）+ 界面（命名 / 渲染 / 看板）+ 只读叙事层（`terminal.py` / `terminal_bridge.py` / `terminal_window.py` / `archive.py` / `origin.py`）+ 只读语料层（`canon.py` / `fidelity.py`）
 config/             规则与阈值：params / loci / mapping / operators / calendar / lexicon / phonology
 presets/            世界与剧情：机器规格（genesis：命题 / 变量域 / 阶段装配）、种子、名字锚定、外生剧本（events.jsonl 或 script.jsonl）、期望时间线
 worlds/origin/      原初世界的【独立数据根】：13 席 config/ + presets/origin/（含 nodes.json 回望节点）；canonical 的 config/ 与 presets/plot* 零改动
@@ -325,6 +329,7 @@ python tools/export.py                      # 打包成可分发的 zip（含解
 | `tools/anomaly_check.py`        | 死循环相关的诊断                                                                               |
 | `tools/alt_world/run_alt.py`    | 数据替换判据：换一整套世界，同一台引擎照跑                                                                  |
 | `tools/lexicon_table.py`        | 生成 `docs/术语对照表.md`（`--write` / `--check`）                                              |
+| `tools/fidelity_report.py`      | **语料保真门禁**：八维评分 + 缺口扣分（`--json` / `--md` / `--check`）；权重与阈值在 `config/fidelity.json`，条目一条不删 |
 | `tools/actors_from_spec.py`     | 由 `docs/外部变量.json` 派生预设的外部实体表                                                          |
 
 ## 许可

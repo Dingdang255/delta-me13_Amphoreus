@@ -105,6 +105,24 @@
   warning，不补、不猜**。
 - `tests/test_scenes.py`：7 项契约。
 
+### 保真评分与呈现（P7）
+
+- `config/fidelity.json`：八维权重、总分阈值、单维下限、覆盖标记、来源字段、缺口规则；
+  分数、阈值、扣分上限全部在配置里，代码里不写任何分数。
+- `apps/fidelity.py`：只读评分。每维四项指标 —— 覆盖率（部分 / 未知 / 缺口记录一律折分）、
+  可追溯率（`UNKNOWN` 视为缺失）、A 级逐字率（只在有 `confidence` 的记录上计算，无证据则记 `—`
+  并从加权均值里剔除）、一致性（场景规则回放 / 场景引用解析）。随后按缺口规则扣分：
+  章节归属 UNKNOWN（1/8）、触发 UNKNOWN 的场景（6/81）、社区渠道（9/14 缺口，5/14 有结果）。
+  缺口条目一条不删，扣分照算。
+- `tools/fidelity_report.py`：真门禁。`--json` / `--md` / `--check`，低于阈值或单维低于下限即退出码非 0。
+- 呈现（只读）：`apps/render.py` 的趋势压力条（同一趋势的两条通道并排显示，不合并）、
+  场景面板（`scenes.narrate`）、对话阅读器（`dialogue.read_scene` + `TerminalFeed.play_dialogue`）；
+  `apps/viz.py` 的 `narrative_panels_html` 把三块接进可视化页。全部只读，删掉演算逐帧不变。
+- `run.py` 新增 `--fidelity` / `--panels`（也读预设的 `narrative.fidelity` / `narrative.panels`）；
+  终端层可用 `narrative.dialogue_scene` 播放一个对话场景。**默认全关，既有报告逐字不变。**
+- `tests/test_fidelity.py`：15 项 —— 阈值一致性、缺口计数、只读与幂等、默认关闭时报告不变、
+  两条通道并排、对话阅读器不替读者选分支。
+
 ### 验证
 
 - 全量单测通过（基线 508 项）；`snapshot --structural` canonical 逐项一致。
@@ -122,6 +140,8 @@
 - `origin`：39 条断言全过 / 5 锚点 / `origin_closed`。
 - `origin-eternal`：53 条断言全过 / 40 条时间线全过 / `origin_closed` / 复用 33,580,277 帧。
 - `grep_forbidden` / `layer_lint` / `stepwise_lint` 全过；`kernel/` 与 `apps/` 零专名。
+- 保真：八维加权 **0.8969**（阈值 0.85，单维下限 0.50），D7 社区 0.58 为最低项；
+  缺口按实测计 —— 章节 1/8、未知场景 6/81、渠道 9/14；`fidelity_report --check` 退出码 0。
 
 ## 未发布 — A 线维护（`script.jsonl` 样例 · 发版纪律 · 去重）
 

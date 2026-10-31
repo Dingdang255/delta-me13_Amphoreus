@@ -53,8 +53,9 @@ KERNEL = ["api.py", "core.py", "disturbance.py", "emergence.py", "loader.py",
 #         + 角色心智（`agents.py`：只读角色卡与规则匹配，不改世界）。
 #         + 只读叙事（`dialogue.py` 走对话链 / `logs.py` 读轮回账本）。
 #         + 场景目录（`scenes.py`：章节覆盖与线性 DAG，只读）。
+#         + 保真评分（`fidelity.py`：只读编译语料，权重 / 阈值 / 缺口规则全在 config/）。
 APPS = ["ablation.py", "agents.py", "archive.py", "assertions.py", "canon.py",
-        "conditions.py", "dialogue.py", "features.py",
+        "conditions.py", "dialogue.py", "features.py", "fidelity.py",
         "invariants.py", "live.py", "logs.py", "namer.py", "origin.py",
         "origin_loop.py",
         "render.py", "scenes.py", "script.py",
