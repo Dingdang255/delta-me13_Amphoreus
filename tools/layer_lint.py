@@ -52,11 +52,12 @@ KERNEL = ["api.py", "core.py", "disturbance.py", "emergence.py", "loader.py",
 #         + 趋势求值（`trends.py`：只读，读数 → 建议，不写状态）。
 #         + 角色心智（`agents.py`：只读角色卡与规则匹配，不改世界）。
 #         + 只读叙事（`dialogue.py` 走对话链 / `logs.py` 读轮回账本）。
+#         + 场景目录（`scenes.py`：章节覆盖与线性 DAG，只读）。
 APPS = ["ablation.py", "agents.py", "archive.py", "assertions.py", "canon.py",
         "conditions.py", "dialogue.py", "features.py",
         "invariants.py", "live.py", "logs.py", "namer.py", "origin.py",
         "origin_loop.py",
-        "render.py", "script.py",
+        "render.py", "scenes.py", "script.py",
         "services.py", "terminal.py", "terminal_bridge.py", "terminal_window.py",
         "timeline.py", "trends.py", "verdicts.py", "viz.py", "worldgen.py"]
 

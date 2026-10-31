@@ -96,6 +96,15 @@
   交互可改选「保持沉默」。两条分支文案均标注「演示用，非原著文本」。
 - 测试：`test_dialogue.py`、`test_logs.py`、`test_terminal_branch.py`（共 25 项）。
 
+### 场景过程化（P6b）
+
+- `apps/scenes.py`：把 12 条 `PLOT-*` 扩写编译成场景目录；`narrate()` 展平为
+  before / during / after 三段；`dag()` 只按章节顺序连**线性链**（语料只证明了顺序，
+  没有证明更多边，故不虚构 DAG）；`unresolved()` 检查台词、场景、机制引用。
+- `tools/scene_lint.py`：章节覆盖、引用可解析、DAG 完整性；**3.4 的缺口按 CF-007 保留为
+  warning，不补、不猜**。
+- `tests/test_scenes.py`：7 项契约。
+
 ### 验证
 
 - 全量单测通过（基线 508 项）；`snapshot --structural` canonical 逐项一致。
@@ -108,6 +117,8 @@
   可执行部分通过率 100%；`character_audit --check` 0 错；17 项契约测试通过。
 - 叙事：`messages_lint --check` 5 个文件 0 错；`_branch-demo` 默认路径输出「（成像）→ 分支 A → 回到主线」；
   对话/日志/分支三组测试 25 项通过。
+- 场景：12 条、8 章中 7 章有场景（3.4 按 CF-007 留空）、线性 DAG 11 条边；
+  `scene_lint --check` 0 错；7 项契约测试通过。
 - `origin`：39 条断言全过 / 5 锚点 / `origin_closed`。
 - `origin-eternal`：53 条断言全过 / 40 条时间线全过 / `origin_closed` / 复用 33,580,277 帧。
 - `grep_forbidden` / `layer_lint` / `stepwise_lint` 全过；`kernel/` 与 `apps/` 零专名。
