@@ -351,6 +351,42 @@
    "digest": "8e3d8785460f582414112fabc665c986",
    "root": "worlds/origin",
    "slow": false
+  },
+  {
+   "preset": "origin",
+   "seed": 0,
+   "frames": null,
+   "verdict": "undecided",
+   "conclusion": "C_UNDECIDED",
+   "stop_reason": "BUDGET",
+   "reached_frame": 19999,
+   "iterations": 13051,
+   "skipped_frames": 6952,
+   "promotions": 1,
+   "personas": 398,
+   "entropy": 0.298288,
+   "noise": 0.0,
+   "population": 416,
+   "destruction_events": 0,
+   "ascended": false,
+   "seats": [
+    -2,
+    null,
+    5928,
+    5959,
+    5912,
+    5891,
+    null,
+    6119,
+    5958,
+    5905,
+    5974,
+    5950,
+    6193
+   ],
+   "digest": "3f989800700558aaf44cb897167a85b5",
+   "root": "worlds/origin",
+   "slow": true
   }
  ]
 }

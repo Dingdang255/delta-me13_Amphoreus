@@ -46,15 +46,15 @@
 
 - `tools/snapshot.py` 的条目支持 `root` 字段：缺省走项目根，带值时 `DataSet` / `Config` 从该根的
   `config/`、`presets/` 读取；条目键在带 root 时写成 `root@preset@seed@frames`，旧键原样兼容。
-- 新增两条独立世界指纹：`worlds/origin@origin@0@6000`（快）与
-  `worlds/origin@origin-eternal@0@None`（全量，约 21s）。此前后者与其它 `worlds/` 内容
-  不在指纹覆盖内，改动 `nodes.json` / `params.json` 不会被自动拦截。
-- 指纹总数 8 → 10；`tests/baseline.json` 随之更新。
+- 新增三条独立世界指纹：`origin@0@6000`（快，开局到唤醒）、`origin@0@None`（全量，约 12s）
+  与 `origin-eternal@0@None`（全量，约 21s）。此前 `worlds/` 下的原初世界完全不在指纹覆盖内，
+  改 `nodes.json` / `params.json` 不会被自动拦截。
+- 指纹总数 8 → 11；`tests/baseline.json` 随之更新。
 
 ### 验证
 
 - 全量单测通过（基线 508 项）；`snapshot --structural` canonical 逐项一致。
-- `snapshot`（含 digest）10/10 一致：8 条 canonical + 2 条 `worlds/origin`。
+- `snapshot`（含 digest）11/11 一致：8 条 canonical + 3 条 `worlds/origin`。
 - `origin`：39 条断言全过 / 5 锚点 / `origin_closed`。
 - `origin-eternal`：53 条断言全过 / 40 条时间线全过 / `origin_closed` / 复用 33,580,277 帧。
 - `grep_forbidden` / `layer_lint` / `stepwise_lint` 全过；`kernel/` 与 `apps/` 零专名。

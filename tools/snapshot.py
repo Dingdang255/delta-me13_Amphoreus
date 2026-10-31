@@ -122,6 +122,8 @@ ENTRIES = [
     # 独立世界根：十三席的原初世界，不参与 canonical 的 12 席判据。
     {"preset": "origin", "seed": 0, "frames": 6000, "slow": False,
      "root": "worlds/origin"},
+    {"preset": "origin", "seed": 0, "frames": None, "slow": True,
+     "root": "worlds/origin"},
     {"preset": "origin-eternal", "seed": 0, "frames": None, "slow": True,
      "root": "worlds/origin"},
 ]

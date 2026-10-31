@@ -18,7 +18,7 @@
     },
     "golden_entries": {
       "method": "len(tests/golden_fingerprints.json entries)",
-      "value": 10
+      "value": 11
     },
     "kernel_files": {
       "method": "count *.py in kernel/ including __init__.py",
@@ -74,6 +74,14 @@
         "reached_frame": 2999,
         "seed": 0,
         "verdict": "destruction"
+      },
+      {
+        "digest": "3f989800700558aaf44cb897167a85b5",
+        "frames": null,
+        "preset": "origin",
+        "reached_frame": 19999,
+        "seed": 0,
+        "verdict": "undecided"
       },
       {
         "digest": "8e3d8785460f582414112fabc665c986",
@@ -134,7 +142,7 @@
     },
     "sha256": {
       "method": "sha256 of the file",
-      "value": "15d22874b4db331a52df75e3ee6e37ac43583fb2a59c5ff7bcc130c130b84765"
+      "value": "e808ccd728adee9478a1ce47cd30e21b894f6fbcf7b8546ae3258a0913f66d1f"
     }
   },
   "lore": {
