@@ -437,6 +437,10 @@ def scene_panel_lines(item) -> list:
         out.append("    关联场景：" + "、".join(item["scene_refs"]))
     if item.get("mechanism_refs"):
         out.append("    机制：" + "、".join(item["mechanism_refs"]))
+    if item.get("beats"):
+        out.append("    预设节拍：" + "；".join(
+            f"{beat.get('frame')}·{beat.get('id')}（{'/'.join(beat.get('presets') or [])}）"
+            for beat in item["beats"]))
     if not item.get("verbatim_available"):
         out.append("    逐字：无（本条只有概述级文本）")
     if item.get("gap"):

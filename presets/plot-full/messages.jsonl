@@ -4,12 +4,16 @@
 {"frame": 6000, "kind": "warn", "text": "第 176100 次循环：Utop13 的「爱」导致感染强度飙升，99 次循环渲染为乱码"}
 {"frame": 8000, "kind": "log", "text": "忆庭之镜定位完成，外部观测者已接入"}
 {"frame": 11000, "kind": "log", "text": "第 176200–28371273 次循环：主动更替被诱导，再创世机制确立并完善"}
+{"frame": 17000, "kind": "log", "text": "神悟树庭失守：启蒙王座的火种被分作三份", "require_event": "grove_falls"}
+{"frame": 21000, "kind": "log", "text": "元老院与渎神者达成交易：黎明云崖放行", "require_event": "anaxa_bargain"}
 {"frame": 40000, "kind": "warn", "text": "管理员权限被调用：实验进程即将进入不可逆阶段"}
 {"frame": 42000, "kind": "error", "text": "δ-me13:\\Amphoreus\\Irontomb.exe 运行时错误"}
 {"frame": 42001, "kind": "prompt", "text": "来自未知发布者的程序 δ-me13:\\Demiurge\\Philia093.exe", "ask": "是否允许写入？", "options": ["Y", "n"], "default": "Y"}
 {"frame": 42002, "kind": "status", "text": "Philia093.exe 运行中..."}
 {"frame": 42003, "kind": "log", "text": "订正：Philia093 的记录 #496，已归档"}
 {"frame": 33594260, "kind": "log", "text": "哀丽秘榭的记忆被重新翻开"}
+{"frame": 33594270, "kind": "log", "text": "同盟会议被武力接管：对法吉娜的狩猎令已颁", "require_event": "kleodra_council"}
+{"frame": 33594310, "kind": "warn", "text": "「律法」试炼记录：献祭名单五百人", "require_event": "undersea_500"}
 {"frame": 33594320, "kind": "log", "text": "管理员身份核对：赞达尔，天才俱乐部#1"}
 {"frame": 33594383, "kind": "log", "text": "系统运行中", "require_event": "last_pilgrimage"}
 {"frame": 33594510, "kind": "log", "text": "德谬歌开始回望 —— 从时间的起点寻找闭合的因果"}

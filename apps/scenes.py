@@ -24,7 +24,14 @@ def _version_key(version: str) -> tuple:
 
 
 def load(bundle) -> list[dict]:
+    """剧情条目，附带「哪些预设节拍演到了它」（只读反查 `preset_beat`）。"""
     scenes = [dict(entry.data) for entry in bundle.of_kind("plot")]
+    for scene in scenes:
+        scene["beats"] = [
+            {"id": beat.id, "frame": beat.get("frame"),
+             "presets": list(beat.get("presets") or [])}
+            for beat in bundle.beats_for(str(scene.get("id")))
+        ]
     scenes.sort(key=lambda s: (_version_key(s.get("version", "")), s.get("id", "")))
     return scenes
 
@@ -74,6 +81,7 @@ def narrate(scene: dict) -> dict:
         "dialogue_refs": list(scene.get("dialogue_refs") or []),
         "scene_refs": list(scene.get("scene_refs") or []),
         "mechanism_refs": list(scene.get("mechanism_refs") or []),
+        "beats": list(scene.get("beats") or []),
         "verbatim_available": bool(scene.get("verbatim_available")),
         "gap": scene.get("gap", ""),
         "sources": list(scene.get("sources") or []),

@@ -153,7 +153,7 @@ python run.py --preset plot --serve 9000 --no-open   # 指定端口、不自动�
 | 实验档案 / 异常记录 | `presets/<名>/archive.json` → `apps/archive.py`                         | `--archive` / `--no-archive`   | 报告【六】实验档案（含进度里程碑）与【七】异常记录（已抵达 / 未抵达、本轨道发生 / 未发生）                                           |
 | 原初目标        | `apps/origin.py`（canonical 只读探针）/ `apps/origin_loop.py`（origin 世界真实状态） | `--origin` / `--no-origin`     | 报告【八】原初目标：canonical 读自我度均值 / 峰值 / 采样、记忆闭合、反事实三态；`worlds/origin` 读真实的成形 / 能量 / 借还 / 锚点 / 四态 |
 | 保真自检        | `lore/canon/` → `apps/fidelity.py`                                      | `--fidelity` / `--no-fidelity` | 报告【九】八维保真分（覆盖 / 可追溯 / 逐字 / 一致性）与缺口扣分；权重、阈值、缺口规则全在 `config/fidelity.json`                        |
-| 叙事面板        | `apps/trends.py` / `scenes.py` / `dialogue.py` → `apps/viz.py`          | `--panels` / `--no-panels`     | 可视化页追加趋势压力条（同一趋势的多通道并排，不合并）、场景面板与对话阅读器                                                    |
+| 叙事面板        | `apps/trends.py` / `scenes.py` / `dialogue.py` → `apps/viz.py`          | `--panels` / `--no-panels`     | 可视化页追加趋势压力条（同一趋势的多通道并排，不合并）、场景面板（含「预设节拍」反查）与对话阅读器                                                    |
 | 内容版预设       | `presets/plot-full/`                                                   | `--preset plot-full`           | `plot` 的孪生副本，补后段的镜头、终端消息与档案；默认四层全开                                                         |
 
 - **文案在预设层**：`>>>` 消息、档案正文、原初目标措辞都住在 `presets/`，`apps/` 里没有一个专名；

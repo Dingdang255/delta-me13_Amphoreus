@@ -1,5 +1,33 @@
 # 13 Changelog
 
+## v1.23 — 2026-10-31（接上消费方；为 4 段新节拍补终端消息与档案）
+
+### 消费方（方案 3 的落地）
+
+- `apps/scenes.py`：`load(bundle)` 为每条剧情附 `beats`（`id / frame / presets`，来自 `bundle.beats_for`）；
+  `narrate()` 一并透出 `beats`。
+- `apps/render.py`：`scene_panel_lines()` 新增一行「预设节拍：帧·PB-id（哪些预设）」，无节拍时不打印。
+  这是 `preset_beat` 第一次被渲染层真正消费。
+- `tests/test_scenes.py`：新增 `test_beats_are_attached_in_order`（id 不重复、frame 升序、至少一条被演到）。
+
+### 4 段新节拍的终端/档案
+
+- `presets/plot-full/messages.jsonl` 补 4 条，全部用 `require_event` 绑定到新事件：
+  - 17000 `grove_falls`「神悟树庭失守：启蒙王座的火种被分作三份」
+  - 21000 `anaxa_bargain`「元老院与渎神者达成交易：黎明云崖放行」
+  - 33594270 `kleodra_council`「同盟会议被武力接管：对法吉娜的狩猎令已颁」
+  - 33594310 `undersea_500`「『律法』试炼记录：献祭名单五百人」（warn）
+- `presets/plot-full/archive.json` 补 **归档04**「一条被改写的规则」：以实验档案的口吻记「律法」被五百条性命改写一次。
+  正文只用引擎层已有概念（自主协议 / 附加条款），不新增专名。
+
+### 校验
+
+- `messages_lint presets/plot-full/messages.jsonl` → 0 errors / 0 warnings。
+- 渲染自检：`PLOT-011` 现在会打印 6 个预设节拍（PB-014/024/026/028/031/032）。
+- `python -m unittest discover -s tests -q` → **Ran 616 tests in 228.9s, OK**。
+
+---
+
 ## v1.22 — 2026-10-31（`preset_beat` 注册为 canon kind；新增 PLOT→节拍 只读反查）
 
 ### 入库

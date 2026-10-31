@@ -28,6 +28,18 @@ class TestSceneCatalogue(unittest.TestCase):
             self.assertTrue(scene.get("chapter"), scene.get("id"))
             self.assertTrue(scene.get("scene"), scene.get("id"))
 
+    def test_beats_are_attached_in_order(self):
+        """每个场景都带 `beats`（可为空），id 不重复、frame 升序；且至少一条真被演到。"""
+        for scene in self.rows:
+            self.assertIsInstance(scene.get("beats"), list, scene.get("id"))
+            ids = [b["id"] for b in scene["beats"]]
+            self.assertEqual(len(ids), len(set(ids)), scene.get("id"))
+            frames = [b.get("frame") or 0 for b in scene["beats"]]
+            self.assertEqual(frames, sorted(frames), scene.get("id"))
+        played = [s for s in self.rows if s["beats"]]
+        self.assertTrue(played, "至少应有一条剧情被预设演到")
+        self.assertTrue(scenes.narrate(played[0])["beats"])
+
     def test_order_is_monotonic(self):
         keys = [scenes._version_key(s["version"]) for s in self.rows]
         self.assertEqual(keys, sorted(keys))
