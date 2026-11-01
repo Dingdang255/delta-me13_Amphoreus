@@ -2,6 +2,30 @@
 
 > 每个版本的发布说明。发 GitHub Release 时，正文直接取对应小节即可。
 
+## 未发布 — 独立终端窗口与叙事面板修复
+
+> 只读层修复：`kernel/` 一个字节没动，指纹与 `tests/baseline.json` 不变（`0 drift`）。
+
+### 修复
+
+- **独立 CLI 窗口 10 秒后静默退出（关键）**：`apps/terminal_window.py` 连上主进程后没有取消
+  `create_connection(timeout=10)` 留下的读超时，`for line in rf` 在两帧之间超过 10 秒就抛
+  `TimeoutError`，窗口打印「无法连接主进程：timed out」后退出 —— 于是窗口只剩开头的几行，
+  后面的 `>>>` 全落在主终端；`prompt` 也再没人问（主进程等满 `--terminal-window-timeout`
+  后回落默认答案）。现在连上即 `settimeout(None)`。
+- **场景面板整框可折叠**：`narrative_block_html` 外面再套一层
+  `<details class="panel scene-panel" open>`（逐条仍是折叠的 `<details class="scene">`）；
+  实时看板整块替换 `#narrative-block` 时会保留这一层的展开状态。
+- **看板「对话阅读」→「终端记录」**：原来那框读的是 `CanonBundle` 里随便挑的一个
+  `scene`（与本场演算无关），文字对不上任何东西。现在改为列本轨道**真的播过**的
+  `messages.jsonl` 消息（新只读函数 `apps/terminal.py::played`：帧已到 +
+  `require_event` / `suppress_if_event` 两条过滤），逐条带帧号。
+- **原初小节不再画空图**：
+  - 「锚点借还刻度」在没有 `nodes.json` 的 13 席剧情根上，改用 `traj.records` 里真实执行过的
+    `origin_anchor` 事件（`plot` / `plot-full` 都落在 33,594,510，借出 1 / 还上 1）；
+  - 「记忆阶段泳道」在没有记忆片段时不再摆空画布，直接写明缺的是哪种真实写入；
+  - 「忆灵生命线」在没有忆灵时写明原初停在哪个形态、创世几次。
+
 ## 未发布 — 剧情预设迁入十三席世界根
 
 > **BREAKING（世界根 + 指纹）**：`plot` / `plot-full` 默认跑在 `worlds/origin`

@@ -233,6 +233,38 @@ def _prefix(text):
     return text if text.startswith(">>>") else ">>> " + text
 
 
+def played(messages, traj, upto_frame=None) -> list:
+    """只读：这一场演算里【真的播过】的终端消息。
+
+    与 `TerminalFeed` 的可见性同口径（`require_event` / `suppress_if_event`），
+    额外只保留 `frame <= upto_frame`；带 `period` 的消息在 `load_messages` 里已经
+    展开成具体帧。文本按白名单变量渲染 —— 不 eval、不补零、不猜。
+
+    返回 `[{frame, kind, text, authority}]`，`frame` 为 `None` 表示只靠事件触发。
+    """
+    st = getattr(traj, "final", None)
+    score = getattr(st, "score", None) or {}
+    limit = int(upto_frame if upto_frame is not None else 0)
+    out = []
+    for msg in messages or ():
+        frame = msg.get("frame")
+        if frame is not None and int(frame) > limit:
+            continue
+        need = msg.get("require_event")
+        if need and f"emitted_{need}" not in score:
+            continue
+        skip = msg.get("suppress_if_event")
+        if skip and f"emitted_{skip}" in score:
+            continue
+        out.append({
+            "frame": None if frame is None else int(frame),
+            "kind": msg.get("kind", "log"),
+            "text": _render_text(msg, int(frame) if frame is not None else limit, st),
+            "authority": msg.get("authority", "user"),
+        })
+    return out
+
+
 def _render_text(msg, frame, st):
     """按白名单变量渲染正文；没有 `vars` 时原样返回。
 

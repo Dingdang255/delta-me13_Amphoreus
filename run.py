@@ -920,15 +920,15 @@ def _narrative_flag(cli_value, narrative, key):
     return bool(cli_value) if cli_value is not None else bool((narrative or {}).get(key, False))
 
 
-def _panels_html(ctx, traj, upto_frame=None, scepter=None):
-    """叙事面板（只读）：趋势压力 / 场景目录 / 对话阅读 / 权杖，交给可视化层拼接。
+def _panels_html(ctx, traj, upto_frame=None, scepter=None, data=None):
+    """叙事面板（只读）：趋势压力 / 场景目录 / 终端记录 / 权杖，交给可视化层拼接。
 
-    趋势读数来自已有的特征快照与 `config/trends.json`；场景与对话只从
-    `lore/canon/` 读。`upto_frame` 给定时只收首帧已知且不晚于该帧的场景 ——
-    与实时看板推送用的是同一次 `scenes.load_all` 口径。任何一项读不到就跳过
-    该项 —— 渲染层不猜、不补。
+    趋势读数来自已有的特征快照与 `config/trends.json`；场景只从 `lore/canon/` 读；
+    终端记录只列【这一场真的播过】的 `messages.jsonl` 消息（帧已到、事件条件成立）。
+    `upto_frame` 给定时只收首帧已知且不晚于该帧的场景 —— 与实时看板推送用的是
+    同一次 `scenes.load_all` 口径。任何一项读不到就跳过该项 —— 渲染层不猜、不补。
     """
-    from apps import canon, dialogue, scenes, trends
+    from apps import canon, scenes, terminal, trends
     from apps.features import extract
     from apps.viz import narrative_panels_html
 
@@ -943,14 +943,21 @@ def _panels_html(ctx, traj, upto_frame=None, scepter=None):
     except canon.CanonError:
         pass
     scene_items = []
-    reader = None
     if bundle is not None:
         scene_items = [scenes.narrate(item) for item
                        in scenes.load_all(bundle, upto_frame=upto_frame)]
-        scene_id = next(iter(sorted(bundle.ids_of_kind("scene"))), None)
-        reader = dialogue.read_scene(bundle, scene_id) if scene_id else None
+    # 终端记录：只读、只列真的播过的 —— 与 `TerminalFeed` 两道过滤同口径。
+    term_rows = []
+    path = os.path.join((data.preset.get("dir") if data is not None else "") or "",
+                        "messages.jsonl")
+    if path and os.path.exists(path):
+        try:
+            term_rows = terminal.played(terminal.load_messages(path), traj,
+                                        upto_frame=upto_frame)
+        except ValueError:
+            term_rows = []
     panels = narrative_panels_html(rows, coverage, scene_items=scene_items,
-                                   dialogue=reader)
+                                   terminal_rows=term_rows)
     if scepter is not None:
         block = scepter_mod.panels_html(scepter)
         panels = "\n".join(x for x in (panels, block) if x)
@@ -1669,7 +1676,7 @@ def main():
     # （不依赖导出文件是否落盘）。
     if args.export is not None or board is not None:
         panels_html = (_panels_html(ctx, traj, upto_frame=traj.reached_frame,
-                                    scepter=scepter_summary)
+                                    scepter=scepter_summary, data=data)
                        if use_panels else "")
         html_text = build_html(ctx, traj, sampler.points if sampler else None,
                                lines=chronicle_rows(ctx, traj),

@@ -57,6 +57,11 @@ def run(port, token, stream=None, writer=None):
     writer = writer or stream
 
     sock = socket.create_connection(("127.0.0.1", int(port)), timeout=10)
+    # 连上之后就【不再超时】：`messages.jsonl` 的消息是按帧排的，两帧之间可能隔几十秒
+    # 没有一条 —— 留着 10 秒超时会让 `for line in rf` 抛 `TimeoutError`（OSError 的子类），
+    # 窗口于是把「无法连接主进程：timed out」一打就退出：后面的消息全丢在主终端，
+    # `prompt` 也再没人问（主进程只能等超时回落到默认答案）。
+    sock.settimeout(None)
     rf = sock.makefile("r", encoding="utf-8", newline="\n")
     wf = sock.makefile("w", encoding="utf-8", newline="\n")
 

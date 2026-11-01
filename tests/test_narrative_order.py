@@ -45,8 +45,10 @@ class NarrativeOrderTest(unittest.TestCase):
     def test_every_scene_is_a_details_block(self):
         html = viz.narrative_block_html(self._shake())
         self.assertEqual(html.count('<details class="scene">'), 6)
-        self.assertEqual(html.count("<summary>"), 6)
-        self.assertEqual(html.count("</details>"), 6)
+        # 6 条场景各一个 summary + 整个场景面板自己那一个可折叠的框
+        self.assertEqual(html.count("<summary>"), 7)
+        self.assertEqual(html.count("</details>"), 7)
+        self.assertIn('<details class="panel scene-panel" open>', html)
 
     def test_projected_frames_are_labelled(self):
         html = viz.narrative_block_html([_item("P", 10, source="projected")])

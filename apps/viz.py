@@ -565,6 +565,9 @@ h2{font-size:15px;color:var(--gold);margin:26px 0 10px;font-weight:600;
  padding:10px 12px;margin-bottom:14px;}
 .scene{margin:8px 0;}
 .scene>summary{cursor:pointer;font-weight:600;}
+.scene-panel{margin:0 0 14px;}
+.scene-panel>summary{cursor:pointer;font-size:14px;color:var(--fg);}
+.scene-panel[open]>summary{margin-bottom:8px;}
 .ctrls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;}
 .ctrls button{background:#20242f;border:1px solid var(--line);border-radius:6px;
  color:var(--fg);padding:4px 11px;font-size:12px;font-family:inherit;cursor:pointer;}
@@ -1646,7 +1649,16 @@ _JS = r"""
         if (s.narrative){                           // 叙事场景：随到达的轮次就地整块替换
           var nb = $('narrative-block');
           var nh = s.narrative.html || '';
-          if (nb && nb.innerHTML !== nh) nb.innerHTML = nh;
+          if (nb && nb.innerHTML !== nh){
+            // 整块替换会丢掉 <details> 的展开状态 —— 场景面板自己那一层要留回来。
+            var was = nb.querySelector('details.scene-panel');
+            was = was ? was.open : null;
+            nb.innerHTML = nh;
+            if (was !== null){
+              var now = nb.querySelector('details.scene-panel');
+              if (now) now.open = was;
+            }
+          }
         }
         TOTAL = Math.max(TOTAL, s.frame || 0); D.total = TOTAL;
         if (follow) cur = samples.length - 1;
@@ -1926,7 +1938,7 @@ _ORIGIN_EFFECT_COLORS = {
 }
 _ORIGIN_ACTION_WORDS = {
     "wake_origin": "唤醒", "seed_memory": "记忆", "open_gate": "开门",
-    "bind_memory": "补席", "repair_slot": "补席",
+    "bind_memory": "补席", "repair_slot": "补席", "origin_anchor": "回望",
 }
 
 
@@ -2037,19 +2049,24 @@ def origin_panel(summary, series, total) -> str:
             f"（{len(f.get('phases') or ()) or 1} 阶段"
             f"{' · 已转印' if f.get('transferred') else ''}）" for f in frags)
         mem_note = f'<div class="origin-legend">记忆片段：{mem_list}</div>'
+        out.append('<div class="origin-box">'
+                   '<div class="chart-title">记忆阶段泳道</div>'
+                   '<div class="chart-box"><div class="tip"></div><div id="ocv2"></div></div>'
+                   + mem_note +
+                   '<div class="origin-legend">'
+                   '<span><i style="background:#8fbc8f"></i>fitness / support</span>'
+                   '<span><i style="background:#e8c06a"></i>energy</span>'
+                   '<span><i style="background:#d98cb3"></i>selfhood</span>'
+                   '<span><i style="background:#6fa8dc"></i>coupling</span>'
+                   '<span><i style="background:#9b8fd6"></i>mutation</span>'
+                   '</div></div>')
     else:
-        mem_note = '<div class="origin-note">（本轨道没有记忆片段）</div>'
-    out.append('<div class="origin-box">'
-               '<div class="chart-title">记忆阶段泳道</div>'
-               '<div class="chart-box"><div class="tip"></div><div id="ocv2"></div></div>'
-               + mem_note +
-               '<div class="origin-legend">'
-               '<span><i style="background:#8fbc8f"></i>fitness / support</span>'
-               '<span><i style="background:#e8c06a"></i>energy</span>'
-               '<span><i style="background:#d98cb3"></i>selfhood</span>'
-               '<span><i style="background:#6fa8dc"></i>coupling</span>'
-               '<span><i style="background:#9b8fd6"></i>mutation</span>'
-               '</div></div>')
+        # 空泳道不画空图：写清楚缺的是哪一样真实写入，别让一张空画布冒充读数。
+        out.append('<div class="origin-box">'
+                   '<div class="chart-title">记忆阶段泳道</div>'
+                   '<div class="origin-note">（本轨道没有记忆片段：没有任何一笔带 '
+                   'memory 载荷的 write_memory —— 泳道只画真的写进记忆的'
+                   '「救世主记忆」，不包括清空记忆）</div></div>')
     comp_note = ""
     spawn = int(summary.get("companion_spawn", 0))
     stage = int(summary.get("companion_stage", 0))
@@ -2057,24 +2074,40 @@ def origin_panel(summary, series, total) -> str:
         comp_note = (f'<div class="origin-note">凝聚 {spawn} 次 · 成长 '
                      f'{_ORIGIN_STAGE_WORDS.get(stage, stage)}（{stage}/4）· 携 '
                      f'{int(summary.get("companion_carry", 0))} 段记忆</div>')
-    out.append('<div class="origin-box">'
-               '<div class="chart-title">忆灵生命线（凝 / 散 / 再凝）</div>'
-               '<div class="chart-box"><div class="tip"></div><div id="ocv3"></div></div>'
-               + comp_note + '</div>')
+        out.append('<div class="origin-box">'
+                   '<div class="chart-title">忆灵生命线（凝 / 散 / 再凝）</div>'
+                   '<div class="chart-box"><div class="tip"></div><div id="ocv3"></div></div>'
+                   + comp_note + '</div>')
+    else:
+        # 忆灵要先有创世（原初凝到形态 2）才存在；没有就直说，别画一条空线。
+        form = int(summary.get("form", 0))
+        form_word = {0: "沉睡", 1: "苏醒", 2: "忆灵", 3: "无漏净子"}.get(form, str(form))
+        out.append('<div class="origin-box">'
+                   '<div class="chart-title">忆灵生命线（凝 / 散 / 再凝）</div>'
+                   f'<div class="origin-note">（本轨道没有忆灵：原初停在「{form_word}」'
+                   f'（形态 {form}），本世界创世 {int(summary.get("create", 0))} 次 —— '
+                   '忆灵只在创世之后凝成）</div></div>')
     anchors = [a for a in (summary.get("anchor_frames") or ())
                if int(a.get("frame", 0) or 0) >= 1]
     anc_list = (" · ".join(f"{html.escape(_anchor_label(a))}"
                            f" @{int(a.get('frame', 0)):,}" for a in anchors)
                 if anchors else "")
+    borrowed = int(summary.get("borrowed", 0))
+    if anchors:
+        anc_note = ""
+    elif borrowed > 0:
+        anc_note = "（借还发生在回望收尾，没有逐手指令可标）"
+    else:
+        anc_note = "（这次没有借出锚点 —— 世界自己走到了这里）"
     out.append('<div class="origin-box">'
                '<div class="chart-title">锚点借还刻度（每一手借出落在哪一帧）</div>'
                '<div class="chart-box"><div class="tip"></div><div id="ocv4"></div></div>'
                + (f'<div class="origin-legend">锚点：{anc_list}</div>' if anc_list else "")
                + '<div class="origin-note">借出 '
-               f'{int(summary.get("borrowed", 0))} 手 · 还上 '
+               f'{borrowed} 手 · 还上 '
                f'{int(summary.get("repaid", 0))} 笔 · 缺失 '
                f'{int(summary.get("missing", 0))}'
-               + ("" if anchors else "（这次没有借出锚点 —— 世界自己走到了这里）")
+               + anc_note
                + '</div></div>')
     return "\n".join(out)
 
@@ -2189,7 +2222,9 @@ def narrative_block_html(items, title="叙事面板") -> str:
     scenes = sorted(items or (), key=_scene_order)
     if not scenes:
         return ""
-    parts = [f"<h2>{html.escape(title)} · 场景面板</h2>", '<div class="panel">']
+    parts = ['<details class="panel scene-panel" open>'
+             f'<summary><b>{html.escape(title)} · 场景面板</b>'
+             f' <span class="sub">{len(scenes)} 条 · 按剧情时序</span></summary>']
     for item in scenes:
         frame = item.get("first_frame")
         meta = ["时序未知" if frame is None else f"帧 {frame}"]
@@ -2206,19 +2241,20 @@ def narrative_block_html(items, title="叙事面板") -> str:
         if item.get("gap"):
             parts.append(f"<div class=\"sub\">缺口：{html.escape(str(item['gap']))}</div>")
         parts.append("</details>")
-    parts.append("</div>")
+    parts.append("</details>")
     return "\n".join(parts)
 
 
 def narrative_panels_html(trend_rows=None, trend_coverage=None, scene_items=None,
-                          dialogue=None, title="叙事面板") -> str:
+                          terminal_rows=None, title="叙事面板") -> str:
     """Read-only HTML for the three narrative panels.
 
     Trend channels are rendered one row each and grouped by trend: two channels
     of the same trend sit side by side and are never merged into a net value.
     Unwired trends are listed with the reason they are not wired, not hidden.
-    Scene text and dialogue lines come from the corpus; this function only
-    rearranges them. Returns an empty string when nothing was passed.
+    Scene text and terminal lines come from the corpus / this run's own feed;
+    this function only rearranges them. Returns an empty string when nothing
+    was passed.
     """
     parts = []
     rows = list(trend_rows or ())
@@ -2264,19 +2300,20 @@ def narrative_panels_html(trend_rows=None, trend_coverage=None, scene_items=None
     if scenes:
         parts.append(narrative_block_html(scenes, title))
 
-    if dialogue and dialogue.get("lines"):
-        parts.append(f"<h2>{html.escape(title)} · 对话阅读</h2>")
-        parts.append('<div class="panel">')
-        for row in dialogue["lines"]:
-            speaker = html.escape(str(row.get("speaker") or ""))
-            text = html.escape(str(row.get("text") or ""))
-            parts.append(f"<div class=\"sub\">{('[' + speaker + '] ') if speaker else ''}"
-                         f"{text}</div>")
-        pending = dialogue.get("pending")
-        if pending:
-            parts.append('<div class="sub">需要选择：'
-                         + html.escape(" / ".join(pending.get("choices") or ())) + "</div>")
-        parts.append("</div>")
+    if terminal_rows:
+        lines = list(terminal_rows)
+        parts.append('<details class="panel scene-panel">'
+                     f'<summary><b>{html.escape(title)} · 终端记录</b>'
+                     f' <span class="sub">{len(lines)} 条 · 本轨道真的播过的系统消息'
+                     '</span></summary>')
+        for row in lines:
+            frame = row.get("frame")
+            head = "" if frame is None else f"帧 {int(frame):,} · "
+            text = str(row.get("text") or "")
+            if not text.startswith(">>>"):
+                text = ">>> " + text
+            parts.append(f'<div class="sub">{html.escape(head + text)}</div>')
+        parts.append("</details>")
     return "\n".join(parts)
 
 
@@ -2474,6 +2511,26 @@ def _origin_series(traj, series):
     return pts
 
 
+def _executed_anchors(traj) -> list:
+    """回望锚点的真实落点：从事件记录里取 `origin_anchor` 那一手。
+
+    13 席剧情根故意不写 `nodes.json`（回望由 `events.jsonl` 的显式锚点承担），
+    于是 `Planner` 没有逐手锚点表；但世界真的借出过 —— 记录里有 `DISTURBANCE`
+    这条事件。这里只读它，给「锚点借还刻度」一个真落点，不编造节点。
+    """
+    out = []
+    for frame, kind, payload in (getattr(traj, "records", ()) or ()):
+        if kind != "DISTURBANCE":
+            continue
+        cap = str((payload or {}).get("capability") or "")
+        if cap != "origin_anchor":
+            continue
+        out.append({"frame": int(frame), "action": cap,
+                    "node": str((payload or {}).get("label") or ""),
+                    "cost": 0.0, "keep": True})
+    return out
+
+
 def build_html(ctx, traj, points, lines=None, title=None, data=None, texture=None,
                origin_series=None, narrative_html=""):
     """把一次演算装配成单文件 HTML（静态导出）。
@@ -2503,6 +2560,10 @@ def build_html(ctx, traj, points, lines=None, title=None, data=None, texture=Non
     spans = [(s, e) for _k, s, e in traj.spans]
     rows = list(lines or [])[:_CHRON_LIMIT]
     osum = getattr(traj, "origin", None) or {}
+    if osum and not osum.get("anchor_frames"):
+        # 没有逐手锚点表（13 席剧情根）时退回真实执行记录；有就照旧用那份。
+        osum = dict(osum)
+        osum["anchor_frames"] = _executed_anchors(traj)
     oser = _origin_series(traj, origin_series)
     blob = _data_blob(R, pts, rows, total, marks, table, seats_per_sample,
                       promos, spans, machines=mach, stages=stages,
