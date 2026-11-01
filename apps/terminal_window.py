@@ -51,10 +51,30 @@ def _ask(rec):
     return default
 
 
+def _wait_for_reader(writer=None):
+    """演算结束后不自己关窗：等读者看完按回车（非交互输入时直接返回）。
+
+    只有【真正的窗口】（`stream is sys.stdout` 且 stdin 是 TTY）才等 —— 测试与管道
+    里注入的 stream 不会卡住。
+    """
+    try:
+        if sys.stdin is None or not sys.stdin.isatty():
+            return
+    except (AttributeError, ValueError, OSError):
+        return
+    out = writer or sys.stdout
+    try:
+        print("\n演算结束 —— 窗口不会自己关，按回车关闭。", file=out, flush=True)
+        input()
+    except (EOFError, KeyboardInterrupt):
+        pass
+
+
 def run(port, token, stream=None, writer=None):
     """连接主进程并进入消息循环。测试可注入 `stream` / `writer`。"""
     stream = stream or sys.stdout
     writer = writer or stream
+    ended = False
 
     sock = socket.create_connection(("127.0.0.1", int(port)), timeout=10)
     # 连上之后就【不再超时】：`messages.jsonl` 的消息是按帧排的，两帧之间可能隔几十秒
@@ -95,6 +115,7 @@ def run(port, token, stream=None, writer=None):
                 write("─" * 48)
                 verdict = rec.get("verdict") or "—"
                 write(f"演算结束 · 帧 {rec.get('frame', '—')} · 裁决 {verdict}")
+                ended = True
                 break
             elif kind == "error":
                 write("终端错误：" + str(rec.get("text", "")))
@@ -111,6 +132,9 @@ def run(port, token, stream=None, writer=None):
             sock.close()
         except OSError:
             pass
+    # 演算结束了也不自己关：留给人翻回去看。管道 / 测试注入的 stream 不在这儿等。
+    if ended and stream is sys.stdout:
+        _wait_for_reader(writer)
 
 
 def main(argv=None):

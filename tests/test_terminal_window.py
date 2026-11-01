@@ -67,7 +67,7 @@ class LoopTest(unittest.TestCase):
         return port, t
 
     @mock.patch("builtins.input", return_value="n")
-    def test_run_loop(self, _inp):
+    def test_run_loop(self, inp):
         seen = []
         port, t = self._server(seen)
         out = io.StringIO()
@@ -78,6 +78,8 @@ class LoopTest(unittest.TestCase):
         self.assertIn(">>> hello", text)
         self.assertIn(">>> n", text)
         self.assertIn("演算结束", text)
+        # 注入 stream 时不在收尾再等一次回车（只有真实窗口才停在那儿）
+        self.assertEqual(inp.call_count, 1)
         self.assertEqual(seen[0]["t"], "ready")
         self.assertEqual(seen[0]["token"], "tok")
         self.assertEqual(seen[1], {"t": "answer", "id": 0, "answer": "n"})

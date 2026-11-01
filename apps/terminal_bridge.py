@@ -102,13 +102,19 @@ class TerminalBridge:
         return True
 
     def close(self):
-        """幂等收尾：补发 `end`、关连接、等子进程退出（超时则终止）。"""
+        """幂等收尾：补发 `end`、关连接、等子进程退出（没通知过结束才强杀）。
+
+        已经发过 `end` 的子窗口会【自己留着不关】（`apps/terminal_window.py` 在等读者
+        按回车），所以这时不再 `terminate` —— 否则主进程一退，窗口跟着被杀。
+        """
         if self._closed:
             return
+        told_end = self._ended
         if self._conn is not None and not self._ended:
             try:
                 self._send({"t": "end"})
                 self._ended = True
+                told_end = True
             except OSError:
                 pass
         self._closed = True
@@ -128,6 +134,8 @@ class TerminalBridge:
             try:
                 self._proc.wait(timeout=2)
             except (subprocess.TimeoutExpired, AttributeError):
+                if told_end:
+                    return          # 窗口在等读者按回车 —— 留给它自己关
                 try:
                     self._proc.terminate()
                 except (OSError, AttributeError):
