@@ -19,7 +19,8 @@ from urllib.parse import parse_qs, urlparse
 
 from .render import _stage_at, stage_rows
 from .viz import (Sampler, _TIMELINE_COLORS, _event_label, _machine_map,
-                  _machine_of, _name_map, _resolve, _stages_html)
+                  _machine_of, _name_map, _resolve, _stages_html,
+                  narrative_block_html)
 
 # 实时看板一次最多回多少条增量 —— 页面拿得住，也不至于一帧一堵墙
 _MAX_CHUNK = 4000
@@ -38,6 +39,8 @@ class LiveState:
         self.rows = []           # [frame, 文本, 徽标]
         self.promos = []         # [frame, 轮次]
         self.marks = []          # [frame, 类别, 文案, 配色]
+        self.narrative = []      # 已抵达帧的叙事场景（只留渲染要用的字段）
+        self._scene_ids = set()  # 去重：同一场景只推一次
         self.mythfrom = None     # 「世界内」（第四阶段）从哪一帧起；None = 还没走到
         self.frame = 0
         self.done = False
@@ -84,6 +87,36 @@ class LiveState:
         with self.lock:
             # 第 4 位是【事件号】(rid)，与 marks 末尾那个同源 —— 双击时间线节点精确回跳用。
             self.rows.append([int(frame), str(text), badge, int(rid)])
+
+    def add_scene(self, frame, loop, item):
+        """把一条【已抵达】的场景推给看板；同一 id 只收一次。
+
+        `item` 取自 `scenes.load_all(...)` 的视图（或 `narrate` 的展平结果）。
+        只留渲染要用的字段 —— 台词引用 / 来源表不进快照（那是两万多条的量级）。
+        """
+        sid = str(item.get("id") or "")
+        if not sid:
+            return
+        first = item.get("first_frame")
+        entry = {
+            "id": sid,
+            "title": item.get("title") or item.get("scene") or sid,
+            "version": item.get("version"),
+            "first_frame": (int(first) if isinstance(first, int)
+                            and not isinstance(first, bool) else int(frame)),
+            "loop": loop if loop is not None else item.get("loop"),
+            "before": item.get("before"),
+            "during": list(item.get("during") or ()),
+            "after": item.get("after"),
+            "gap": item.get("gap") or "",
+            "beats": list(item.get("beats") or ()),
+        }
+        with self.lock:
+            if sid in self._scene_ids:
+                return
+            self._scene_ids.add(sid)
+            self.narrative.append(entry)
+            self.frame = max(self.frame, int(frame))
 
     def add_event(self, R, frame, kind, payload, rid, per_kind=40):
         """时间线上的一个点（与静态导出同一套配色 / 文案口径）。
@@ -162,9 +195,16 @@ class LiveState:
                  for r in rows]
         return light, _stages_html(rows)
 
+    def _narrative_view(self):
+        """叙事场景（已抵达的那部分）：轻量列表 + 预渲染 HTML（与终稿同一块）。"""
+        items = list(self.narrative)
+        return {"count": len(items), "items": items,
+                "html": narrative_block_html(items)}
+
     def snapshot(self, rows_since, samples_since, names_since):
         with self.lock:
             stages, stages_html = self._stage_view()
+            narrative = self._narrative_view()
             out = {
                 "frame": self.frame,
                 "done": self.done,
@@ -184,6 +224,8 @@ class LiveState:
                 # 阶段目录：边界 + 读数（边跑边累计）—— 列表给时间线的阶段带，HTML 给卡片块
                 "stages": stages,
                 "stageshtml": stages_html,
+                # 叙事场景：已抵达的那部分（列表 + 与终稿同源的预渲染块）
+                "narrative": narrative,
                 # 完整静态页是否已就绪：就绪即触发页面重载（换成与 export 一致的那张）
                 "final": self.final_page is not None,
             }

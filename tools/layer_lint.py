@@ -56,11 +56,12 @@ KERNEL = ["api.py", "core.py", "disturbance.py", "emergence.py", "loader.py",
 #         + 保真评分（`fidelity.py`：只读编译语料，权重 / 阈值 / 缺口规则全在 config/）。
 APPS = ["ablation.py", "agents.py", "archive.py", "assertions.py", "canon.py",
         "conditions.py", "dialogue.py", "features.py", "fidelity.py",
-        "invariants.py", "live.py", "logs.py", "namer.py", "origin.py",
+        "invariants.py", "live.py", "logs.py", "mind.py", "namer.py", "origin.py",
         "origin_loop.py",
         "render.py", "scenes.py", "script.py",
         "services.py", "terminal.py", "terminal_bridge.py", "terminal_window.py",
-        "timeline.py", "trends.py", "verdicts.py", "viz.py", "worldgen.py"]
+        "timeline.py", "trends.py", "verdicts.py", "viz.py", "worldgen.py",
+        "scepter.py"]
 
 PACKAGES = {"kernel": KERNEL, "apps": APPS}
 

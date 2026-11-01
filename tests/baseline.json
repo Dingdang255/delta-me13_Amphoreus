@@ -6,11 +6,11 @@
   "counts": {
     "apps_files": {
       "method": "count *.py in apps/ including __init__.py",
-      "value": 28
+      "value": 30
     },
     "apps_modules": {
       "method": "count *.py in apps/ minus __init__.py",
-      "value": 27
+      "value": 29
     },
     "config_json": {
       "method": "count *.json in config/",
@@ -30,21 +30,21 @@
     },
     "presets": {
       "method": "count directories in presets/",
-      "value": 10
+      "value": 11
     },
     "test_files": {
       "method": "count *.py in tests/",
-      "value": 47
+      "value": 62
     },
     "tool_scripts": {
       "method": "count *.py directly under tools/",
-      "value": 35
+      "value": 36
     }
   },
   "golden_fingerprints": {
     "entries": [
       {
-        "digest": "46b663fe3c1aa81bf523141716f54185",
+        "digest": "d50af033cf0ae7641386372c5cd3d2fc",
         "frames": 8000,
         "preset": "destruction",
         "reached_frame": 2000,
@@ -52,7 +52,7 @@
         "verdict": "destruction"
       },
       {
-        "digest": "91be53cf94652adb7b50e999c5505b94",
+        "digest": "d516842067f4ed15f43574dbbd7b3980",
         "frames": 1500,
         "preset": "emergent",
         "reached_frame": 1499,
@@ -60,7 +60,7 @@
         "verdict": "undecided"
       },
       {
-        "digest": "28ef29f0a5e077d00ce8287a3b6f2bd8",
+        "digest": "7cb6f1688f74ba3b64f63577a6f0aaef",
         "frames": null,
         "preset": "nullify",
         "reached_frame": 33594547,
@@ -68,7 +68,7 @@
         "verdict": "destruction"
       },
       {
-        "digest": "590f947ae1c366f85b716775f6941c47",
+        "digest": "eaa16e1c5a39e93ab24799c8c3ddf76a",
         "frames": 3000,
         "preset": "nullify",
         "reached_frame": 2999,
@@ -76,7 +76,7 @@
         "verdict": "destruction"
       },
       {
-        "digest": "3f989800700558aaf44cb897167a85b5",
+        "digest": "b940d10cd74e8efcff8bdb291a356aa1",
         "frames": null,
         "preset": "origin",
         "reached_frame": 19999,
@@ -84,7 +84,7 @@
         "verdict": "undecided"
       },
       {
-        "digest": "8e3d8785460f582414112fabc665c986",
+        "digest": "ee6aa3e45062b6a82a5b94e61841a765",
         "frames": 6000,
         "preset": "origin",
         "reached_frame": 5999,
@@ -92,7 +92,7 @@
         "verdict": "undecided"
       },
       {
-        "digest": "3ef300d74d1684d8cec70b2e046ec673",
+        "digest": "4509b166d026fdc097c18f628dadf819",
         "frames": null,
         "preset": "origin-eternal",
         "reached_frame": 33594544,
@@ -100,31 +100,31 @@
         "verdict": "undecided"
       },
       {
-        "digest": "e9b84d2cc1365a4b88dabcdf1f22c266",
+        "digest": "7633e0b8825dd89da75627bcfc54f3d8",
         "frames": null,
         "preset": "plot",
         "reached_frame": 33594547,
         "seed": 0,
-        "verdict": "overwritten"
+        "verdict": "origin_closed"
       },
       {
-        "digest": "590f947ae1c366f85b716775f6941c47",
+        "digest": "a307c703388af5971a1171b5a990f5b2",
         "frames": 3000,
         "preset": "plot",
         "reached_frame": 2999,
         "seed": 0,
-        "verdict": "destruction"
+        "verdict": "undecided"
       },
       {
-        "digest": "6c952466e8dff1d65d7e7785534d844e",
+        "digest": "d3d90db2d1502e861f2374db3d923767",
         "frames": 3000,
         "preset": "plot",
         "reached_frame": 2999,
         "seed": 7,
-        "verdict": "destruction"
+        "verdict": "undecided"
       },
       {
-        "digest": "ba0de0a681930c7a50b1704878968bea",
+        "digest": "06df4856b1815f2e105004da2f2dcbbb",
         "frames": 6000,
         "preset": "tide",
         "reached_frame": 5999,
@@ -142,21 +142,21 @@
     },
     "sha256": {
       "method": "sha256 of the file",
-      "value": "e808ccd728adee9478a1ce47cd30e21b894f6fbcf7b8546ae3258a0913f66d1f"
+      "value": "4142116d868db71037e444a7d6d7008b9ba9553337b7628cf51ae2fe8604c765"
     }
   },
   "lore": {
     "canon_digest": {
       "method": "lore/canon/manifest.json source_digest",
-      "value": "716d2fa1571955004b8074d9218185ab14ea94f1085ab2ab215edac56c64f896"
+      "value": "6b341dc34756e8151b0a8d263630d5ba972aab60e22f893401aa08a3115f9081"
     },
     "canon_entries": {
       "method": "lore/canon/manifest.json entry_count",
-      "value": 1429
+      "value": 31140
     },
     "files": {
       "method": "walk lore/ excluding _probe, story, export/data, __pycache__",
-      "value": 183
+      "value": 193
     }
   },
   "presets": [
@@ -204,6 +204,11 @@
       "name": "refuted",
       "observed_note": true,
       "seed": 0
+    },
+    {
+      "name": "scepter",
+      "observed_note": false,
+      "seed": null
     },
     {
       "name": "tide",

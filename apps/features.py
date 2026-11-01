@@ -61,6 +61,8 @@ def extract(traj, ctx) -> dict:
         "promotion_count": int(st.promotions),
         "promotion_first_frame": first.get("PROMOTION"),
         "promotion_last_frame": _last_frame(traj, "PROMOTION"),
+        # 换代帧序（原样量出来，间隔的快慢由消费方自己算）。
+        "promotion_frames": [f for f, k, _p in traj.records if k == "PROMOTION"],
         # —— 死循环（结构长期不推进） ——
         "deadlock": bool(traj.deadlock),
         "deadlock_count": len(spans),

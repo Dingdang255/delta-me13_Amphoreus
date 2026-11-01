@@ -173,7 +173,9 @@ class NarrativePanelTest(unittest.TestCase):
                 "entropy": 0.4, "noise": 0.2}
         rows = [row for row in trends.evaluate_all(self.spec, view)
                 if row["trend"] == "TREND-003"]
-        html = viz.narrative_panels_html(rows, trends.coverage(self.spec))
+        cov = dict(trends.coverage(self.spec))
+        cov["unwired"] = {"TREND-099": "样本不足"}
+        html = viz.narrative_panels_html(rows, cov)
         self.assertIn("delay", html)
         self.assertIn("tendency", html)
         self.assertIn("未接线", html)

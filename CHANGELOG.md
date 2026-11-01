@@ -2,6 +2,142 @@
 
 > 每个版本的发布说明。发 GitHub Release 时，正文直接取对应小节即可。
 
+## 未发布 — 剧情预设迁入十三席世界根
+
+> **BREAKING（世界根 + 指纹）**：`plot` / `plot-full` 默认跑在 `worlds/origin`
+> （`dim=13`、L12 是 meta 席、回望驱动 + 原初四态），不再默认跑项目根的 12 席世界。
+> `tests/golden_fingerprints.json` 11 条按新世界根**整体重写**，`tests/baseline.json` 随之重写。
+> 默认根 `config/`（12 席）与 `worlds/origin/config/` 的既有数值**一个字节都没动**。
+
+### 破坏性变更
+
+- **世界根解析规则**（`run.py::resolve_world_root` / `kernel.loader.preset_world_root`）：
+  显式 `--root` 永远优先；不给时若 `worlds/origin/presets/<预设>/preset.json` 存在 ⇒
+  `worlds/origin`；否则剧情预设 ⇒ `worlds/plot`，其余（含无预设的 `emergent`）⇒ 项目根 12 席。
+  `python run.py --root . --preset plot` 可回到旧行为。
+- **新增 13 席副本**：`worlds/origin/presets/plot/`、`worlds/origin/presets/plot-full/`
+  （预设 / 事件 / 断言 / 时间线 / 消息 / 档案 / 锚定 / 词表 / 外部实体表）。
+  `anchors.jsonl` 按 13 席**重新实测**：12 席的 curr / prev 编号全部换新，`serial:24997`（旧昔涟）
+  与 `serial:26241`（旧负世执行人，本项目里另测的编号）不再保留 —— 前者改钉第十三席，
+  后者由 `stall_seat:L00` 的受难之名承担；新增 `locus:L12` 与 `serial:29250 昔涟（CHR-002 /
+  PhiLia093，L12 末态承载者）`。
+- **裁决改变**：13 席根的结论词表只有「原初四态」，故 `plot` 的终局从 `overwritten`
+  变为 `origin_closed`（@33,594,547）；`events.jsonl` 里那一手 `overwrite_conclusion`
+  的目标随之改为 `origin_closed`（目标名必须存在于该世界的 `conclusions.json`，否则内核
+  在结论里程碑处 KeyError）。断言 15/15 → **18/18**、时间线 29/29 → **30/30**；
+  `plot-full` 同样 18/18 + 43/43。
+- **回望 / 锚定落地**：`plot` 的 13 席副本**故意不写 `nodes.json`**（实测两条硬理由：
+  ① 在 44,048 投 `seed_memory(factor_basis)` 会写满十二行记忆，原初的记忆承载 / 创世机制
+  此后每帧改结构 ⇒ 世界不再冻结，33.59M 帧的永劫复用消失；② `kernel/core.py` 的死循环复用
+  在 `inbox` 非空时 `cand = n + 1` ⇒ 只要收件箱里压着未到期的锚点就一帧都不跳，节点在冻结
+  之后等于把全量运行拖成小时级）。回望改由 `events.jsonl` 的显式 `origin_anchor`
+  （33,594,510，`bind_memory` L01）承担，锚定由浮黎的 `gaze.effect.anchor_past`
+  （33,594,545）承担 —— 两者都实测生效：原初「借出 1 / 还上 1」，`emitted_fuli_anchor_past` 落账。
+- **基线读数**（13 席根，seed 0）：`plot` 全量 世代更迭 **156** · 涌现 **2,166** · 迭代 52,411
+  （复用 33,550,334 帧）· 13 席；`plot@3000` 换代 15 · 涌现 275；`plot@3000 seed 7` 换代 15 · 涌现 269。
+  `nullify` 仍走 `worlds/plot`（13 席、canonical 动力学）：全量换代 36、涌现 425。
+- **文档**：`README.md` / `docs/使用教程.md` 补「剧情预设默认跑在 13 席根」「回望 / 锚定在哪触发」
+  与「`--root` 优先级」三节。
+
+## 未发布 — 轮内配额与轮末结算
+
+> **BREAKING（轨迹侧）**：涌现 / 接掌从「每帧自动刷新」改为**一轮之内陆续发生、轮末再创世时结算**。
+> `tests/golden_fingerprints.json` 与 `tests/baseline.json` **重写**（11 条指纹的 digest 全部变化，
+> plot / emergent / tide / nullify / destruction 的结构读数亦变；origin 三条只有 digest 变）。
+
+### 破坏性变更
+
+- **轮内配额**：`State` 新增 `round_emergence` / `round_successions` /
+  `round_emergence_last` / `round_start_frame`；`config/params.json` 新增
+  `round_emergence_quota`(12) / `round_succession_quota`(12) / `emergence_min_gap`(8) /
+  `round_min_frames`(180)。一轮内涌现数、席间接掌数各自封顶；`PROMOTION` 须两条配额
+  都满足（或已过 `round_min_frames`）才 +1 轮，并在轮末把两个计数清零。
+- **涌现登记器**（`kernel/emergence.py`）：满配额即停、两次涌现至少隔
+  `emergence_min_gap` 帧；续跑时用 `prime()` 把已登记过的人记为已登记，避免重放旧账。
+- **剧情约束**：`presets/plot` / `plot-full` / `plot-mech` 在 3.0 起点帧 42000 投一手
+  `recreate`（`payload.halt_emergence: true`）—— 只停涌现、不动席位动力学，此后只剩
+  既定十二人。`recreate` 的默认语义（`seats_frozen`，全停）保持不变。
+- **基线重写**：golden 11 条的 digest 全变；`plot` 全量换代 82→97、`nullify` 全量
+  81→96，两者涌现都从 1,58x 降到 1,098（3.0 起不再增长）；`destruction@8000` 涌现
+  202→132、`emergent@1500` 166→108、`tide@6000` 吞没 552→468。
+  `baseline.json` 已按当前工作区重算（其中也包含上一节「权杖级叙事重建」尚未提交的
+  文件 / 语料计数）。
+
+## 未发布 — 权杖级叙事重建
+
+> **BREAKING（叙事侧）**：叙事面板从「跑完一次性渲染」改为**随演算逐轮增量出现**；
+> `tests/baseline.json` 按新增语料与模块**重写**（`canon_entries` 1,429 → 31,140）。
+> **内核与 golden 指纹零变化** —— `kernel/` 与 `tests/golden_fingerprints.json` 一个字节没动。
+
+### 破坏性变更
+
+- **初始变量集语义收敛（BREAKING）**：世界形态由 `--init-set` 的初始变量集决定，
+  `seed` 只是抽样键并写进 `init-*.json`；`--init-set` 与 `--seed` 同用**直接报错**。
+  同时给 `config/generation.json` 增两项结构性 knob：`succession_floor`（承位稳定帧）
+  与 `stage_budget`（阶段帧预算；按同一倍率缩放 genesis 里逐档的 `domain_dwell`）。
+- **移除 `--fast` 别名**：`run.py` 只保留 `--explore`（两者本来就等价，别名已无意义）。
+  注意：`tools/*.py` 里的 `--fast` 是另一个东西（内核 `load(fast=K)` 的提速因子），保留。
+- **叙事由一次性改为逐轮**：`--serve` 时场景在 `PROMOTION` / `DOMAIN_ADVANCE` /
+  `DOMAINS_EXHAUSTED` 三个推进点按差集推送，同一 id 只推一次；终稿与实时共用
+  `scenes.load_all` + `narrative_block_html`，不再有两套渲染路径。
+- **基线重写**：`canon_entries` 1,429 → **31,140**、`lore.files` 183 → **192**、
+  `apps` 文件 28 → **30** / 模块 27 → **29**、`tests` 52 → **56**；`canon_digest` 随语料更新。
+  `presets`(11) / `tools`(36) / `golden_fingerprints` 不变。
+
+### 八项能力
+
+1. **趋势面板 13 字段全接线**：可见 4 项（`trend` / `channel` / `value` / `active`）+
+   元数据 9 项（`type` / `target` / `observable` / `source` / `confidence` / `inferred` /
+   `driver` / `driver_value` / `note`）。复用既有 `.bar` 组件；缺值一律 `—`、条留空，
+   未接线趋势单独列出并写明原因，不隐藏、不补零。
+2. **wiki 全量语料入库**：`scenes_wiki.jsonl` 66 · `dialogues_wiki.jsonl` 26,612 ·
+   `options_wiki.jsonl` 2,167 · `terminals_from_wiki.jsonl` 294 · `battle_line` 572；
+   构建器 `tools/lore_build/build_wiki_scenes.py`。
+3. **场景带帧**：`apps/scenes.py` 的 `load_all(upto_frame=)` 合并剧情目录与任务场景，
+   首帧取预设节拍；无节拍佐证的 wiki 场景按章节区间**投影**，标
+   `first_frame_source:"projected"`、`confidence:"C"`，`gap` 注明「非原文时序」。
+4. **实时叙事**：`apps/live.py` 新增 `narrative` 快照，`apps/viz.py` 提供
+   `narrative_block_html` / `#narrative-block`，`run.py` 的 `_scene_pusher` 只在三个推进点推差集。
+5. **心智层 shadow**：`apps/mind.py`（`MindState` / `decide` / `MindShadow`）只读、默认不装；
+   `apps/agents.py` 的 `Card.decide` 委托给 `mind.decide`（中性 persona，评分并列 ⇒ 仍按
+   `(priority, rule id)` 决定），返回形状不变。
+6. **初始变量 A/B**：`config/generation.json` 增 6 个可覆盖 knob（含结构性的
+   `succession_floor` / `stage_budget`）；
+   `presets/scepter/init-A.json` / `init-B.json` 含 `seed` 与六项倍率；`run.py --init-set A|B`
+   只在内存覆盖并受 clamp（与 `--seed` 互斥）；
+   `tools/init_diff.py` 找第一处分叉帧、事件差与末帧读数差。
+7. **终端权限分层**：`presets/plot-full/messages.jsonl` 扩到 **271 条**，每条带
+   `authority`（`guest` / `user` / `admin` / `kernel`）；`run.py --terminal-authority` 只显示选定层。
+   **来源修正**：终端只取自剧情卷里的 `>>>` 行（3.4 / 3.5 / 3.6 / 3.7 = 61 / 1 / 54 / 80 条）
+   与 `Δ-me13.exe` 权杖档案页；3.0–3.3 原卷一条 `>>>` 都没有，该段只保留手写的
+   6 / 0 / 1 / 1 条，**删掉了先前「借帧凑到每章 12 条」的编造接线**。每条带
+   `source`（`S-024:amphoreus_3.4.md#L2981`）与 `frame_source`（`anchor` / `projected` / `loop`）。
+8. **权杖世界根**：新增 `worlds/scepter/`（13 席 config + `presets/scepter/`）与 `apps/scepter.py`；
+   `run.py --scepter` 输出报告【九】（与保真同开顺延【十】）七层读数；看板追加权杖块。
+   读不到的字段写 `null` + `unavailable_reason`；`regen` 的 17 个锚点与上限来自语料，不是演算读数。
+9. **权杖档案**：新增 `lore/D6_terminal/scepter_dossier.jsonl`（`Δ-me13.exe` 的 467 行原文 →
+   361 条正文 + 106 条标题转 section 路径；`进度：N%` 标 `kind: "progress"`）；
+   `apps/scepter.py` 增加只读统计并让报告【九】多一行「档案 … 行 / … 段 / 进度里程碑 …」。
+
+### 测试
+
+- 新增 9 组契约：`test_viz_trend_panel` / `test_wiki_corpus` / `test_scene_timeline` /
+  `test_live_narrative` / `test_mind` / `test_init_diff` / `test_terminal_authority` / `test_scepter` /
+  `test_scepter_dossier`。
+
+### 验证
+
+- `python tools/baseline.py --check` → **0 drift**（重写前后唯一变化见上「破坏性变更」）。
+- `python -m unittest discover -s tests -q` → **Ran 692 tests in 260.1s, OK**。
+- `lore_lint` 0/0 · `lore_compile --check` canon ok · `fidelity_report --check` 通过。
+- `layer_lint` / `grep_forbidden` 全过；`kernel/` 与 `apps/` 零专名。
+- 保真分 **0.9135**（与上一节逐维一致）：D1 0.9048 · D2 0.9440 · D3 0.9353 · D4 0.9927 ·
+  D5 0.9806 · D6 0.9898 · D7 0.6153 · D8 0.9453；缺口按实测，未调权重。
+- 短帧冒烟：`run.py --preset plot-full --frames 200` 与
+  `run.py --root worlds/scepter --preset scepter --frames 50 --scepter` 均可运行。
+
+---
+
 ## 未发布 — 原初世界与叙事层（第十三席真实动力学）
 
 > **非破坏性（对 canonical）**：`config/`、`presets/plot` 零改动，`snapshot --fast` 六条指纹逐位一致；

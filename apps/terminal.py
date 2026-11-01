@@ -19,6 +19,9 @@ import sys
 #: 允许的消息类别。`prompt` 会带选项与默认答案，其余类别只输出正文。
 KINDS = ("boot", "log", "warn", "error", "prompt", "status", "output")
 
+#: 权限层级：访客 / 用户 / 管理员 / 内核。缺省按 `user` 处理。
+AUTHORITIES = ("guest", "user", "admin", "kernel")
+
 #: `prompt` 未写 options 时的默认选项（与预设层的约定一致）。
 _DEFAULT_OPTIONS = ("Y", "n")
 
@@ -42,7 +45,13 @@ def _validate(raw, path, ln):
     if not isinstance(raw, dict):
         raise _bad(path, ln, "每行必须是 JSON 对象")
     frame = raw.get("frame")
-    if isinstance(frame, bool) or not isinstance(frame, int) or frame < 0:
+    need = raw.get("require_event")
+    has_event = isinstance(need, str) and bool(need.strip())
+    if frame is None:
+        # 没有帧就必须有事件：只靠事件触发的消息在 `TerminalFeed` 里按事件补吐。
+        if not has_event:
+            raise _bad(path, ln, "frame 与 require_event 至少要有一个")
+    elif isinstance(frame, bool) or not isinstance(frame, int) or frame < 0:
         raise _bad(path, ln, f"frame 必须是非负整数（得到 {frame!r}）")
     kind = raw.get("kind", "log")
     if not isinstance(kind, str) or kind not in KINDS:
@@ -50,6 +59,10 @@ def _validate(raw, path, ln):
     text = raw.get("text")
     if not isinstance(text, str) or not text.strip():
         raise _bad(path, ln, "text 必须是非空字符串")
+    authority = raw.get("authority", "user")
+    if not isinstance(authority, str) or authority not in AUTHORITIES:
+        raise _bad(path, ln,
+                   f"authority 必须是 {' / '.join(AUTHORITIES)} 之一（得到 {authority!r}）")
 
     options = raw.get("options")
     labels = {}
@@ -108,9 +121,13 @@ def _validate(raw, path, ln):
             raise _bad(path, ln, f"period 必须是正整数（得到 {period!r}）")
     until = raw.get("until")
     if until is not None:
+        if frame is None:
+            raise _bad(path, ln, "until 必须配合 frame 使用")
         if (isinstance(until, bool) or not isinstance(until, int)
                 or until < int(frame)):
             raise _bad(path, ln, f"until 必须是不小于 frame 的整数（得到 {until!r}）")
+    if period is not None and frame is None:
+        raise _bad(path, ln, "period 必须配合 frame 使用")
     if period is not None and until is None:
         raise _bad(path, ln, "period 必须与 until 一起使用（否则不知道重复到哪一帧）")
     cycle_from = raw.get("cycle_from")
@@ -140,9 +157,13 @@ def _validate(raw, path, ln):
                 raise _bad(path, ln, f"模板变量 {{{field}}} 需要 vars 白名单")
 
     msg = dict(raw)
-    msg["frame"] = int(frame)
+    if frame is not None:
+        msg["frame"] = int(frame)
+    else:
+        msg.pop("frame", None)
     msg["kind"] = kind
     msg["text"] = text
+    msg["authority"] = authority
     if options is not None:
         msg["options"] = options
         msg["option_labels"] = labels
@@ -194,7 +215,7 @@ def load_messages(path, max_messages=MAX_MESSAGES):
             if len(out) > int(max_messages):
                 raise _bad(path, ln,
                            f"消息总数超过上限 {max_messages}（检查 period / 行数）")
-    out.sort(key=lambda m: m["frame"])
+    out.sort(key=lambda m: (m.get("frame") is None, m.get("frame") or 0))
     seen = {}
     for msg in out:
         mid = msg.get("id")
@@ -204,6 +225,12 @@ def load_messages(path, max_messages=MAX_MESSAGES):
             raise ValueError(f"{path}: 终端消息 id {mid!r} 重复")
         seen[mid] = True
     return out
+
+
+def _prefix(text):
+    """统一加 `>>>` 前缀；原文自带前缀（剧情卷的 `>>>` 行）就不再叠一层。"""
+    text = str(text)
+    return text if text.startswith(">>>") else ">>> " + text
 
 
 def _render_text(msg, frame, st):
@@ -245,11 +272,19 @@ class TerminalFeed:
     `write(text)` 决定消息去向（stdout 或实时编年史的同一条落盘通道）；
     `ask` 为真且标准输入是 TTY 时，`prompt` 类消息会等待输入，否则直接用默认答案。
     `st` 只用来查 `score["emitted_*"]`，这里不写任何字段。
+    `authorities` 给出时只播放这些权限层级的消息；不给则全播。
     """
 
     def __init__(self, messages, write=print, ask=False, source=None, sink=None,
-                 ask_fn=None, max_jumps=64):
-        self.messages = list(messages or ())
+                 ask_fn=None, max_jumps=64, authorities=None):
+        rows = list(messages or ())
+        bad = sorted(set(authorities or ()) - set(AUTHORITIES))
+        if bad:
+            raise ValueError(f"authorities 里有未登记的层级：{bad}（允许 {list(AUTHORITIES)}）")
+        self.authorities = set(authorities) if authorities else None
+        self.messages = [m for m in rows if m.get("frame") is not None]
+        self._events = [m for m in rows if m.get("frame") is None]
+        self._event_done = set()
         self.write = write
         self.ask = bool(ask)
         self.source = source
@@ -339,13 +374,34 @@ class TerminalFeed:
             self._cursor = target_index
             self._branch = answer
             self._rejoin = branch.get("rejoin")
+        self._drain_events(frame, st)
+
+    def _drain_events(self, frame, st):
+        """只靠 `require_event` 触发的消息：事件出现后按当前帧补吐一次。
+
+        它们没有帧，不参与上面的游标，因此绝不可能挡住后面的带帧消息。
+        """
+        for i, msg in enumerate(self._events):
+            if i in self._event_done or not self._visible(msg, st):
+                continue
+            self._event_done.add(i)
+            answer, fallback = self._emit(msg, frame, st)
+            if msg["kind"] == "prompt":
+                self.answers.append({
+                    "frame": int(frame),
+                    "message": msg.get("id"),
+                    "option": answer,
+                    "source": "default" if fallback else "user",
+                })
 
     def ledger(self):
         """作答复盘：`[{frame, message, option, source}]`，只读。"""
         return [dict(row) for row in self.answers]
 
-    @staticmethod
-    def _visible(msg, st):
+    def _visible(self, msg, st):
+        if (self.authorities is not None
+                and msg.get("authority", "user") not in self.authorities):
+            return False
         score = getattr(st, "score", None) or {}
         need = msg.get("require_event")
         if need and f"emitted_{need}" not in score:
@@ -358,14 +414,14 @@ class TerminalFeed:
     def _emit(self, msg, frame, st):
         text = _render_text(msg, frame, st)
         if msg["kind"] != "prompt":
-            self.write(">>> " + text)
+            self.write(_prefix(text))
             self._sink_msg(msg, frame, text)
             return None, True
         options = list(msg.get("options") or _DEFAULT_OPTIONS)
         labels = dict(msg.get("option_labels") or {})
         default = msg.get("default") or options[0]
         ask = msg.get("ask")
-        label = f">>> {text} {ask}" if ask else f">>> {text}"
+        label = _prefix(text) + (f" {ask}" if ask else "")
         shown = [labels.get(opt, opt) for opt in options]
         prompt = f"{label} [{'/'.join(shown)}]"
         # 独立 CLI 窗口：提问发生在子窗口，主进程阻塞等回答；这里只把

@@ -115,16 +115,95 @@ def evaluate_all(spec: dict, view: dict) -> list[dict]:
 
 
 def coverage(spec: dict) -> dict:
+    """Counts plus per-trend detail, so a consumer can list what is wired why.
+
+    Old keys (``trends`` / ``wired`` / ``unwired`` / ``channels``) keep their
+    original shape; the ``*_detail`` keys are additive.
+    """
     wired = [t for t, v in spec["trends"].items() if v.get("status") == "wired"]
     unwired = {t: v.get("reason", "") for t, v in spec["trends"].items()
                if v.get("status") != "wired"}
     channels = sum(len(spec["trends"][t]["channels"]) for t in wired)
+    wired_detail = [{
+        "trend": t,
+        "channels": [c.get("id", "") for c in spec["trends"][t]["channels"]],
+        "drivers": [c.get("driver", "") for c in spec["trends"][t]["channels"]],
+    } for t in wired]
+    unwired_detail = [{"trend": t, "reason": reason}
+                      for t, reason in unwired.items()]
     return {
         "trends": len(spec["trends"]),
         "wired": wired,
         "unwired": unwired,
         "channels": channels,
+        "wired_detail": wired_detail,
+        "unwired_detail": unwired_detail,
     }
+
+
+def _number(value) -> float | None:
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _stage_index(features: dict) -> float | None:
+    """1-based stage number clamped to 1-4; ``None`` when the snapshot has none."""
+    index = _number(features.get("domain_index"))
+    if index is None:
+        return None
+    stage = int(index) + 1
+    if features.get("domains_exhausted"):
+        stage += 1
+    return float(min(4, max(1, stage)))
+
+
+def _promotion_gap(features: dict) -> float | None:
+    """Shortening pressure in [0, 1] from the promotion frame sequence.
+
+    Split the gaps in half; ``1 - later/first`` is how much the interval
+    contracted. Fewer than three shifts cannot be split, so the reading is
+    ``None`` rather than a guessed number.
+    """
+    frames = features.get("promotion_frames")
+    if not isinstance(frames, (list, tuple)):
+        return None
+    points = sorted(p for p in (_number(f) for f in frames) if p is not None)
+    if len(points) < 3:
+        return None
+    gaps = [b - a for a, b in zip(points, points[1:])]
+    half = len(gaps) // 2
+    first, later = gaps[:half], gaps[half:]
+    if not first or not later:
+        return None
+    baseline = sum(first) / len(first)
+    if baseline <= 0.0:
+        return None
+    return max(0.0, min(1.0, 1.0 - (sum(later) / len(later)) / baseline))
+
+
+def _origin_closure(features: dict) -> float | None:
+    """Repaid/borrowed anchor ratio; ``None`` unless the origin world is running."""
+    if not (features.get("origin_ever") or features.get("origin_awake")):
+        return None
+    borrowed = _number(features.get("origin_borrowed"))
+    repaid = _number(features.get("origin_repaid"))
+    if borrowed is None or repaid is None:
+        return None
+    return min(1.0, repaid / max(1.0, borrowed))
+
+
+def _disturb_share(features: dict) -> float | None:
+    """Executions per distinct disturbance capability; ``None`` without a ledger."""
+    caps = features.get("disturb_capabilities")
+    total = _number(features.get("disturb_total"))
+    if caps is None or total is None:
+        return None
+    count = len([c for c in str(caps).split(",") if c.strip()])
+    return total / max(1, count)
 
 
 def view_from_features(features: dict) -> dict:
@@ -133,6 +212,10 @@ def view_from_features(features: dict) -> dict:
     Snapshot values (``final_entropy`` / ``final_noise``) are accepted so the
     evaluator can be exercised today; a per-frame caller should pass live
     readings under ``entropy`` / ``noise`` instead.
+
+    Derived readings (``stage_index`` / ``promotion_gap`` / ``origin_closure`` /
+    ``disturb_share``) stay ``None`` when the snapshot lacks the underlying
+    evidence, so the evaluator reports ``driver_missing`` instead of a zero.
     """
     def pick(*names):
         for name in names:
@@ -146,6 +229,10 @@ def view_from_features(features: dict) -> dict:
         "memory_rows": pick("memory_rows", "origin_tomb_rows"),
         "entropy": pick("entropy", "final_entropy"),
         "noise": pick("noise", "final_noise"),
+        "stage_index": _stage_index(features),
+        "promotion_gap": _promotion_gap(features),
+        "origin_closure": _origin_closure(features),
+        "disturb_share": _disturb_share(features),
     }
 
 

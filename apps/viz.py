@@ -19,6 +19,7 @@ import json
 from kernel.operators import consensus, meta_indices
 from .render import (Renderer, advance_label, cycle_frames, myth_phase_frame,
                      renewal_switch_frame, stage_starts, stage_table)
+from .scenes import _version_key
 
 # 时间线：值得打点的事件类别与配色
 _TIMELINE_COLORS = {
@@ -227,15 +228,17 @@ def _name_map(traj):
 
 
 def _resolve(traj, names, serial):
-    """编号 → 人名。名随人走：认不出来就报「无名者#N」，绝不拿职位名顶替。"""
+    """编号 → 人名。名随人走：认不出来就报「无名者#N」，绝不拿职位名顶替。
+
+    与编年史的 `Cast.resolve` 同一口径（`Namer.visible_name`）：先查已登记的个体名，
+    再查锚定层；两者都认不出才是真的不可解析。
+    """
     if serial is None:
         return None
     s = int(serial)
-    if s in names:
-        return names[s][1]
-    a = traj.namer.name_by_serial(s)
-    if a:
-        return a[1]
+    hit = traj.namer.visible_name(s, names)
+    if hit:
+        return hit
     return f"无名者#{s}"
 
 
@@ -526,6 +529,19 @@ h2{font-size:15px;color:var(--gold);margin:26px 0 10px;font-weight:600;
 .bar{height:5px;background:#232733;border-radius:3px;overflow:hidden;}
 .bar i{display:block;height:100%;background:#7fd0ff;}
 .bar i.done{background:var(--gold);}
+/* 趋势压力面板：一行一条通道，标签 / 条 / 数值三列占满整行 */
+.trow{padding:7px 0;border-bottom:1px solid var(--line);}
+.trow:last-child{border-bottom:none;}
+.trow-main{display:flex;align-items:center;gap:10px;}
+.tlabel{flex:0 0 160px;font-size:12px;color:var(--fg);overflow-wrap:anywhere;}
+.tlabel .tch{display:block;color:var(--dim);font-size:11px;}
+.tbar{flex:1 1 auto;min-width:80px;}
+.tval{flex:0 0 118px;text-align:right;font-family:ui-monospace,Consolas,monospace;
+ font-size:12px;white-space:nowrap;}
+.tval .tsrc{font-family:inherit;color:var(--dim);font-size:10px;margin-left:6px;}
+.tmeta{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:11px;color:var(--dim);margin-top:3px;}
+.tmeta b{color:#aeb6c8;font-weight:600;margin-right:4px;}
+.tmeta .miss{color:#d98cb3;}
 .seat-prog{font-size:10px;color:var(--dim);margin-top:3px;}
 .stages{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px;}
 .stage{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 11px;}
@@ -547,6 +563,8 @@ h2{font-size:15px;color:var(--gold);margin:26px 0 10px;font-weight:600;
 .obs b{color:var(--fg);font-weight:600;margin-right:5px;}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;
  padding:10px 12px;margin-bottom:14px;}
+.scene{margin:8px 0;}
+.scene>summary{cursor:pointer;font-weight:600;}
 .ctrls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;}
 .ctrls button{background:#20242f;border:1px solid var(--line);border-radius:6px;
  color:var(--fg);padding:4px 11px;font-size:12px;font-family:inherit;cursor:pointer;}
@@ -1625,6 +1643,11 @@ _JS = r"""
             bindStageClicks();                      // 新卡片要重新挂点击
           }
         }
+        if (s.narrative){                           // 叙事场景：随到达的轮次就地整块替换
+          var nb = $('narrative-block');
+          var nh = s.narrative.html || '';
+          if (nb && nb.innerHTML !== nh) nb.innerHTML = nh;
+        }
         TOTAL = Math.max(TOTAL, s.frame || 0); D.total = TOTAL;
         if (follow) cur = samples.length - 1;
         $('liveflag').textContent = s.done
@@ -2056,6 +2079,137 @@ def origin_panel(summary, series, total) -> str:
     return "\n".join(out)
 
 
+_TREND_META_LABELS = (
+    ("type", "类型"), ("target", "目标"), ("observable", "可观测量"),
+    ("source", "来源"), ("confidence", "置信"), ("inferred", "推断"),
+    ("driver", "驱动"), ("driver_value", "驱动值"), ("note", "备注"),
+)
+
+
+def _trend_value(row):
+    """(显示文本, 条宽比例)；读不到就是 '—' + None —— 缺失不补零。"""
+    note = str(row.get("note") or "")
+    raw = row.get("value")
+    if raw is None or note.startswith("driver_missing"):
+        return "—", None
+    try:
+        value = float(raw)
+    except (TypeError, ValueError):
+        return "—", None
+    return f"{value:.2f}", max(0.0, min(1.0, value))
+
+
+def _trend_active_text(row) -> str:
+    if "active" not in row or row.get("active") is None:
+        return "—"
+    return "活跃" if row["active"] else "静默"
+
+
+def _trend_note_text(row, value_missing: bool) -> str:
+    """备注；缺失时把原因写出来，不做无来源的编造回退。"""
+    note = str(row.get("note") or "").strip()
+    reasons = []
+    if not row.get("_unwired"):
+        if value_missing:
+            reasons.append("value_missing")
+        if not str(row.get("driver") or "") or row.get("driver_value") is None:
+            reasons.append("driver_missing")
+    extra = " · ".join(r for r in reasons if r not in note)
+    if note and extra:
+        return f"{note}（{extra}）"
+    return note or extra or "—"
+
+
+def _trend_field_text(row, name: str, value_missing: bool):
+    """(显示文本, 是否缺值) —— 13 个字段共用同一套缺值口径。"""
+    if name == "note":
+        text = _trend_note_text(row, value_missing)
+        return text, text == "—"
+    if name == "inferred":
+        raw = row.get("inferred")
+        if raw is None:
+            return "—", True
+        return ("是" if raw else "否"), False
+    if name == "driver_value":
+        raw = row.get("driver_value")
+        if raw is None:
+            return "—", True
+        try:
+            return f"{float(raw):.3f}", False
+        except (TypeError, ValueError):
+            return "—", True
+    raw = row.get(name)
+    if raw is None or str(raw).strip() == "":
+        return "—", True
+    return str(raw), False
+
+
+def _trend_meta_html(row, value_missing: bool) -> str:
+    cells = []
+    for name, label in _TREND_META_LABELS:
+        text, missing = _trend_field_text(row, name, value_missing)
+        cls = ' class="miss"' if missing else ""
+        cells.append(f'<span{cls}><b>{label}</b>{html.escape(text)}</span>')
+    return '<div class="tmeta">' + "".join(cells) + "</div>"
+
+
+def _scene_acts(item) -> list[dict]:
+    """场景的 ordered acts：终稿给 `acts`，实时快照给 before/during/after。"""
+    acts = item.get("acts")
+    if acts is not None:
+        return list(acts)
+    out = []
+    if item.get("before"):
+        out.append({"phase": "before", "text": item["before"]})
+    during = item.get("during")
+    if isinstance(during, str):
+        during = [during]
+    for step in during or ():
+        out.append({"phase": "during", "text": step})
+    if item.get("after"):
+        out.append({"phase": "after", "text": item["after"]})
+    return out
+
+
+def _scene_order(item) -> tuple:
+    """剧情时序：首帧 → 版本 → id；无帧的条目统一排在末尾。"""
+    frame = item.get("first_frame")
+    return (frame is None, frame or 0,
+            _version_key(item.get("version") or ""),
+            str(item.get("id") or ""))
+
+
+def narrative_block_html(items, title="叙事面板") -> str:
+    """场景面板：终稿（`scenes.narrate`）与实时快照（`LiveState.narrative`）共用。
+
+    条目在渲染时统一按剧情时序排序（见 `_scene_order`），实时推送的到达顺序
+    因此不影响显示；每条渲染成默认折叠的 `<details class="scene">`。
+    `items` 为空时返回空串 —— 页面上的容器保持原样，不抛错。
+    """
+    scenes = sorted(items or (), key=_scene_order)
+    if not scenes:
+        return ""
+    parts = [f"<h2>{html.escape(title)} · 场景面板</h2>", '<div class="panel">']
+    for item in scenes:
+        frame = item.get("first_frame")
+        meta = ["时序未知" if frame is None else f"帧 {frame}"]
+        if item.get("first_frame_source") == "projected":
+            meta.append("帧为投影")
+        parts.append('<details class="scene">')
+        parts.append(
+            f"<summary><b>[{html.escape(str(item.get('version')))}]"
+            f" {html.escape(str(item.get('title') or item.get('id')))}</b>"
+            f" <span class=\"sub\">{html.escape(' · '.join(meta))}</span></summary>")
+        for act in _scene_acts(item):
+            parts.append(f"<div class=\"sub\">{html.escape(str(act.get('phase')))}"
+                         f"：{html.escape(str(act.get('text')))}</div>")
+        if item.get("gap"):
+            parts.append(f"<div class=\"sub\">缺口：{html.escape(str(item['gap']))}</div>")
+        parts.append("</details>")
+    parts.append("</div>")
+    return "\n".join(parts)
+
+
 def narrative_panels_html(trend_rows=None, trend_coverage=None, scene_items=None,
                           dialogue=None, title="叙事面板") -> str:
     """Read-only HTML for the three narrative panels.
@@ -2071,48 +2225,44 @@ def narrative_panels_html(trend_rows=None, trend_coverage=None, scene_items=None
     cov = trend_coverage or {}
     if rows or cov.get("unwired"):
         parts.append(f"<h2>{html.escape(title)} · 趋势压力</h2>")
-        parts.append('<div class="panel"><table class="seats" style="width:100%">')
-        parts.append("<tr><th>趋势</th><th>通道</th><th>压力</th><th>数值</th>"
-                     "<th>驱动</th><th>状态</th></tr>")
+        parts.append('<div class="panel">')
         by_trend: dict[str, list] = {}
         for row in rows:
             by_trend.setdefault(str(row.get("trend", "")), []).append(row)
         for trend, group in by_trend.items():
-            for i, row in enumerate(group):
-                value = float(row.get("value") or 0.0)
-                pct = max(0.0, min(1.0, value)) * 100.0
-                trend_cell = (f'<td rowspan="{len(group)}">{html.escape(trend)}</td>'
-                              if i == 0 else "")
+            for row in group:
+                value_text, ratio = _trend_value(row)
+                value_missing = ratio is None
+                track = ('<div class="bar"></div>' if ratio is None else
+                         f'<div class="bar"><i style="width:{ratio * 100.0:.1f}%"></i></div>')
                 parts.append(
-                    f"<tr>{trend_cell}<td>{html.escape(str(row.get('channel', '')))}</td>"
-                    f'<td><span style="display:inline-block;height:8px;width:120px;'
-                    f'background:#2a3140;border-radius:4px;vertical-align:middle">'
-                    f'<span style="display:inline-block;height:8px;width:{pct:.1f}%;'
-                    f'background:#7fd0ff;border-radius:4px"></span></span></td>'
-                    f"<td>{value:.2f}</td>"
-                    f"<td>{html.escape(str(row.get('driver', '')))}</td>"
-                    f"<td>{html.escape(str(row.get('note') or '已接线'))}</td></tr>")
+                    '<div class="trow"><div class="trow-main">'
+                    f'<div class="tlabel">{html.escape(trend)}'
+                    f'<span class="tch">{html.escape(str(row.get("channel") or "—"))}</span>'
+                    '</div>'
+                    f'<div class="tbar">{track}</div>'
+                    f'<div class="tval">{value_text}'
+                    f'<span class="tsrc">{html.escape(_trend_active_text(row))}</span></div>'
+                    '</div>'
+                    + _trend_meta_html(row, value_missing)
+                    + '</div>')
         for trend, reason in (cov.get("unwired") or {}).items():
-            parts.append(f"<tr><td>{html.escape(trend)}</td><td>—</td><td>—</td>"
-                         f"<td>—</td><td>—</td>"
-                         f"<td>未接线：{html.escape(str(reason))}</td></tr>")
-        parts.append("</table></div>")
+            row = {"_unwired": True,
+                   "note": f"未接线：{reason}" if reason else "未接线"}
+            parts.append(
+                '<div class="trow"><div class="trow-main">'
+                f'<div class="tlabel">{html.escape(str(trend))}'
+                '<span class="tch">—</span></div>'
+                '<div class="tbar">—</div>'
+                '<div class="tval">—<span class="tsrc">—</span></div>'
+                '</div>'
+                + _trend_meta_html(row, True)
+                + '</div>')
+        parts.append("</div>")
 
     scenes = list(scene_items or ())
     if scenes:
-        parts.append(f"<h2>{html.escape(title)} · 场景面板</h2>")
-        parts.append('<div class="panel">')
-        for item in scenes:
-            parts.append(
-                f"<div style=\"margin:8px 0\"><b>[{html.escape(str(item.get('version')))}]"
-                f" {html.escape(str(item.get('title') or item.get('id')))}</b>")
-            for act in item.get("acts") or ():
-                parts.append(f"<div class=\"sub\">{html.escape(str(act.get('phase')))}"
-                             f"：{html.escape(str(act.get('text')))}</div>")
-            if item.get("gap"):
-                parts.append(f"<div class=\"sub\">缺口：{html.escape(str(item['gap']))}</div>")
-            parts.append("</div>")
-        parts.append("</div>")
+        parts.append(narrative_block_html(scenes, title))
 
     if dialogue and dialogue.get("lines"):
         parts.append(f"<h2>{html.escape(title)} · 对话阅读</h2>")
@@ -2376,6 +2526,7 @@ def build_live_shell(ctx, total, title=None, autoreload=True):
       · **城邦图例**：城池只属于第四阶段，故先整份渲染好、`display:none`，页面据
         `simPhase()` 显隐（与静态导出同一份 `_city_legend_html`）。
       · **阶段目录**：先摆一个空容器 `#stages-block`，实时快照带 `stageshtml` 时填入。
+    叙事场景同理：`#narrative-block` 留空，快照带 `narrative.html` 时就地替换。
     """
     R = Renderer(ctx)
     blob = _data_blob(R, [], [], max(2, int(total)), [], [], [], [], [], live=True,
@@ -2388,5 +2539,6 @@ def build_live_shell(ctx, total, title=None, autoreload=True):
                   + '<div class="seats" id="seats"></div>')
     return _page(R, title or "δ-me13 演算 · 实时看板", True,
                  _cards_html([("状态", "演算已开始，数据正在流入…", False)]),
-                 seats_html, blob, stages_html='<div id="stages-block"></div>')
+                 seats_html, blob, stages_html='<div id="stages-block"></div>',
+                 narrative_html='<div id="narrative-block"></div>')
 

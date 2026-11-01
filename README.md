@@ -19,9 +19,11 @@ python -m pip install -r requirements.txt
 ## 快速开始
 
 ```bash
-python run.py                                  # 涌现版：名字全由演算生成
-python run.py --preset plot                    # 剧情锚定版：名字按剧情绑定（不改轨迹）
-python run.py --preset plot-full               # 内容版：终端 / 档案 / 原初目标全开（只读）
+python run.py                                  # 涌现版：名字全由演算生成（12 席）
+python run.py --preset plot                    # 剧情锚定版：默认跑在 worlds/origin（13 席 + 回望/锚定）
+python run.py --preset plot-full               # 内容版：终端 / 档案 / 原初目标全开（只读，同样 13 席）
+python run.py --root . --preset plot           # 强制回默认 12 席世界根（旧行为）
+python run.py --root worlds/plot --preset plot # 13 席、canonical 动力学口径（无回望驱动）
 python run.py --root worlds/origin --preset origin   # 原初世界：第十三席是真实动力学（独立世界，不动 canonical）
 python run.py --root worlds/origin --preset origin-eternal # 单条剧情时间线：真相轮 → 永劫 33.55M 轮 → 最后一轮 3.0–3.7
 python run.py --preset plot-full --terminal-window   # 另开一个独立 CLI 窗口（系统消息 + 阻塞提问）
@@ -30,6 +32,10 @@ python run.py --preset plot --live             # 演算过程中实时输出编�
 python run.py --preset plot --log               # 编年史落盘 → logs/翁法罗斯编年史_演算N.txt
 python run.py --preset plot --export           # 导出 dashboard → dashboard/翁法罗斯-可视化.html
 python run.py --preset plot --serve            # 起实时看板：浏览器里边演算边长，演完可回放
+python run.py --preset plot --init-set B       # 换一份完整初始状态（世界形态由它决定；只在内存里覆盖）
+python run.py --init-set B                     # 同上，涌现版：初始变量 + 其中的 seed 一起换
+python run.py --preset plot-full --terminal-authority admin,kernel  # 只看这些权限层的终端消息
+python run.py --root worlds/scepter --preset scepter --scepter      # 权杖世界根：七层只读读数
 python run.py --help                           # 查看全部参数
 ```
 
@@ -37,10 +43,10 @@ python run.py --help                           # 查看全部参数
 
 | 开关                                     | 作用                                                                                                                                                                                                                                                                              |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--root <目录>`                          | 世界根目录（其下有 `config/` 与 `presets/`）；默认项目根。`--root worlds/origin --preset origin` 跑 13 席的原初世界。日志 / 看板 / 锚定语料跟随它，`TerminalBridge` 的 `PYTHONPATH` / `cwd` 仍用项目根                                                                                                                      |
-| `--preset <名>`                         | 选预设：`emergent` 涌现版（默认）/ `plot` 剧情锚定版 / `plot-full` 剧情内容版 / `plot-mech` 剧情机制版 / `nullify` 否定版 / `destruction` 毁灭版 / `tide` 淹没版 / `refuted` 证伪版 / `_demo` `script.jsonl` 样例（`FRAME` 定时投递 + 事件响应）。其中 `plot-full` 是 `plot` 的内容版孪生副本：新增桥段一律是 `emit` 镜头，只进账本、不改世界，也不动 `plot` 的招牌轨道与指纹 |
+| `--root <目录>`                          | 世界根目录（其下有 `config/` 与 `presets/`）。**显式给定时永远优先**；不给时按预设解析：`worlds/origin/presets/<预设>/preset.json` 存在 ⇒ `worlds/origin`（13 席 + 回望驱动，`plot` / `plot-full` 就是这样），否则剧情预设 ⇒ `worlds/plot`，其余（含无预设的 `emergent`）⇒ 项目根的 12 席世界。日志 / 看板 / 锚定语料跟随它，`TerminalBridge` 的 `PYTHONPATH` / `cwd` 仍用项目根 |
+| `--preset <名>`                         | 选预设：`emergent` 涌现版（默认）/ `plot` 剧情锚定版 / `plot-full` 剧情内容版 / `plot-mech` 剧情机制版 / `nullify` 否定版 / `destruction` 毁灭版 / `tide` 淹没版 / `refuted` 证伪版 / `_demo` `script.jsonl` 样例（`FRAME` 定时投递 + 事件响应）。`plot` / `plot-full` 另有一份住在 `worlds/origin/presets/` 的副本，默认就跑在 13 席根上（第 13 席 + 回望 / 锚定 / 昔涟）；`plot-full` 是 `plot` 的内容版孪生副本：新增桥段一律是 `emit` 镜头，只进账本、不改世界 |
 | `--list-presets`                       | 列出 `presets/` 下可用的预设（含预设目录里自带 `preset.json` 的世界）                                                                                                                                                                                                                                |
-| `--seed <n>`                           | 换一个世界种子（只影响角色涌现，不改裁决结果与时刻）                                                                                                                                                                                                                                                      |
+| `--seed <n>`                           | **抽样键（不决定世界形态）**：只影响角色涌现与命名，不改裁决结果与时刻。世界形态用 `--init-set`；两者不能同用（seed 属于初始变量集，写进 `init-*.json`）                                                                                                                                                                                                                                                      |
 | `--frames <n>`                         | 只跑到第 n 帧（调试用）                                                                                                                                                                                                                                                                   |
 | `--live`                               | 实时刷屏编年史                                                                                                                                                                                                                                                                         |
 | `--log [路径]`                           | 编年史落盘（不配 `--live` 时只落盘、不刷屏）；不给路径就写 `logs/翁法罗斯编年史_演算N.txt`（N 递增，不覆盖旧的）；落盘后会在终端提示文件路径                                                                                                                                                                                             |
@@ -48,6 +54,9 @@ python run.py --help                           # 查看全部参数
 | `--terminal-ask`                       | 在 `prompt` 处等待输入；非 TTY 自动用默认答案                                                                                                                                                                                                                                                  |
 | `--terminal-window`                    | 另开一个独立 CLI 窗口显示 `>>>` 并处理 `prompt`；Windows 用新控制台，其它平台尝试常见终端模拟器，失败时回退同控制台。隐含 `--terminal`；与 `--no-terminal` 冲突                                                                                                                                                                   |
 | `--terminal-window-timeout <秒>`        | 独立 CLI 窗口等待 `prompt` 回答的秒数（默认 60；超时用默认答案继续）                                                                                                                                                                                                                                     |
+| `--terminal-authority <列表>`           | 只显示这些权限层级的 `>>>` 消息（逗号分隔：`guest` / `user` / `admin` / `kernel`；默认全部）。只读                                                                                                                                                                                                         |
+| `--init-set <A\|B>`                     | **初始变量集（完整初始状态，世界形态由它决定）**：读 `presets/<当前预设>/init-<X>.json`，缺失则回落到 `presets/scepter/init-<X>.json`；覆盖 `resource_abundance` / `disturbance_strength` / `memory_decay` / `succession_tolerance` / `succession_floor` / `stage_budget` 六项，`seed` 也在文件里；仍受 `config/generation.json` 的 clamp 约束，`config/` 原文件不动 |
+| `--scepter` / `--no-scepter`            | 报告追加【九】权杖七层只读读数（内核 / 权限 / 槽位 / 再创世 / 熵 / 记忆 / 外部注入；与保真自检同开时顺延为【十】）；默认取 `narrative.scepter`                                                                                                                                                                      |
 | `--archive` / `--no-archive`           | 报告追加实验档案 / 异常记录 / 实验进度；只读（默认取 `narrative.archive`）                                                                                                                                                                                                                              |
 | `--origin` / `--no-origin`             | 报告追加【八】原初目标：canonical 世界走只读探针（自我度 / 记忆闭合 / 反事实），`worlds/origin` 读真实的 `traj.final.origin`（成形 / 能量 / 借还 / 锚点 / 四态）；默认取 `narrative.origin`                                                                                                                                         |
 | `--export [路径]`                        | 导出单文件 HTML dashboard；不给路径就写 `dashboard/翁法罗斯-可视化.html`                                                                                                                                                                                                                           |
@@ -58,7 +67,6 @@ python run.py --help                           # 查看全部参数
 | `--json`                               | 额外输出机器可读结果                                                                                                                                                                                                                                                                      |
 | `--dump-anchors`                       | 导出命名标定语料                                                                                                                                                                                                                                                                        |
 | `--explore [K]`                        | 探路档：把时间刻度按 K 压缩，跳过帧号类断言（只验机制连通）                                                                                                                                                                                                                                                 |
-| `--fast [K]`                           | `--explore` 的旧名，等价                                                                                                                                                                                                                                                              |
 
 ## 可视化 dashboard
 
@@ -154,6 +162,8 @@ python run.py --preset plot --serve 9000 --no-open   # 指定端口、不自动�
 | 原初目标        | `apps/origin.py`（canonical 只读探针）/ `apps/origin_loop.py`（origin 世界真实状态） | `--origin` / `--no-origin`     | 报告【八】原初目标：canonical 读自我度均值 / 峰值 / 采样、记忆闭合、反事实三态；`worlds/origin` 读真实的成形 / 能量 / 借还 / 锚点 / 四态 |
 | 保真自检        | `lore/canon/` → `apps/fidelity.py`                                      | `--fidelity` / `--no-fidelity` | 报告【九】八维保真分（覆盖 / 可追溯 / 逐字 / 一致性）与缺口扣分；权重、阈值、缺口规则全在 `config/fidelity.json`                        |
 | 叙事面板        | `apps/trends.py` / `scenes.py` / `dialogue.py` → `apps/viz.py`          | `--panels` / `--no-panels`     | 可视化页追加趋势压力条（同一趋势的多通道并排，不合并）、场景面板（含「预设节拍」反查）与对话阅读器                                                    |
+| 权杖读数        | `apps/scepter.py` + 世界根 `config/scepter.json`                        | `--scepter` / `--no-scepter`   | 报告【九】七层读数（缺字段写 `—` 并给出 `unavailable_reason`）；看板追加权杖面板（只用既有 `.bar`）                                                 |
+| 实时叙事        | `apps/live.py` 的 `narrative` → `#narrative-block`                      | 配 `--serve` 自动生效           | 场景随换代逐条出现；终稿与实时同源（同一个 `scenes.load_all` + `narrative_block_html`），演完即完整 |
 | 内容版预设       | `presets/plot-full/`                                                   | `--preset plot-full`           | `plot` 的孪生副本，补后段的镜头、终端消息与档案；默认四层全开                                                         |
 
 - **文案在预设层**：`>>>` 消息、档案正文、原初目标措辞都住在 `presets/`，`apps/` 里没有一个专名；
@@ -166,6 +176,13 @@ python run.py --preset plot --serve 9000 --no-open   # 指定端口、不自动�
   打印默认答案，不阻塞。
 - **镜头不改世界**：`plot-full` 新增的桥段一律用 `emit`（只写 `emitted_*` 记账），不改席位、
   既有账本计数与裁决；`plot` 的轨道、断言、时间线与指纹原样保留。
+- **叙事随换代逐条出现**：`--serve` 时场景不是一次性塞进页面，而是在 `PROMOTION` /
+  `DOMAIN_ADVANCE` / `DOMAINS_EXHAUSTED` 三个推进点按**差集**推送（同一 id 只推一次），
+  所以浏览器里看到的是「演到哪，故事讲到哪」。导出／回放页与实时页共用同一个
+  `scenes.load_all` 与 `narrative_block_html` —— 终稿与实时同源，不会出现两套说法。
+- **投影帧口径**：wiki 场景若没有任何预设节拍能证明首帧，就按所在版本的帧区间**投影**一个位置，
+  该条标 `first_frame_source:"projected"`、`confidence:"C"`，并在 `gap` 里写明
+  「帧为按章节区间投影，非原文时序」；有节拍佐证的场景照旧标 `beat`。缺值不补零、不猜。
 
 ## 原初世界（`worlds/origin/`）
 
@@ -175,6 +192,29 @@ canonical 的 `config/`、`presets/plot`、`presets/plot-full` 是**管理员介
 ```bash
 python run.py --root worlds/origin --preset origin
 ```
+
+**剧情版默认也跑在这个 13 席根上。** `worlds/origin/presets/plot` 与 `plot-full` 是项目根那两个
+预设的副本，差别只有：① 世界根换成 `worlds/origin`（`dim=13`、L12 是 meta 席、原初四态结论）；
+② 多一份 `nodes.json`（两处 lore 有据的回望节点）；③ `events.jsonl` 多两条原初事件。
+`run.py` 的世界根规则（`resolve_world_root`）：
+
+| 情形 | 世界根 | 席位 |
+| --- | --- | --- |
+| 显式 `--root <目录>` | 该目录 | 由那份 `config/` 决定（`--root .` ⇒ 12 席） |
+| 无 `--root`，`worlds/origin/presets/<预设>/preset.json` 存在 | `worlds/origin` | 13 席 + 回望驱动 |
+| 无 `--root`，其余剧情预设（如 `plot-mech` / `nullify`） | `worlds/plot` | 13 席（canonical 动力学口径） |
+| 无 `--root`，无预设 / `emergent` / 独立世界根预设 | 项目根 | 12 席 |
+
+**回望 / 锚定在哪触发**（`plot` 的 13 席副本）：
+
+- **回望（`origin_anchor`）**：`nodes.json` 两处 —— 帧 `44,048`（第 1 次永劫回归开启，
+  昔涟为沉睡的德谬歌载入十二因子数据）与帧 `33,594,383`（第 33,550,336 次死循环走出，
+  「岁月」那一席由记忆接上）。`origin_direct_plan=true`：这条 33.59M 帧的时间线不做
+  「扫描 → 反复重演」，而是把这两手直接当锚点、跑一遍验证（与 `origin-eternal` 同一模式）。
+- **锚定（浮黎把走过的这一段锚进记忆）**：`events.jsonl` 帧 `33,594,545` 的
+  `gaze.effect.anchor_past`（「一页永恒」）。注意：内核里浮黎的「锚定过去」是
+  `gaze.anchor_past`（`kernel/disturbance.py::_gaze`），`write_memory` 是另一件事 ——
+  它把池中向量整批写进记忆库（`plot` 在 `33,594,407` 用它是「长夜月忘却之潮」）。
 
 - **13 席**：`worlds/origin/config/` 里 `dim=13`、`mapping` 13×6、`capability_names` 13 项；
   `L12` 是 `meta` 席 —— 普通个体也能坐，但 `Register.complete()` / `Promotion` /
@@ -253,6 +293,34 @@ python run.py --root worlds/origin --preset origin-unstable --frames 2000
 python run.py --root worlds/origin --preset origin-stall --frames 12000
 ```
 
+## 权杖世界根（`worlds/scepter/`）
+
+另一个独立世界根：复用 `worlds/origin` 的 13 席位表与算子装配，但**不启用**回望驱动
+（`origin_world=false`）。七层读数全部由 `apps/scepter.py` 只读派生 —— 不写状态、不改轨迹、
+不进指纹；拿不到的字段写 `null` 并给出 `unavailable_reason`，不用常量回填。
+
+```bash
+python run.py --root worlds/scepter --preset scepter --frames 50 --scepter
+```
+
+| 层 | 读什么 |
+| --- | --- |
+| 内核层 `kernel_layer` | `State.rule_matrix` 已写格数 / 演算方向 / 机制门 |
+| 权限层 `authority_layer` | 写入权限持有者、管辖权、入口锁；`entry` 锁上后 `bind_participant` 一律拒绝 |
+| 火种槽 `seed_slots` | 12 正席 + 1 元席的余量（含封印数） |
+| 再创世计数 `regen_count` | `State.promotions + initial`、已过 / 下一锚点、上限 |
+| 黑潮熵 `entropy` | 失序熵与本底强度 |
+| 记忆存储 `memory_store` | `memory_bank` 行数、是否闭合、记忆席、再补次数 |
+| 外部注入 `external_injection` | `DISTURBANCE` 记录数与通道集合 |
+
+- **哪些是真实读数、哪些是投影/推断**：七层都来自 `traj.final` / `traj.records`；
+  `regen` 的 17 个锚点与 `cap = 33,550,336` 来自语料（`preset.json` 的 `scepter.regen`，
+  来源字段写在 `anchor_source`），不是演算自己得出的。层名 / 单位 / 熵上限住在
+  `worlds/scepter/config/scepter.json`，`apps/` 里没有任何专名。
+- 终端消息按权限分层：`worlds/scepter/presets/scepter/messages.jsonl`（以及 `presets/plot-full/messages.jsonl`）
+  的消息带 `authority`（`guest` / `user` / `admin` / `kernel`），`--terminal-authority` 可只显示其中几层；
+  默认全部显示，且只读。
+
 ## 目录
 
 ```
@@ -261,7 +329,9 @@ kernel/             纯逻辑内核：主循环 / 算子 / 状态 / 装载 / 调
 apps/               用户态：系统服务（裁决 / 消融 / 断言 / 不变量 / 特征 / 条件）+ 界面（命名 / 渲染 / 看板）+ 只读叙事层（`terminal.py` / `terminal_bridge.py` / `terminal_window.py` / `archive.py` / `origin.py`）+ 只读语料层（`canon.py` / `fidelity.py`）
 config/             规则与阈值：params / loci / mapping / operators / calendar / lexicon / phonology
 presets/            世界与剧情：机器规格（genesis：命题 / 变量域 / 阶段装配）、种子、名字锚定、外生剧本（events.jsonl 或 script.jsonl）、期望时间线
-worlds/origin/      原初世界的【独立数据根】：13 席 config/ + presets/origin/（含 nodes.json 回望节点）；canonical 的 config/ 与 presets/plot* 零改动
+worlds/origin/      原初世界的【独立数据根】：13 席 config/ + presets/origin/（含 nodes.json 回望节点）+ presets/plot、plot-full（剧情版的 13 席副本，默认就跑在这里）；canonical 的 config/ 零改动
+worlds/plot/        13 席、canonical 动力学口径的世界根：未迁进 origin 根的剧情预设（plot-mech / nullify）住在这里
+worlds/scepter/     权杖世界的【独立数据根】：13 席 config/ + presets/scepter/；七层读数由 apps/scepter.py 只读派生
 tools/              自检与诊断脚本（见下）
 tests/              单元测试与轨迹指纹
 docs/               考据材料、术语对照表、外部变量规格、接口决策（adr/）

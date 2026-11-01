@@ -249,7 +249,8 @@ class StaticGates(unittest.TestCase):
         seen = 0
         root = os.path.join(ROOT, "presets")
         for preset in sorted(os.listdir(root)):
-            if not os.path.isdir(os.path.join(root, preset)):
+            # 共享数据目录（如 presets/scepter 只放 init-*.json）不是预设，跳过。
+            if not os.path.isfile(os.path.join(root, preset, "preset.json")):
                 continue
             data = DataSet(ROOT, preset=preset)
             ctx = Config(ROOT, lex_overlay=data.preset.get("lexicon"))

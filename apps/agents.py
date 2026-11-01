@@ -119,14 +119,29 @@ def decide(card: Card, percept: str) -> dict | None:
 
     When several rules share the same ``when``, all of them are reported and
     ``ambiguous`` is set -- the caller decides, this module does not guess.
+
+    The choice itself is delegated to :func:`apps.mind.decide`: rules are
+    matched exactly as before, and the neutral persona makes every score tie,
+    so the historical ``(priority, rule id)`` order still decides.  The return
+    shape is unchanged.
     """
     if not percept:
         return None
     matches = [r for r in card.rules if r.executable and r.when == percept]
     if not matches:
         return None
-    matches.sort(key=lambda r: (r.priority, r.id))
-    best = matches[0]
+    from apps import mind
+
+    options = [{"action": r.then, "rule": r.id, "priority": r.priority,
+                "source": r.source, "when": r.when, "percept": percept}
+               for r in matches]
+    result = mind.decide(mind.from_card(card), options,
+                         persona=mind.persona_from_card(card))
+    if result is None:
+        return None
+    rule_id = next((item["id"] for item in result.get("evidence") or ()
+                    if item.get("kind") == "rule"), "")
+    best = next((r for r in matches if r.id == rule_id), matches[0])
     return {
         "character": card.id,
         "rule": best.id,

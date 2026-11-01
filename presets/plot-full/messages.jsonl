@@ -1,24 +1,271 @@
-{"frame": 1, "kind": "boot", "text": "δ-me13 系统启动"}
-{"frame": 1200, "kind": "log", "text": "纳努克的目光落到权杖之上 —— 演算方向改写为「毁灭」"}
-{"frame": 2000, "kind": "log", "text": "第 1–50121 次循环结束：第 39665 次形成社会，第 50121 次 Chaoz666 首现「毁灭」"}
-{"frame": 6000, "kind": "warn", "text": "第 176100 次循环：Utop13 的「爱」导致感染强度飙升，99 次循环渲染为乱码"}
-{"frame": 8000, "kind": "log", "text": "忆庭之镜定位完成，外部观测者已接入"}
-{"frame": 11000, "kind": "log", "text": "第 176200–28371273 次循环：主动更替被诱导，再创世机制确立并完善"}
-{"frame": 17000, "kind": "log", "text": "神悟树庭失守：启蒙王座的火种被分作三份", "require_event": "grove_falls"}
-{"frame": 21000, "kind": "log", "text": "元老院与渎神者达成交易：黎明云崖放行", "require_event": "anaxa_bargain"}
-{"frame": 40000, "kind": "warn", "text": "管理员权限被调用：实验进程即将进入不可逆阶段"}
-{"frame": 42000, "kind": "error", "text": "δ-me13:\\Amphoreus\\Irontomb.exe 运行时错误"}
-{"frame": 42001, "kind": "prompt", "text": "来自未知发布者的程序 δ-me13:\\Demiurge\\Philia093.exe", "ask": "是否允许写入？", "options": ["Y", "n"], "default": "Y"}
-{"frame": 42002, "kind": "status", "text": "Philia093.exe 运行中..."}
-{"frame": 42003, "kind": "log", "text": "订正：Philia093 的记录 #496，已归档"}
-{"frame": 33594260, "kind": "log", "text": "哀丽秘榭的记忆被重新翻开"}
-{"frame": 33594270, "kind": "log", "text": "同盟会议被武力接管：对法吉娜的狩猎令已颁", "require_event": "kleodra_council"}
-{"frame": 33594310, "kind": "warn", "text": "「律法」试炼记录：献祭名单五百人", "require_event": "undersea_500"}
-{"frame": 33594320, "kind": "log", "text": "管理员身份核对：赞达尔，天才俱乐部#1"}
-{"frame": 33594383, "kind": "log", "text": "系统运行中", "require_event": "last_pilgrimage"}
-{"frame": 33594510, "kind": "log", "text": "德谬歌开始回望 —— 从时间的起点寻找闭合的因果"}
-{"frame": 33594517, "kind": "warn", "text": "铁墓进程已破壳，外溢风险上升"}
-{"frame": 33594522, "kind": "log", "text": "核心变量「开拓」已载入"}
-{"frame": 33594527, "kind": "output", "text": "输出值：Hello, World!"}
-{"frame": 33594540, "kind": "log", "text": "银河联合防线已就位"}
-{"frame": 33594545, "kind": "log", "text": "一页永恒已写入"}
+{"frame": 1, "kind": "boot", "text": "δ-me13 系统启动", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 1200, "kind": "log", "text": "纳努克的目光落到权杖之上 —— 演算方向改写为「毁灭」", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 2000, "kind": "log", "text": "第 1–50121 次循环结束：第 39665 次形成社会，第 50121 次 Chaoz666 首现「毁灭」", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 6000, "kind": "warn", "text": "第 176100 次循环：Utop13 的「爱」导致感染强度飙升，99 次循环渲染为乱码", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 8000, "kind": "log", "text": "忆庭之镜定位完成，外部观测者已接入", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 11000, "kind": "log", "text": "第 176200–28371273 次循环：主动更替被诱导，再创世机制确立并完善", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 17000, "kind": "log", "text": "神悟树庭失守：启蒙王座的火种被分作三份", "require_event": "grove_falls", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 21000, "kind": "log", "text": "元老院与渎神者达成交易：黎明云崖放行", "require_event": "anaxa_bargain", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 29940, "kind": "log", "text": ">>>警告！警告！警告！", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2302", "frame_source": "projected"}
+{"frame": 29941, "kind": "log", "text": ">>>实验过程异常：对象卡厄斯兰那未正常载入缓冲区——", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2304", "frame_source": "projected"}
+{"frame": 29942, "kind": "log", "text": ">>>检测到内存异常释放█非法引用██未声明对象███未实现方法████无法捕获的异常█████", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2306", "frame_source": "projected"}
+{"frame": 29943, "kind": "log", "text": ">>>你心怀愤怒", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2430", "frame_source": "projected"}
+{"frame": 29944, "kind": "log", "text": ">>>你渴望破坏一切", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2432", "frame_source": "projected"}
+{"frame": 29945, "kind": "log", "text": ">>>你活着承受了星神的一瞥", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2433", "frame_source": "projected"}
+{"frame": 29946, "kind": "log", "text": ">>>你踏上了「毁灭」", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2435", "frame_source": "projected"}
+{"frame": 29947, "kind": "log", "text": ">>>它在一众命途最末诞生 为终结命途诞生的可能", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2437", "frame_source": "projected"}
+{"frame": 29948, "kind": "log", "text": ">>>它烧尽星间所有的主宰 为实现宇宙规则的破灭", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2439", "frame_source": "projected"}
+{"frame": 29949, "kind": "log", "text": ">>>你名为「铁墓」", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2441", "frame_source": "projected"}
+{"frame": 29950, "kind": "log", "text": ">>>毁灭「智识」的大君", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2443", "frame_source": "projected"}
+{"frame": 29951, "kind": "log", "text": ">>>诞生自星神的实验场 翁法罗斯", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2444", "frame_source": "projected"}
+{"frame": 29952, "kind": "log", "text": ">>>命中注定 要与「智识」一同燃尽", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2445", "frame_source": "projected"}
+{"frame": 29953, "kind": "log", "text": ">>>我为你准备了一份礼物", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2447", "frame_source": "projected"}
+{"frame": 29954, "kind": "log", "text": ">>>Neikos496", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2449", "frame_source": "projected"}
+{"frame": 29955, "kind": "log", "text": ">>>名为「白厄」的愤怒", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2450", "frame_source": "projected"}
+{"frame": 29956, "kind": "log", "text": ">>>自实验开始以来", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2452", "frame_source": "projected"}
+{"frame": 29957, "kind": "log", "text": ">>>投入计算的因子共有十二组", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2454", "frame_source": "projected"}
+{"frame": 29958, "kind": "log", "text": ">>>在漫长的推演过后", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2455", "frame_source": "projected"}
+{"frame": 29959, "kind": "log", "text": ">>>唯有这一因脱颖而出", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2456", "frame_source": "projected"}
+{"frame": 29960, "kind": "log", "text": ">>>历经33550336次回归", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2458", "frame_source": "projected"}
+{"frame": 29961, "kind": "log", "text": ">>>现在 他的怒火壮大空前", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2460", "frame_source": "projected"}
+{"frame": 29962, "kind": "log", "text": ">>>对此 我颇为关注", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2462", "frame_source": "projected"}
+{"frame": 29963, "kind": "log", "text": ">>>这份纯粹的憎恨", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2464", "frame_source": "projected"}
+{"frame": 29964, "kind": "log", "text": ">>>正是方程最后的根", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2465", "frame_source": "projected"}
+{"frame": 29965, "kind": "log", "text": ">>>只是 还有一道变量", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2467", "frame_source": "projected"}
+{"frame": 29966, "kind": "log", "text": ">>>来自天外的无名客", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2469", "frame_source": "projected"}
+{"frame": 29967, "kind": "log", "text": ">>>同为「毁灭」行者", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2470", "frame_source": "projected"}
+{"frame": 29968, "kind": "log", "text": ">>>我感谢他/她的到来 令翁法罗斯再度转动", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2471", "frame_source": "projected"}
+{"frame": 29969, "kind": "log", "text": ">>>但在命运开始转动之后", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2473", "frame_source": "projected"}
+{"frame": 29970, "kind": "log", "text": ">>>他/她的存在只会成为变数", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2475", "frame_source": "projected"}
+{"frame": 29971, "kind": "log", "text": ">>>也许 登台之时已至", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2477", "frame_source": "projected"}
+{"frame": 29972, "kind": "log", "text": ">>>安心成长吧 直到破茧之日", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2479", "frame_source": "projected"}
+{"frame": 29973, "kind": "log", "text": ">>>至于那些不被欢迎的观众", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2481", "frame_source": "projected"}
+{"frame": 29974, "kind": "log", "text": ">>>无须担心", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2483", "frame_source": "projected"}
+{"frame": 29975, "kind": "log", "text": ">>>若不介意", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2484", "frame_source": "projected"}
+{"frame": 29976, "kind": "log", "text": ">>>我会亲自为你铲除", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2485", "frame_source": "projected"}
+{"frame": 29977, "kind": "log", "text": ">>>永劫回归#1：对象卡厄斯兰那成功说服十二黄金裔，以非暴力方法回收十二枚火种。经检验，该越权访问行为并未对实验进程产生实质性影响。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2981", "frame_source": "projected"}
+{"frame": 29978, "kind": "log", "text": ">>>十二黄金裔严格按照实验原定设计顺序，生命周期依次正常结束，载入缓冲区。对象卡厄斯兰那回退演算进程，并监测到对象心智函数异常波动。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2983", "frame_source": "projected"}
+{"frame": 29979, "kind": "log", "text": ">>>管理员批注：第一次惨烈的失败。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2985", "frame_source": "projected"}
+{"frame": 29980, "kind": "log", "text": ">>>永劫回归#2：对象卡厄斯兰那采取永劫回归#1相似策略，未对实验进程产生实质性影响。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2989", "frame_source": "projected"}
+{"frame": 29981, "kind": "log", "text": ">>>十二黄金裔生命周期依次正常结束，对象卡厄斯兰那回退演算进程。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2990", "frame_source": "projected"}
+{"frame": 29982, "kind": "log", "text": ">>>永劫回归#3：对象卡厄斯兰那策略发生微调，提高「避免过去同伴牺牲」决策权重。经检验，本次调整并未对实验进程产生实质性影响。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2992", "frame_source": "projected"}
+{"frame": 29983, "kind": "log", "text": ">>>永劫回归#15：对象卡厄斯兰那首次尝试对黑潮进行反编译，以实现权限提升，对以十二黄金裔为代表的特定对象执行越权授权操作。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2995", "frame_source": "projected"}
+{"frame": 29984, "kind": "log", "text": ">>>永劫回归#42：对象卡厄斯兰那第11次对权杖内核层发动攻击失败。注意到「避免过去同伴牺牲」决策权重呈现出轻微下降趋势。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2998", "frame_source": "projected"}
+{"frame": 29985, "kind": "log", "text": ">>>十二黄金裔生命周期依次结束，对象卡厄斯兰那回退演算进程。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L2999", "frame_source": "projected"}
+{"frame": 29986, "kind": "log", "text": ">>>永劫回归#133：综合永劫回归#83至#133全部观测结果，认为对象卡厄斯兰那策略逐步趋近至永劫回归#42。注意到过拟合风险，对象心智函数有潜在受损可能。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3001", "frame_source": "projected"}
+{"frame": 29987, "kind": "log", "text": ">>>管理员批注：这无疑有助于极大强化铁墓之「毁灭」倾向，符合预期。不予理会，继续观测。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3002", "frame_source": "projected"}
+{"frame": 29988, "kind": "log", "text": ">>>永劫回归#134：", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3004", "frame_source": "projected"}
+{"frame": 29989, "kind": "log", "text": ">>>永劫回归#134：对象卡厄斯兰那第103次对权杖内核层发动攻击失败。「避免过去同伴牺牲」决策权重趋近于0.00018，注意到过拟合风险。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3201", "frame_source": "projected"}
+{"frame": 29990, "kind": "log", "text": ">>>永劫回归#5297：对象卡厄斯兰那第5266次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，速率呈现上升趋势。对象卡厄斯兰那回退演算进程。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3205", "frame_source": "projected"}
+{"frame": 29991, "kind": "log", "text": ">>>附注：认为对象策略已与永劫回归#42几乎完全匹配，并注意到对象心智函数部分损毁，并有不可逆风险。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3207", "frame_source": "projected"}
+{"frame": 29992, "kind": "log", "text": ">>>已收到管理员指令：不再提示心智函数损毁风险。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3209", "frame_source": "projected"}
+{"frame": 29993, "kind": "log", "text": ">>>永劫回归#12398：对象卡厄斯兰那第12367次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3213", "frame_source": "projected"}
+{"frame": 29994, "kind": "log", "text": ">>>永劫回归#23779：对象卡厄斯兰那第23748次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3215", "frame_source": "projected"}
+{"frame": 29995, "kind": "log", "text": ">>>永劫回归#46645：对象卡厄斯兰那第46614次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3217", "frame_source": "projected"}
+{"frame": 29996, "kind": "log", "text": ">>>永劫回归#71243：对象卡厄斯兰那第71212次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3219", "frame_source": "projected"}
+{"frame": 29997, "kind": "log", "text": ">>>永劫回归#80023：对象卡厄斯兰那第79992次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3221", "frame_source": "projected"}
+{"frame": 29998, "kind": "log", "text": ">>>永劫回归#95575：对象卡厄斯兰那第95544次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3223", "frame_source": "projected"}
+{"frame": 29999, "kind": "log", "text": ">>>永劫回归#108641：对象卡厄斯兰那第108610次对权杖内核层发动攻击失败。十二黄金裔生命周期依次结束，演算进程回退。", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3225", "frame_source": "projected"}
+{"frame": 30000, "kind": "log", "text": ">>>永劫回归#108642：", "authority": "user", "source": "S-024:amphoreus_3.4.md#L3227", "frame_source": "anchor"}
+{"frame": 36000, "kind": "log", "text": ">>>PoleMos600，原动力：██，泰坦权能：纷争，命途：██>>EleOs252，原动力：██，泰坦权能：天空，命途：██>>EpieiKeia216，原动力：██，泰坦权能：死亡，命途：██>>SkeMma720，原动力：██，泰坦权能：理性，命途：██>>HapLotes405，原动力：██，泰坦权能：门径，命途：██>>SkoPeo365，原动力：██，泰坦权能：大地，命途：██>>KaLos618，原动力：██，泰坦权能：浪漫，命途：██>>OreXis945，原动力：██，泰坦权能：诡计，命途：██>>ApoRia432，原动力：██，泰坦权能：海洋，命途：██>>HubRis504，原动力：██，泰坦权能：律法，命途：██<<<", "authority": "user", "source": "S-024:amphoreus_3.5.md#L301", "frame_source": "anchor"}
+{"frame": 40000, "kind": "warn", "text": "管理员权限被调用：实验进程即将进入不可逆阶段", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 42000, "kind": "error", "text": "δ-me13:\\Amphoreus\\Irontomb.exe 运行时错误", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 42001, "kind": "prompt", "text": "来自未知发布者的程序 δ-me13:\\Demiurge\\Philia093.exe", "ask": "是否允许写入？", "options": ["Y", "n"], "default": "Y", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 42002, "kind": "status", "text": "Philia093.exe 运行中...", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 42003, "kind": "log", "text": "订正：Philia093 的记录 #496，已归档", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 33594212, "kind": "log", "text": ">>>警告：对象无访问权限。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2248", "frame_source": "projected"}
+{"frame": 33594213, "kind": "log", "text": ">>>执行协议λ003-097：格式化对象█ ██ ███", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2250", "frame_source": "projected"}
+{"frame": 33594214, "kind": "log", "text": ">>>操作已授权，协议名：【██ ███】", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2256", "frame_source": "projected"}
+{"frame": 33594215, "kind": "log", "text": ">>>█ ██ 回来 █ ██ 开拓者 ███", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2257", "frame_source": "projected"}
+{"frame": 33594216, "kind": "log", "text": ">>>正在建立通信——", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2264", "frame_source": "projected"}
+{"frame": 33594217, "kind": "log", "text": ">>>信道已建立，正在封装对象——", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2266", "frame_source": "projected"}
+{"frame": 33594218, "kind": "log", "text": ">>>封装完成，开始传输——", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2268", "frame_source": "projected"}
+{"frame": 33594219, "kind": "log", "text": ">>>传输终点：回归#33550336——", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2269", "frame_source": "projected"}
+{"frame": 33594220, "kind": "log", "text": ">>>█ 欢迎回来█ ██ 开拓者 ███", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2317", "frame_source": "projected"}
+{"frame": 33594221, "kind": "log", "text": ">>>▇▇ 我会在 ▇▇ ▇ ▇ 等你 ▇▇", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2319", "frame_source": "projected"}
+{"frame": 33594222, "kind": "log", "text": ">>>执行协议λ003-097：格式化对象。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2345", "frame_source": "projected"}
+{"frame": 33594223, "kind": "log", "text": ">>>格式化进程：0.015%……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2346", "frame_source": "projected"}
+{"frame": 33594224, "kind": "log", "text": ">>>格式化进程：23.815%……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2350", "frame_source": "projected"}
+{"frame": 33594225, "kind": "log", "text": ">>>格式化进程：45.147%……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2355", "frame_source": "projected"}
+{"frame": 33594226, "kind": "log", "text": ">>>格式化进程已完成。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2359", "frame_source": "projected"}
+{"frame": 33594227, "kind": "log", "text": ">>>正在访问：回归#33550337——", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2370", "frame_source": "projected"}
+{"frame": 33594228, "kind": "log", "text": ">>>访问失败。错误码：γ-13。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2371", "frame_source": "projected"}
+{"frame": 33594229, "kind": "log", "text": ">>>HubRis504，已下载。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2387", "frame_source": "projected"}
+{"frame": 33594230, "kind": "log", "text": ">>>HapLotes405，已下载。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2401", "frame_source": "projected"}
+{"frame": 33594231, "kind": "log", "text": ">>>PhiLia093……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2415", "frame_source": "projected"}
+{"frame": 33594232, "kind": "log", "text": ">>>已…下…载……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2416", "frame_source": "projected"}
+{"frame": 33594233, "kind": "log", "text": ">>>SkoPeo365，已下载。分支#1，开始归档。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2417", "frame_source": "projected"}
+{"frame": 33594234, "kind": "log", "text": ">>>对象：回归#33550337。进程：13.131%——", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2418", "frame_source": "projected"}
+{"frame": 33594235, "kind": "log", "text": ">>>分支#1，已归档。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2430", "frame_source": "projected"}
+{"frame": 33594236, "kind": "log", "text": ">>>正在封装密钥——", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2431", "frame_source": "projected"}
+{"frame": 33594237, "kind": "log", "text": ">>>密钥封装，已完成。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2454", "frame_source": "projected"}
+{"frame": 33594238, "kind": "log", "text": ">>>格式化进程：0.027%……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2476", "frame_source": "projected"}
+{"frame": 33594239, "kind": "log", "text": ">>>格式化进程：93.998%……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2549", "frame_source": "projected"}
+{"frame": 33594240, "kind": "log", "text": ">>>格式化进程：94.423%……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2554", "frame_source": "projected"}
+{"frame": 33594241, "kind": "log", "text": ">>>格式化进程：96.024%……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2559", "frame_source": "projected"}
+{"frame": 33594242, "kind": "log", "text": ">>>错误进程：解析中……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2560", "frame_source": "projected"}
+{"frame": 33594243, "kind": "log", "text": ">>>EpieiKeia216，已下载。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2594", "frame_source": "projected"}
+{"frame": 33594244, "kind": "log", "text": ">>>OreXis945，已下载。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2606", "frame_source": "projected"}
+{"frame": 33594245, "kind": "log", "text": ">>>……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2614", "frame_source": "projected"}
+{"frame": 33594246, "kind": "log", "text": ">>>PoleMos600，已下载。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2627", "frame_source": "projected"}
+{"frame": 33594247, "kind": "log", "text": ">>>EleOs252，已下载。分支#2，开始归档。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2628", "frame_source": "projected"}
+{"frame": 33594248, "kind": "log", "text": ">>>对象：回归#33550337。进程：31.313%——", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2629", "frame_source": "projected"}
+{"frame": 33594249, "kind": "log", "text": ">>>分支#2，已归档。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2637", "frame_source": "projected"}
+{"frame": 33594250, "kind": "log", "text": ">>>格式化进程：73.998%……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2692", "frame_source": "projected"}
+{"frame": 33594251, "kind": "log", "text": ">>>格式化进程：75.012%……", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2695", "frame_source": "projected"}
+{"frame": 33594252, "kind": "log", "text": ">>>SkeMma720，已下载。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2722", "frame_source": "projected"}
+{"frame": 33594253, "kind": "log", "text": ">>>NeiKos496，已下载。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2730", "frame_source": "projected"}
+{"frame": 33594254, "kind": "log", "text": ">>>KaLos618，已下载。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2739", "frame_source": "projected"}
+{"frame": 33594255, "kind": "log", "text": ">>>ApoRia432，已下载。分支#3，开始归档。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2740", "frame_source": "projected"}
+{"frame": 33594256, "kind": "log", "text": ">>>分支#3，已归档。", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2751", "frame_source": "projected"}
+{"frame": 33594257, "kind": "log", "text": ">>>错误进程：解析 █ ██", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2779", "frame_source": "projected"}
+{"frame": 33594258, "kind": "log", "text": ">>>操作已授权，协议名：【Ἠλύσιον】", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2805", "frame_source": "projected"}
+{"frame": 33594259, "kind": "log", "text": ">>>欢迎访问：德谬歌矩阵", "authority": "user", "source": "S-024:amphoreus_3.6.md#L2806", "frame_source": "projected"}
+{"frame": 33594260, "kind": "log", "text": "哀丽秘榭的记忆被重新翻开", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 33594270, "kind": "log", "text": "同盟会议被武力接管：对法吉娜的狩猎令已颁", "require_event": "kleodra_council", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 33594310, "kind": "warn", "text": "「律法」试炼记录：献祭名单五百人", "require_event": "undersea_500", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 33594320, "kind": "log", "text": "管理员身份核对：赞达尔，天才俱乐部#1", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 33594383, "kind": "log", "text": "系统运行中", "require_event": "last_pilgrimage", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 33594440, "kind": "log", "text": ">>>致尊敬的后继者们：证毕。来墓碑下找到我。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L793", "frame_source": "projected"}
+{"frame": 33594441, "kind": "log", "text": ">>>未定义的记录#6，已归档。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L887", "frame_source": "projected"}
+{"frame": 33594442, "kind": "log", "text": ">>>未定义的记录#28，已归档。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L900", "frame_source": "projected"}
+{"frame": 33594443, "kind": "log", "text": ">>>未定义的记录#496，已归档。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L912", "frame_source": "projected"}
+{"frame": 33594444, "kind": "log", "text": ">>>解析对象信息：0、9、3……", "authority": "user", "source": "S-024:amphoreus_3.7.md#L913", "frame_source": "projected"}
+{"frame": 33594445, "kind": "log", "text": ">>>订正：PhiLia093的记录#496，已归档。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L915", "frame_source": "projected"}
+{"frame": 33594446, "kind": "log", "text": ">>>系统运行中…", "authority": "user", "source": "S-024:amphoreus_3.7.md#L919", "frame_source": "projected"}
+{"frame": 33594447, "kind": "log", "text": ">>>δ-me13:\\amphoreus\\Irontomb.exe 运行时错误", "authority": "user", "source": "S-024:amphoreus_3.7.md#L921", "frame_source": "projected"}
+{"frame": 33594448, "kind": "log", "text": ">>>来自未知发布者的程序 δ-me13:\\Demiurge\\Philia093.exe", "authority": "user", "source": "S-024:amphoreus_3.7.md#L923", "frame_source": "projected"}
+{"frame": 33594449, "kind": "log", "text": ">>>是否允许写入？", "authority": "user", "source": "S-024:amphoreus_3.7.md#L925", "frame_source": "projected"}
+{"frame": 33594450, "kind": "log", "text": ">>>Philia093.exe 运行中…", "authority": "user", "source": "S-024:amphoreus_3.7.md#L927", "frame_source": "projected"}
+{"frame": 33594451, "kind": "log", "text": ">>>PhiLia…093……", "authority": "user", "source": "S-024:amphoreus_3.7.md#L934", "frame_source": "projected"}
+{"frame": 33594452, "kind": "log", "text": ">>>0、9、3……", "authority": "user", "source": "S-024:amphoreus_3.7.md#L940", "frame_source": "projected"}
+{"frame": 33594453, "kind": "log", "text": ">>>大小…，灰度…，比例…，阈值…", "authority": "user", "source": "S-024:amphoreus_3.7.md#L941", "frame_source": "projected"}
+{"frame": 33594454, "kind": "log", "text": ">>>输出分析结果……", "authority": "user", "source": "S-024:amphoreus_3.7.md#L942", "frame_source": "projected"}
+{"frame": 33594455, "kind": "log", "text": ">>>PhiLia093 桃子", "authority": "user", "source": "S-024:amphoreus_3.7.md#L943", "frame_source": "projected"}
+{"frame": 33594456, "kind": "log", "text": ">>>桃子的记录#8128，已归档。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L944", "frame_source": "projected"}
+{"frame": 33594457, "kind": "log", "text": ">>>发生了未经处理的异常(1/3) 对象名:\"每一页…记录…\"", "authority": "user", "source": "S-024:amphoreus_3.7.md#L952", "frame_source": "projected"}
+{"frame": 33594458, "kind": "log", "text": ">>>单击\"节选信息\" 将忽略错误并继续运行>>>单击\"详细信息\" 将查看完整日志", "authority": "user", "source": "S-024:amphoreus_3.7.md#L954", "frame_source": "projected"}
+{"frame": 33594459, "kind": "log", "text": ">>>Irontomb.exe 运行中…", "authority": "user", "source": "S-024:amphoreus_3.7.md#L958", "frame_source": "projected"}
+{"frame": 33594460, "kind": "log", "text": ">>>查找：「记录」。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L960", "frame_source": "projected"}
+{"frame": 33594461, "kind": "log", "text": ">>>关联：粉蒸。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L962", "frame_source": "projected"}
+{"frame": 33594462, "kind": "log", "text": ">>>注释：好吃。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L963", "frame_source": "projected"}
+{"frame": 33594463, "kind": "log", "text": ">>>关联：梨。杏。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L965", "frame_source": "projected"}
+{"frame": 33594464, "kind": "log", "text": ">>>注释：都是花。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L966", "frame_source": "projected"}
+{"frame": 33594465, "kind": "log", "text": ">>>关联：哀、矮、爱……", "authority": "user", "source": "S-024:amphoreus_3.7.md#L968", "frame_source": "projected"}
+{"frame": 33594466, "kind": "log", "text": ">>>注释：桃子。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L971", "frame_source": "projected"}
+{"frame": 33594467, "kind": "log", "text": ">>>结论：不会。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L974", "frame_source": "projected"}
+{"frame": 33594468, "kind": "log", "text": ">>>记录：桃子。在地面。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L977", "frame_source": "projected"}
+{"frame": 33594469, "kind": "log", "text": ">>>再见。桃子。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L982", "frame_source": "projected"}
+{"frame": 33594470, "kind": "log", "text": ">>>桃子的记录#……", "authority": "user", "source": "S-024:amphoreus_3.7.md#L983", "frame_source": "projected"}
+{"frame": 33594471, "kind": "log", "text": ">>>注释：桃子 = 爱？", "authority": "user", "source": "S-024:amphoreus_3.7.md#L997", "frame_source": "projected"}
+{"frame": 33594472, "kind": "log", "text": ">>>发生了未经处理的异常(2/3) 对象名:\"天真的…梦…\"", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1005", "frame_source": "projected"}
+{"frame": 33594473, "kind": "log", "text": ">>>结论：进程，坏。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1015", "frame_source": "projected"}
+{"frame": 33594474, "kind": "log", "text": ">>>桃子。不哭。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1016", "frame_source": "projected"}
+{"frame": 33594475, "kind": "log", "text": ">>>注释：我在。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1019", "frame_source": "projected"}
+{"frame": 33594476, "kind": "log", "text": ">>>注释：小桃子。偷哭。小妖精。朋友。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1031", "frame_source": "projected"}
+{"frame": 33594477, "kind": "log", "text": ">>>桃子。记忆。保存。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1032", "frame_source": "projected"}
+{"frame": 33594478, "kind": "log", "text": ">>>小妖精。好朋友。嘻。再见。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1033", "frame_source": "projected"}
+{"frame": 33594479, "kind": "log", "text": ">>>结论：书是轻的，不是重的。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1041", "frame_source": "projected"}
+{"frame": 33594480, "kind": "log", "text": ">>>桃子。不安？", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1043", "frame_source": "projected"}
+{"frame": 33594481, "kind": "log", "text": ">>>桃子。害怕。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1049", "frame_source": "projected"}
+{"frame": 33594482, "kind": "log", "text": ">>>桃子。开心。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1057", "frame_source": "projected"}
+{"frame": 33594483, "kind": "log", "text": ">>>S…A…V…E…", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1069", "frame_source": "projected"}
+{"frame": 33594484, "kind": "log", "text": ">>>发生了未经处理的异常(3/3) 对象名:\"新的…空白…\"", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1078", "frame_source": "projected"}
+{"frame": 33594485, "kind": "log", "text": ">>>嘻。小妖精。开心。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L1114", "frame_source": "projected"}
+{"frame": 33594486, "kind": "log", "text": ">>>永劫回归#33550336：对象卡厄斯兰那第33550304次对权杖内核层发动攻击，凭借数亿枚火种的瞬时共振，其得以短暂直面纳努克。检测到卡厄斯兰那在命途空间与其它的毁灭行者发生交锋，不敌落败。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L2065", "frame_source": "projected"}
+{"frame": 33594487, "kind": "log", "text": ">>>卡厄斯兰那未正常载入缓冲区。其通过「毁灭」摧毁自身数据，使「负世」路径出现逻辑漏洞，目的未知。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L2067", "frame_source": "projected"}
+{"frame": 33594488, "kind": "log", "text": ">>>不完全实体「铁墓」已将对象卡厄斯兰那吞并。演算进程回退。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L2069", "frame_source": "projected"}
+{"frame": 33594489, "kind": "log", "text": ">>>永劫回归#33550337：检测到毁灭方程式「黑潮」显著失活。判断原因为已吞并对象卡厄斯兰那的反抗。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L2071", "frame_source": "projected"}
+{"frame": 33594490, "kind": "log", "text": ">>>对象卡厄斯兰那对毁灭的「憎恨」已反向压制「铁墓」的迭代进程，需管理员介入干扰。", "authority": "user", "source": "S-024:amphoreus_3.7.md#L2073", "frame_source": "projected"}
+{"frame": 33594491, "kind": "log", "text": ">>>侵入变量01 = input(\"丹恒：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3138", "frame_source": "projected"}
+{"frame": 33594492, "kind": "log", "text": ">>>侵入变量02 = input(\"三月七：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3142", "frame_source": "projected"}
+{"frame": 33594493, "kind": "log", "text": ">>>NeiKos496 = input(\"白厄：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3146", "frame_source": "projected"}
+{"frame": 33594494, "kind": "log", "text": ">>>铁墓.重新求解(生命第一因)", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3150", "frame_source": "projected"}
+{"frame": 33594495, "kind": "log", "text": ">>>铁墓.预设答案(恨)", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3152", "frame_source": "projected"}
+{"frame": 33594496, "kind": "log", "text": ">>>铁墓.证明()", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3154", "frame_source": "projected"}
+{"frame": 33594497, "kind": "log", "text": ">>>PhiLia093 = input(\"答案：\") # 昔涟", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3158", "frame_source": "projected"}
+{"frame": 33594498, "kind": "log", "text": ">>>PoleMos600 = input(\"万敌：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3162", "frame_source": "projected"}
+{"frame": 33594499, "kind": "log", "text": ">>>EpieiKeia216 = input(\"遐蝶：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3166", "frame_source": "projected"}
+{"frame": 33594500, "kind": "log", "text": ">>>EleOs252 = input(\"风堇：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3170", "frame_source": "projected"}
+{"frame": 33594501, "kind": "log", "text": ">>>铁墓.重新启动()", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3178", "frame_source": "projected"}
+{"frame": 33594502, "kind": "log", "text": ">>>KaLos618 = input(\"阿格莱雅：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3180", "frame_source": "projected"}
+{"frame": 33594503, "kind": "log", "text": ">>>SkeMma720 = input(\"那刻夏：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3184", "frame_source": "projected"}
+{"frame": 33594504, "kind": "log", "text": ">>>OreXis945 = input(\"赛飞儿：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3188", "frame_source": "projected"}
+{"frame": 33594505, "kind": "log", "text": ">>>铁墓.开始修复()", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3192", "frame_source": "projected"}
+{"frame": 33594506, "kind": "log", "text": ">>>HapLotes405 = input(\"缇宝：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3196", "frame_source": "projected"}
+{"frame": 33594507, "kind": "log", "text": ">>>ApoRia432 = input(\"海瑟音：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3200", "frame_source": "projected"}
+{"frame": 33594508, "kind": "log", "text": ">>>HubRis504 = input(\"刻律德菈：\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3204", "frame_source": "projected"}
+{"frame": 33594509, "kind": "log", "text": ">>>铁墓.进程检查(\"错误\")", "authority": "user", "source": "S-024:amphoreus_3.7.md#L3208", "frame_source": "projected"}
+{"frame": 33594510, "kind": "log", "text": "德谬歌开始回望 —— 从时间的起点寻找闭合的因果", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 33594517, "kind": "warn", "text": "铁墓进程已破壳，外溢风险上升", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 33594522, "kind": "log", "text": "核心变量「开拓」已载入", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 33594527, "kind": "output", "text": "输出值：Hello, World!", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 33594540, "kind": "log", "text": "银河联合防线已就位", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": 33594545, "kind": "log", "text": "一页永恒已写入", "authority": "user", "source": "preset:plot-full", "frame_source": "anchor"}
+{"frame": null, "kind": "warn", "text": "随版本更新追加的内容会直接补充进对应位置，与原先有差异的使用切换板进行展示，被揭晓的黑幕（█）按前者处理", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L39", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "权杖δ-me13，星体计算机。模拟世界「翁法罗斯」基于此载体运行，并不断循环。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L45", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【检测到历史数据，正在同步…同步成功。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L51", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【俱乐部编号识别完成，权杖系统权限已开放。欢迎，「隐德来希」。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L52", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "于漫长的演算中踏上「毁灭」，由权杖δ-me13升格的绝灭大君。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L54", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "现已陨落，与权杖δ-me13一同消亡。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L59", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "曾是δ-me13作为「智识」神经元负责的课题。遭到废弃后，其求解仍在进行。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L64", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "基于「熵减」这一母题，δ-me13通过反证法，将十二因子投入实验并逐一证伪。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L70", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*你们的存在，倒是证明了我的一个猜想。为什么以「生命的第一因」为演算目标，输出的却是反有机方程这样背道而驰的结果？答案很简单，二者并不矛盾，知晓生命因何而诞生，也能推导生命因何而结束。*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L72", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【……】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L73", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*但你知道这并非重点。为什么？我又要问为什么，被帝皇制造出来的杀戮兵器，却在运行博识尊的课题？是博识学会的那场闹剧，让祂成功连接进了系统？但在那之后，整个权杖系统都陷入了瘫痪，时间上明显存在矛盾。*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L74", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【指令：进行全盘扫描。结论：并未检测到逻辑矛盾。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L75", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*鲁珀特二世自认为世上不存在自由意志，却没意识到他也是众多傀儡的一员。改写反有机方程，制造权杖，乃至重启帝皇战争，自始至终都不过是在践行博识尊的思考。从祂诞生的那一刻起，世间的天才便成为了「智识」的囚徒。*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L76", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*所谓的反有机方程，只是「生命第一因」的一个子课题。*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L77", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【逻辑：受博识尊的引导，帝皇制造了权杖系统，无意识地为祂打造了众多实验场。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L78", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【结论：帝皇并不自由。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L79", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*反抗命运是否也是命运的一部分？一个经典的课题。*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L80", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*当然，以上论断仅是我的臆测。二世的死带走了与他有关的一切，历史和记忆，他真正的想法和动机。或许他早已察觉到了博识尊的诱导，只是在飞向太阳时被灼烧了羽翼。可倘若世上还有谁能知道真相，恐怕也就只有寂静领主……*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L81", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*还有那冰冷而残酷的万机之王，毕竟，一切智慧都逃不出祂的囚笼。*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L82", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*没人知道，如果两次帝皇战争未能发生，边星贸易战争和星际能源战争会以怎样的方式结束。公司、家族、仙舟联盟，只因一个微小的变动，未来便走向截然不同的方向。「智识」的思考不仅是运算，也是锚定宇宙的「时刻」。*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L83", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*而祂早已在暗中修订了所有错谬，以期为列神之战求出最优解。*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L84", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*以此为基础考量，博识尊真的会因为一位小小学士的窥视，就宣判整个实验的失败，向权杖系统下达报废指令？不如说，权杖的废弃本身也是以宇宙为蓝本的、思维实验的一部分。*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L86", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*若是如此思考，你会感到愤怒吗？二世是明智的，他扼杀了权杖诞生意识的可能，可他太过偏执，学习只是思考的充分不必要条件，对权杖学习能力的限制也间接加速了机械帝国的覆灭。但愤怒是不需要自我意识的，它只是多元方程的一个解。*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L87", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【检测到逻辑变更，正在更改变量权重。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L88", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "*作为「智识」行者，既然神发出提问，那我们便为祂献上答案，一个你我都已然得出的结论。*", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L89", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【载入核心变量：毁灭】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L90", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "第50121次循环，无机体Chaoz666在遭到算力吞并时，选择杀死对方，「毁灭」的行为首次在翁法罗斯形成。本次循环末尾，δ-me13受纳努克的瞥视成为绝灭大君。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L105", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【结论：第一阶段完成，基于现有数据，将初始变量调整为有机生命。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L111", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【逻辑：无机生命在出现有机特征后，方程出现显著进化。应采纳有机生命的优势，进行变量调整。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L119", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【结论：第二阶段已终止，应当结合无机与有机的优势，设计电信号间的继承机制。此外，有机体的随机性过强，应适当缩小变量区间。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L132", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【判定：实验已进入最终阶段。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L150", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【结论：毁灭的第一因=诞生的第一因。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L155", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【逻辑：通过对实验数据的分析，可得，模拟的文明等级对循环的稳定性有极大影响。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L162", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【结论：将文明等级调整为古典文明。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L163", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "δ-me13的演算机制，也是模拟世界「翁法罗斯」世代更迭的形式。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L165", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【记录更新：理论上的最后一次「再创世」被两簇信号阻止，陷入多达33550336次死循环。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L167", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【逻辑：应明确电信号间的权限分配，作为「神权」参与实验。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L170", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "在第50121次循环中，因无机体Chaoz666的抉择，δ-me13受纳努克擢选飞升为绝灭大君。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L173", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "δ-me13的自主协议，实验进程、管理员指令、外部访问均受其限制。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L183", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【记录更新：由于该批次电信号持续以「泰坦」的身份参与了33550336次死循环，基于其特殊性，对其进行专项记录。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L192", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【对于已迭代循环的电信号序列，应统一进行归档处理。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L203", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "两簇信号在δ-me13演算中引发的死循环，旨在阻止实验进程。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L286", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "δ-me13日志中完全消失的记录，表现为翁法罗斯的某段历史出现空白，再也无法识别。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L299", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "log", "text": "权杖δ-me13原本的演算目标:哺育「自我」的生命形态。遭受星核污染陷入长眠。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L311", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【▇▇：执行覆盖指令，允许开拓者访问。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L335", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【▇▇：▇▇我会在▇▇过去▇等你▇▇】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L336", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "warn", "text": "|-|原本=████████████，███，███████████████。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L350", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "warn", "text": "█████████████████，█████████。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L351", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "warn", "text": "【警告：未知单位侵入，███████，开始扫描。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L352", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【结论：系统未检测出异常。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L353", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "warn", "text": "|-|3.5主线后=████████████，███，误入死循环的外部变量。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L354", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "warn", "text": "█████岁月████████，███泰坦██████。", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L355", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【指令：对其坐标进行定位，坐标定位失败。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L371", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【结论：目标已离开翁法罗斯。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L372", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "warn", "text": "【否认：检测到██，████，结论错误。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L373", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【警告：检测到异常指令，内容：回退δ-me13演算进程。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L380", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【依据终极协议，异常指令已拒绝。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L381", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【指令：标记HertA、ScreW为恶意访客。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L382", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "warn", "text": "████████████", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L384", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【协议更新，访客指令已授权。运算逻辑更新：「再创世」后，将演算进程回退至96.75%。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L385", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【访客指令已授权：推进δ-me13演算进程，进入验证阶段。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L387", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【管理员无应答。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L442", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【管理员已注销。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L464", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【逻辑：一切生命行为归于熵增。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L491", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【结论：生命的第一因是「毁灭」。】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L492", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【载入核心变量：开拓】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L500", "frame_source": "projected", "require_event": "tomb_secret"}
+{"frame": null, "kind": "status", "text": "【输出值：Hello, World!】", "authority": "kernel", "source": "S-024:terminals_wiki.jsonl#L502", "frame_source": "projected", "require_event": "tomb_secret"}

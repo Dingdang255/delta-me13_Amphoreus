@@ -360,6 +360,34 @@ class Namer:
             persona.fingerprint, getattr(persona, "serial", -1),
             getattr(persona, "rank", -1), getattr(persona, "locus_order", None))
 
+    def payload_name(self, payload):
+        """EMERGENCE 数字载荷 → `(latin, hanzi)`。
+
+        与 `named_payload` 走同一条身份键序（指纹 → 编号 → 涌现次序 → 现生成），
+        但**不发机器号** —— 登记名字不该推进发号序列。
+        """
+        fp = bytes.fromhex(str(payload["fingerprint"]))
+        shim = SimpleNamespace(fingerprint=fp, serial=int(payload.get("serial", -1)),
+                               rank=int(payload.get("rank", -1)),
+                               locus_order=payload.get("locus_order"))
+        return self.persona_name(shim)
+
+    def visible_name(self, serial, known=None):
+        """编号 → 人名（渲染层的唯一口径）：先查调用方登记的 `known`，再查锚定层。
+
+        `known` 的取值可以是名字本身，也可以是 `(latin, hanzi)` 这样的名字对。
+        都认不出来返回 None —— 调用方据此决定要不要写「无名者#N」。
+        """
+        if serial is None:
+            return None
+        s = int(serial)
+        if known:
+            hit = known.get(s)
+            if hit:
+                return hit if isinstance(hit, str) else hit[1]
+        a = self.name_by_serial(s)
+        return a[1] if a else None
+
     def named_payload(self, payload) -> dict:
         """把内核发来的 EMERGENCE 数字载荷补成可渲染的词。
 
@@ -369,9 +397,7 @@ class Namer:
         serial = int(payload.get("serial", -1))
         rank = int(payload.get("rank", -1))
         order = payload.get("locus_order")
-        shim = SimpleNamespace(fingerprint=fp, serial=serial, rank=rank,
-                               locus_order=order)
-        latin, hanzi = self.persona_name(shim)
+        latin, hanzi = self.payload_name(payload)
         out = dict(payload)
         out["latin"], out["hanzi"] = latin, hanzi
         out["machine"] = self._machine_for(fp, serial, rank, order)

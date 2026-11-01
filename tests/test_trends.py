@@ -27,7 +27,7 @@ def rows_for(trend_id, view):
 class TestTrendSpec(unittest.TestCase):
     def test_eight_trends(self):
         self.assertEqual(len(SPEC["trends"]), 8)
-        self.assertEqual(len(SPEC["drivers"]), 5)
+        self.assertEqual(len(SPEC["drivers"]), 9)
         self.assertGreaterEqual(len(SPEC["targets"]), 8)
 
     def test_unwired_declare_reason(self):
@@ -113,7 +113,9 @@ class TestTrendEvaluation(unittest.TestCase):
         cov = trends.coverage(SPEC)
         self.assertEqual(cov["trends"], 8)
         self.assertEqual(len(cov["wired"]) + len(cov["unwired"]), 8)
-        self.assertEqual(len(cov["unwired"]), 4)
+        self.assertEqual(len(cov["wired"]), 8)
+        self.assertEqual(cov["unwired"], {})
+        self.assertEqual(cov["channels"], 9)
 
 
 if __name__ == "__main__":
