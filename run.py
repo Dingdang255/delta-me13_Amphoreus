@@ -1425,14 +1425,20 @@ def main():
                    else data.preset["name"])
     # origin 世界：配置声明 origin_world，或预设目录里有 nodes.json，
     # 即启用「锚点注入 + 固定点重演」。预设目录已解析（可回落到项目根）。
+    #
+    # 但 `plan()` 会**先空跑一整遍全量演算**（plot-full 是 3,359 万帧）才轮到
+    # 正式那一遍；没有 nodes.json 就没有任何东西可规划，必须跳过 —— 否则启动后
+    # 会长时间一句话都没有（13 席剧情根就是这种：回望改由 events.jsonl 的显式
+    # `origin_anchor` 承担，预设故意不写 nodes.json）。收尾的 `finalize()` 仍照跑：
+    # 它写的是【真实】的四态 / closure / 裁决，与 nodes 无关。
     preset_path = data.preset.get("dir") or os.path.join(
         world_root, "presets", target_name)
-    is_origin_world = (bool(ctx.params.get("origin_world"))
-                       or os.path.exists(os.path.join(preset_path, "nodes.json")))
+    has_nodes = os.path.exists(os.path.join(preset_path, "nodes.json"))
+    is_origin_world = bool(ctx.params.get("origin_world")) or has_nodes
     planner = None
     if is_origin_world:
         planner = OriginPlanner(ctx, data, seed, frames=total_frames)
-        if not explore:
+        if not explore and planner.nodes:
             planner.plan()
         # --explore 压缩了时间刻度，但 nodes.json 的帧号不会跟着压缩：
         # 探路档只验机制连通，不跑锚点固定点（正式验收不要带 --explore）。
@@ -1529,7 +1535,7 @@ def main():
             print(f"（对话阅读器跳过：{exc}）", flush=True)
 
     # 原初目标只读探针：按访问帧采样席位向量（死循环复用区不重复计算），报告前补采末帧。恒返回 True。
-    # origin 世界不挂它 —— 那个世界有【真实】的 `State.origin`，报告【八】读真状态。
+    # origin 世界不挂它 —— 那个世界有【真实】的 `State.origin`，报告【八】读收尾的 finalize 读数。
     origin_probe = (OriginProbe()
                     if (use_origin and not is_origin_world) else None)
 
