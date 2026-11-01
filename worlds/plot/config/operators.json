@@ -1,0 +1,18 @@
+{
+  "_comment": "算子装配顺序。全是通用算子，没有 per-locus 分支。带 gated 的需要外部开关。",
+  "pipeline": [
+    "OP_DRIFT",
+    "OP_INTERACT",
+    "OP_OCCUPY",
+    "OP_COMPETE",
+    "OP_ANNEX",
+    "OP_REPOPULATE",
+    "OP_BIFURCATE",
+    "OP_CAPABILITY",
+    "OP_ENTROPY",
+    "OP_DOMAIN",
+    "OP_ACTIVE_RENEWAL",
+    "OP_PROMOTION"
+  ],
+  "gated": ["OP_BIFURCATE", "OP_ANNEX", "OP_ACTIVE_RENEWAL"]
+}

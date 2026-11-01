@@ -56,6 +56,22 @@
 - **演算结束窗口不自己关**：收到 `end` 后打一行「按回车关闭」就停住等人翻看；
   `TerminalBridge.close()` 也不再 `terminate` 已通知过结束的子进程（只有从没连上的才清掉）。
 
+### CI 修复
+
+- **`worlds/plot` 从未入过库**：`.gitignore` 只放行了 `worlds/origin` / `worlds/scepter`，
+  于是 `世界根 → worlds/plot（nullify）` 在本机有、在 CI 没有 —— 指纹 job 与
+  `test_snapshot` / `test_origin_plot` 全红。现在放行 `worlds/plot/`（`config/` 11 个文件）
+  并随之提交，`dashboard/` / `logs/` 仍挡在外面。
+- **依赖不入库语料的测试改为跳过**：`lore/story/`（原著卷与 `wiki_structured`）按设计不入库，
+  CI 没有它 —— `test_scepter_dossier` 的逐行对账、`test_terminal_authority` 的两条
+  （逐字覆盖 / 构建器幂等）改成「语料不在就 `skipTest`」，不再把「没有语料」判成失败。
+- **判据 3（替代世界）卡在轮内配额**：`worlds/plot` 的 base `params.json` 带了 12 席口径的
+  `round_succession_quota: 12`，替代世界只有 5 席，一轮内 5 次接掌后席位被冻住 ——
+  再创世停在 10 次、走不到第四阶段（`converged=False`）。替代世界的数据现在写明
+  `round_emergence_quota: 5`（按席位）、席间接掌不设上限（实测 19 次再创世、收敛 True）。
+- **本地 `tools/selfcheck.py` 9/9 通过**（397.8s），`tools/snapshot.py --fast --no-digest`
+  与记录一致。
+
 ## 未发布 — 剧情预设迁入十三席世界根
 
 > **BREAKING（世界根 + 指纹）**：`plot` / `plot-full` 默认跑在 `worlds/origin`

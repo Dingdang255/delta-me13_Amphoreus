@@ -89,6 +89,11 @@ def build_alt_root():
     p = json.load(open(os.path.join(cfg, "params.json"), encoding="utf-8"))
     p.update({"dim": 5, "observables": 4, "frames": 12000,
               "pool_capacity": 200, "min_population": 30,
+              # 轮内配额的数据口径：这个替代世界只有 5 席，涌现按席位数封顶（5）；
+              # 席间接掌**不设上限** —— 压到 5 次/轮时，5 席世界会在一轮里把席位
+              # 全部冻住，再创世停在 10 次、走不到第四阶段（实测 converged=False）。
+              "round_emergence_quota": 5,
+              "round_succession_quota": 1000000,
               "capability_names": [None, "suppress_slot", None, "write_memory", None],
               # 这个世界没有「毁灭」这个概念，故判据表也只留两条 ——
               # 判据表里的每一条都必须在 conclusions.json 里查得到文案。

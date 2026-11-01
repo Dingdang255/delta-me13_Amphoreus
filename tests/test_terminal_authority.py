@@ -152,6 +152,8 @@ class PlotFullMessagesTest(unittest.TestCase):
 
     def test_late_volumes_cover_every_unique_terminal_line(self):
         """3.4 / 3.6 / 3.7 的 `>>>` 唯一文本必须全部进消息文件。"""
+        if not os.path.isdir(WIKI_DIR):
+            self.skipTest("lore/story 里的原著卷不入库，CI 上没有 —— 跳过逐字对账")
         texts = {_norm(msg["text"]) for msg in load_messages(MESSAGES)}
         for ver in COVERED_VERSIONS:
             lines = _gt_lines(ver)
@@ -261,6 +263,8 @@ class BuilderIdempotenceTest(unittest.TestCase):
     """构建器连跑两次输出逐字节相同，且与仓库里的那份一致。"""
 
     def test_two_runs_are_byte_identical(self):
+        if not os.path.isdir(WIKI_DIR):
+            self.skipTest("构建器要读 lore/story 的原著卷，CI 上没有 —— 跳过")
         with tempfile.TemporaryDirectory() as tmp:
             out = os.path.join(tmp, "messages.jsonl")
             dossier = os.path.join(tmp, "scepter_dossier.jsonl")

@@ -38,10 +38,13 @@ class ScepterDossierTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.rows = _jsonl(DOSSIER)
-        cls.page = _page_rows()
+        # 源页来自 `lore/story/wiki_structured/`（不入库），CI 上可能没有。
+        cls.page = _page_rows() if os.path.exists(SOURCE) else None
 
     def test_one_entry_per_body_row(self):
         """标题行不进正文，转为 section 路径：正文条目 = 源页行数 − 标题行数。"""
+        if self.page is None:
+            self.skipTest("wiki_structured 不入库，CI 上没有源页 —— 跳过逐行对账")
         headings = sum(1 for row in self.page
                        if str(row.get("text") or "").strip().startswith("=="))
         self.assertEqual(len(self.page), 467)
