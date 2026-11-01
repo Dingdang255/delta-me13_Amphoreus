@@ -367,6 +367,12 @@ python tools/export.py --check-only         # 环境自检（解释器 / 依赖 
 python tools/export.py                      # 打包成可分发的 zip（含解压后自检）
 ```
 
+> 分发包 = 运行时真需要的那部分：`kernel/ apps/ config/ presets/ tools/ tests/ worlds/ lore/` +
+> 根下几份文件 + 必需文档（约 6 MB）。`worlds/` 是 13 席剧情世界根（少了 `--preset plot`
+> 会静默退回 12 席），`lore/` 是 `--fidelity` 与场景 / 终端面板的证据语料（少了包内
+> `tools/selfcheck.py` 会红）。原始 dump 与抓取产物（`lore/_probe`、`lore/story`、
+> `lore/export/data`、`worlds/generated`）不进包。
+
 > **指纹是分层的**（R1+R2）：**结构层**（裁决 / 结论 / 停因 / 帧号 / 换代 / 人数 / 席位 …，全整数与枚举，**逐位严格、跨平台可比**）、**数值层**（`entropy` / `noise`，走**容差** 1e-6）、**摘要层**（`digest`，量化 float32 向量的哈希，**只在同一参考环境上逐位可比**）。
 > `tests/golden_fingerprints.json` 顶层的 `_reference_platform` 记着指纹是在什么环境里写的（`system` / `machine` / `python` / `numpy` 四项）；**任一项不同**，`selfcheck` 就**自动降级**为 `--structural`（只比结构层）。CI 因此在 `ubuntu-latest` 上跑。
 

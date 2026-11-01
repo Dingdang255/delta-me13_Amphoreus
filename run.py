@@ -925,17 +925,25 @@ def _narrative_flag(cli_value, narrative, key):
 
 
 def _lookback_nodes(world_root):
-    """原初世界（`--preset origin`）的回望节点表 —— 只读，给看板当清单列。
+    """世界根里的回望节点表 —— 只读，给看板当清单列。
 
-    这份表住在 `worlds/origin/presets/origin/nodes.json`，是「原著事件 → 回望节点」的
-    映射；只有 origin 世界会把它交给 Planner 执行。别的预设（plot / plot-full）不跑它，
+    表住在 `worlds/origin/presets/<预设>/nodes.json`，是「原著事件 → 回望节点」的映射；
+    只有写了 `nodes.json` 的预设会被 Planner 执行。别的预设（plot / plot-full）不跑它，
     但可以在看板里把这份清单列出来 —— 标明「本轨道未执行」，不冒充读数。
+
+    取哪一份：优先名字就叫 `origin` 的预设（那是这张表的主场），否则取按名字排序的第一份；
+    都不存在 ⇒ 空（看板不渲染这块）。
     """
-    path = os.path.join(str(world_root), "presets", "origin", "nodes.json")
-    if not os.path.exists(path):
+    base = os.path.join(str(world_root), "presets")
+    if not os.path.isdir(base):
         return []
+    have = sorted(d for d in os.listdir(base)
+                  if os.path.exists(os.path.join(base, d, "nodes.json")))
+    if not have:
+        return []
+    name = "origin" if "origin" in have else have[0]
     try:
-        with open(path, encoding="utf-8") as f:
+        with open(os.path.join(base, name, "nodes.json"), encoding="utf-8") as f:
             raw = json.load(f)
     except (OSError, ValueError):
         return []
@@ -1567,16 +1575,6 @@ def main():
                                 authorities=terminal_authority)
         else:
             print("（本预设没有终端消息）", flush=True)
-
-    # 叙事终端里的对话阅读器：预设写了 `narrative.dialogue_scene` 才播放该场景。
-    # 只读、只走终端的输出通道；分叉处只列选项，不替读者选。
-    if term is not None and nar.get("dialogue_scene"):
-        from apps import canon as canon_mod, dialogue as dialogue_mod
-        try:
-            term.play_dialogue(dialogue_mod.read_scene(
-                canon_mod.CanonBundle.load(), str(nar["dialogue_scene"])))
-        except (canon_mod.CanonError, dialogue_mod.DialogueError) as exc:
-            print(f"（对话阅读器跳过：{exc}）", flush=True)
 
     # 原初目标只读探针：按访问帧采样席位向量（死循环复用区不重复计算），报告前补采末帧。恒返回 True。
     # origin 世界不挂它 —— 那个世界有【真实】的 `State.origin`，报告【八】读收尾的 finalize 读数。

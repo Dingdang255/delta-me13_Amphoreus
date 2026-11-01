@@ -10,8 +10,10 @@
 
 打包内容 = 仓库里【运行与自检所必需】的那部分：
   run.py / README.md / LICENSE / requirements.txt / pyproject.toml
-  kernel/ / apps/ / config/ / presets/ / tools/ / tests/
+  kernel/ / apps/ / config/ / presets/ / tools/ / tests/ / worlds/ / lore/
   以及 docs/ 里真正被用到的那几份（见 DOCS_FILES，不整目录打包）
+  排除：`lore/_probe`、`lore/story`、`lore/export/data`（原始 dump / 抓取产物）、
+        `worlds/generated`（生成产物）、各世界根的 `dashboard/` `logs/`（演算产物）。
 自动剔除 __pycache__、*.pyc、dist/、.trae/ 与演算产物（编年史 .txt、可视化 .html）。
 LICENSE（MIT）必须随包 —— 许可条款要求「版权声明与许可声明须随所有副本或实质部分
 一并给出」，故它不只是仓库文件，也是分发包的一部分。
@@ -49,9 +51,13 @@ PY_MIN = (3, 10)
 # ---- 打包清单 ---------------------------------------------------------------
 # LICENSE 也在包内：MIT 要求「版权声明与许可声明须随所有副本或实质部分一并给出」，
 # 故分发包必须带它，不能只留在仓库里（见模块开头的打包说明）。
-TOP_FILES = ["run.py", "README.md", "requirements.txt", "pyproject.toml", "LICENSE"]
+TOP_FILES = ["run.py", "README.md", "CHANGELOG.md", "requirements.txt",
+             "pyproject.toml", "LICENSE"]
 # tests/ 也进包：tools/selfcheck.py 会跑单测，缺了它「解压即可自检」就不成立。
-TOP_DIRS = ["kernel", "apps", "config", "presets", "tools", "tests"]
+# worlds/ 与 lore/ 也必须进包 —— 前者是 13 席剧情世界根（`--preset plot` 默认落在那里，
+# 缺了会静默退回 12 席），后者是 `--fidelity` / 场景与终端面板 / 单测的证据语料
+# （缺了包内 `tools/selfcheck.py` 必红）。
+TOP_DIRS = ["kernel", "apps", "config", "presets", "tools", "tests", "worlds", "lore"]
 
 # docs/ 不整目录打包 —— 里面还有给 AI 用的参考料（wiki 抓取、散文考据），
 # 不进分发包。这里只列【运行与自检真正用到】的那几份（见模块开头说明）。
@@ -60,7 +66,12 @@ DOCS_FILES = ["docs/外部变量.json", "docs/术语对照表.md",
               # ADR：内核接口的"为什么"只有这一处留档，随包发布才查得到出处。
               "docs/adr/0001-内核接口冻结与版本纪律.md"]
 
-EXCLUDE_DIRS = {"__pycache__", ".trae", ".git", ".idea", ".vscode", "dist"}
+EXCLUDE_DIRS = {"__pycache__", ".trae", ".git", ".idea", ".vscode", "dist",
+                # 世界根下的演算产物（--export / --log 的默认去处）
+                "dashboard", "logs"}
+# 按【路径】排除的大块料：原始 dump / 逆向探针 / 抓取产物 —— 都不入库，也都不进包。
+# （不能按 basename 排 `data`：`tools/alt_world/data` 是判据 3 要用的。）
+EXCLUDE_PATHS = {"lore/_probe", "lore/story", "lore/export/data", "worlds/generated"}
 EXCLUDE_SUFFIX = (".pyc", ".pyo", ".zip")
 # 根目录的演算产物（编年史导出 / 可视化 dashboard）不是源码，不进包。
 EXCLUDE_RE = re.compile(r"(翁法罗斯编年史.*\.txt|翁法罗斯-可视化.*\.html)$")
@@ -168,7 +179,10 @@ def collect(include_tools=True):
         if not os.path.isdir(base):
             continue
         for dirpath, dirnames, filenames in os.walk(base):
-            dirnames[:] = [x for x in dirnames if x not in EXCLUDE_DIRS]
+            rel = os.path.relpath(dirpath, ROOT).replace(os.sep, "/")
+            dirnames[:] = [x for x in dirnames
+                           if x not in EXCLUDE_DIRS
+                           and (rel + "/" + x) not in EXCLUDE_PATHS]
             for fn in filenames:
                 if fn.endswith(EXCLUDE_SUFFIX) or EXCLUDE_RE.search(fn):
                     continue

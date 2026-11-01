@@ -20,7 +20,7 @@ if ROOT not in sys.path:
 
 from tests._support import load  # noqa: E402  （挂 sys.path + 钉 BLAS 线程）
 
-from apps import agents, canon, dialogue, fidelity, render, scenes, trends  # noqa: E402
+from apps import agents, canon, fidelity, render, scenes, trends  # noqa: E402
 from apps import viz  # noqa: E402
 
 
@@ -148,25 +148,6 @@ class NarrativePanelTest(unittest.TestCase):
         lines = render.scene_panel_lines(item)
         self.assertTrue(lines)
         self.assertTrue(any("缺口" in line or "逐字" in line for line in lines))
-
-    def test_dialogue_reader_never_picks_a_branch(self):
-        result = dialogue.read_scene(self.bundle, "SCN-001")
-        self.assertTrue(result["lines"])
-        if result["pending"]:
-            self.assertIsNone(result.get("choice"))
-            self.assertFalse(result["finished"])
-        for row in result["lines"]:
-            self.assertTrue(row["text"])
-            self.assertTrue(row["source"])
-
-    def test_terminal_reader_uses_the_same_channel(self):
-        from apps.terminal import TerminalFeed
-        seen = []
-        result = dialogue.read_scene(self.bundle, "SCN-001")
-        feed = TerminalFeed([], write=seen.append)
-        feed.play_dialogue(result)
-        self.assertTrue(seen)
-        self.assertTrue(all(line.startswith(">>> ") for line in seen))
 
     def test_html_panel_keeps_channels_separate(self):
         view = {"cycle_count": 100000, "embers_taken": 40, "memory_rows": 10,

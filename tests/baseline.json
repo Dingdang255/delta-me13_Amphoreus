@@ -6,11 +6,11 @@
   "counts": {
     "apps_files": {
       "method": "count *.py in apps/ including __init__.py",
-      "value": 30
+      "value": 29
     },
     "apps_modules": {
       "method": "count *.py in apps/ minus __init__.py",
-      "value": 29
+      "value": 28
     },
     "config_json": {
       "method": "count *.json in config/",
@@ -34,7 +34,7 @@
     },
     "test_files": {
       "method": "count *.py in tests/",
-      "value": 62
+      "value": 61
     },
     "tool_scripts": {
       "method": "count *.py directly under tools/",

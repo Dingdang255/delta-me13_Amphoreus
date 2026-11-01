@@ -71,6 +71,18 @@
   `round_emergence_quota: 5`（按席位）、席间接掌不设上限（实测 19 次再创世、收敛 True）。
 - **本地 `tools/selfcheck.py` 9/9 通过**（397.8s），`tools/snapshot.py --fast --no-digest`
   与记录一致。
+- **分发包补齐 `worlds/` 与 `lore/`**：`tools/export.py` 的清单原来只有
+  `kernel/apps/config/presets/tools/tests` —— 解压后 `--preset plot` 会静默退回 12 席、
+  `--fidelity` 没语料、包内 `tools/selfcheck.py` 必红。现在把 `worlds/` 与 `lore/` 一并打进
+  （按路径排除 `lore/_probe`、`lore/story`、`lore/export/data`、`worlds/generated` 与各世界根的
+  `dashboard/`、`logs/`），并把 `CHANGELOG.md` 也放进包（`tests/test_packaging.py` 要读它）。
+  实测：**649 个文件 · 6.2 MB**，解压后 `--preset plot` 是 13 席，包内单测
+  **735 条全过**（1 条因缺 `CHANGELOG.md` 的错已修）。
+- **删掉未使用的对话阅读器**：`apps/dialogue.py`、`tests/test_dialogue.py`、
+  `TerminalFeed.play_dialogue`、`run.py` 的 `narrative.dialogue_scene` 分支（没有任何预设用过；
+  看板那块早已换成「终端记录」）。baseline 重算：apps 29→28 模块、tests 62→61。
+- **`_lookback_nodes` 不再写死预设名**：改为扫 `worlds/*/presets/*/nodes.json`（优先 `origin`，
+  否则排序第一份），改名或换世界根都不会让看板那块清单静默消失。
 
 ## 未发布 — 剧情预设迁入十三席世界根
 
