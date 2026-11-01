@@ -63,6 +63,9 @@ QUICK = [
     _step("红线 2：逐步推进 lint（禁止解析求解 / 预读未来）", ["tools/stepwise_lint.py"]),
     _step("红线 3：内核分层（kernel 不许 import apps）", ["tools/layer_lint.py"]),
     _step("环境自检（解释器 / 依赖 / 数据）", ["tools/export.py", "--check-only"]),
+    # 语料门禁：`lore/` 是 `--fidelity`、看板场景 / 终端记录的依据，改坏了必须当场红。
+    _step("语料 lint（清单 / 引用 / 来源）", ["tools/lore_lint.py"]),
+    _step("语料保真门禁（八维分 ≥ 阈值）", ["tools/fidelity_report.py", "--check"]),
     _step("单元测试", ["-m", "unittest", "discover", "-s", "tests"]),
     _step("判据 3：数据替换（替代世界）", ["tools/alt_world/run_alt.py"]),
     _step("判据 6：涌现无写回（presets/ 只读）", ["tools/writeback_probe.py"]),

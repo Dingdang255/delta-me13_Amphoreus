@@ -57,6 +57,10 @@ OFFICIAL_ANCHORS = os.path.join(ROOT, "lore", "D5_loops", "official_anchors.json
 EVENTS = os.path.join(ROOT, "presets", "plot-full", "events.jsonl")
 OUT = os.path.join(ROOT, "presets", "plot-full", "messages.jsonl")
 DOSSIER = os.path.join(ROOT, "lore", "D6_terminal", "scepter_dossier.jsonl")
+#: 入库的【派生抽取】：原始卷与抓取页都不入库（体积与版权口径见 lore/00_manifest.md），
+#: 但构建器与 CI 需要它们。这两份是纯抽取（不加工），由 `--export-sources` 从原始料重建。
+DERIVED_LINES = os.path.join(ROOT, "lore", "D6_terminal", "terminal_lines.jsonl")
+DERIVED_PAGE = os.path.join(ROOT, "lore", "D6_terminal", "scepter_page.jsonl")
 
 VERSIONS = ("3.0", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7")
 
@@ -187,7 +191,24 @@ def _gt_text(line):
 
 
 def _source_a():
-    """八卷里所有含 `>>>` 的行：[(章节, 行号, 文本)]，按卷、按行排好。"""
+    """八卷里所有含 `>>>` 的行：[(章节, 行号, 文本)]，按卷、按行排好。
+
+    读的是**入库的派生抽取** `lore/D6_terminal/terminal_lines.jsonl` —— 原始卷按设计
+    不入库（CI 上没有），`--export-sources` 负责从原始卷重建这份抽取。
+    """
+    out = []
+    for row in _jsonl(DERIVED_LINES):
+        text = str(row.get("text") or "")
+        if not text:
+            continue
+        out.append({"chapter": str(row.get("chapter") or ""),
+                    "line": int(row.get("line") or 0),
+                    "text": text, "loop": _loop_of(text)})
+    return out
+
+
+def _source_a_raw():
+    """从原始卷现场抽取（只有 `--export-sources` 用；原始卷不在仓库里）。"""
     out = []
     for ver in VERSIONS:
         path = os.path.join(WIKI_DIR, "amphoreus_%s.md" % ver)
@@ -436,6 +457,47 @@ def _render(rows):
     return "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows)
 
 
+def _page_rows():
+    """权杖档案源页的行（入库的派生抽取，见 `DERIVED_PAGE`）。"""
+    return [{"text": str(row.get("text") or ""),
+             "text_kind": str(row.get("text_kind") or ""),
+             "source_url": str(row.get("source_url") or ""),
+             "grade": str(row.get("grade") or "B"),
+             # `_line` 是抓取页里的行号（`_source_b` 要拿它当出处）；派生文件里叫 `line`。
+             "_line": int(row.get("line") or 0)}
+            for row in _jsonl(DERIVED_PAGE)]
+
+
+def _page_rows_raw():
+    """从抓取页现场筛（只有 `--export-sources` 用；抓取产物不在仓库里）。"""
+    return [row for row in _jsonl(TERMINALS_WIKI, with_lines=True)
+            if row.get("page") == DOSSIER_PAGE]
+
+
+def export_sources():
+    """从原始卷 / 抓取页重建两份派生抽取（开发机用；入库后 CI 直接用）。"""
+    lines = _source_a_raw()
+    with open(DERIVED_LINES, "w", encoding="utf-8", newline="\n") as f:
+        for row in lines:
+            f.write(json.dumps({
+                "chapter": row["chapter"], "line": row["line"],
+                # `lore/` 的台账要求每行都有 id 或 from（见 tests/test_lore_contract.py）
+                "from": "S-024:amphoreus_%s.md#L%d" % (row["chapter"], row["line"]),
+                "text": row["text"]}, ensure_ascii=False) + "\n")
+    page = [{"line": int(row.get("_line") or 0),
+             "from": "S-024:%s#L%d" % (DOSSIER_PAGE,
+                                       int(row.get("_line") or 0)),
+             "text": str(row.get("text") or ""),
+             "text_kind": str(row.get("text_kind") or ""),
+             "source_url": str(row.get("source_url") or ""),
+             "grade": str(row.get("grade") or "B")}
+            for row in _page_rows_raw()]
+    with open(DERIVED_PAGE, "w", encoding="utf-8", newline="\n") as f:
+        for row in page:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
+    return len(lines), len(page)
+
+
 def build(out_path=OUT, dossier_path=DOSSIER):
     events = _event_frames(_jsonl(EVENTS))
     missing = sorted(set(CHAPTER_ANCHORS.values()) - set(events))
@@ -447,8 +509,7 @@ def build(out_path=OUT, dossier_path=DOSSIER):
     kept = [row for row in existing if not _generated(row)]
     loop_map = _loop_frames(_jsonl(OFFICIAL_ANCHORS), _load_json(TRIGGERS))
 
-    page = [row for row in _jsonl(TERMINALS_WIKI, with_lines=True)
-            if row.get("page") == DOSSIER_PAGE]
+    page = _page_rows()
 
     dossier = _dossier_rows(page)
     occupied = [row["frame"] for row in kept
@@ -478,7 +539,15 @@ def main(argv=None):
     ap.add_argument("--dossier-out", default=DOSSIER,
                     help="权杖档案写入路径（默认 lore/D6_terminal/scepter_dossier.jsonl）")
     ap.add_argument("--check", action="store_true", help="只校验磁盘内容是否已是最新")
+    ap.add_argument("--export-sources", action="store_true",
+                    help="从原始卷 / 抓取页重建入库的派生抽取（开发机用）")
     args = ap.parse_args(argv)
+
+    if args.export_sources:
+        n_lines, n_page = export_sources()
+        print("✓ 写入 %s（%d 行）" % (os.path.relpath(DERIVED_LINES, ROOT), n_lines))
+        print("✓ 写入 %s（%d 行）" % (os.path.relpath(DERIVED_PAGE, ROOT), n_page))
+        return 0
 
     text, rows, dossier_text, dossier = build(args.out, args.dossier_out)
     counts = _counts(rows)

@@ -20,9 +20,20 @@ from apps.terminal import AUTHORITIES, TerminalFeed, load_messages
 
 MESSAGES = os.path.join(ROOT, "presets", "plot-full", "messages.jsonl")
 EVENTS = os.path.join(ROOT, "presets", "plot-full", "events.jsonl")
-WIKI_DIR = os.path.join(ROOT, "lore", "story", "amphoreus_wiki")
+#: 入库的派生抽取（原始卷不入库）：每卷的 `>>>` 行，见构建器的 `--export-sources`。
+LINES = os.path.join(ROOT, "lore", "D6_terminal", "terminal_lines.jsonl")
 BUILDER = os.path.join(ROOT, "tools", "lore_build", "build_terminal_messages.py")
 VERSIONS = ("3.0", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "3.7")
+
+
+def _jsonl(path):
+    rows = []
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                rows.append(json.loads(line))
+    return rows
 
 #: 原卷里没有 `>>>` 的卷：该段终端只能是手写条目，不得「借位」凑数。
 NO_TERMINAL_VERSIONS = ("3.0", "3.1", "3.2", "3.3")
@@ -40,20 +51,18 @@ def _norm(text):
 
 
 def _gt_lines(version):
-    """某卷里所有 `>>>` 行（保留前缀与 █，去掉排版标记）。"""
-    path = os.path.join(WIKI_DIR, "amphoreus_%s.md" % version)
-    if not os.path.exists(path):
-        return []
+    """某卷里所有 `>>>` 行（保留前缀与 █，去掉排版标记）。
+
+    读的是入库的派生抽取 `lore/D6_terminal/terminal_lines.jsonl` —— 原始卷不入库，
+    CI 上没有；`build_terminal_messages.py --export-sources` 负责重建这份抽取。
+    """
     out = []
-    with open(path, encoding="utf-8") as f:
-        for line in f:
-            i = line.find(">>>")
-            if i < 0:
-                continue
-            body = line[i + 3:].rstrip("\r\n").lstrip("*").rstrip("*")
-            body = _norm(body)
-            if body:
-                out.append(">>>" + body)
+    for row in _jsonl(LINES):
+        if str(row.get("chapter")) != version:
+            continue
+        body = _norm(row.get("text"))       # 派生抽取里已带 `>>>` 前缀
+        if body:
+            out.append(body)
     return out
 
 
@@ -152,8 +161,6 @@ class PlotFullMessagesTest(unittest.TestCase):
 
     def test_late_volumes_cover_every_unique_terminal_line(self):
         """3.4 / 3.6 / 3.7 的 `>>>` 唯一文本必须全部进消息文件。"""
-        if not os.path.isdir(WIKI_DIR):
-            self.skipTest("lore/story 里的原著卷不入库，CI 上没有 —— 跳过逐字对账")
         texts = {_norm(msg["text"]) for msg in load_messages(MESSAGES)}
         for ver in COVERED_VERSIONS:
             lines = _gt_lines(ver)
@@ -263,8 +270,6 @@ class BuilderIdempotenceTest(unittest.TestCase):
     """构建器连跑两次输出逐字节相同，且与仓库里的那份一致。"""
 
     def test_two_runs_are_byte_identical(self):
-        if not os.path.isdir(WIKI_DIR):
-            self.skipTest("构建器要读 lore/story 的原著卷，CI 上没有 —— 跳过")
         with tempfile.TemporaryDirectory() as tmp:
             out = os.path.join(tmp, "messages.jsonl")
             dossier = os.path.join(tmp, "scepter_dossier.jsonl")

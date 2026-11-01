@@ -69,7 +69,7 @@
   `round_succession_quota: 12`，替代世界只有 5 席，一轮内 5 次接掌后席位被冻住 ——
   再创世停在 10 次、走不到第四阶段（`converged=False`）。替代世界的数据现在写明
   `round_emergence_quota: 5`（按席位）、席间接掌不设上限（实测 19 次再创世、收敛 True）。
-- **本地 `tools/selfcheck.py` 9/9 通过**（397.8s），`tools/snapshot.py --fast --no-digest`
+- **本地 `tools/selfcheck.py` 全绿**（当时 9 步 / 397.8s），`tools/snapshot.py --fast --no-digest`
   与记录一致。
 - **分发包补齐 `worlds/` 与 `lore/`**：`tools/export.py` 的清单原来只有
   `kernel/apps/config/presets/tools/tests` —— 解压后 `--preset plot` 会静默退回 12 席、
@@ -83,6 +83,17 @@
   看板那块早已换成「终端记录」）。baseline 重算：apps 29→28 模块、tests 62→61。
 - **`_lookback_nodes` 不再写死预设名**：改为扫 `worlds/*/presets/*/nodes.json`（优先 `origin`，
   否则排序第一份），改名或换世界根都不会让看板那块清单静默消失。
+
+### 语料门禁
+
+- **两份派生抽取入库**：`lore/D6_terminal/terminal_lines.jsonl`（八卷里全部 `>>>` 行，254 行，
+  23.5 KB）与 `lore/D6_terminal/scepter_page.jsonl`（`Δ-me13.exe` 源页 467 行，98 KB）。
+  原始卷与抓取页仍不入库；构建器新增 `--export-sources` 从原始料重建这两份（实测重建后
+  `--check` 仍判「已是最新」，说明派生抽取与原文一一对应）。
+- **三条原本在 CI 上跳过的用例恢复**：逐卷 `>>>` 逐字覆盖、构建器两次运行逐字节一致、
+  权杖档案「一行一条」对账 —— 现在读派生抽取，CI 上也有了。
+- **`tools/selfcheck.py` 加两步语料门禁**：`lore_lint.py`（清单 / 引用 / 来源）与
+  `fidelity_report.py --check`（八维分 ≥ 阈值）。自检从 9 步变 11 步。
 
 ## 未发布 — 剧情预设迁入十三席世界根
 

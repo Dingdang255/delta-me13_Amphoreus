@@ -14,7 +14,8 @@ from _support import ROOT
 from apps import scepter
 
 DOSSIER = os.path.join(ROOT, "lore", "D6_terminal", "scepter_dossier.jsonl")
-SOURCE = os.path.join(ROOT, "lore", "story", "wiki_structured", "terminals_wiki.jsonl")
+#: 入库的派生抽取（抓取页原件不从仓库走）：`Δ-me13.exe` 的 467 行。
+SOURCE = os.path.join(ROOT, "lore", "D6_terminal", "scepter_page.jsonl")
 PAGE = "Δ-me13.exe"
 
 
@@ -29,7 +30,7 @@ def _jsonl(path):
 
 
 def _page_rows():
-    return [row for row in _jsonl(SOURCE) if row.get("page") == PAGE]
+    return _jsonl(SOURCE)
 
 
 class ScepterDossierTest(unittest.TestCase):
@@ -38,13 +39,11 @@ class ScepterDossierTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.rows = _jsonl(DOSSIER)
-        # 源页来自 `lore/story/wiki_structured/`（不入库），CI 上可能没有。
-        cls.page = _page_rows() if os.path.exists(SOURCE) else None
+        # 源页用入库的派生抽取（`lore/D6_terminal/scepter_page.jsonl`）—— CI 上也有。
+        cls.page = _page_rows()
 
     def test_one_entry_per_body_row(self):
         """标题行不进正文，转为 section 路径：正文条目 = 源页行数 − 标题行数。"""
-        if self.page is None:
-            self.skipTest("wiki_structured 不入库，CI 上没有源页 —— 跳过逐行对账")
         headings = sum(1 for row in self.page
                        if str(row.get("text") or "").strip().startswith("=="))
         self.assertEqual(len(self.page), 467)
