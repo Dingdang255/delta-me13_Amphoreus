@@ -419,6 +419,7 @@ class Planner:
                 int(o.companion_serial) >= 0
                 and traj.final.pool.index_of_serial(int(o.companion_serial)) >= 0),
             "companion_spawn": int(score.get("origin_companion_spawn", 0.0)),
+            "companion_bind": int(score.get("origin_companion_bind", 0.0)),
             "companion_host": int(o.companion_host),
             "companion_stage": int(o.companion_stage),
             "companion_age": int(o.companion_age),

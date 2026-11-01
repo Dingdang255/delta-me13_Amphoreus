@@ -1,15 +1,17 @@
 {
-  "_comment": "剧情内容版预设（13 席世界根版）：presets/plot 的孪生副本。同一颗种子、同一批锚定、同一份外生剧本与招牌时间线；差别只在补齐的镜头桥段与终端消息 / 实验档案。镜头一律 emit，只经引擎分发、写进账本，不改席位 / 既有计数 / 裁决，也不改动力学。世界根规则同 plot：未显式给 --root 时自动落在 worlds/origin（13 席）。",
+  "_comment": "剧情内容版预设（13 席世界根版）：presets/plot 的孪生副本。同一颗种子、同一批锚定、同一份外生剧本与招牌时间线；差别是补齐的镜头桥段、终端消息 / 实验档案，外加 42,500–42,600 两手原初事件（救世主记忆 + 认作忆灵）。世界根规则同 plot：未显式给 --root 时自动落在 worlds/origin（13 席）。",
   "name": "plot-full",
   "seed": 0,
   "extends": "_default",
   "params": {
-    "frames": 33594607
+    "frames": 33594607,
+    "origin_create_min_form": 3,
+    "origin_companion_span": 20000
   },
   "narrative": {
     "terminal": true,
     "archive": true,
     "origin": true
   },
-  "note": "内容增补只走 emit：没有 evict_holder / suppress_slot / bind_participant / write_memory / revise_protocol —— 新增桥段是世界状态的纯镜头。plot 的事件逐字保留、顺序不变，另加两条原初事件（33594510 回望锚定 / 33594545 浮黎把走过的这一段锚进记忆）。与 plot 的 13 席副本一样【不写 nodes.json】：任何未到期的回望锚点都会让内核停止跳帧（kernel/core.py 的 deadlock 复用对 inbox 非空时 cand=n+1），33.59M 帧的永劫复用随之消失。终端消息（messages.jsonl）与实验档案（archive.json）都是只读渲染层，文案留在本预设。"
+  "note": "内容增补原先只走 emit：没有 evict_holder / suppress_slot / bind_participant / write_memory / revise_protocol。现在 42,000 之后另有两手【原初】事件：42,500 写入「救世主记忆」（四个阶段：初凝 / 同行 / 承忆 / 忆者），42,600 由 kernel 的 `bind_companion` 动作把池里一个【既有个体】认作忆灵 —— 它不占新池位（这个世界的池早就满了），此后转印 / 成长 / 守席全按忆灵那套跑，于是看板的记忆阶段泳道与忆灵生命线有真实读数。参数上抬了两处：`origin_create_min_form: 3`（忆灵形态 2 不再触发创世，岁月那一席仍按剧情留空，等 33,594,510 的回望补上）、`origin_companion_span: 20000`（忆灵寿命另算一条，够它活到世界冻结）。**不要**在这个世界投 `seed_memory(factor_basis)`：写满十二行记忆会让记忆承载 / 创世机制每帧改结构，33.59M 帧的永劫复用随之消失（实测跑了两千万帧还没到节点）。plot 的事件逐字保留、顺序不变，另加两条原初事件（33594510 回望锚定 / 33594545 浮黎把走过的这一段锚进记忆）。与 plot 的 13 席副本一样【不写 nodes.json】：任何未到期的回望锚点都会让内核停止跳帧（kernel/core.py 的 deadlock 复用对 inbox 非空时 cand=n+1）。终端消息（messages.jsonl）与实验档案（archive.json）都是只读渲染层，文案留在本预设。"
 }

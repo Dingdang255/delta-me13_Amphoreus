@@ -216,6 +216,9 @@ def render_state(summary, lexicon, namer=None, companion_name=None) -> list[str]
                     f" · 陪伴 {int(summary.get('companion_age', 0))} 帧"
                     f" · 携 {int(summary.get('companion_carry', 0))} 段记忆"
                     f" · 凝聚 {companion_spawn} 次" + host_txt)
+        if int(summary.get("companion_bind", 0)) > 0:
+            # 由数据层【认定】的忆灵（既有个体）与「凝成的忆灵」不是同一回事，分开记。
+            comp_txt += f" · 认作忆灵 {int(summary.get('companion_bind', 0))} 次"
         if int(summary.get("companion_rebind", 0)) > 0:
             comp_txt += f" · 独立守席 {int(summary.get('companion_rebind', 0))} 次"
         if int(summary.get("companion_rebond", 0)) > 0:

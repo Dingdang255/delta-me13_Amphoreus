@@ -2074,6 +2074,10 @@ def origin_panel(summary, series, total) -> str:
         comp_note = (f'<div class="origin-note">凝聚 {spawn} 次 · 成长 '
                      f'{_ORIGIN_STAGE_WORDS.get(stage, stage)}（{stage}/4）· 携 '
                      f'{int(summary.get("companion_carry", 0))} 段记忆</div>')
+        if int(summary.get("companion_bind", 0)) > 0:
+            comp_note += (f'<div class="origin-note">认作忆灵 '
+                          f'{int(summary.get("companion_bind", 0))} 次'
+                          '（数据层指定的既有个体，不占新池位）</div>')
         out.append('<div class="origin-box">'
                    '<div class="chart-title">忆灵生命线（凝 / 散 / 再凝）</div>'
                    '<div class="chart-box"><div class="tip"></div><div id="ocv3"></div></div>'

@@ -214,6 +214,40 @@ class NodesAndEventsTest(unittest.TestCase):
         self.assertEqual(int(st.origin.borrowed), 1)
         self.assertEqual(int(st.origin.repaid), 1)          # 借一手、还一手
 
+    def test_bind_companion_crowns_an_existing_individual(self):
+        """`bind_companion`：把既有个体认作忆灵 —— 不新占池位，形态抬到 2。"""
+        from kernel.disturbance import dispatch
+
+        ctx, st = self._state_with_origin()
+        serial = int(st.pool.serial[int(st.pool.index()[0])])
+        before_free = len(st.pool._free)
+        dispatch({"capability": "origin_anchor",
+                  "payload": {"action": "bind_companion", "serial": serial,
+                              "cost": 0.5}}, st, ctx, 42600)
+        self.assertEqual(int(st.origin.form), 2)
+        self.assertEqual(int(st.origin.companion_serial), serial)
+        self.assertEqual(int(st.origin.companion_stage), 1)
+        self.assertEqual(int(st.origin.borrowed), 1)
+        self.assertEqual(int(st.origin.repaid), 1)
+        self.assertEqual(len(st.pool._free), before_free)      # 没占新池位
+        k = st.pool.index_of_serial(serial)
+        self.assertIn("origin_companion", st.pool.tags[k])
+        self.assertEqual(int(st.pool.born[k]), 42600)          # 寿命另算一条
+        self.assertEqual(int(st.score.get("origin_companion_bind", 0)), 1)
+
+    def test_bind_companion_refuses_unknown_serial(self):
+        """指名一个池里没有的编号 ⇒ 这一手落不下去（借出仍记，但不还）。"""
+        from kernel.disturbance import dispatch
+
+        ctx, st = self._state_with_origin()
+        dispatch({"capability": "origin_anchor",
+                  "payload": {"action": "bind_companion", "serial": 999999,
+                              "cost": 0.5}}, st, ctx, 42600)
+        self.assertEqual(int(st.origin.form), 1)
+        self.assertEqual(int(st.origin.companion_serial), -1)
+        self.assertEqual(int(st.origin.borrowed), 1)
+        self.assertEqual(int(st.origin.repaid), 0)
+
     def test_fuli_anchor_past_writes_the_walked_section(self):
         from kernel.disturbance import dispatch
 

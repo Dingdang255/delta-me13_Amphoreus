@@ -598,6 +598,38 @@ def _origin_anchor(st, ctx, payload, targets, frame):
                 st.memory_seats.add(int(i))
             ok = True
             st.add_score("origin_bind_memory")
+    elif action == "bind_companion":
+        # 把【既有的】一个个体认作忆灵：不新占池位 —— 池已满的世界也能有忆灵。
+        # 形态抬到 2，此后转印 / 成长 / 守席的规则与「凝成的忆灵」完全一样。
+        # 指名的 `serial` 优先；没指名就取池里适应度最高的非在席者（确定性）。
+        serial = payload.get("serial")
+        k = st.pool.index_of_serial(int(serial)) if serial is not None else -1
+        if k < 0 and serial is None:
+            seated = {int(s.owner) for s in st.register.slots
+                      if s.owner is not None}
+            idx = [int(i) for i in st.pool.index()
+                   if int(st.pool.serial[i]) not in seated]
+            if idx:
+                k = max(idx, key=lambda i: (float(st.pool.fitness[i]),
+                                            -int(st.pool.serial[i])))
+        if k >= 0:
+            o.form = max(int(o.form), 2)
+            o.companion_serial = int(st.pool.serial[k])
+            o.companion_stage = max(1, int(o.companion_stage))
+            o.companion_age = 0
+            o.companion_carry = 0
+            o.companion_bond = 0
+            o.companion_host = -1
+            o.companion_rebond_until = 0
+            o.companion_until = int(frame) + int(
+                ctx.params.get("origin_companion_cooldown", 256))
+            # 忆灵的寿命另算一条（见 operators 里的 `origin_companion_span`）：
+            # 带上标记，并从这一刻重新起算 —— 它不再是普通的电信号。
+            st.pool.tags[k].add("origin_companion")
+            st.pool.born[k] = int(frame)
+            st.score["emitted_origin_companion_formed"] = float(frame)
+            st.add_score("origin_companion_bind")
+            ok = True
     elif action == "seed_memory":
         idx = st.pool.index()
         mode = str(payload.get("mode") or "")

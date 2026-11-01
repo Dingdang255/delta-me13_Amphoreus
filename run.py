@@ -513,6 +513,10 @@ class LiveStream:
     def _write(self, text):
         if self.to_stdout:
             print(text, flush=True)
+        self.log(text)
+
+    def log(self, text):
+        """只落盘、不上屏：独立终端窗口在场时，`>>>` 全归窗口，日志仍然留档。"""
         if self.fh:
             self.fh.write(text + "\n")
             self.fh.flush()
@@ -1510,8 +1514,10 @@ def main():
         else:
             atexit.register(bridge.close)
 
-    # 只读终端层：按帧把预设的系统消息打到与编年史同一条输出通道上（stdout / 日志）。
-    # 它只读 —— `TerminalFeed.__call__` 恒返回 True，绝不触发内核剪枝。
+    # 只读终端层：按帧把预设的系统消息播出去。它只读 —— `TerminalFeed.__call__`
+    # 恒返回 True，绝不触发内核剪枝。
+    # 去向：**有独立窗口时只进窗口 + 日志，主终端不再重复 `>>>`**（窗口才是模拟里
+    # 的终端）；窗口起不来（bridge 为 None）才回落到主终端 —— 与从前一致。
     terminal_authority = None
     if args.terminal_authority:
         picked = [x.strip() for x in args.terminal_authority.split(",") if x.strip()]
@@ -1520,12 +1526,23 @@ def main():
             ap.error("--terminal-authority 只能是 " + ",".join(AUTHORITIES)
                      + f"（得到 {args.terminal_authority!r}）")
         terminal_authority = picked
+
+    def _term_write(text):
+        if bridge is not None:
+            if stream is not None:
+                stream.log(text)      # 只落盘；窗口那边由 sink 镜像一份
+            return
+        if stream is not None:
+            stream._write(text)
+        else:
+            print(text, flush=True)
+
     term = None
     if use_terminal:
         path = os.path.join(data.preset.get("dir") or "", "messages.jsonl")
         msgs = load_messages(path)
         if msgs:
-            term = TerminalFeed(msgs, write=(stream._write if stream else print),
+            term = TerminalFeed(msgs, write=_term_write,
                                 ask=args.terminal_ask, source=path, sink=bridge,
                                 authorities=terminal_authority)
         else:
