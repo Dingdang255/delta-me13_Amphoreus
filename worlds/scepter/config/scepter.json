@@ -1,0 +1,15 @@
+{
+  "_comment": "权杖世界根的只读展示配置。这里只放【展示用】的层名 / 单位 / 锚点刻度，不放任何演算规则；apps/scepter.py 只读它，不写状态、不改轨迹。",
+  "title": "权杖状态",
+  "panel_title": "权杖",
+  "entropy_cap": 2.0,
+  "layers": {
+    "kernel_layer": {"label": "内核层", "unit": "written_cells"},
+    "authority_layer": {"label": "权限层", "unit": "holders"},
+    "seed_slots": {"label": "火种槽", "unit": "slots"},
+    "regen_count": {"label": "再创世计数", "unit": "rounds"},
+    "entropy": {"label": "黑潮熵", "unit": "index"},
+    "memory_store": {"label": "记忆存储", "unit": "rows"},
+    "external_injection": {"label": "外部注入", "unit": "injections"}
+  }
+}

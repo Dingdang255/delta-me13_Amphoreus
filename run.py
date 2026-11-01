@@ -4,15 +4,24 @@
     python3 run.py                      # 涌现版：名字全由演算生成
     python3 run.py --preset plot        # 剧情锚定版：名字按剧情绑定（不改轨迹）
     python3 run.py --frames 30000       # 只跑到第 30000 帧
-    python3 run.py --seed 7             # 换一个世界种子（角色会完全不同）
+    python3 run.py --seed 7            # 换一个抽样键（只换角色涌现，不决定世界形态）
+    python3 run.py --init-set B         # 换一份完整初始状态（presets/scepter/init-B.json）
+    python3 run.py --preset plot --init-set B   # 世界形态由初始变量集决定，及其中的 seed
     python3 run.py --dump-anchors       # 导出命名标定语料
     python3 run.py --preset plot --export   # 导出 dashboard → dashboard/翁法罗斯-可视化.html
     python3 run.py --preset plot --log      # 编年史落盘 → logs/翁法罗斯编年史_演算N.txt
     python3 run.py --preset plot --serve    # 起实时看板：边演算边在浏览器里看（演完可回放）
     python3 run.py --list-presets       # 列出可用预设
 
-预设只提供【演算之外】的东西：固定种子、名字绑定、额外的外生事件、
-以及一份期望时间线。其中时间线引擎从不读它 —— 报告里的【四】只是核对，
+**世界根（`--root`）的解析顺序**（见 `resolve_world_root`）：显式 `--root` 永远优先；
+不给时若 `worlds/origin/presets/<预设>/preset.json` 存在，就用 `worlds/origin`
+（13 席 + L12、回望驱动、原初四态）—— 剧情预设 `plot` / `plot-full` 因此默认跑在
+13 席根上；否则剧情预设 → `worlds/plot`，其余（含无预设的 `emergent`）→ 项目根的
+12 席世界。`--root .` 可强制回到 12 席。
+
+预设只提供【演算之外】的东西：抽样键（seed）、名字绑定、额外的外生事件、
+以及一份期望时间线。世界形态（初始状态）由 `--init-set` 的初始变量集决定 ——
+`seed` 只是抽样键，不决定世界走向。其中时间线引擎从不读它 —— 报告里的【四】只是核对，
 真正拿它去检索种子的是 tools/seed_probe.py --preset plot。
 
 终止条件是【命题能否裁决】，不是"跑够多少帧"：
@@ -37,14 +46,14 @@ from apps.namer import Namer  # noqa: E402
 from apps.origin import (OriginProbe, render as render_origin,  # noqa: E402
                          render_state as render_origin_state)
 from apps.origin_loop import Planner as OriginPlanner  # noqa: E402
-from apps.origin_loop import nodes_path as origin_nodes_path  # noqa: E402
+from apps import scepter as scepter_mod  # noqa: E402
 from apps.script import Script  # noqa: E402
 from apps.services import default as default_services  # noqa: E402
-from apps.terminal import TerminalFeed, load_messages  # noqa: E402
+from apps.terminal import AUTHORITIES, TerminalFeed, load_messages  # noqa: E402
 from apps.terminal_bridge import TerminalBridge  # noqa: E402
 from apps.features import extract  # noqa: E402
-from kernel.loader import (Config, DEFAULT_PRESET, DataSet, ROOT,  # noqa: E402
-                           apply_fast)
+from kernel.loader import (Config, DEFAULT_PRESET, DataSet, ORIGIN_WORLD, ROOT,
+                           apply_fast, preset_world_root)  # noqa: E402
 from kernel.operators import MEMORY_OWNER, consensus  # noqa: E402
 from apps.render import (Renderer, advance_label, cycle_frames,  # noqa: E402
                            myth_phase_frame, renewal_switch_frame, stage_starts,
@@ -52,8 +61,23 @@ from apps.render import (Renderer, advance_label, cycle_frames,  # noqa: E402
 from apps.timeline import check as check_timeline  # noqa: E402
 from apps.viz import (Sampler, build_html, build_live_shell,  # noqa: E402
                         summary_cards, texture_of)
+from apps.worldgen import load_spec as load_generation_spec  # noqa: E402
 
 BAR = "─" * 72
+
+
+def resolve_world_root(root=None, preset=None):
+    """解析本次演算的世界根 —— 也是 `--root` 的优先级规则（只此一处）。
+
+    1. **显式给了 `--root`** ⇒ 永远用它，不再猜（旧行为一字不改：默认根仍是 12 席）；
+    2. 否则若 `worlds/origin/presets/<preset>/preset.json` 存在 ⇒ 用 `worlds/origin`
+       （13 席 + L12、回望驱动、原初四态）—— 剧情预设就是这样默认跑在 13 席根上；
+    3. 否则走 `kernel.loader.preset_world_root`：剧情预设 → `worlds/plot`，
+       其余（含无预设的 emergent）→ 项目根的 12 席世界。
+    """
+    if root:
+        return os.path.abspath(root)
+    return preset_world_root(preset)
 
 # 裁决与停因的显示名一律来自配置（config/conclusions.json 的 label / stop_label、
 # config/lexicon.json 的 stop_reasons），报告层不再维护任何写死的枚举表 ——
@@ -171,10 +195,14 @@ class Cast:
     def see(self, payload):
         """从一条 EMERGENCE 记下一名角色：按 serial 查、按 rank 定位首位涌现者。
 
-        没名字就不记 —— 否则「?接掌某位」会混进编年史。无名者之间的流转是噪声，
-        真要报的时候由 `resolve` 退回命名器（它认识锚定层点过名的个体）。
+        内核抛来的 EMERGENCE 载荷**没有名字**（见 `kernel/emergence.py::describe`），
+        故这里先用命名器把名字补出来 —— 键序与 `Namer.persona_name` 一致（指纹 →
+        编号 → 涌现次序 → 音位层现生成），绝不用序号冒充名字。补不出名字才不记。
         """
         name = payload.get("hanzi") or payload.get("latin")
+        if not name and payload.get("fingerprint"):
+            latin, hanzi = self.namer.payload_name(payload)
+            name = hanzi or latin
         if not name:
             return
         s = payload.get("serial")
@@ -193,12 +221,9 @@ class Cast:
         if serial is None:
             return None
         s = int(serial)
-        hit = self.by_serial.get(s)
+        hit = self.namer.visible_name(s, self.by_serial)
         if hit:
             return hit
-        a = self.namer.name_by_serial(s)  # 预设按编号点名过这个体
-        if a:
-            return a[1]
         if s == MEMORY_OWNER:             # 由记忆本身承载的位
             return self.R.term("memory")
         return None
@@ -412,6 +437,11 @@ def chronicle_line(R, namer, kind, payload, cast=None, lv=3, advance_label=None,
             if not who:
                 return None
             return R.text("stall", "succession_fall", frame).format(locus=locus, who=who)
+        # 两端都【真解析不出名字】：整条是噪声，不拿两个序号冒充人名。编号只是兜底
+        # 标识（详细档下给单端无名者用），不是名字。
+        if (cast.resolve(now) if cast else None) is None \
+                and (cast.resolve(was) if cast else None) is None:
+            return None
         who = nm(now)
         if who is None:                        # 接掌者无名 —— 无名者之间的流转是噪声
             return None
@@ -454,10 +484,11 @@ class LiveStream:
     """
 
     def __init__(self, ctx, data, seed, to_stdout=True, path=None,
-                 sink=None, event_sink=None):
+                 sink=None, event_sink=None, init_set=None):
         self.ctx = ctx
         self.data = data
         self.seed = int(seed)
+        self.init_set = init_set
         self.R = Renderer(ctx)
         self._reuse_start = None              # 正在复用的那段区间（见 on_event）
         self._switch = None                   # 「自动更替 → 再创世」的切换帧（见 on_event）
@@ -491,7 +522,11 @@ class LiveStream:
         self._write(BAR)
         self._write(f"  实时演算 · 命题「{gen['proposition']['note']}」"
                     f"  [{gen['proposition']['id']}]")
-        self._write(f"  世界种子 {self.seed}    预设 {self.data.preset['name']}")
+        if isinstance(self.init_set, dict):
+            self._write(f"  初始变量 {self.init_set.get('label', '')}"
+                        f"（seed={self.seed}）    预设 {self.data.preset['name']}")
+        else:
+            self._write(f"  抽样键 {self.seed}    预设 {self.data.preset['name']}")
         self._write(BAR)
 
     def on_event(self, frame, kind, payload, clock, namer):
@@ -582,6 +617,12 @@ def chronicle_rows(ctx, traj):
     R = Renderer(ctx, traj.spans, cycle_frames(traj), myth_phase_frame(traj))
     namer = traj.namer
     cast = Cast(R, namer)
+    # 初始种群没有 EMERGENCE 记录，报告里却会以「归入第 N 号原动力」出现；
+    # 先把 traj 里已有的每个人登记进 Cast，避免它们退化成「无名者#N」。
+    for persona in getattr(traj, "personas", ()) or ():
+        fp = getattr(persona, "fingerprint", b"")
+        cast.see({"serial": int(persona.serial), "rank": int(persona.rank),
+                  "fingerprint": fp.hex() if isinstance(fp, (bytes, bytearray)) else str(fp)})
     V = Verbosity(ctx.params.get("verbosity"))
     rows = []
 
@@ -662,7 +703,7 @@ def _progress_note(namer, ctx, traj):
     return lines
 
 
-def report(ctx, data, traj, results, explore=False, narrative=None):
+def report(ctx, data, traj, results, explore=False, narrative=None, init_set=None):
     R = Renderer(ctx, traj.spans, cycle_frames(traj), myth_phase_frame(traj))
     p = ctx.params
     gen = data.genesis
@@ -673,7 +714,11 @@ def report(ctx, data, traj, results, explore=False, narrative=None):
     out.append(f"  命题        {gen['proposition']['note']}   [{gen['proposition']['id']}]")
     out.append(f"  初始变量域  {' → '.join(R.domain(v) for v in gen['domain']['initial_variable'])}")
     out.append(f"  位表        {len(ctx.loci)} 位 × {p['dim']} 维")
-    out.append(f"  世界种子    {ctx.seed}    预设 {data.preset['name']}")
+    if init_set:
+        out.append(f"  初始变量    {init_set.get('label', '')}"
+                   f"（seed={ctx.seed}）    预设 {data.preset['name']}")
+    else:
+        out.append(f"  抽样键      {ctx.seed}    预设 {data.preset['name']}")
     if getattr(ctx, "fast", 0) > 1:
         out.append(f"  ⚠ 测试提速模式（时间刻度 ×1/{ctx.fast}）—— 只验机制连通，"
                    f"帧号类断言与时间线不适用")
@@ -875,11 +920,13 @@ def _narrative_flag(cli_value, narrative, key):
     return bool(cli_value) if cli_value is not None else bool((narrative or {}).get(key, False))
 
 
-def _panels_html(ctx, traj):
-    """叙事面板（只读）：趋势压力 / 场景目录 / 对话阅读，交给可视化层拼接。
+def _panels_html(ctx, traj, upto_frame=None, scepter=None):
+    """叙事面板（只读）：趋势压力 / 场景目录 / 对话阅读 / 权杖，交给可视化层拼接。
 
     趋势读数来自已有的特征快照与 `config/trends.json`；场景与对话只从
-    `lore/canon/` 读。任何一项读不到就跳过该项 —— 渲染层不猜、不补。
+    `lore/canon/` 读。`upto_frame` 给定时只收首帧已知且不晚于该帧的场景 ——
+    与实时看板推送用的是同一次 `scenes.load_all` 口径。任何一项读不到就跳过
+    该项 —— 渲染层不猜、不补。
     """
     from apps import canon, dialogue, scenes, trends
     from apps.features import extract
@@ -898,17 +945,305 @@ def _panels_html(ctx, traj):
     scene_items = []
     reader = None
     if bundle is not None:
-        scene_items = [scenes.narrate(item) for item in scenes.load(bundle)]
+        scene_items = [scenes.narrate(item) for item
+                       in scenes.load_all(bundle, upto_frame=upto_frame)]
         scene_id = next(iter(sorted(bundle.ids_of_kind("scene"))), None)
         reader = dialogue.read_scene(bundle, scene_id) if scene_id else None
-    return narrative_panels_html(rows, coverage, scene_items=scene_items, dialogue=reader)
+    panels = narrative_panels_html(rows, coverage, scene_items=scene_items,
+                                   dialogue=reader)
+    if scepter is not None:
+        block = scepter_mod.panels_html(scepter)
+        panels = "\n".join(x for x in (panels, block) if x)
+    return panels
 
+
+#: 叙事场景的推进点：换代 / 换档。其余事件只走时间线，不重算场景目录。
+_SCENE_EVENT_KINDS = ("PROMOTION", "DOMAIN_ADVANCE", "DOMAINS_EXHAUSTED")
+
+
+def _scene_pusher(board):
+    """返回一个 `push(frame)`：把【首帧已知且已抵达】的场景按差集推给看板。
+
+    只在换代 / 换档那几条事件上调用，不逐帧重算；同一 id 只推一次。
+    读不到语料时返回 None，看板其余部分照常。
+    """
+    from apps import canon, scenes
+
+    try:
+        bundle = canon.CanonBundle.load()
+    except canon.CanonError:
+        return None
+    seen = set()
+
+    def push(frame):
+        for item in scenes.load_all(bundle, upto_frame=int(frame)):
+            key = str(item.get("id") or "")
+            if not key or key in seen:
+                continue
+            seen.add(key)
+            board.add_scene(item.get("first_frame") or frame,
+                            item.get("loop"), item)
+
+    return push
+
+
+# ---- 初始变量集 -------------------------------------------------------------
+# 一个初始变量集只声明少数几个 knob 的取值；这些 knob 的路径与取值范围仍由
+# config/generation.json 定义（世界生成器抽样时读的是同一张表）。覆盖只发生在
+# 内存里的 Config 上 —— config/ 原文件一个字节都不动。
+INIT_SET_DIR = "scepter"
+
+
+class InitSetError(RuntimeError):
+    """初始变量集缺失 / 读不动 / 写了不认识的 knob。"""
+
+
+def _init_set_dirs(preset):
+    """先看当前预设，再回落到共享的 scepter/ 目录。"""
+    name = DEFAULT_PRESET if preset in (None, "", "emergent", "none") else str(preset)
+    out = [name]
+    if INIT_SET_DIR not in out:
+        out.append(INIT_SET_DIR)
+    return out
+
+
+def resolve_init_set(world_root, preset, name):
+    """按 `presets/<当前预设>/init-<X>.json` → `presets/scepter/init-<X>.json` 解析。"""
+    text = str(name or "")
+    if not text or any(c not in "-_" and not c.isalnum() for c in text):
+        raise InitSetError(
+            f"初始变量集名不合法：{name!r}（只接受字母 / 数字 / - / _）")
+    # 世界根下没有该预设的 init-*.json 时回落到项目根（剧情预设住在项目根）。
+    roots = [world_root]
+    if os.path.abspath(world_root) != ROOT:
+        roots.append(ROOT)
+    tried = [os.path.join(base, "presets", d, f"init-{text}.json")
+             for base in roots for d in _init_set_dirs(preset)]
+    for path in tried:
+        if not os.path.isfile(path):
+            continue
+        with open(path, "r", encoding="utf-8") as f:
+            try:
+                doc = json.load(f)
+            except json.JSONDecodeError as err:
+                raise InitSetError(f"初始变量集 {path} 不是合法 JSON：{err}") from err
+        return path, doc
+    available = set()
+    for base in roots:
+        for d in _init_set_dirs(preset):
+            folder = os.path.join(base, "presets", d)
+            if not os.path.isdir(folder):
+                continue
+            for fn in os.listdir(folder):
+                if fn.startswith("init-") and fn.endswith(".json"):
+                    available.add(fn[5:-5])
+    shown = "、".join(sorted(available)) if available else "无"
+    raise InitSetError(
+        f"找不到初始变量集 {text!r}；已找：{'、'.join(tried)}。可用：{shown}")
+
+
+def init_set_seed(path, doc):
+    """初始变量集里的抽样键（seed）；没写则返回 None（向后兼容旧文件）。"""
+    if not isinstance(doc, dict) or "seed" not in doc:
+        return None
+    value = doc["seed"]
+    if not isinstance(value, int) or isinstance(value, bool):
+        raise InitSetError(
+            f"初始变量集 {path} 的 seed 应为整数，实为 {type(value).__name__}")
+    return int(value)
+
+
+SEED_CONFLICT = ("seed 已属于初始变量集，请写进 init-*.json；"
+                 "--seed 不能与 --init-set 同用")
+
+
+def resolve_seed(cli_seed, init_doc, data, init_path=None):
+    """解析本世界的抽样键 seed。
+
+    世界形态由初始变量集决定，seed 只是抽样键 —— 故：
+      · 给了 `--init-set` ⇒ 用 init-*.json 里的 seed；同时给 `--seed` 直接报错
+        （同一件事有两个来源，必然对不上）；
+      · 没给 `--init-set` ⇒ 保持旧优先级：`--seed` → preset.seed → genesis.seed → 0。
+    """
+    if init_doc is not None:
+        if cli_seed is not None:
+            raise InitSetError(SEED_CONFLICT)
+        seed = init_set_seed(init_path, init_doc)
+        if seed is not None:
+            return seed
+    if cli_seed is not None:
+        return int(cli_seed)
+    seed = data.preset.get("seed")
+    if seed is None:
+        seed = data.genesis.get("seed", 0)
+    return int(seed)
+
+
+def _init_value(value, knob, factor):
+    """把初始变量集的取值换算成新的叶子值；口径与 generation.json 的 mode 一致。"""
+    mode = knob["mode"]
+    if mode == "relative":
+        new = round(float(value) * float(factor), int(knob.get("round", 6)))
+    elif mode == "absolute":
+        new = round(float(value) + float(factor), int(knob.get("round", 6)))
+    elif mode == "int_delta":
+        new = int(value) + int(factor)
+    else:
+        raise InitSetError(f"未知 knob mode：{mode!r}")
+    clamp = knob.get("clamp")
+    if clamp:
+        new = max(clamp[0], min(clamp[1], new))
+        if mode != "int_delta":
+            new = round(float(new), int(knob.get("round", 6)))
+    if isinstance(value, int) and not isinstance(value, bool):
+        return int(new)
+    return new
+
+
+def _dict_leaves(node, path):
+    """遍历 dict/list 里被 path 指到的叶子，产出 (容器, 键)。支持 '*'。"""
+    if not path:
+        raise InitSetError("初始变量路径为空")
+    head, rest = path[0], path[1:]
+    if isinstance(node, dict):
+        if head == "*":
+            raise InitSetError("对象路径里不能使用 '*'")
+        if head not in node:
+            raise InitSetError(f"初始变量路径缺键 {head!r}")
+        if not rest:
+            yield node, head
+            return
+        yield from _dict_leaves(node[head], rest)
+        return
+    if isinstance(node, list):
+        if head != "*":
+            raise InitSetError(f"数组路径应写 '*'，实为 {head!r}")
+        if not rest:
+            for i in range(len(node)):
+                yield node, i
+            return
+        for item in node:
+            yield from _dict_leaves(item, rest)
+        return
+    raise InitSetError(f"无法继续下探 {type(node).__name__}")
+
+
+def _locus_leaves(ctx, path):
+    """位表是对象列表（不是 dict）；只支持 `loci[*].<字段>`。"""
+    if not path or path[0] != "loci":
+        raise InitSetError("config/loci.json 的初始变量路径必须以 'loci' 开头")
+    rest = path[1:]
+    if len(rest) != 2 or rest[0] != "*":
+        raise InitSetError("位表路径目前只支持 loci[*].<字段>")
+    attr = rest[1]
+    if attr == "couplings":
+        raise InitSetError("初始变量集不改 couplings：成对耦合需要对称化，走生成器抽样")
+    for locus in ctx.loci:
+        if not hasattr(locus, attr):
+            raise InitSetError(f"位对象没有字段 {attr!r}")
+        yield locus, attr
+
+
+def _apply_init_knob(ctx, knob, factor, data=None):
+    rel = str(knob["file"]).replace("\\", "/")
+    path = list(knob["path"])
+    if rel == "config/loci.json":
+        out = []
+        for locus, attr in _locus_leaves(ctx, path):
+            old = getattr(locus, attr)
+            new = _init_value(old, knob, factor)
+            setattr(locus, attr, new)
+            out.append(new)
+        return out[0] if len(out) == 1 else out
+    if rel == "config/params.json":
+        doc = ctx.params
+    elif rel == "config/seeding.json":
+        doc = ctx.seeding
+    else:
+        raise InitSetError(
+            f"初始变量集暂不支持覆盖 {rel}（只支持 params / seeding / loci）")
+    out = []
+    for holder, key in _dict_leaves(doc, path):
+        old = holder[key]
+        new = _init_value(old, knob, factor)
+        holder[key] = new
+        out.append(new)
+    # 阶段装配里的同名覆盖会在 StageCtx.rebind 时盖住 params 侧（见 genesis 的
+    # stages[*].params）—— 故按同一倍率一并缩放，否则「阶段帧预算」这类初值写了等于没写。
+    if rel == "config/params.json" and len(path) == 1 and data is not None:
+        for prof in getattr(data, "stage_profiles", ()) or ():
+            params = prof.get("params") or {}
+            if path[0] in params:
+                params[path[0]] = _init_value(params[path[0]], knob, factor)
+    return out[0] if len(out) == 1 else out
+
+
+def apply_init_set(ctx, world_root, preset, name, data=None):
+    """把 `init-<name>.json` 的取值合并进**内存里的** ctx，返回一份可复核的读数。
+
+    路径与 clamp 全部来自 `config/generation.json` 的 knobs 表 —— 与生成器抽样
+    使用的是同一份声明，故这里改到的正是世界初始化真正会读的那些字段。
+    `seed` 也属于初始变量集：它随本函数一并读回（世界形态由初始变量决定，
+    seed 只作抽样键）。
+    """
+    path, doc = resolve_init_set(world_root, preset, name)
+    if not isinstance(doc, dict):
+        raise InitSetError(f"初始变量集 {path} 应为 JSON 对象")
+    knobs = doc.get("knobs")
+    if not isinstance(knobs, dict) or not knobs:
+        raise InitSetError(f"初始变量集 {path} 缺少非空的 knobs 表")
+    spec_path = os.path.join(world_root, "config", "generation.json")
+    spec = load_generation_spec(spec_path if os.path.exists(spec_path) else None)
+    applied = {}
+    for key, factor in knobs.items():
+        if key not in spec["knobs"]:
+            raise InitSetError(
+                f"初始变量集 {path} 的 knob {key!r} 不在 config/generation.json")
+        if not isinstance(factor, (int, float)) or isinstance(factor, bool):
+            raise InitSetError(
+                f"初始变量集 {path} 的 knob {key!r} 取值应为数字，"
+                f"实为 {type(factor).__name__}")
+        applied[key] = _apply_init_knob(ctx, spec["knobs"][key], float(factor), data)
+    return {"path": path, "label": doc.get("label", ""),
+            "description": doc.get("description", ""),
+            "seed": init_set_seed(path, doc), "knobs": applied}
+
+
+def load_session(ctx, data, seed, *, namer=None, on_event=None, watch=None,
+                 inbox=None, init_set=None, world_root=None):
+    """按生产口径装配一个会话；`init_set` 的覆盖在此处、在第一次 step 之前生效。
+
+    覆盖排在 `load()` 之后：`load()` 会再执行一次预设级 params 覆盖，排在它后面
+    才能保证「初始变量集 > 预设参数 > config 原值」的优先级。初始状态是懒建的
+    （第一次 step 才 create），故此时改 ctx.params / ctx.loci 仍然有效。
+
+    `seed` 属于初始变量集：init-*.json 里写了 seed 就以它为准（在建会话之前定下），
+    没写才沿用调用方给的 seed。
+    """
+    root = world_root or ROOT
+    if namer is None:
+        namer = Namer(ctx, data.anchors)
+    if init_set:
+        _path, _doc = resolve_init_set(root, data.preset["name"], init_set)
+        init_seed = init_set_seed(_path, _doc)
+        if init_seed is not None:
+            seed = init_seed
+    sess = load({"config": ctx, "data": data, "seed": seed, "namer": namer,
+                 "rules": eval_condition, "runtime": default_services(),
+                 "on_event": on_event, "watch": watch, "inbox": inbox})
+    meta = None
+    if init_set:
+        meta = apply_init_set(ctx, root, data.preset["name"], init_set, data)
+    return sess, meta
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--frames", type=int, default=None)
-    ap.add_argument("--seed", type=int, default=None)
+    ap.add_argument("--seed", type=int, default=None,
+                    help="抽样键（不决定世界形态）：只影响角色涌现与命名。"
+                         "世界形态请用 --init-set；给了 --init-set 时不能再用本参数"
+                         "（seed 属于初始变量集，写进 init-*.json）")
     ap.add_argument("--json", action="store_true", help="额外输出机器可读结果")
     ap.add_argument("--export", nargs="?", const="", default=None, metavar="PATH",
                     help="导出单文件 HTML 可视化 dashboard（十二席状态 / 指标曲线 / "
@@ -929,12 +1264,21 @@ def main():
                     help="配 --serve 用：不自动打开浏览器（自己访问打印出的地址）")
     ap.add_argument("--dump-anchors", action="store_true", help="导出命名标定语料")
     ap.add_argument("--root", default=None, metavar="DIR",
-                    help="世界根目录（其下有 config/ 与 presets/）；默认项目根。"
+                    help="世界根目录（其下有 config/ 与 presets/）。**显式给定时永远优先**；"
+                         "不给时：若 worlds/origin/presets/<预设>/preset.json 存在则用 "
+                         "worlds/origin（13 席 + 回望驱动），否则剧情预设 → worlds/plot，"
+                         "其余 → 项目根的 12 席世界。"
                          "例：--root worlds/origin --preset origin —— "
                          "日志 / 看板 / 锚定语料等【世界路径】跟随它，"
                          "而 TerminalBridge 的 PYTHONPATH / cwd 仍指向项目根。")
     ap.add_argument("--preset", default="emergent",
                     help="presets/ 下的预设名；emergent = 涌现版（默认）")
+    ap.add_argument("--init-set", default=None, metavar="A|B",
+                    help="初始变量集（完整初始状态）：读 "
+                         "presets/<当前预设>/init-<X>.json，缺失则回落到 "
+                         "presets/scepter/init-<X>.json；世界形态由它决定，"
+                         "seed 也在其中。只在内存里覆盖，不改 config/ 原文件。"
+                         "例：--init-set B")
     ap.add_argument("--live", action="store_true",
                     help="演算过程中实时输出编年史（谁诞生了 / 谁介入了 / 发生了什么）")
     ap.add_argument("--log", nargs="?", const="", default=None, metavar="PATH",
@@ -946,6 +1290,9 @@ def main():
                          "（默认取 preset.json 的 narrative.terminal）")
     ap.add_argument("--terminal-ask", action="store_true",
                     help="在 prompt 处等待输入；非 TTY 自动回落默认答案")
+    ap.add_argument("--terminal-authority", default=None, metavar="LIST",
+                    help="只显示这些权限层级的终端消息（逗号分隔，可选 "
+                         + ",".join(AUTHORITIES) + "；默认全部）")
     ap.add_argument("--terminal-window", action=argparse.BooleanOptionalAction,
                     default=None,
                     help="另开一个独立 CLI 窗口显示系统消息并处理 prompt；"
@@ -967,6 +1314,10 @@ def main():
     ap.add_argument("--panels", action=argparse.BooleanOptionalAction, default=None,
                     help="在可视化页里追加叙事面板（趋势压力 / 场景 / 对话阅读）；"
                          "只读（默认取 preset.json 的 narrative.panels）")
+    ap.add_argument("--scepter", action=argparse.BooleanOptionalAction, default=None,
+                    help="输出权杖七层只读状态（内核 / 权限 / 槽位 / 再创世 / 熵 / "
+                         "记忆 / 外部注入）；只读，不改轨迹"
+                         "（默认取 preset.json 的 narrative.scepter）")
     ap.add_argument("--list-presets", action="store_true", help="列出可用预设")
     ap.add_argument("--verbosity", default=None, metavar="LVL 或 类别=LVL[,…]",
                     help="输出文本的详细程度：0 静默 / 1 摘要 / 2 常规 / 3 详细。"
@@ -979,24 +1330,41 @@ def main():
                     help="探路档：把时间刻度与预设的事件帧按 K 压缩（默认 K=100），"
                          "并【跳过帧号类断言与时间线核对】—— 只验机制连通，"
                          "快但不可作为验收（帧号、锚定编号都会失效）")
-    ap.add_argument("--fast", nargs="?", type=int, const=100, default=None,
-                    metavar="K", help="--explore 的旧名，等价")
     args = ap.parse_args()
 
     # ---- 世界根 vs 程序根 ---------------------------------------------------
     # 世界路径（config / presets / logs / dashboard / anchors 导出）跟随 --root；
     # 程序路径（TerminalBridge 的 PYTHONPATH / cwd）永远是项目根 —— 那边要能找到
     # apps/ 与 kernel/。
-    world_root = os.path.abspath(args.root) if args.root else ROOT
+    world_root = resolve_world_root(args.root, args.preset)
 
     if args.list_presets:
-        d = os.path.join(world_root, "presets")
-        names = sorted(n for n in os.listdir(d)
-                       if os.path.exists(os.path.join(d, n, "preset.json"))) if os.path.isdir(d) else []
+        # 预设文件可能住在项目根（剧情预设），也可能住在世界根（origin* / scepter）：
+        # 两边都列出来，去重。
+        names = set()
+        for base in (world_root, ROOT):
+            d = os.path.join(base, "presets")
+            if not os.path.isdir(d):
+                continue
+            names.update(n for n in os.listdir(d)
+                         if os.path.exists(os.path.join(d, n, "preset.json")))
         print("可用预设：emergent（涌现版）")
-        for n in names:
+        for n in sorted(names):
             print("  " + n)
         return 0
+
+    # 初始变量集先解析一遍：文件不对就当场报错，而不是白跑完装配。
+    # 同时守住语义：seed 属于初始变量集，不能再用 --seed 另给一份。
+    init_path = None
+    init_doc = None
+    if args.init_set:
+        if args.seed is not None:
+            ap.error(SEED_CONFLICT)
+        try:
+            init_path, init_doc = resolve_init_set(world_root, args.preset,
+                                                   args.init_set)
+        except InitSetError as err:
+            ap.error(str(err))
 
     # --log 不给路径：自动落到 ./logs/翁法罗斯编年史_演算N.txt（N 递增，不覆盖旧的）。
     if args.log == "":
@@ -1015,7 +1383,7 @@ def main():
         except ValueError as err:
             ap.error(str(err))
         ctx.params["verbosity"] = merged
-    explore = args.explore if args.explore is not None else args.fast
+    explore = args.explore
 
     # 叙事层开关：CLI 显式给了就用它，否则取预设的 `narrative` 表（缺省关闭）。
     # 它们只影响渲染 / 只读采样 —— 与 `sess.step()` 的世界状态无关。
@@ -1025,6 +1393,7 @@ def main():
     use_origin = _narrative_flag(args.origin, nar, "origin")
     use_fidelity = _narrative_flag(args.fidelity, nar, "fidelity")
     use_panels = _narrative_flag(args.panels, nar, "panels")
+    use_scepter = _narrative_flag(args.scepter, nar, "scepter")
     # 独立 CLI 窗口：CLI-only 的运行时选择（不写进预设）；它隐含终端层。
     use_window = bool(args.terminal_window)
     if use_window and args.terminal is False:
@@ -1034,8 +1403,8 @@ def main():
 
     # §D2 事件驱动应用：预设的 `script.jsonl`（声明式订阅 + 响应）。
     # `FRAME` 订阅编译成与 `events.jsonl` 同形的定时投递、并进世界；其余订阅是
-    # 反应，挂在内核的事件回调上。它必须排在 `--fast` **之前**装：脚本那些帧也是
-    # "外部时间线"，不跟着压缩就会落在 --fast 早就跑过去的帧号上（永不触发）。
+    # 反应，挂在内核的事件回调上。它必须排在 `--explore` **之前**装：脚本那些帧也是
+    # "外部时间线"，不跟着压缩就会落在 `--explore` 早就跑过去的帧号上（永不触发）。
     # 预设没写 script.jsonl ⇒ 空脚本，下面每一步都不进，逐帧与从前相同。
     script = Script.from_preset(data, cfg=ctx)
     script.install(data)
@@ -1043,21 +1412,23 @@ def main():
     if explore and int(explore) > 1:
         apply_fast(ctx, data, int(explore))
 
-    # 解析种子（与 run() 同一口径），好在实时头部就把世界号打出来。
-    seed = args.seed
-    if seed is None:
-        seed = data.preset.get("seed")
-        if seed is None:
-            seed = data.genesis.get("seed", 0)
+    # 解析抽样键（seed）：世界形态由初始变量集决定，seed 只是抽样键；
+    # 给了 --init-set 就用 init-*.json 里的 seed，否则沿用旧优先级。
+    try:
+        seed = resolve_seed(args.seed, init_doc, data, init_path)
+    except InitSetError as err:
+        ap.error(str(err))
 
     total_frames = int(args.frames if args.frames is not None
                        else ctx.params.get("frames", 20000))
     target_name = (DEFAULT_PRESET if data.preset["name"] in ("emergent", "none")
                    else data.preset["name"])
-    # origin 世界：配置声明 origin_world，或 presets/<name>/nodes.json 存在，
-    # 即启用「锚点注入 + 固定点重演」。
+    # origin 世界：配置声明 origin_world，或预设目录里有 nodes.json，
+    # 即启用「锚点注入 + 固定点重演」。预设目录已解析（可回落到项目根）。
+    preset_path = data.preset.get("dir") or os.path.join(
+        world_root, "presets", target_name)
     is_origin_world = (bool(ctx.params.get("origin_world"))
-                       or os.path.exists(origin_nodes_path(world_root, target_name)))
+                       or os.path.exists(os.path.join(preset_path, "nodes.json")))
     planner = None
     if is_origin_world:
         planner = OriginPlanner(ctx, data, seed, frames=total_frames)
@@ -1096,15 +1467,23 @@ def main():
 
     # 实时编年史：--live / --log 负责刷屏与落盘；--serve 则把同一份行与事件喂给看板。
     row_sink = event_sink = None
+    scene_push = None
     if board is not None:
         R0 = Renderer(ctx)
         row_sink = lambda frame, text, badge, rid: board.add_row(frame, text, badge, rid)
-        event_sink = lambda frame, kind, payload, rid: board.add_event(
-            R0, frame, kind, payload, rid)
+        if use_panels:
+            scene_push = _scene_pusher(board)
+
+        def event_sink(frame, kind, payload, rid):
+            board.add_event(R0, frame, kind, payload, rid)
+            # 叙事场景只在换代 / 换档时重算并推差集 —— 不逐帧摊全量。
+            if scene_push is not None and kind in _SCENE_EVENT_KINDS:
+                scene_push(frame)
     stream = None
     if args.live or args.log or board is not None:
         stream = LiveStream(ctx, data, seed, to_stdout=args.live, path=args.log,
-                            sink=row_sink, event_sink=event_sink)
+                            sink=row_sink, event_sink=event_sink,
+                            init_set=init_doc)
         if args.live or args.log:
             stream.header()
 
@@ -1120,15 +1499,22 @@ def main():
 
     # 只读终端层：按帧把预设的系统消息打到与编年史同一条输出通道上（stdout / 日志）。
     # 它只读 —— `TerminalFeed.__call__` 恒返回 True，绝不触发内核剪枝。
+    terminal_authority = None
+    if args.terminal_authority:
+        picked = [x.strip() for x in args.terminal_authority.split(",") if x.strip()]
+        bad = [x for x in picked if x not in AUTHORITIES]
+        if not picked or bad:
+            ap.error("--terminal-authority 只能是 " + ",".join(AUTHORITIES)
+                     + f"（得到 {args.terminal_authority!r}）")
+        terminal_authority = picked
     term = None
     if use_terminal:
-        target = (DEFAULT_PRESET if data.preset["name"] in ("emergent", "none")
-                  else data.preset["name"])
-        path = os.path.join(world_root, "presets", target, "messages.jsonl")
+        path = os.path.join(data.preset.get("dir") or "", "messages.jsonl")
         msgs = load_messages(path)
         if msgs:
             term = TerminalFeed(msgs, write=(stream._write if stream else print),
-                                ask=args.terminal_ask, source=path, sink=bridge)
+                                ask=args.terminal_ask, source=path, sink=bridge,
+                                authorities=terminal_authority)
         else:
             print("（本预设没有终端消息）", flush=True)
 
@@ -1190,10 +1576,10 @@ def main():
     # 用 8 个系统调用跑（而不是 `run()` 那个一步到位的包装器）：脚本的反应要 `inject`
     # 写回，得先拿到会话本体。`script.bind()` 必须排在 `step()` 之前 —— 反应在下一次
     # 事件时就要用。
-    sess = load({"config": ctx, "data": data, "seed": seed, "namer": namer,
-                 "rules": eval_condition, "runtime": default_services(),
-                 "on_event": on_event, "watch": watch,
-                 "inbox": (list(planner.anchors) if planner is not None else None)})
+    sess, init_meta = load_session(
+        ctx, data, seed, namer=namer, on_event=on_event, watch=watch,
+        inbox=(list(planner.anchors) if planner is not None else None),
+        init_set=args.init_set, world_root=world_root)
     script.bind(sess)
     traj = sess.step(args.frames)
     if planner is not None:
@@ -1203,6 +1589,11 @@ def main():
         origin_probe.close(traj)
     # 机器编号按【登记次序】一次发齐 —— 发号会推进计数器，晚发 / 漏发都会串号。
     namer.bind_machines(traj.personas)
+
+    # 收尾补推：最后一条换代 / 换档之后、直到终局帧之间抵达的场景（如末章）
+    # 也要进实时集合 —— 与终稿的 `upto_frame=reached_frame` 保持同一次口径。
+    if scene_push is not None:
+        scene_push(traj.reached_frame)
 
     if board is not None:
         board.finish(traj, summary_cards(ctx, traj, data.genesis),
@@ -1223,11 +1614,11 @@ def main():
 
     # 只读叙事层：档案（【六】【七】）与原初目标（【八】）。它们只读 —— 不改轨迹、
     # 不写状态；未启用时报告逐字不变。
+    scepter_summary = None
     narrative = []
     if use_archive:
-        target = (DEFAULT_PRESET if data.preset["name"] in ("emergent", "none")
-                  else data.preset["name"])
-        arc = load_archive(os.path.join(world_root, "presets", target, "archive.json"))
+        arc = load_archive(os.path.join(data.preset.get("dir") or "",
+                                        "archive.json"))
         narrative.extend(render_archive(ctx, data, traj, arc))
         if not narrative:
             print("（本预设没有实验档案）", flush=True)
@@ -1254,15 +1645,26 @@ def main():
         # 只读：读编译语料评分，权重 / 阈值 / 缺口规则全在 config/fidelity.json。
         from apps import fidelity
         narrative.append(("【九】保真自检", fidelity.render(fidelity.evaluate())))
+    if use_scepter:
+        # 只读：七层全部从 traj.final / traj.records 派生，不写状态、不改轨迹。
+        spec = scepter_mod.load_spec(world_root, preset=data.preset)
+        scepter_summary = scepter_mod.summary(traj, spec=spec)
+        # 保真自检占着【九】时就顺延，避免两个章节同号。
+        number = "十" if use_fidelity else "九"
+        narrative.append((f"【{number}】" + str(scepter_summary.get("title")),
+                          scepter_mod.render(scepter_summary)))
     narrative = narrative or None
 
-    print(report(ctx, data, traj, results, explore=bool(explore), narrative=narrative))
+    print(report(ctx, data, traj, results, explore=bool(explore),
+                 narrative=narrative, init_set=init_meta))
 
     # 可视化页面：导出（落盘）与实时看板的【收官页】用的是**同一次** build_html ——
     # 于是 --serve 的世界跑完后，页面重载出来就是与 --export 逐字一致的那张
     # （不依赖导出文件是否落盘）。
     if args.export is not None or board is not None:
-        panels_html = _panels_html(ctx, traj) if use_panels else ""
+        panels_html = (_panels_html(ctx, traj, upto_frame=traj.reached_frame,
+                                    scepter=scepter_summary)
+                       if use_panels else "")
         html_text = build_html(ctx, traj, sampler.points if sampler else None,
                                lines=chronicle_rows(ctx, traj),
                                title=f"δ-me13「翁法罗斯」演算 · {data.preset['name']}",
@@ -1284,11 +1686,10 @@ def main():
                   f"（{nbytes:,} 字节 · 单文件、零外部依赖）")
 
     if args.dump_anchors:
-        # 锚定层属于【预设】：导出到本次运行所用预设的目录；涌现版写进默认预设 _default
-        # （它就是无预设时读的那一份），免得凭空造一个永远不会被读到的 presets/emergent/。
-        name = data.preset["name"]
-        target = DEFAULT_PRESET if name in ("emergent", "none") else name
-        path = os.path.join(world_root, "presets", target, "anchors.jsonl")
+        # 锚定层属于【预设】：导出到本次运行实际读到的预设目录（可能回落到项目根）；
+        # 涌现版写进默认预设 _default（它就是无预设时读的那一份），
+        # 免得凭空造一个永远不会被读到的 presets/emergent/。
+        path = os.path.join(data.preset.get("dir") or "", "anchors.jsonl")
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
             for a in traj.namer.export_anchors(traj.personas):
@@ -1299,7 +1700,7 @@ def main():
         print(f"已导出 {len(traj.personas)} 条标定语料到 {path}")
 
     if args.json:
-        print(json.dumps({
+        payload = {
             "seed": ctx.seed,
             "iterations": traj.iterations,
             "skipped": traj.skipped_frames,
@@ -1314,7 +1715,10 @@ def main():
                           "locus_order": p.locus_order,
                           "surfaced": p.surfaced_frame} for p in traj.personas],
             "assertions": {r.name: r.ok for r in results},
-        }, ensure_ascii=False, indent=2))
+        }
+        if init_meta is not None:
+            payload["init_set"] = init_meta
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
 
     if board is not None:
         # 演算已完，但看板还挂着 —— 好让人在页面上回放 / 跳到任意时刻细看。

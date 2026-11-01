@@ -36,6 +36,7 @@ JSONL_KINDS = (
     "trend", "micro_event", "causal",
     "wiki_claim", "plot", "gap",
     "scene", "dialogue", "preset_beat", "loop", "anchor",
+    "wiki_scene", "wiki_dialogue", "wiki_option", "wiki_terminal", "battle_line",
     "terminal", "multilingual",
     "fragment", "crosscheck", "debunked",
     "relation", "scenario", "guard",
@@ -44,6 +45,7 @@ JSONL_KINDS = (
 #: when an id exists in several kinds, these win in this order
 KIND_PRIORITY = (
     "character", "scene", "dialogue", "terminal", "loop", "anchor",
+    "wiki_scene", "wiki_dialogue", "wiki_option", "wiki_terminal", "battle_line",
     "worldgen", "micro_event", "trend", "causal", "scenario", "guard",
     "relation", "plot", "preset_beat", "wiki_claim", "gap", "event", "term",
     "fragment", "crosscheck", "debunked", "multilingual",

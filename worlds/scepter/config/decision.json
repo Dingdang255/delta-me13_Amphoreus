@@ -1,0 +1,7 @@
+{
+  "_comment": "具名因子的决策：账本里的 certainty 越过阈值后，OP_DECIDE 自己动手压住 loophole_seat（岁月），制造再创世的漏洞。来古士的提示只提高 certainty，不直接改世界。canonical 没有这份文件，也没有 OP_DECIDE。",
+  "enabled": true,
+  "certainty_threshold": 0.5,
+  "decision_frame": 12000,
+  "loophole_seat": 1
+}

@@ -1,0 +1,13 @@
+{
+  "label": "丰裕·强扰动·快推进初始变量",
+  "description": "与 A 同 seed（0，用来隔离变量）但初始变量显著偏移：资源承载下限 ×2.0、每帧扰动本底 ×1.6、承位记忆衰减 ×2.5、承位容差 ×4.0、承位稳定帧 ×0.2、阶段帧预算 ×0.25；最终值仍受 generation.json 的 clamp 约束。",
+  "seed": 0,
+  "knobs": {
+    "resource_abundance": 2.0,
+    "disturbance_strength": 1.6,
+    "memory_decay": 2.5,
+    "succession_tolerance": 4.0,
+    "succession_floor": 0.2,
+    "stage_budget": 0.25
+  }
+}

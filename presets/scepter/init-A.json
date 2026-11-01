@@ -1,0 +1,13 @@
+{
+  "label": "基线初始变量",
+  "description": "完整初始状态：seed 只是抽样键（0），世界形态由六项初始变量决定。全部取相对基线的倍率 1.0（资源丰度 / 扰动强度 / 记忆衰减 / 承位容差 / 承位稳定帧 / 阶段帧预算），作为 A/B 对照中的对照组。",
+  "seed": 0,
+  "knobs": {
+    "resource_abundance": 1.0,
+    "disturbance_strength": 1.0,
+    "memory_decay": 1.0,
+    "succession_tolerance": 1.0,
+    "succession_floor": 1.0,
+    "stage_budget": 1.0
+  }
+}

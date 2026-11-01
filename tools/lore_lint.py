@@ -51,6 +51,13 @@ KINDS = {
     "gap": ("D3_plot/gaps.jsonl", "id", ("version", "question", "impact"), False, None),
     "scene": ("D4_dialogue/scenes.jsonl", "id", ("name", "participants", "trigger", "coverage", "evidence"), True, None),
     "dialogue": ("D4_dialogue/dialogues.jsonl", "id", ("scene_id", "order", "verbatim", "source", "locator", "confidence"), True, None),
+    # S-024 wiki narrative corpus (tools/lore_build/build_wiki_scenes.py)
+    "wiki_scene": ("D4_dialogue/scenes_wiki.jsonl", "id", ("version", "mission", "title", "before", "during", "after", "gap", "source", "locator", "confidence"), True, None),
+    "wiki_dialogue": ("D4_dialogue/dialogues_wiki.jsonl", "id", ("scene_id", "order", "kind", "verbatim", "source", "locator", "confidence"), True, None),
+    "wiki_option": ("D3_plot/options_wiki.jsonl", "id", ("version", "task", "option", "dlg_id", "source", "locator", "confidence"), True, None),
+    "wiki_terminal": ("D6_terminal/terminals_from_wiki.jsonl", "id", ("text", "text_kind", "trigger", "source", "locator", "confidence", "authority"), True, None),
+    # wiki battle lines already carry `source_url`, not the `source`/`locator` pair
+    "battle_line": ("D3_plot/battle_lines.jsonl", "id", ("version", "task", "step", "text", "kind", "source_url"), False, None),
     "loop": ("D5_loops/loops.jsonl", "id", ("loop", "phase", "evidence", "source"), True, None),
     "anchor": ("D5_loops/official_anchors.jsonl", "id", ("loop", "verbatim", "source", "locator"), True, None),
     "terminal": ("D6_terminal/terminals.jsonl", "id", ("text", "kind", "trigger", "source", "locator", "confidence"), True, None),

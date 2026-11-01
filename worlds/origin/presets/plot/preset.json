@@ -1,0 +1,12 @@
+{
+  "_comment": "剧情锚定版预设（13 席世界根版）。它仍只提供【演算之外】的东西：钉住种子、给名字一批外部绑定、可选的额外外生事件、以及一份期望时间线；它不含任何一条演算规则。与项目根 presets/plot 的差别只有两处：① 世界根换成了 worlds/origin（dim=13，L12 是 meta 席，原初四态结论）；② events.jsonl 多两条原初事件（回望锚定 / 浮黎锚定过去）。",
+  "name": "plot",
+  "seed": 0,
+  "params": {
+    "frames": 33594607
+  },
+  "narrative": {
+    "origin": true
+  },
+  "note": "世界根：未显式给 --root 时，run.py 若发现 worlds/origin/presets/<预设>/preset.json 存在，就用 worlds/origin 当世界根（显式 --root 永远优先）。于是剧情版也有了第十三席（L12 meta）、回望驱动（apps/origin_loop.py）与锚定（origin_anchor / 浮黎的 gaze.anchor_past），默认涌现版仍是 12 席。本副本【故意不写 nodes.json】：实测①在 44,048 投 seed_memory(factor_basis)（写满十二行记忆）会让原初的记忆承载 / 创世机制每帧改结构，世界从此不再冻结，33.59M 帧的永劫复用全部消失（分钟级 → 小时级）；②只要 nodes.json / 收件箱里压着任何还没到期的锚点，内核就【不再跳帧】（kernel/core.py 的 deadlock 复用：inbox 非空 ⇒ cand = n+1），同样把全量运行拖成小时级。故回望这一手改走 events.jsonl 的显式 origin_anchor（33,594,510，在冻结之后），不走锚点注入。三层名字各归其位：① 职位名（负世/岁月/门径…）来自 config/phonology.json 的 title_calibration，是【职位】不是人；② 人名一律【名随人走】—— 名字钉在个体上（锚定键 serial:<n> 就是那个体的编号）；③ serial: 条目是【在这个 13 席世界上实测】的：本届那十二位 + 第十三席（原初）末态的承载者昔涟（CHR-002 / PhiLia093）。引擎若改了轨迹，编号就会失效（名字静默退回音位层现生成），此时须重测并替换 anchors.jsonl。"
+}

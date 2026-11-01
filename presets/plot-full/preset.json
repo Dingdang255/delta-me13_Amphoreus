@@ -3,6 +3,9 @@
   "name": "plot-full",
   "seed": 0,
   "extends": "_default",
+  "params": {
+    "frames": 33594607
+  },
   "narrative": {
     "terminal": true,
     "archive": true,

@@ -1,0 +1,25 @@
+{
+  "_comment": "权杖世界根：13 席（12 正席 + 1 元席）与 origin 共用同一套 loci / mapping / operators，但这里不启用回望驱动（origin_world=false），七层读数全部由 apps/scepter.py 只读派生。",
+  "name": "scepter",
+  "seed": 0,
+  "narrative": {
+    "terminal": true,
+    "archive": true,
+    "origin": false,
+    "fidelity": false,
+    "panels": true,
+    "scepter": true
+  },
+  "scepter": {
+    "_comment": "17 个循环锚点取自 lore/D6_terminal/triggers.json 的 loop_index（它索引 lore/D5_loops/official_anchors.jsonl 的官方轮次）；上限取 D5 的回归总数 33,550,336，33,550,337 是官方记录中的最终轮。",
+    "regen": {
+      "initial": 1,
+      "cap": 33550336,
+      "final": 33550337,
+      "anchors": [1, 3, 15, 42, 133, 134, 5297, 12398, 23779, 46645,
+                  71243, 80023, 95575, 108641, 108642, 33550336, 33550337],
+      "anchor_source": "lore/D6_terminal/triggers.json::loop_index → lore/D5_loops/official_anchors.jsonl"
+    }
+  },
+  "note": "narrative 全开（terminal / archive / panels / scepter）。再创世刻度与 17 个循环锚点写在 preset.json 的 scepter.regen，上限 33550336。"
+}

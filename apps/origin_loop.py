@@ -35,14 +35,17 @@ def nodes_path(root, preset_name: str) -> str:
     return os.path.join(str(root), "presets", str(preset_name), NODES_FILE)
 
 
-def load_nodes(root, preset_name: str) -> list:
-    path = nodes_path(root, preset_name)
+def _load_nodes_file(path: str) -> list:
     if not os.path.exists(path):
         return []
     with open(path, "r", encoding="utf-8") as f:
         raw = json.load(f)
     out = raw if isinstance(raw, list) else list(raw.get("nodes") or [])
     return sorted(out, key=lambda n: int(n.get("frame", 0)))
+
+
+def load_nodes(root, preset_name: str) -> list:
+    return _load_nodes_file(nodes_path(root, preset_name))
 
 
 def _snapshot(st) -> dict:
@@ -121,9 +124,13 @@ class Planner:
         self.max_iters = max(1, int(p.get("origin_max_iters",
                                           max_iters if max_iters is not None else 4)))
         name = str(data.preset.get("name") or "")
+        # 预设目录已由 loader 解析（可能回落到项目根），优先直接读它。
+        d = data.preset.get("dir")
+        nodes = (_load_nodes_file(os.path.join(str(d), NODES_FILE)) if d
+                 else load_nodes(getattr(ctx, "root", ""), name))
         # 只把【这次重演范围内】的节点纳入扫描：扫描发生在 frame+1，
         # 因此节点的 frame 必须 < frames；否则它永远 unreached，锚点迭代不收敛。
-        self.nodes = [n for n in load_nodes(getattr(ctx, "root", ""), name)
+        self.nodes = [n for n in nodes
                       if int(n.get("frame", 0)) < self.frames]
         self.anchors = []
         self.missing = []

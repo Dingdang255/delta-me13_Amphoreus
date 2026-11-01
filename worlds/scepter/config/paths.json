@@ -1,0 +1,17 @@
+{
+  "_comment": "命途：一条持久的相性。axis 是这条命途占哪几席的因子（按下标），affinity = 个体向量在这几席上的份额；越过 join_threshold 就走上去。走上之后：漂移朝这条轴偏、每 period 帧付一次行路代价（扣支持度），跌破 leave_threshold 连续 defect_dwell 次即背离。全部通用名，专名只住预设层。",
+  "enabled": true,
+  "period": 16,
+  "join_threshold": 0.62,
+  "leave_threshold": 0.45,
+  "defect_dwell": 8,
+  "bias": 0.05,
+  "price": 0.2,
+  "authorities": {"external_x": ["memory"]},
+  "paths": [
+    {"id": "memory", "label": "记忆", "axis": [1, 7, 11]},
+    {"id": "trailblaze", "label": "开拓", "axis": [2, 4, 5]},
+    {"id": "destruction", "label": "毁灭", "axis": [6, 10, 11]},
+    {"id": "preservation", "label": "存护", "axis": [0, 3, 8]}
+  ]
+}

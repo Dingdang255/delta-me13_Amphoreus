@@ -1,0 +1,15 @@
+{
+  "_comment": "剧情内容版预设（13 席世界根版）：presets/plot 的孪生副本。同一颗种子、同一批锚定、同一份外生剧本与招牌时间线；差别只在补齐的镜头桥段与终端消息 / 实验档案。镜头一律 emit，只经引擎分发、写进账本，不改席位 / 既有计数 / 裁决，也不改动力学。世界根规则同 plot：未显式给 --root 时自动落在 worlds/origin（13 席）。",
+  "name": "plot-full",
+  "seed": 0,
+  "extends": "_default",
+  "params": {
+    "frames": 33594607
+  },
+  "narrative": {
+    "terminal": true,
+    "archive": true,
+    "origin": true
+  },
+  "note": "内容增补只走 emit：没有 evict_holder / suppress_slot / bind_participant / write_memory / revise_protocol —— 新增桥段是世界状态的纯镜头。plot 的事件逐字保留、顺序不变，另加两条原初事件（33594510 回望锚定 / 33594545 浮黎把走过的这一段锚进记忆）。与 plot 的 13 席副本一样【不写 nodes.json】：任何未到期的回望锚点都会让内核停止跳帧（kernel/core.py 的 deadlock 复用对 inbox 非空时 cand=n+1），33.59M 帧的永劫复用随之消失。终端消息（messages.jsonl）与实验档案（archive.json）都是只读渲染层，文案留在本预设。"
+}

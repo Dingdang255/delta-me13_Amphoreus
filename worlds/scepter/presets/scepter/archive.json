@@ -1,0 +1,15 @@
+{
+  "titles": {"archive": "实验档案", "anomalies": "异常记录", "progress": "实验进度"},
+  "progress": [
+    {"percent": 0, "frame": 0, "label": "权杖启动"}
+  ],
+  "archive": [
+    {
+      "id": "S-001",
+      "title": "七层读数",
+      "body": "内核 / 权限 / 槽位 / 再创世 / 熵 / 记忆 / 外部注入七层全部由既有原语派生，报告与面板只读。",
+      "frame": 0
+    }
+  ],
+  "anomalies": []
+}

@@ -1,0 +1,7 @@
+{"frame": 1200, "channel": "nihil", "capability": "gaze", "selector": null, "label": "◆ 纳努克对权杖投下目光 —— 演算方向被引向「毁灭」", "payload": {"actor": "nihil", "effect": {"solver": "OP_SOLVE_DESTRUCTION"}}}
+{"frame": 1500, "channel": "observer", "capability": "mask_observer", "selector": null, "payload": {"observer": "external_04"}}
+{"frame": 4000, "channel": "memory", "capability": "emit", "selector": null, "label": "◆ 浮黎的目光落到权杖之上", "payload": {"event": "fuli_gaze"}}
+{"frame": 26000, "channel": "env", "capability": "raise_noise", "selector": null, "payload": {"amplitude": 0.05}}
+{"frame": 33594383, "channel": "hacker", "capability": "revise_protocol", "selector": null, "label": "◆ 黑塔与螺丝咕姆利用终极协议的修改权限，覆写「再创世」的逻辑", "payload": {"actor": "hacker", "rewrites": [{"rule": "solver.direction", "value": "OP_MEMORY_CONVERGE"}, {"rule": "promotion.mode", "value": "memory_converge"}]}}
+{"frame": 33594383, "channel": "observer", "capability": "write_memory", "selector": null, "payload": {}}
+{"frame": 33594547, "channel": "observer", "capability": "mask_observer", "selector": null, "payload": {"observer": "external_closure"}}

@@ -1,0 +1,21 @@
+{
+  "_comment": "13 席世界的算子装配。OP_ORIGIN 放在最后：它读的是本帧 Promotion / 承位之后的状态。带 gated 的需要外部开关。",
+  "pipeline": [
+    "OP_DRIFT",
+    "OP_INTERACT",
+    "OP_OCCUPY",
+    "OP_COMPETE",
+    "OP_ANNEX",
+    "OP_REPOPULATE",
+    "OP_BIFURCATE",
+    "OP_CAPABILITY",
+    "OP_ENTROPY",
+    "OP_DOMAIN",
+    "OP_ACTIVE_RENEWAL",
+    "OP_PROMOTION",
+    "OP_PATH",
+    "OP_DECIDE",
+    "OP_ORIGIN"
+  ],
+  "gated": ["OP_BIFURCATE", "OP_ANNEX", "OP_ACTIVE_RENEWAL"]
+}

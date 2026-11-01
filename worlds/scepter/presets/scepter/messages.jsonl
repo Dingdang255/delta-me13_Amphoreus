@@ -1,0 +1,3 @@
+{"frame": 10, "kind": "status", "text": "权杖自检：七层读数已就绪。", "authority": "kernel"}
+{"frame": 25, "kind": "log", "text": "外部注入通道已登记，权限层开始记账。", "authority": "admin"}
+{"frame": 45, "kind": "status", "text": "槽位余量 / 熵 / 记忆存储读数写入报告与面板。", "authority": "kernel"}

@@ -1,5 +1,49 @@
 # 13 Changelog
 
+## v1.24 — 2026-10-31（wiki 全量叙事语料入库，新增 5 个 canon kind）
+
+### 入库规模
+
+- `D4_dialogue/scenes_wiki.jsonl` **66** 条任务级场景扩写（每章 3 条以上，3.0–3.7 全覆盖）。
+- `D4_dialogue/dialogues_wiki.jsonl` **26,612** 条 wiki 对话行（`kind` 区分对白 / 旁白 / 选项文本）。
+- `D3_plot/options_wiki.jsonl` **2,167** 条对话选项（带 `dlg_id` 回指对话行）。
+- `D6_terminal/terminals_from_wiki.jsonl` **294** 条终端片段（新增 `authority` 四层标签）。
+- `D3_plot/battle_lines.jsonl` **572** 条战斗 / 过场台词（此前仅作证据文件，本轮正式注册为 kind）。
+
+### 新增 canon kind
+
+| kind | 文件 | 必填 |
+|---|---|---|
+| `wiki_scene` | `scenes_wiki.jsonl` | `version / mission / title / before / during / after / gap / source / locator / confidence` |
+| `wiki_dialogue` | `dialogues_wiki.jsonl` | `scene_id / order / kind / verbatim / source / locator / confidence` |
+| `wiki_option` | `options_wiki.jsonl` | `version / task / option / dlg_id / source / locator / confidence` |
+| `wiki_terminal` | `terminals_from_wiki.jsonl` | `text / text_kind / trigger / source / locator / confidence / authority` |
+| `battle_line` | `battle_lines.jsonl` | `version / task / step / text / kind / source_url`（沿用 `source_url`，不套 `source`/`locator`） |
+
+### 口径
+
+- 全部为 **B 级**（`S-024` 社区整理），`verbatim_claim:false`，**不进 A 级逐字分母**；
+  「已补全」仍为 0 条。
+- 构建器：`tools/lore_build/build_wiki_scenes.py`（确定性，可重跑）。
+- 场景首帧优先取 `preset_beat`；无节拍佐证者按章节区间投影，标
+  `first_frame_source:"projected"` / `confidence:"C"`，`gap` 注明「非原文时序」。
+
+### 影响
+
+- canon 条目 **1,429 → 31,140**；canon 输出文件 **57 → 62**（新增 5 个 kind 文件）；`lore/` 总文件 183 → 192。
+- 八维保真分 **不变**（0.9135）：新 kind 不进入任何评分维度，D7 缺口仍按实测计。
+- `tests/baseline.json` 重写；`golden_fingerprints` 与 `kernel/` 零改动。
+
+### 校验
+
+- `python tools/lore_lint.py` → 0 errors / 0 warnings（新增 5 kind 全部通过）。
+- `python tools/lore_compile.py` → **31,140 条 / 62 文件**；`--check` → canon ok。
+- `python tools/fidelity_report.py --check` → 0.9135 / 0.85 / 通过。
+- `python tools/baseline.py --check` → 0 drift。
+- `python -m unittest discover -s tests -q` → **Ran 692 tests in 260.1s, OK**。
+
+---
+
 ## v1.23 — 2026-10-31（接上消费方；为 4 段新节拍补终端消息与档案）
 
 ### 消费方（方案 3 的落地）

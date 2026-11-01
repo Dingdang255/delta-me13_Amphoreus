@@ -135,6 +135,68 @@
       "clamp": [0.15, 0.45],
       "round": 6,
       "stream": "thresholds"
+    },
+    "resource_abundance": {
+      "file": "config/params.json",
+      "path": ["min_population"],
+      "mode": "relative",
+      "low": -0.15,
+      "high": 0.15,
+      "clamp": [32, 96],
+      "round": 0,
+      "stream": "thresholds"
+    },
+    "disturbance_strength": {
+      "file": "config/params.json",
+      "path": ["noise_base"],
+      "mode": "relative",
+      "low": -0.20,
+      "high": 0.20,
+      "clamp": [0.05, 0.30],
+      "round": 6,
+      "stream": "thresholds"
+    },
+    "memory_decay": {
+      "file": "config/loci.json",
+      "path": ["loci", "*", "decay"],
+      "mode": "relative",
+      "low": -0.10,
+      "high": 0.10,
+      "clamp": [0.005, 0.08],
+      "round": 4,
+      "stream": "loci"
+    },
+    "succession_tolerance": {
+      "file": "config/params.json",
+      "path": ["tau_support"],
+      "mode": "relative",
+      "low": -0.10,
+      "high": 0.10,
+      "clamp": [0.005, 0.12],
+      "round": 5,
+      "stream": "thresholds"
+    },
+    "succession_floor": {
+      "file": "config/params.json",
+      "path": ["promotion_dwell"],
+      "mode": "relative",
+      "low": -0.5,
+      "high": 0.5,
+      "clamp": [1, 60],
+      "round": 0,
+      "stream": "thresholds",
+      "_note": "承位的结构量：十二席齐备后须连续稳定这么多帧才换代（Promotion 读）。调低它，换代更频繁——这是承位结果本身的变化，不是噪声。"
+    },
+    "stage_budget": {
+      "file": "config/params.json",
+      "path": ["domain_dwell"],
+      "mode": "relative",
+      "low": -0.4,
+      "high": 0.4,
+      "clamp": [250, 20000],
+      "round": 0,
+      "stream": "thresholds",
+      "_note": "阶段推进的帧预算：每一档初始变量域跑满这么多帧才换下一档（Domain 读）。阶段装配里逐档写死的 domain_dwell 会盖住 params 侧，故初始变量集对它的覆盖会按同一倍率一并缩放 presets/*/genesis.json 的 stages[*].params.domain_dwell。"
     }
   },
   "constraints": {

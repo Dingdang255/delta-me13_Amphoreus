@@ -1,0 +1,12 @@
+{
+  "_comment": "外部实体表：只登记一个场外参与者，并给它一条真实的协议改写权限。权限层读的是这张表与 State.actors / State.grants，不是代码里的常量。",
+  "actors": [
+    {
+      "id": "external_x",
+      "label": "外部变量",
+      "vector": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.60],
+      "attrs": {"source": "external"},
+      "grants": ["solver.direction"]
+    }
+  ]
+}

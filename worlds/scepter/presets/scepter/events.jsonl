@@ -1,0 +1,4 @@
+{"frame": 20, "channel": "world", "capability": "bind_participant", "selector": {"expr": "order:0"}, "label": "外部注入通道打开：场外参与者接掌第一位", "payload": {"participant": -2, "actor": "external_x", "event": "external_arrives"}}
+{"frame": 30, "channel": "world", "capability": "suppress_slot", "selector": {"expr": "order:3"}, "label": "外部注入封住一位：槽位余量因此下降", "payload": {}}
+{"frame": 35, "channel": "observer", "capability": "write_memory", "selector": null, "label": "记忆存储写入本帧的席位向量", "payload": {}}
+{"frame": 40, "channel": "admin", "capability": "revise_protocol", "selector": null, "label": "权限层真正改写一次演算方向", "payload": {"actor": "external_x", "rewrites": [{"rule": "solver.direction", "value": "OP_MEMORY_CONVERGE"}]}}

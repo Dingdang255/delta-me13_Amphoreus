@@ -696,7 +696,8 @@ def apply_fast(cfg, data, k: int):
         return
     p = cfg.params
     for key in ("frames", "promotion_cooldown", "promotion_dwell", "domain_dwell",
-                "ablation_period", "ablation_frames", "tau_age", "life_span"):
+                "ablation_period", "ablation_frames", "tau_age", "life_span",
+                "round_min_frames", "emergence_min_gap"):
         if key in p:
             p[key] = max(1, int(p[key]) // k)
     p["freeze_dwell"] = max(64, int(p.get("freeze_dwell", 256)) // k)
@@ -708,6 +709,49 @@ def apply_fast(cfg, data, k: int):
 #: 默认预设目录名 —— 原 `data/genesis.json` 的家。无预设 / `none` / `emergent`
 #: 一律回落到它；别的预设也可以显式声明 `"extends": "_default"` 来继承它。
 DEFAULT_PRESET = "_default"
+
+#: 剧情预设的 13 席世界根。它们仍从项目根 `presets/` 读预设文件，只把
+#: config/（loci / mapping / params / 词表）换成 13 席的一份 —— 于是剧情版
+#: 有第十三席（meta）与只读原初探针，而默认涌现版仍是 12 席。
+PLOT_PRESETS = ("plot", "plot-full", "plot-mech", "nullify")
+PLOT_WORLD = os.path.join(ROOT, "worlds", "plot")
+
+#: 原初世界根：dim=13、L12 是 meta 席、config 声明 origin_world。
+#: 预设一旦迁进它的 `presets/`，默认就跑在 13 席 + 回望驱动上。
+ORIGIN_WORLD = os.path.join(ROOT, "worlds", "origin")
+
+
+def preset_world_root(preset, root=ROOT):
+    """预设 → 世界根的默认映射。显式 `--root` 永远优先（由调用方处理）。
+
+    ① 若 `worlds/origin/presets/<预设>/preset.json` 存在 ⇒ 用 `worlds/origin`
+       （13 席 + 回望 / 锚定 / 原初四态）；
+    ② 其余剧情预设映射到 `worlds/plot`（13 席、canonical 动力学口径）；
+    ③ 其它（含 emergent / 独立世界根的 origin* / scepter）一律用传入的 root。
+    """
+    name = str(preset or "")
+    if name and os.path.isfile(os.path.join(ORIGIN_WORLD, "presets", name,
+                                             "preset.json")):
+        return ORIGIN_WORLD
+    if name in PLOT_PRESETS and os.path.isdir(os.path.join(PLOT_WORLD, "config")):
+        return PLOT_WORLD
+    return root
+
+
+def preset_dir(root, name):
+    """解析预设目录：先看当前世界根，找不到再回落到项目根。
+
+    剧情预设住在项目根 `presets/`，而它们的 config/ 在 `worlds/plot/` ——
+    故世界根下没有同名预设时，回落到项目根，而不是复制两份预设文件。
+    """
+    bases = [os.path.abspath(root)]
+    if bases[0] != ROOT:
+        bases.append(ROOT)
+    for base in bases:
+        d = os.path.join(base, "presets", str(name))
+        if os.path.isfile(os.path.join(d, "preset.json")):
+            return d
+    return os.path.join(bases[0], "presets", str(name))
 
 
 def load_preset(root, name):
@@ -731,12 +775,15 @@ def load_preset(root, name):
     """
     alias = (not name) or name in ("none", "emergent")
     target = DEFAULT_PRESET if alias else name
-    d = os.path.join(root, "presets", target)
+    d = preset_dir(root, target)
     meta_path = os.path.join(d, "preset.json")
     if not os.path.exists(meta_path):
         raise FileNotFoundError(f"找不到预设 {name!r}（缺 {meta_path}）")
     meta = _json(meta_path)
     meta["name"] = (name or "emergent") if alias else name
+    # 预设实际所在的目录：世界根下没有时回落到项目根。渲染层（messages /
+    # archive / anchors / nodes）一律读它，而不是拼 world_root/presets/<name>。
+    meta["dir"] = d
     meta.setdefault("anchors", _jsonl(os.path.join(d, "anchors.jsonl")))
     meta.setdefault("events", _jsonl(os.path.join(d, "events.jsonl")))
     meta.setdefault("disturbances", _jsonl(os.path.join(d, "disturbances.jsonl")))
@@ -769,13 +816,17 @@ def _load_genesis(root, name, meta):
     """按声明装配这个预设的机器规格（见 `load_preset` 的三选一）。
 
     继承目标必须是另一份【真的存在】的 genesis —— 缺了当场报错，绝不静默退回默认。
+    预设目录已由 `preset_dir` 解析（可在项目根回落），故这里以「预设目录的
+    世界根」为基准去找继承目标与默认规格。
     """
-    d = os.path.join(root, "presets", name)
+    d = meta.get("dir") or preset_dir(root, name)
+    base_root = os.path.dirname(os.path.dirname(d))
     g_path = os.path.join(d, "genesis.json")
     own = _json(g_path) if os.path.exists(g_path) else None
     base_name = meta.get("extends")
     if base_name:
-        base_path = os.path.join(root, "presets", str(base_name), "genesis.json")
+        base_path = os.path.join(preset_dir(base_root, str(base_name)),
+                                 "genesis.json")
         if not os.path.exists(base_path):
             raise FileNotFoundError(
                 f"预设 {name!r} 声明继承 {base_name!r}，"
@@ -783,7 +834,8 @@ def _load_genesis(root, name, meta):
         return _deep_merge(_json(base_path), own or {})
     if own is not None:
         return own
-    return _json(os.path.join(root, "presets", DEFAULT_PRESET, "genesis.json"))
+    return _json(os.path.join(preset_dir(base_root, DEFAULT_PRESET),
+                              "genesis.json"))
 
 
 def _deep_merge(base: dict, over: dict) -> dict:
