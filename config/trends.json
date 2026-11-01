@@ -4,7 +4,8 @@
   "_honesty": "所有 rate / threshold / ceiling 都是建模假设，不是官方数值（官方从未给出权重）。每个接线通道都标 inferred=true；未接线的通道必须写明原因，不允许假装已实现。",
   "_readonly": "本文件只描述『怎么从读数算出一条建议』；求值器不写状态，也不改变裁决。",
   "epsilon": 0.05,
-  "drivers": ["cycle_count", "embers_taken", "memory_rows", "entropy", "noise"],
+  "drivers": ["cycle_count", "embers_taken", "memory_rows", "entropy", "noise",
+              "stage_index", "promotion_gap", "origin_closure", "disturb_share"],
   "targets": [
     "TREND-001", "TREND-002", "TREND-003", "TREND-004",
     "TREND-005", "TREND-006", "TREND-007", "TREND-008",
@@ -30,8 +31,24 @@
       ]
     },
     "TREND-002": {
-      "status": "unwired",
-      "reason": "阶段编号当前不在读数视图里；需要先定义 stage_index 读取量"
+      "status": "wired",
+      "channels": [
+        {
+          "id": "stage_advance",
+          "type": "increases",
+          "direction": "increases",
+          "target": "TREND-002",
+          "kind": "threshold",
+          "driver": "stage_index",
+          "threshold": 1.0,
+          "ceiling": 4.0,
+          "observable": "stage_index",
+          "source": "state.domain_index / state.domains_exhausted",
+          "confidence": "B",
+          "inferred": true,
+          "note": "阶段编号按 1–4 归一：域下标 +1，域穷尽再 +1（上限 4）；第 1 阶段视为尚未递进。"
+        }
+      ]
     },
     "TREND-003": {
       "status": "wired",
@@ -83,8 +100,24 @@
       ]
     },
     "TREND-005": {
-      "status": "unwired",
-      "reason": "『世代更迭间隔』需要跨换代历史；当前视图只给单帧读数"
+      "status": "wired",
+      "channels": [
+        {
+          "id": "promotion_accelerate",
+          "type": "increases",
+          "direction": "shortening",
+          "target": "TREND-005",
+          "kind": "linear_capped",
+          "driver": "promotion_gap",
+          "rate": 1.0,
+          "cap": 1.0,
+          "observable": "promotion_gap",
+          "source": "state.promotions / state.promotion_dwell / traj.records[PROMOTION]",
+          "confidence": "B",
+          "inferred": true,
+          "note": "用 PROMOTION 帧序的前后半平均间隔比较：1 - 后半/前半；少于 3 次换代给 null。"
+        }
+      ]
     },
     "TREND-006": {
       "status": "wired",
@@ -105,12 +138,44 @@
       ]
     },
     "TREND-007": {
-      "status": "unwired",
-      "reason": "『回望锚点完成度』只在十三席世界有定义；等 origin 侧暴露 anchor 读数后再接"
+      "status": "wired",
+      "channels": [
+        {
+          "id": "origin_closure",
+          "type": "increases",
+          "direction": "one_way_backward",
+          "target": "TREND-007",
+          "kind": "linear_capped",
+          "driver": "origin_closure",
+          "rate": 1.0,
+          "cap": 1.0,
+          "observable": "origin_closure",
+          "source": "state.origin.borrowed / state.origin.repaid / state.origin.ever",
+          "confidence": "B",
+          "inferred": true,
+          "note": "需 --origin / origin 世界；canonical 世界 origin.ever=False，读数给 null（driver_missing），不按 0 计。"
+        }
+      ]
     },
     "TREND-008": {
-      "status": "unwired",
-      "reason": "『外部干预计数』需要外部投递台账；当前视图未提供 external_events"
+      "status": "wired",
+      "channels": [
+        {
+          "id": "disturb_share",
+          "type": "increases",
+          "direction": "increasing",
+          "target": "TREND-008",
+          "kind": "threshold",
+          "driver": "disturb_share",
+          "threshold": 1.0,
+          "ceiling": 4.0,
+          "observable": "disturb_share",
+          "source": "state.score[\"disturb:<capability>\"]（disturb_total / disturb_capabilities）",
+          "confidence": "C",
+          "inferred": true,
+          "note": "按实际执行过的能力种数归一化（总执行次数 / 能力种数）；一次都没执行是真实的 0。"
+        }
+      ]
     }
   }
 }

@@ -39,7 +39,7 @@ sys.path.insert(0, ROOT)
 
 from apps.conditions import evaluate           # noqa: E402
 from kernel.core import run                      # noqa: E402
-from kernel.loader import Config, DataSet        # noqa: E402
+from kernel.loader import Config, DataSet, preset_world_root  # noqa: E402
 from apps.services import default as default_services  # noqa: E402
 
 GOLDEN = os.path.join(ROOT, "tests", "golden_fingerprints.json")
@@ -112,13 +112,16 @@ def digest_comparable(ref) -> tuple[bool, str]:
 # `root` 缺省 = 项目根；带值时指到独立世界根（如 worlds/origin）。
 ENTRIES = [
     {"preset": "emergent", "seed": 0, "frames": 1500, "slow": False},
+    # 剧情预设跑在 13 席世界根（默认映射：worlds/origin/presets/<名>/ → worlds/origin）。
     {"preset": "plot", "seed": 0, "frames": 3000, "slow": False},
-    {"preset": "nullify", "seed": 0, "frames": 3000, "slow": False},
+    {"preset": "nullify", "seed": 0, "frames": 3000, "slow": False,
+     "root": "worlds/plot"},
     {"preset": "tide", "seed": 0, "frames": 6000, "slow": False},
     {"preset": "plot", "seed": 7, "frames": 3000, "slow": False},
     {"preset": "destruction", "seed": 0, "frames": 8000, "slow": False},  # R3 后接管「毁灭」演示位
     {"preset": "plot", "seed": 0, "frames": None, "slow": True},     # 全量
-    {"preset": "nullify", "seed": 0, "frames": None, "slow": True},  # 全量
+    {"preset": "nullify", "seed": 0, "frames": None, "slow": True,
+     "root": "worlds/plot"},     # 全量
     # 独立世界根：十三席的原初世界，不参与 canonical 的 12 席判据。
     {"preset": "origin", "seed": 0, "frames": 6000, "slow": False,
      "root": "worlds/origin"},
@@ -130,9 +133,14 @@ ENTRIES = [
 
 
 def world_root(spec):
-    """条目对应的世界根（绝对路径）。缺省 = 项目根。"""
+    """条目对应的世界根（绝对路径）。
+
+    显式 `root` 优先；没写时走与 `run.py` 同一条默认映射（剧情预设 → 13 席根）。
+    """
     rel = spec.get("root")
-    return os.path.join(ROOT, rel) if rel else ROOT
+    if rel:
+        return os.path.join(ROOT, rel)
+    return preset_world_root(spec.get("preset"), ROOT)
 
 
 def fingerprint(preset, seed, frames, root=None):
@@ -179,6 +187,12 @@ def load_golden():
 def key_of(entry):
     base = f"{entry['preset']}@{entry['seed']}@{entry['frames']}"
     root = entry.get("root")
+    if not root:
+        # 旧条目没记 root：按默认映射补上，于是剧情预设换根后键仍对得上，
+        # --write 不会留下一条同名的旧 12 席指纹。
+        mapped = preset_world_root(entry.get("preset"), ROOT)
+        if os.path.abspath(mapped) != os.path.abspath(ROOT):
+            root = os.path.relpath(mapped, ROOT).replace(os.sep, "/")
     return f"{root}@{base}" if root else base
 
 
