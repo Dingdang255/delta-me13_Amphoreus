@@ -2,11 +2,13 @@
 
 > 每个版本的发布说明。发 GitHub Release 时，正文直接取对应小节即可。
 
-## 未发布 — 独立终端窗口与叙事面板修复
+## v0.2.0 — 2026-11-01
+
+### 独立终端窗口与叙事面板修复
 
 > 只读层修复：`kernel/` 一个字节没动，指纹与 `tests/baseline.json` 不变（`0 drift`）。
 
-### 修复
+#### 修复
 
 - **独立 CLI 窗口 10 秒后静默退出（关键）**：`apps/terminal_window.py` 连上主进程后没有取消
   `create_connection(timeout=10)` 留下的读超时，`for line in rf` 在两帧之间超过 10 秒就抛
@@ -26,7 +28,7 @@
   - 「记忆阶段泳道」在没有记忆片段时不再摆空画布，直接写明缺的是哪种真实写入；
   - 「忆灵生命线」在没有忆灵时写明原初停在哪个形态、创世几次。
 
-### 新增（`plot-full` 的原初内容）
+#### 新增（`plot-full` 的原初内容）
 
 - **内核新动作 `origin_anchor: bind_companion`**：把池里一个**既有个体**认作忆灵 ——
   不新占池位（`plot-full` 的池在 42,000 帧已满 416/416），形态抬到 2，此后转印 / 成长 /
@@ -49,14 +51,14 @@
   裁决 `origin_closed` @33,594,547。**不要**在该世界投 `seed_memory(factor_basis)`：写满十二行
   记忆会破掉死循环复用（实测两千万帧还没走到节点）。
 
-### 终端去向
+#### 终端去向
 
 - **`--terminal-window` 时 `>>>` 只去窗口**：主控制台不再重复终端消息（`--log` 仍照常落盘），
   窗口起不来才回退同控制台。实测：主终端 `>>>` 0 行、窗口 73 行、日志 73 行。
 - **演算结束窗口不自己关**：收到 `end` 后打一行「按回车关闭」就停住等人翻看；
   `TerminalBridge.close()` 也不再 `terminate` 已通知过结束的子进程（只有从没连上的才清掉）。
 
-### CI 修复
+#### CI 修复
 
 - **`worlds/plot` 从未入过库**：`.gitignore` 只放行了 `worlds/origin` / `worlds/scepter`，
   于是 `世界根 → worlds/plot（nullify）` 在本机有、在 CI 没有 —— 指纹 job 与
@@ -84,7 +86,7 @@
 - **`_lookback_nodes` 不再写死预设名**：改为扫 `worlds/*/presets/*/nodes.json`（优先 `origin`，
   否则排序第一份），改名或换世界根都不会让看板那块清单静默消失。
 
-### 语料门禁
+#### 语料门禁
 
 - **两份派生抽取入库**：`lore/D6_terminal/terminal_lines.jsonl`（八卷里全部 `>>>` 行，254 行，
   23.5 KB）与 `lore/D6_terminal/scepter_page.jsonl`（`Δ-me13.exe` 源页 467 行，98 KB）。
@@ -95,14 +97,14 @@
 - **`tools/selfcheck.py` 加两步语料门禁**：`lore_lint.py`（清单 / 引用 / 来源）与
   `fidelity_report.py --check`（八维分 ≥ 阈值）。自检从 9 步变 11 步。
 
-## 未发布 — 剧情预设迁入十三席世界根
+### 剧情预设迁入十三席世界根
 
 > **BREAKING（世界根 + 指纹）**：`plot` / `plot-full` 默认跑在 `worlds/origin`
 > （`dim=13`、L12 是 meta 席、回望驱动 + 原初四态），不再默认跑项目根的 12 席世界。
 > `tests/golden_fingerprints.json` 11 条按新世界根**整体重写**，`tests/baseline.json` 随之重写。
 > 默认根 `config/`（12 席）与 `worlds/origin/config/` 的既有数值**一个字节都没动**。
 
-### 破坏性变更
+#### 破坏性变更
 
 - **世界根解析规则**（`run.py::resolve_world_root` / `kernel.loader.preset_world_root`）：
   显式 `--root` 永远优先；不给时若 `worlds/origin/presets/<预设>/preset.json` 存在 ⇒
@@ -132,13 +134,13 @@
 - **文档**：`README.md` / `docs/使用教程.md` 补「剧情预设默认跑在 13 席根」「回望 / 锚定在哪触发」
   与「`--root` 优先级」三节。
 
-## 未发布 — 轮内配额与轮末结算
+### 轮内配额与轮末结算
 
 > **BREAKING（轨迹侧）**：涌现 / 接掌从「每帧自动刷新」改为**一轮之内陆续发生、轮末再创世时结算**。
 > `tests/golden_fingerprints.json` 与 `tests/baseline.json` **重写**（11 条指纹的 digest 全部变化，
 > plot / emergent / tide / nullify / destruction 的结构读数亦变；origin 三条只有 digest 变）。
 
-### 破坏性变更
+#### 破坏性变更
 
 - **轮内配额**：`State` 新增 `round_emergence` / `round_successions` /
   `round_emergence_last` / `round_start_frame`；`config/params.json` 新增
@@ -156,13 +158,13 @@
   `baseline.json` 已按当前工作区重算（其中也包含上一节「权杖级叙事重建」尚未提交的
   文件 / 语料计数）。
 
-## 未发布 — 权杖级叙事重建
+### 权杖级叙事重建
 
 > **BREAKING（叙事侧）**：叙事面板从「跑完一次性渲染」改为**随演算逐轮增量出现**；
 > `tests/baseline.json` 按新增语料与模块**重写**（`canon_entries` 1,429 → 31,140）。
 > **内核与 golden 指纹零变化** —— `kernel/` 与 `tests/golden_fingerprints.json` 一个字节没动。
 
-### 破坏性变更
+#### 破坏性变更
 
 - **初始变量集语义收敛（BREAKING）**：世界形态由 `--init-set` 的初始变量集决定，
   `seed` 只是抽样键并写进 `init-*.json`；`--init-set` 与 `--seed` 同用**直接报错**。
@@ -177,7 +179,7 @@
   `apps` 文件 28 → **30** / 模块 27 → **29**、`tests` 52 → **56**；`canon_digest` 随语料更新。
   `presets`(11) / `tools`(36) / `golden_fingerprints` 不变。
 
-### 八项能力
+#### 八项能力
 
 1. **趋势面板 13 字段全接线**：可见 4 项（`trend` / `channel` / `value` / `active`）+
    元数据 9 项（`type` / `target` / `observable` / `source` / `confidence` / `inferred` /
@@ -212,13 +214,13 @@
    361 条正文 + 106 条标题转 section 路径；`进度：N%` 标 `kind: "progress"`）；
    `apps/scepter.py` 增加只读统计并让报告【九】多一行「档案 … 行 / … 段 / 进度里程碑 …」。
 
-### 测试
+#### 测试
 
 - 新增 9 组契约：`test_viz_trend_panel` / `test_wiki_corpus` / `test_scene_timeline` /
   `test_live_narrative` / `test_mind` / `test_init_diff` / `test_terminal_authority` / `test_scepter` /
   `test_scepter_dossier`。
 
-### 验证
+#### 验证
 
 - `python tools/baseline.py --check` → **0 drift**（重写前后唯一变化见上「破坏性变更」）。
 - `python -m unittest discover -s tests -q` → **Ran 692 tests in 260.1s, OK**。
@@ -231,12 +233,12 @@
 
 ---
 
-## 未发布 — 原初世界与叙事层（第十三席真实动力学）
+### 原初世界与叙事层（第十三席真实动力学）
 
 > **非破坏性（对 canonical）**：`config/`、`presets/plot` 零改动，`snapshot --fast` 六条指纹逐位一致；
 > `presets/plot-full` 是新增内容版，不纳入旧基线；所有新动力学都住在独立世界根 `worlds/origin/`。
 
-### 独立世界根与第十三席
+#### 独立世界根与第十三席
 
 - `run.py` 新增 `--root <dir>`：`Config` / `DataSet` 从该根的 `config/`、`presets/` 读取；
   日志 / 看板 / anchors 路径跟随 root，`TerminalBridge` 的程序路径仍用项目根。
@@ -248,14 +250,14 @@
 - 结论四态：`origin_closed` / `origin_open` / `origin_unstable` / `origin_absent`；
   报告【八】在 origin 世界读真实 `traj.final.origin`，canonical `plot-full` 仍走只读探针。
 
-### 回望：锚点注入 + 固定点重演
+#### 回望：锚点注入 + 固定点重演
 
 - `nodes.json` 列出关键节点（`frame / seat / missing / repair / cost`）；第一遍正向扫描，
   第二遍从帧 0 重演并在缺失帧投递 `origin_anchor`，新缺失并入锚点继续迭代（`origin_max_iters` 上限）。
 - 每一遍严格单向、逐帧可复现；**没有**逐帧反向因果，也没有回写历史帧。
 - 锚点稳定、无缺失、`repaid >= borrowed`、selfhood 达标 ⇒ `origin_closed`。
 
-### 忆灵、记忆、命途与剧情接线
+#### 忆灵、记忆、命途与剧情接线
 
 - 忆灵是真实派生个体：四段成长（初凝 / 同行 / 承忆 / 忆者）、独立寿命、独立守席、再印。
 - 记忆：十二行逐席、effect 族、持续记忆场、多阶段、每阶段场景文案。
@@ -263,7 +265,7 @@
 - `worlds/origin/story.jsonl` 把 **33 个 plot 节拍**挂到登记断言与真实读数上（33/33 动态）；
   `tests/test_story_coverage.py` 守住 ≥90%、拒绝把 `emitted_events` 当证明。
 
-### 只读叙事层（canonical 也可用）
+#### 只读叙事层（canonical 也可用）
 
 - `apps/terminal.py` / `terminal_bridge.py` / `terminal_window.py`：`messages.jsonl` 的 `>>>` 终端层，
   非 TTY 自动用默认答案；`apps/archive.py`：实验档案 / 异常记录 / 进度里程碑（报告【六】【七】）；
@@ -271,7 +273,7 @@
 - 新增内容版预设 `presets/plot-full/`：补齐 3.0–3.3 / 3.5–3.7 镜头与终端消息、档案；
   新增桥段一律 `emit`，`plot` 的轨道、断言、时间线与指纹原样保留。
 
-### 指纹覆盖扩展到独立世界根
+#### 指纹覆盖扩展到独立世界根
 
 - `tools/snapshot.py` 的条目支持 `root` 字段：缺省走项目根，带值时 `DataSet` / `Config` 从该根的
   `config/`、`presets/` 读取；条目键在带 root 时写成 `root@preset@seed@frames`，旧键原样兼容。
@@ -280,7 +282,7 @@
   改 `nodes.json` / `params.json` 不会被自动拦截。
 - 指纹总数 8 → 11；`tests/baseline.json` 随之更新。
 
-### 初始变量与世界生成（P3）
+#### 初始变量与世界生成（P3）
 
 - `config/generation.json`：声明 20 个生成维度，其中 **8 维可采样**（物理 / 地理 / 聚落 / 人口 /
   文明 / 政治 / 黑潮 / 协议）、12 维继承；10 个旋钮各自带取值域、夹取区间与流标签。
@@ -292,7 +294,7 @@
   约束成立、canonical 不被写、抽样项标 inferred）。
 - 生成世界只写入 `worlds/generated/`（已被 `.gitignore` 挡住），不回到 `config/` 与 `presets/`。
 
-### 趋势与通道（P4）
+#### 趋势与通道（P4）
 
 - `config/trends.json`：8 条趋势；**4 条已接线**（`TREND-001` 熵、`TREND-003` 双通道、
   `TREND-004` 噪声、`TREND-006` 记忆），共 5 条通道；另 4 条显式 `unwired` 并写明缺什么读数。
@@ -303,7 +305,7 @@
 - `tools/trend_audit.py`：规格审计（驱动量 / 目标 / 形态 / 来源 / 置信度）+ `--demo` 演示。
 - `tests/test_trends.py`：11 项契约（双通道独立性、单调有界、阈值、缺读数、确定性、覆盖率）。
 
-### 角色心智（P5）
+#### 角色心智（P5）
 
 - `apps/agents.py`：从编译语料载入 27 张角色卡；`decide(card, percept)` 按 `when` **精确匹配**
   （不做语义猜测），同一条触发命中多条规则时回报 `ambiguous` 与全部候选；`when` 为 `UNKNOWN`
@@ -311,7 +313,7 @@
 - `tools/character_audit.py`：卡片体检（≥3 规则、规则必须有来源）+ 81 条场景全量回放。
 - `tests/test_agents_contract.py`、`tests/test_character_consistency.py`：17 项契约。
 
-### 只读叙事层（P6a）
+#### 只读叙事层（P6a）
 
 - `apps/dialogue.py`：对话链运行器（`next` 构成的有向链）；多后继必须显式选择，悬空链接报错；
   只读、可重置、保留来源与 locator。
@@ -325,7 +327,7 @@
   交互可改选「保持沉默」。两条分支文案均标注「演示用，非原著文本」。
 - 测试：`test_dialogue.py`、`test_logs.py`、`test_terminal_branch.py`（共 25 项）。
 
-### 场景过程化（P6b）
+#### 场景过程化（P6b）
 
 - `apps/scenes.py`：把 12 条 `PLOT-*` 扩写编译成场景目录；`narrate()` 展平为
   before / during / after 三段；`dag()` 只按章节顺序连**线性链**（语料只证明了顺序，
@@ -334,7 +336,7 @@
   warning，不补、不猜**。
 - `tests/test_scenes.py`：7 项契约。
 
-### 保真评分与呈现（P7）
+#### 保真评分与呈现（P7）
 
 - `config/fidelity.json`：八维权重、总分阈值、单维下限、覆盖标记、来源字段、缺口规则；
   分数、阈值、扣分上限全部在配置里，代码里不写任何分数。
@@ -352,7 +354,7 @@
 - `tests/test_fidelity.py`：15 项 —— 阈值一致性、缺口计数、只读与幂等、默认关闭时报告不变、
   两条通道并排、对话阅读器不替读者选分支。
 
-### 验证
+#### 验证
 
 - 全量单测通过（基线 508 项）；`snapshot --structural` canonical 逐项一致。
 - `snapshot`（含 digest）11/11 一致：8 条 canonical + 3 条 `worlds/origin`。
@@ -373,19 +375,19 @@
   缺口按实测计 —— 章节 1/8、未知场景 6/81、渠道 9/14；`fidelity_report --check` 退出码 0。
   （这是本节当时的读数；语料层后续已把总分升到 **0.9135**、渠道缺口降到 7/14，见下一节。）
 
-## 未发布 — 语料层（BWIKI 3.0–3.7 入库 · `preset_beat` 反查）
+### 语料层（BWIKI 3.0–3.7 入库 · `preset_beat` 反查）
 
 > **非破坏性**：`kernel/` 零改动；`presets/plot` / `plot-mech` / `nullify` 的动力学与 payload 一个字节没动
 > （只改了 label 与新增只读字段）；`plot-full` 仍不在旧指纹基线内。
 
-### 语料
+#### 语料
 
 - BWIKI 3.0–3.7 全量入库：**66 个任务 · 94 个事件 · 26 条场景扩写 · 37 个预设节拍 · 282 条终端 · 27 条社区碎片**
   （canon 合计 **1,429 条 / 57 个文件**）。
 - 等级口径不变：wiki 是 **B 级**，`verbatim_claim:false`，不进 A 级逐字分母；
   只有 `S-001` / `S-002` 的逐字算 A。**「已补全」仍为 0 条**——没有 A 级过程逐字就不写。
 
-### 新增能力
+#### 新增能力
 
 - **`preset_beat`**：`lore/D3_plot/preset_beats.jsonl` 注册为 canon kind；每条把预设事件
   （`frame + payload`）映射到 `PLOT-* / EVT-* / TRM-*`。
@@ -393,7 +395,7 @@
   场景面板（`--panels`）已接上，会多打印一行「预设节拍：帧·PB-id（哪些预设）」。
 - **双向关联**：`presets/plot*/events.jsonl` 的事件带 `lore_ref`，脚本双轨的无损往返仍然成立。
 
-### 修正
+#### 修正
 
 - **CF-008**：3.7 章节名是「成为昨日的明天」；「记忆是梦的开场白」属匹诺康尼 **3.8** 终末任务，
   此前归档错误。3.7 的 EVT/WC/PLOT 已统一。
@@ -403,7 +405,7 @@
 - **D7 社区补检索**：渠道 5/14 → **7/14**，新增 14 条碎片与 3 条证伪（DB-006..008）；
   另外 5 个渠道是登录墙/反爬，如实计为缺口。
 
-### 门槛
+#### 门槛
 
 - `python tools/fidelity_report.py` → **0.9135**（阈值 0.85）：D1 0.90 · D2 0.94 · D3 0.94 · D4 0.99 ·
   D5 0.98 · D6 0.99 · D7 0.62 · D8 0.95。
@@ -411,11 +413,11 @@
 
 ---
 
-## 未发布 — A 线维护（`script.jsonl` 样例 · 发版纪律 · 去重）
+### A 线维护（`script.jsonl` 样例 · 发版纪律 · 去重）
 
 > **非破坏性**：不触碰任何既有世界的轨迹 —— 指纹 6/6 逐位不变，`v0.1.1` 的全部读数仍然成立。
 
-### 新增 `presets/_demo/` —— `script.jsonl` 的可运行样例
+#### 新增 `presets/_demo/` —— `script.jsonl` 的可运行样例
 
 §D2 落地后，仓库里其实一个 `script.jsonl` 都没有（契约只活在测试的内联规则里）。
 现在补一个真正能跑的：
@@ -428,13 +430,13 @@ python run.py --preset _demo --frames 5000
 `on: <事件类别>` + `if` + `permit`（写回响应，下一帧生效、只触发一次）、只 `emit` 的只读响应。
 `tests/test_script.py::DemoPreset` 真跑 1300 帧，断言三件事都真的发生。
 
-### 发版纪律：版本号不许只改一处
+#### 发版纪律：版本号不许只改一处
 
 `tests/test_packaging.py::ReleaseDiscipline` 新增两条：
 `pyproject.toml` 的 `version` 必须在 CHANGELOG 有对应的 `## vX.Y.Z` 小节；
 `capabilities()["api_version"]` 必须等于 `kernel.api.API_VERSION`。
 
-### 去重（不改变任何行为）
+#### 去重（不改变任何行为）
 
 - 死因清单改由 `apps.conditions.known_names()` 单一提供（`tests/test_conditions.py` 不再手抄一份）。
 - 锚定键 `serial:<n>` 的解析统一到 `apps.namer.serial_of`（`tools/_harness.py` 转出）。
