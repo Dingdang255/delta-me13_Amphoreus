@@ -6,7 +6,7 @@
   "params": {
     "frames": 33594607,
     "origin_create_min_form": 3,
-    "origin_companion_span": 20000
+    "origin_companion_span": 3500
   },
   "narrative": {
     "terminal": true,

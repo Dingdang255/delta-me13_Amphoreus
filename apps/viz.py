@@ -1276,6 +1276,7 @@ _JS = r"""
                  '" class="chart" preserveAspectRatio="none">',
                  '<line x1="' + PAD + '" y1="' + ((y0 + y1) / 2) + '" x2="' + (W - PAD) +
                  '" y2="' + ((y0 + y1) / 2) + '" stroke="#2a2f3d" stroke-width="1"/>'];
+    var lx = -1e9;                       // 上一个标签的 x：挨太近就往后让，别叠成一团
     for (i = 0; i < runs.length; i++){
       var r = runs[i];
       if (r.b < win.lo || r.a > win.hi) continue;
@@ -1288,16 +1289,21 @@ _JS = r"""
       }
       var prevAlive = i > 0 ? runs[i - 1].alive : null;
       if (prevAlive !== null){
+        var tx = x1;
+        if (tx - lx < 26) tx = lx + 26;
         if (r.alive && !prevAlive){
-          parts.push('<text x="' + x1.toFixed(1) + '" y="' + (y0 - 4) + '" fill="#7fe0a0" ' +
+          parts.push('<text x="' + tx.toFixed(1) + '" y="' + (y0 - 4) + '" fill="#7fe0a0" ' +
                      'font-size="9.5" text-anchor="middle">凝</text>');
+          lx = tx;
         } else if (!r.alive && prevAlive){
-          parts.push('<text x="' + x1.toFixed(1) + '" y="' + (y1 + 14) + '" fill="#ff8a8a" ' +
+          parts.push('<text x="' + tx.toFixed(1) + '" y="' + (y1 + 14) + '" fill="#ff8a8a" ' +
                      'font-size="9.5" text-anchor="middle">散</text>');
+          lx = tx;
         } else if (r.alive && r.stage > 0){
-          parts.push('<text x="' + x1.toFixed(1) + '" y="' + (y0 - 4) + '" fill="#e8c06a" ' +
+          parts.push('<text x="' + tx.toFixed(1) + '" y="' + (y0 - 4) + '" fill="#e8c06a" ' +
                      'font-size="9" text-anchor="middle">' +
                      esc(OW[String(r.stage)] || '') + '</text>');
+          lx = tx;
         }
       }
     }
@@ -1325,11 +1331,23 @@ _JS = r"""
                  '" class="chart" preserveAspectRatio="none">',
                  '<line x1="' + PAD + '" y1="' + base + '" x2="' + (W - PAD) +
                  '" y2="' + base + '" stroke="#2a2f3d" stroke-width="1"/>'];
-    // 刻度常显；文字默认收起 —— 鼠标靠近某一手才展开（与时间线节点同一套）。
+    // 对数帧轴会把相邻的几手压到同一个像素上（例如 42,500 / 42,600）。
+    // 先按帧排序算位置，挤在一起就顺次往右挪 —— 刻度因此一手一根，看得出是几手。
+    var AX = {}, vis = [], lastx = -1e9;
     for (var i = 0; i < OANC.length; i++){
-      var a = OANC[i];
-      if (a.frame < win.lo || a.frame > win.hi) continue;
-      var ax = xOf(a.frame), up = i % 2 === 0;
+      if (OANC[i].frame < win.lo || OANC[i].frame > win.hi) continue;
+      vis.push(i);
+    }
+    vis.sort(function(p, q){ return OANC[p].frame - OANC[q].frame; });
+    for (var v = 0; v < vis.length; v++){
+      var ix = vis[v], px = xOf(OANC[ix].frame);
+      if (px - lastx < 10) px = lastx + 10;
+      AX[ix] = px; lastx = px;
+    }
+    // 刻度常显；文字默认收起 —— 鼠标靠近某一手才展开（与时间线节点同一套）。
+    for (var j = 0; j < vis.length; j++){
+      var i = vis[j], a = OANC[i];
+      var ax = AX[i], up = j % 2 === 0;
       var y2 = up ? base - 16 : base + 16;
       var ty = up ? y2 - 5 : y2 + 11;
       parts.push('<line x1="' + ax.toFixed(1) + '" y1="' + base + '" x2="' + ax.toFixed(1) +
@@ -1353,10 +1371,9 @@ _JS = r"""
       var r = svg.getBoundingClientRect();
       var ux = (e.clientX - r.left) / r.width * W;
       var near = -1, nd = 22;
-      for (var j = 0; j < OANC.length; j++){
-        if (OANC[j].frame < win.lo || OANC[j].frame > win.hi) continue;
-        var dd = Math.abs(xOf(OANC[j].frame) - ux);
-        if (dd < nd){ nd = dd; near = j; }
+      for (var j = 0; j < vis.length; j++){
+        var dd = Math.abs(AX[vis[j]] - ux);
+        if (dd < nd){ nd = dd; near = vis[j]; }
       }
       for (var t = 0; t < labels.length; t++){
         labels[t].setAttribute(
@@ -1957,6 +1974,41 @@ def _origin_pts(summary, series, total):
     return pts, total
 
 
+def _life_runs(series):
+    """把采样序列折成忆灵的「凝 / 散」段：`[(起帧, 止帧, 是否在, 成长档)]`。
+
+    采样点只落在引擎真正访问过的帧上，故段界是「第一次看到这个状态的那一帧」。
+    """
+    runs = []
+    for p in series or ():
+        frame, stage, alive = int(p[0]), int(p[4]), bool(p[6])
+        if runs and runs[-1][2] == alive and runs[-1][3] == stage:
+            runs[-1][1] = frame
+        else:
+            runs.append([frame, frame, alive, stage])
+    return [tuple(r) for r in runs]
+
+
+def _life_note(series) -> str:
+    """生命线的一句话读数：凝 / 散 / 成长档各落在哪一帧。"""
+    bits = []
+    last_alive = last_stage = None
+    for a, _b, alive, stage in _life_runs(series):
+        if last_alive is None:
+            if alive:
+                bits.append(f"凝 @{a:,}")
+        elif alive != last_alive:
+            bits.append(("凝" if alive else "散") + f" @{a:,}")
+        elif alive and stage != last_stage:
+            bits.append(f"{_ORIGIN_STAGE_WORDS.get(stage, stage)} @{a:,}")
+        last_alive, last_stage = alive, stage
+    if not bits:
+        return ""
+    if last_alive:
+        bits.append("至今")
+    return "生命线：" + " · ".join(bits)
+
+
 def _anchor_label(a) -> str:
     """锚点刻度上那行字：动作词 · 目标节点（词表缺项就退回原样）。"""
     word = _ORIGIN_ACTION_WORDS.get(str(a.get("action") or ""),
@@ -2070,6 +2122,7 @@ def origin_panel(summary, series, total) -> str:
     comp_note = ""
     spawn = int(summary.get("companion_spawn", 0))
     stage = int(summary.get("companion_stage", 0))
+    life_note = _life_note(series) if (spawn > 0 or stage > 0) else ""
     if spawn > 0 or stage > 0:
         comp_note = (f'<div class="origin-note">凝聚 {spawn} 次 · 成长 '
                      f'{_ORIGIN_STAGE_WORDS.get(stage, stage)}（{stage}/4）· 携 '
@@ -2081,7 +2134,10 @@ def origin_panel(summary, series, total) -> str:
         out.append('<div class="origin-box">'
                    '<div class="chart-title">忆灵生命线（凝 / 散 / 再凝）</div>'
                    '<div class="chart-box"><div class="tip"></div><div id="ocv3"></div></div>'
-                   + comp_note + '</div>')
+                   + comp_note
+                   + (f'<div class="origin-legend">{html.escape(life_note)}</div>'
+                      if life_note else "")
+                   + '</div>')
     else:
         # 忆灵要先有创世（原初凝到形态 2）才存在；没有就直说，别画一条空线。
         form = int(summary.get("form", 0))
