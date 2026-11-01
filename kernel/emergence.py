@@ -106,6 +106,20 @@ class EmergenceRegistrar:
         return out
 
     # ---- 扫描 --------------------------------------------------------
+    def prime(self, st, frame):
+        """续跑：把「此刻已通过判据的人」记为【已登记过】。
+
+        登记器是每次 run 新建的；续跑时若不这么做，第一帧会把上一段已经登记过的
+        人重新算一遍并再次推进 `round_emergence` —— 轮内配额与摘要就会与全程跑
+        分叉。只写 `registered` 的键（`scan` 只查成员资格），不改任何世界状态。
+        """
+        idx = st.pool.index()
+        if idx.size == 0:
+            return
+        ok = self._passes_mask(st, idx, frame)
+        for k in idx[ok]:
+            self.registered[int(st.pool.serial[int(k)])] = None
+
     def _held_order(self, st, serial):
         for i, slot in enumerate(st.register.slots):
             if slot.owner == serial:
@@ -113,10 +127,26 @@ class EmergenceRegistrar:
         return None
 
     def scan(self, st, frame):
-        if not self.ctx.params.get("emergence", True):
+        p = self.ctx.params
+        if not p.get("emergence", True):
             return []
         # 十二席定席之后不再登记新角色：故事已经收束，不该再「涌现」。
         if getattr(st, "seats_frozen", False):
+            return []
+        # 只停涌现的开关（见 disturbance._recreate 的 payload.halt_emergence）。
+        if getattr(st, "emergence_halted", False):
+            return []
+        # 轮内配额：涌现不是「每帧自动刷新」，而是【一轮之内陆续发生】。
+        # 本轮登记满 quota 之后就不再登记，直到 PROMOTION 结算并清零。
+        quota = int(p.get("round_emergence_quota", 1 << 30))
+        used = int(getattr(st, "round_emergence", 0))
+        left = quota - used
+        if left <= 0:
+            return []
+        # 同一轮内两次涌现之间至少隔 emergence_min_gap 帧（避免一帧刷出一整批）。
+        gap = int(p.get("emergence_min_gap", 0))
+        last = int(getattr(st, "round_emergence_last", -(1 << 60)))
+        if gap > 0 and int(frame) - last < gap:
             return []
         idx = st.pool.index()
         if idx.size == 0:
@@ -127,6 +157,8 @@ class EmergenceRegistrar:
         ok = self._passes_mask(st, idx, frame)
         fresh = []
         for k in idx[ok]:                               # ← 只剩通过者
+            if len(fresh) >= left:                      # 本轮配额已满：本帧余下的不再登记
+                break
             k = int(k)
             serial = int(st.pool.serial[k])
             if serial in self.registered:
@@ -157,6 +189,10 @@ class EmergenceRegistrar:
             self.registered[serial] = per
             self.personas.append(per)
             fresh.append(per)
+        if fresh:
+            # 本轮计数与「上次涌现帧」只在真的登记了人时推进 —— 同一个 rng 流不变。
+            st.round_emergence = used + len(fresh)
+            st.round_emergence_last = int(frame)
         return fresh
 
     # ---- 输出 --------------------------------------------------------

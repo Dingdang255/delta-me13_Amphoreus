@@ -477,6 +477,17 @@ class State:
         self.promotions = 0
         self.promotion_dwell = 0
         self.promotion_cooldown = 0
+        # ---- 轮内配额（一轮之内陆续涌现 / 接掌，轮末再创世时结算）----------------
+        # 轮 = 两次再创世之间的一段。这三个读数只在【本轮】有效，由 PROMOTION 清零：
+        #   round_emergence      本轮已涌现的人数（上限 params.round_emergence_quota）
+        #   round_successions    本轮已发生的席间接掌次数（上限 params.round_succession_quota）
+        #   round_emergence_last 本轮回最近一次涌现的帧（配 params.emergence_min_gap 用）
+        #   round_start_frame    本轮起始帧（配 params.round_min_frames 用）
+        # 它们是【世界】的一部分，随回滚一起退、进摘要（门控读它们，漏掉会让帧截断复现漂移）。
+        self.round_emergence = 0
+        self.round_successions = 0
+        self.round_emergence_last = -(1 << 60)
+        self.round_start_frame = 0
         self.converged = False
         self.destruction_events = 0
         self.death_events = 0
@@ -540,6 +551,10 @@ class State:
         # 十二席是否已经「定席」：最后一次再创世之后置真，此后不再有新的
         # 承位 / 涌现 / 死亡换手（故事已经收束）。canonical 恒 False。
         self.seats_frozen = False
+        # 只停【涌现】的开关（不影响席位动力学）：有剧情记载的那一轮之后，
+        # 世界不该再长出新的角色。canonical 恒 False；由 recreate 的
+        # payload.halt_emergence 置真。它进摘要，随世界回滚。
+        self.emergence_halted = False
 
         # ---- 原初（第十三席）的真实状态 -------------------------------------
         # canonical 世界从不驱动它（pipeline 里没有 OP_ORIGIN），故它恒为初始值，
@@ -604,6 +619,11 @@ class State:
         # 「再创世」的驻留帧会被误判成不动点而被周期跳跃跳过，跃迁永不发生。
         h.update(bytes(str((self.promotions, self.promotion_dwell,
                             self.promotion_cooldown, self.converged)), "utf-8"))
+        # 轮内配额同样门控真实跃迁：本轮涌现在没涌现在此之前，会改变下一帧能否登记 /
+        # 能否换代。故它必须进摘要 —— 否则「本轮已满」与「本轮未满」会被当成同一状态。
+        h.update(bytes(str((self.round_emergence, self.round_successions,
+                            self.round_emergence_last, self.round_start_frame,
+                            int(self.emergence_halted))), "utf-8"))
         # 命途只在启用的世界里非空；canonical 恒为空 ⇒ 摘要逐位不变。
         if self.paths:
             h.update(bytes(str(sorted(
@@ -735,6 +755,11 @@ class State:
         self.converged = other.converged
         self.promotion_dwell = other.promotion_dwell
         self.promotion_cooldown = other.promotion_cooldown
+        self.round_emergence = int(getattr(other, "round_emergence", 0))
+        self.round_successions = int(getattr(other, "round_successions", 0))
+        self.round_emergence_last = int(getattr(other, "round_emergence_last",
+                                                -(1 << 60)))
+        self.round_start_frame = int(getattr(other, "round_start_frame", 0))
         # 原初是「世界 W」的一部分：成形 / 能量 / 借还都随世界一起搬。
         self.origin = other.origin.copy()
         self.paths = {int(k): dict(v) for k, v in other.paths.items()}
@@ -745,6 +770,7 @@ class State:
         self.factor_intent = dict(getattr(other, "factor_intent", {}))
         self.entry_locked = bool(getattr(other, "entry_locked", False))
         self.seats_frozen = bool(getattr(other, "seats_frozen", False))
+        self.emergence_halted = bool(getattr(other, "emergence_halted", False))
 
     def snapshot(self):
         return self.clone()
@@ -781,6 +807,10 @@ class State:
         n.promotions = self.promotions
         n.promotion_dwell = self.promotion_dwell
         n.promotion_cooldown = self.promotion_cooldown
+        n.round_emergence = self.round_emergence
+        n.round_successions = self.round_successions
+        n.round_emergence_last = self.round_emergence_last
+        n.round_start_frame = self.round_start_frame
         n.converged = self.converged
         n.destruction_events = self.destruction_events
         n.death_events = self.death_events
@@ -821,6 +851,7 @@ class State:
         n.factor_intent = dict(self.factor_intent)
         n.entry_locked = bool(self.entry_locked)
         n.seats_frozen = bool(self.seats_frozen)
+        n.emergence_halted = bool(self.emergence_halted)
         return n
 
 

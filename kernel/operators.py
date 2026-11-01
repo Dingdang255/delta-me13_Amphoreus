@@ -164,8 +164,13 @@ class Occupy(Operator):
         fit = st.pool.fitness[idx]
         serials = st.pool.serial[idx]
         home = st.pool.factor[idx]
+        # 轮内接掌配额：一轮之内最多换这么多次手。用满之后本帧不再更换任何 owner
+        # （已死的旧主留在账面上，不硬造空缺 —— 席位仍算「有着落」），
+        # 直到 PROMOTION 结算并清零。默认读 params；缺省视为不限。
+        quota = int(ctx.params.get("round_succession_quota", 1 << 30))
 
         for i, locus in enumerate(st.loci):
+            allow = int(getattr(st, "round_successions", 0)) < quota
             st.loci[i].load = float(v[:, i].sum())
             slot = st.register.slots[i]
 
@@ -182,9 +187,15 @@ class Occupy(Operator):
 
             if slot.owner is not None:                   # 命定：一旦承位，只要还活着就不动
                 if st.pool.index_of_serial(slot.owner) < 0:
+                    # 旧主已死 = 要换手；配额用满时【本帧不更换 owner】：
+                    # 既不补位、也不把它清成空席（清空会让本世永远差一步）。
+                    if not allow:
+                        continue
                     slot.owner = None
 
             if slot.owner is None:
+                if not allow:                            # 配额用满：空席留到下一轮再补
+                    continue
                 same = np.flatnonzero(home == i)         # 命定：只有同因子者能担这一席
                 if same.size == 0:
                     continue
@@ -196,6 +207,7 @@ class Occupy(Operator):
                 slot.vector = v[same[j]].copy()
                 st.pool.held[idx[same[j]]] = True
                 st.pool.seated_clock[idx[same[j]]] = st.world_clock
+                st.round_successions = int(getattr(st, "round_successions", 0)) + 1
             else:
                 k = st.pool.index_of_serial(slot.owner)
                 if k >= 0:
@@ -641,6 +653,19 @@ class Promotion(Operator):
             st.promotion_dwell = 0
             return st
 
+        # 轮内配额结算：一轮之内先把该涌现的涌现完、该接掌的接掌完，才允许再创世。
+        # 两条配额各自满足即可；`round_min_frames` 是兜底 —— 一轮拖得太久就不再等，
+        # 免得某一项配额永远凑不满而把换代彻底按死。短于它时两条都得凑满。
+        min_frames = int(p.get("round_min_frames", 0))
+        elapsed = int(frame) - int(getattr(st, "round_start_frame", 0))
+        time_ok = elapsed >= min_frames
+        e_quota = int(p.get("round_emergence_quota", 1 << 30))
+        s_quota = int(p.get("round_succession_quota", 1 << 30))
+        if not ((int(st.round_emergence) >= e_quota or time_ok)
+                and (int(st.round_successions) >= s_quota or time_ok)):
+            st.promotion_dwell = 0
+            return st
+
         # 权柄账本：被外生力量夺走权柄的世界**更难走到终点** —— 每被夺一次，再创世
         # 就要多等 `ember_delay` 帧。没有逐出类投递的世界（如 plot）该值为 0，
         # 故**逐帧不变**；只有「血战」式的世界会真的被推远。
@@ -670,6 +695,11 @@ class Promotion(Operator):
         st.world_clock += 1
         st.promotion_dwell = 0
         st.promotion_cooldown = int(p["promotion_cooldown"])
+        # 轮末结算：新的一轮从零开始计涌现 / 接掌，帧距也重新起算。
+        st.round_start_frame = int(frame)
+        st.round_emergence = 0
+        st.round_successions = 0
+        st.round_emergence_last = -(1 << 60)
         # 常规轮：本世十二位齐备即为「满」—— 账本回到满值。
         # 死循环期不再有再创世，这个值便只增不减（见 core 的尝试落点）。
         st.seeds = len(st.register.slots)
@@ -1608,6 +1638,8 @@ STAGE_TUNABLE = (
     "entropy_mix", "noise_decay",
     "tau_falsify", "domain_dwell",
     "promotion_gain", "capacity_inherit", "promotion_dwell", "promotion_cooldown",
+    "round_emergence_quota", "round_succession_quota",
+    "emergence_min_gap", "round_min_frames",   # 轮内配额（涌现登记器 / Occupy / Promotion 读）
     "renewal_consensus",          # 主动更替：换代所需的决策共识门槛（Promotion 读）
     "tau_stable", "tau_influence",
     "ablation_frames", "tau_ablation_entropy",

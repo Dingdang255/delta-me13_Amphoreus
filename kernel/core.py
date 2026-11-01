@@ -271,6 +271,9 @@ def _advance(cfg, data, seed: int | None = None, max_frames: int | None = None,
 
     st = initial_state(ctx_run, data, seed) if start_state is None else start_state
     ctx_run.rebind(data.stage_params(_stage_index(st, data)))
+    # 续跑：上一段已经登记过的人不再重算 / 重复计入轮内配额（见 EmergenceRegistrar.prime）。
+    if int(start_frame) > 0:
+        registrar.prime(st, int(start_frame) - 1)
     n = int(start_frame)
 
     seen_events = set()          # 已经发生过的事件名 —— 供 event("X") 这类条件读

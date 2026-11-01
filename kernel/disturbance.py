@@ -380,6 +380,12 @@ def _recreate(st, ctx, payload, targets, frame):
     还没被占用的个体，按该席的适配度选。于是「再创世之后还剩三个空位」这种
     事故不会发生 —— 十二席在这一次之后必须是满的。
     """
+    # payload.halt_emergence = 只停【涌现】，不动任何席位：故事从这一刻起不再长出新人，
+    # 但席位动力学照常跑（被压制的席仍会被 OP_OCCUPY 清空、轮末仍会再创世）。
+    # 用于「有剧情记载的那一轮之后只剩既定十二人」这类约束。
+    if bool(payload.get("halt_emergence", False)):
+        st.emergence_halted = True
+        return
     st.suppressed.clear()
     idx = st.pool.index()
     filled = 0
