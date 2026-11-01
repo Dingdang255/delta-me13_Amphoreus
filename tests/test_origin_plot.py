@@ -248,6 +248,23 @@ class NodesAndEventsTest(unittest.TestCase):
         self.assertEqual(int(st.origin.borrowed), 1)
         self.assertEqual(int(st.origin.repaid), 0)
 
+    def test_lookback_nodes_are_listed_read_only(self):
+        """看板的「回望节点表」只是清单：从 nodes.json 读，标明本轨道不跑它。"""
+        import run
+        from apps.viz import origin_panel
+
+        nodes = run._lookback_nodes(ORIGIN_ROOT)
+        self.assertGreaterEqual(len(nodes), 20)
+        self.assertEqual(nodes[0]["id"], "N2_TOMB_FACTOR_DATA")     # 按帧排在最前
+        text = origin_panel({"ever": True, "form": 1, "energy": 1.0,
+                             "reached_frame": 100},
+                            [(1, 0.1, 1.0, 0, 0, 0, False)], 100,
+                            lookback_nodes=nodes)
+        self.assertIn("回望节点表", text)
+        self.assertIn(str(len(nodes)), text)
+        self.assertIn(nodes[0]["label"], text)
+        self.assertIn("本轨道不跑这套节点", text)
+
     def test_fuli_anchor_past_writes_the_walked_section(self):
         from kernel.disturbance import dispatch
 

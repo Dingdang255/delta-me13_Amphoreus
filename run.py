@@ -924,6 +924,26 @@ def _narrative_flag(cli_value, narrative, key):
     return bool(cli_value) if cli_value is not None else bool((narrative or {}).get(key, False))
 
 
+def _lookback_nodes(world_root):
+    """原初世界（`--preset origin`）的回望节点表 —— 只读，给看板当清单列。
+
+    这份表住在 `worlds/origin/presets/origin/nodes.json`，是「原著事件 → 回望节点」的
+    映射；只有 origin 世界会把它交给 Planner 执行。别的预设（plot / plot-full）不跑它，
+    但可以在看板里把这份清单列出来 —— 标明「本轨道未执行」，不冒充读数。
+    """
+    path = os.path.join(str(world_root), "presets", "origin", "nodes.json")
+    if not os.path.exists(path):
+        return []
+    try:
+        with open(path, encoding="utf-8") as f:
+            raw = json.load(f)
+    except (OSError, ValueError):
+        return []
+    nodes = raw if isinstance(raw, list) else list(raw.get("nodes") or [])
+    return sorted((n for n in nodes if isinstance(n, dict)),
+                  key=lambda n: int(n.get("frame", 0)))
+
+
 def _panels_html(ctx, traj, upto_frame=None, scepter=None, data=None):
     """叙事面板（只读）：趋势压力 / 场景目录 / 终端记录 / 权杖，交给可视化层拼接。
 
@@ -1701,6 +1721,7 @@ def main():
                                data=data,
                                texture=sampler.texture if sampler else None,
                                origin_series=sampler.origin if sampler else None,
+                               lookback_nodes=_lookback_nodes(world_root),
                                narrative_html=panels_html)
         if board is not None:
             board.set_final_page(html_text)     # 实时页据此自动重载成完整静态页

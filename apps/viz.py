@@ -2061,7 +2061,7 @@ def origin_payload(summary, series, total) -> dict:
     }
 
 
-def origin_panel(summary, series, total) -> str:
+def origin_panel(summary, series, total, lookback_nodes=None) -> str:
     """原初专属小节：双曲线 / 记忆泳道 / 忆灵生命线 / 锚点借还刻度。
 
     四张图由页面用【指标曲线那一套】JS 现画（同一把对数帧轴、同一套缩放平移与
@@ -2169,6 +2169,32 @@ def origin_panel(summary, series, total) -> str:
                f'{int(summary.get("missing", 0))}'
                + anc_note
                + '</div></div>')
+    nodes = [n for n in (lookback_nodes or ()) if isinstance(n, dict)]
+    if nodes:
+        # 原著映射的回望节点表：只列清单。本轨道若没跑这套节点，就明说没跑 —— 不冒充读数。
+        miss_words = {"vacant": "缺位", "no_memory": "没有记忆",
+                      "not_seen": "该发生的没发生", "low_selfhood": "自我度不足"}
+        repair_words = {"bind_memory": "补席", "seed_memory": "写进记忆",
+                        "open_gate": "开门", "wake_origin": "唤醒",
+                        "write_dream": "编入梦", "copy_skill": "刻进技艺",
+                        "broadcast_sos": "发出信号", "place_sword": "放回仪式剑",
+                        "leave_oracle": "留下神谕", "split_self": "自我拆分"}
+        out.append('<details class="panel scene-panel">'
+                   '<summary><b>回望节点表 · 原著映射</b>'
+                   f' <span class="sub">{len(nodes)} 个 · 住在原初世界的 nodes.json；'
+                   '本轨道不跑这套节点（只有 --preset origin 会执行）</span></summary>')
+        for n in nodes:
+            miss = miss_words.get(str(n.get("missing") or ""),
+                                  str(n.get("missing") or ""))
+            rep = repair_words.get(str(n.get("repair") or ""),
+                                   str(n.get("repair") or ""))
+            mode = str(n.get("mode") or "")
+            if mode:
+                rep += f"（{mode}）"
+            out.append(f'<div class="sub">帧 {int(n.get("frame", 0)):,} · '
+                       f'{html.escape(str(n.get("label") or n.get("id") or ""))}'
+                       f' — 缺「{html.escape(miss)}」→ 修「{html.escape(rep)}」</div>')
+        out.append('</details>')
     return "\n".join(out)
 
 
@@ -2592,7 +2618,7 @@ def _executed_anchors(traj) -> list:
 
 
 def build_html(ctx, traj, points, lines=None, title=None, data=None, texture=None,
-               origin_series=None, narrative_html=""):
+               origin_series=None, lookback_nodes=None, narrative_html=""):
     """把一次演算装配成单文件 HTML（静态导出）。
 
     points 来自 Sampler（可为 None）；lines 是编年史行 [(frame, text, badge, rid), ...]
@@ -2629,7 +2655,7 @@ def build_html(ctx, traj, points, lines=None, title=None, data=None, texture=Non
                       promos, spans, machines=mach, stages=stages,
                       mythfrom=myth_phase_frame(traj), texture=texture,
                       origin=origin_payload(osum, oser, total))
-    origin_html = origin_panel(osum, oser, total)
+    origin_html = origin_panel(osum, oser, total, lookback_nodes=lookback_nodes)
     return _page(R, title or "δ-me13 演算可视化", False, _cards_html(cards),
                  _seats_html(_seat_cards(ctx, traj, names, machines), tau,
                              show_places=myth_phase_frame(traj) is not None),
